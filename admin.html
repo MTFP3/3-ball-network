@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <div id="login-section">
+    <h2>Admin Login</h2>
+    <input type="email" id="admin-email" placeholder="Email" required>
+    <input type="password" id="admin-password" placeholder="Password" required>
+    <button id="login-btn">Login</button>
+    <div id="login-error" style="color:red;"></div>
+  </div>
+  <div id="admin-dashboard" style="display:none;">
+    <h2>Welcome to the Admin Panel!</h2>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
