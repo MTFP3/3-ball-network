@@ -1,17 +1,18 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-// Your Firebase config
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
   authDomain: "ball-network-web.firebaseapp.com",
   projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com",
+  storageBucket: "ball-network-web.appspot.com", // <-- Corrected!
   messagingSenderId: "740915998465",
   appId: "1:740915998465:web:59ac026f3f4c2ec5da3500",
   measurementId: "G-ZS07SKSRRL"
 };
+
 initializeApp(firebaseConfig);
 
 const auth = getAuth();
