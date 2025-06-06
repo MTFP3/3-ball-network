@@ -19,7 +19,8 @@ const auth = getAuth();
 const db = getFirestore();
 
 const adminEmails = [
-  "your-admin-email@gmail.com" // <-- Replace with your real admin email!
+  "marcus@3ballnetwork.com",
+  "marcus.toney.2011@gmail.com"
 ];
 
 // --- Login Logic (same as before) ---
