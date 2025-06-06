@@ -29,7 +29,7 @@ document.getElementById('login-btn').onclick = function() {
   const password = document.getElementById('admin-password').value;
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      console.log("Signed in as:", email); // Add this line
+      console.log("Signed in as:", email); // <-- This line must be here
       if (adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase())) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('admin-dashboard').style.display = 'block';
@@ -46,7 +46,7 @@ document.getElementById('login-btn').onclick = function() {
 
 onAuthStateChanged(auth, user => {
   if (user) {
-    console.log("Auth state changed, user email:", user.email); // Add this line
+    console.log("Auth state changed, user email:", user.email); // <-- This line must be here
   }
   if (user && adminEmails.map(e => e.toLowerCase()).includes(user.email.toLowerCase())) {
     document.getElementById('login-section').style.display = 'none';
