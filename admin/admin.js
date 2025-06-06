@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -71,6 +71,7 @@ async function loadPages() {
     const data = docSnap.data();
     html += `<li>
       <b>${data.title}</b> (${data.path}) 
+      <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`)">Edit</button>
       <button onclick="deletePage('${docSnap.id}')">Delete</button>
     </li>`;
   });
@@ -102,3 +103,42 @@ window.deletePage = async function(id) {
   await deleteDoc(doc(db, "pages", id));
   loadPages();
 };
+
+let editingPageId = null;
+
+window.editPage = function(id, title, path, content) {
+  editingPageId = id;
+  document.getElementById('edit-title').value = title;
+  document.getElementById('edit-path').value = path;
+  document.getElementById('edit-content').value = content;
+  document.getElementById('edit-modal').style.display = 'block';
+};
+
+window.closeEditModal = function() {
+  document.getElementById('edit-modal').style.display = 'none';
+  editingPageId = null;
+};
+
+window.saveEditPage = async function() {
+  const title = document.getElementById('edit-title').value;
+  const path = document.getElementById('edit-path').value;
+  const content = document.getElementById('edit-content').value;
+  if (!title || !path) {
+    document.getElementById('edit-error').textContent = "Title and path are required.";
+    return;
+  }
+  await setDoc(doc(db, "pages", editingPageId), { title, path, content });
+  closeEditModal();
+  loadPages();
+};
+
+<!-- Add this after #admin-dashboard -->
+<div id="edit-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000;">
+  <h3>Edit Page</h3>
+  <input id="edit-title" placeholder="Title"><br>
+  <input id="edit-path" placeholder="Path"><br>
+  <textarea id="edit-content" placeholder="Content"></textarea><br>
+  <button onclick="saveEditPage()">Save</button>
+  <button onclick="closeEditModal()">Cancel</button>
+  <div id="edit-error" style="color:red;"></div>
+</div>
