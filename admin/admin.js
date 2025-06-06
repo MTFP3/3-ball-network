@@ -137,7 +137,7 @@ window.saveEditPage = async function() {
 };
 
 <!-- Add this after #admin-dashboard -->
-<div id="edit-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000;">
+
   <h3>Edit Page</h3>
   <input id="edit-title" placeholder="Title"><br>
   <input id="edit-path" placeholder="Path"><br>
