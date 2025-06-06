@@ -51,16 +51,20 @@ onAuthStateChanged(auth, user => {
   if (user && adminEmails.map(e => e.toLowerCase()).includes(user.email.toLowerCase())) {
     document.getElementById('login-section').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
+    let html = `
+      <h2>Welcome to the Admin Panel!</h2>
+      <button id="logout-btn">Logout</button>
+    `;
+    document.getElementById('admin-dashboard').innerHTML = html;
+    document.getElementById('logout-btn').onclick = function() {
+      signOut(auth);
+    };
     loadPages();
   } else {
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('admin-dashboard').style.display = 'none';
   }
 });
-
-document.getElementById('logout-btn').onclick = function() {
-  signOut(auth);
-};
 
 // --- Page Management Logic ---
 async function loadPages() {
