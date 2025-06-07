@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
   authDomain: "ball-network-web.firebaseapp.com",
   projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com", // <-- Corrected!
+  storageBucket: "ball-network-web.appspot.com",
   messagingSenderId: "740915998465",
   appId: "1:740915998465:web:59ac026f3f4c2ec5da3500",
   measurementId: "G-ZS07SKSRRL"
@@ -23,13 +23,13 @@ const adminEmails = [
   "marcus.toney.2011@gmail.com"
 ];
 
-// --- Login Logic (same as before) ---
+// --- Login Logic ---
 document.getElementById('login-btn').onclick = function() {
   const email = document.getElementById('admin-email').value;
   const password = document.getElementById('admin-password').value;
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      console.log("Signed in as:", email); // <-- This line must be here
+      console.log("Signed in as:", email);
       if (adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase())) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('admin-dashboard').style.display = 'block';
@@ -40,13 +40,14 @@ document.getElementById('login-btn').onclick = function() {
       }
     })
     .catch(error => {
-      document.getElementById('login-error').textContent = error.message;
+      document.getElementById('login-error').textContent = "Login failed. Please try again.";
+      document.getElementById('admin-password').value = "";
     });
 };
 
 onAuthStateChanged(auth, user => {
   if (user) {
-    console.log("Auth state changed, user email:", user.email); // <-- This line must be here
+    console.log("Auth state changed, user email:", user.email);
   }
   if (user && adminEmails.map(e => e.toLowerCase()).includes(user.email.toLowerCase())) {
     document.getElementById('login-section').style.display = 'none';
@@ -74,7 +75,7 @@ async function loadPages() {
   pageSnapshot.forEach(docSnap => {
     const data = docSnap.data();
     html += `<li>
-      <b>${data.title}</b> (${data.path}) 
+      <b>${sanitize(data.title)}</b> (${sanitize(data.path)}) 
       <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`)">Edit</button>
       <button onclick="deletePage('${docSnap.id}')">Delete</button>
     </li>`;
@@ -99,7 +100,12 @@ window.addPage = async function() {
     document.getElementById('page-error').textContent = "Title and path are required.";
     return;
   }
-  await addDoc(collection(db, "pages"), { title, path, content });
+  // When adding a page
+  await addDoc(collection(db, "pages"), { 
+    title: sanitize(title), 
+    path: sanitize(path), 
+    content: sanitize(content) 
+  });
   loadPages();
 };
 
@@ -131,18 +137,18 @@ window.saveEditPage = async function() {
     document.getElementById('edit-error').textContent = "Title and path are required.";
     return;
   }
-  await setDoc(doc(db, "pages", editingPageId), { title, path, content });
+  // When editing a page
+  await setDoc(doc(db, "pages", editingPageId), { 
+    title: sanitize(title), 
+    path: sanitize(path), 
+    content: sanitize(content) 
+  });
   closeEditModal();
   loadPages();
 };
 
-<!-- Add this after #admin-dashboard -->
-
-  <h3>Edit Page</h3>
-  <input id="edit-title" placeholder="Title"><br>
-  <input id="edit-path" placeholder="Path"><br>
-  <textarea id="edit-content" placeholder="Content"></textarea><br>
-  <button onclick="saveEditPage()">Save</button>
-  <button onclick="closeEditModal()">Cancel</button>
-  <div id="edit-error" style="color:red;"></div>
-</div>
+function sanitize(str) {
+  const temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
+}
