@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    #login-section, #admin-dashboard { max-width: 400px; margin: 2em auto; }
+    input, button { display: block; width: 100%; margin: 0.5em 0; padding: 0.5em; }
+    button { background: #0074d9; color: #fff; border: none; border-radius: 4px; }
+    button:hover { background: #005fa3; }
+    #login-error { color: red; }
+    #edit-modal { display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000; }
+    #edit-modal h3 { margin-top: 0; }
+    #edit-modal input, #edit-modal textarea { margin: 0.5em 0; padding: 0.5em; width: calc(100% - 1em); }
+  </style>
+</head>
+<body>
+  <div id="login-section">
+    <h2>Admin Login</h2>
+    <input type="email" id="admin-email" placeholder="Email" required>
+    <input type="password" id="admin-password" placeholder="Password" required>
+    <button id="login-btn">Login</button>
+    <div id="login-error"></div>
+  </div>
+  <div id="admin-dashboard" style="display:none;">
+    <h2>Welcome to the Admin Panel!</h2>
+    <button id="logout-btn">Logout</button>
+  </div>
+  <div id="edit-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000;">
+    <h3>Edit Page</h3>
+    <input id="edit-title" placeholder="Title"><br>
+    <input id="edit-path" placeholder="Path"><br>
+    <textarea id="edit-content" placeholder="Content"></textarea><br>
+    <button onclick="saveEditPage()">Save</button>
+    <button onclick="closeEditModal()">Cancel</button>
+    <div id="edit-error" style="color:red;"></div>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
