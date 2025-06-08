@@ -56,6 +56,9 @@ loginBtn.onclick = async () => {
       // Hide admin user management UI
       document.getElementById('admin-users-section').style.display = 'none';
       document.getElementById('audit-log-section').style.display = 'none';
+      // After successful login or onAuthStateChanged
+      loadDashboard();
+      showSection('dashboard');
     } else {
       loginError.textContent = "You are not an admin.";
       await signOut(auth);
@@ -79,8 +82,12 @@ onAuthStateChanged(auth, async user => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       loadPages();
+      // Hide admin user management UI
       document.getElementById('admin-users-section').style.display = 'none';
       document.getElementById('audit-log-section').style.display = 'none';
+      // After successful login or onAuthStateChanged
+      loadDashboard();
+      showSection('dashboard');
     } else {
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('admin-dashboard').style.display = 'none';
@@ -365,6 +372,32 @@ async function loadAuditLog() {
   document.getElementById('audit-log-section').style.display = 'block';
 }
 
+// --- Dashboard Loading ---
+async function loadDashboard() {
+  // Example: count pages, users, recent activity
+  let statsHtml = '';
+  let recentHtml = '';
+  try {
+    // Pages count
+    const pagesSnap = await getDocs(collection(db, "pages"));
+    statsHtml += `<div><b>Pages:</b> ${pagesSnap.size}</div>`;
+    // Users count (stub, replace with real user count if using Firebase Auth)
+    statsHtml += `<div><b>Users:</b> (coming soon)</div>`;
+    // Recent activity (stub, replace with audit log or recent pages)
+    recentHtml += `<h3>Recent Activity</h3><ul>`;
+    pagesSnap.docs.slice(-5).forEach(docSnap => {
+      const d = docSnap.data();
+      recentHtml += `<li>${d.title} (${d.path})</li>`;
+    });
+    recentHtml += `</ul>`;
+  } catch (e) {
+    statsHtml = "Failed to load stats.";
+    recentHtml = "";
+  }
+  document.getElementById('dashboard-stats').innerHTML = statsHtml;
+  document.getElementById('recent-activity').innerHTML = recentHtml;
+}
+
 // --- Dark Mode ---
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
@@ -391,6 +424,64 @@ function sanitize(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+// Section switching logic
+window.showSection = function(section) {
+  const sections = [
+    'dashboard-section', 'pages-section', 'media-section', 'users-section',
+    'comments-section', 'settings-section', 'plugins-section'
+  ];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  const showEl = document.getElementById(section + '-section');
+  if (showEl) showEl.style.display = 'block';
+
+  // Call loaders
+  if (section === 'dashboard') loadDashboard();
+  if (section === 'media') loadMedia();
+  if (section === 'users') loadUsers();
+  if (section === 'comments') loadComments();
+  if (section === 'settings') loadSettings();
+  if (section === 'plugins') loadPlugins();
+};
+
+// Media Library (stub)
+document.getElementById('media-upload').onchange = function() {
+  alert('Media upload coming soon!');
+};
+function loadMedia() {
+  document.getElementById('media-list').innerHTML = 'Media library coming soon!';
+}
+
+// User Management (stub)
+function addUser() {
+  alert('User management coming soon!');
+}
+function loadUsers() {
+  document.getElementById('users-list').innerHTML = 'User list coming soon!';
+}
+
+// Comments (stub)
+function loadComments() {
+  document.getElementById('comments-list').innerHTML = 'Comments moderation coming soon!';
+}
+
+// Settings (stub)
+function saveSettings() {
+  document.getElementById('settings-message').textContent = 'Settings saved (not really, just a stub)!';
+}
+function loadSettings() {
+  document.getElementById('site-title').value = '3 Ball Network';
+  document.getElementById('site-logo').value = '';
+  document.getElementById('site-theme').value = '#007cba';
+}
+
+// Plugins (stub)
+function loadPlugins() {
+  document.getElementById('plugins-list').innerHTML = 'Plugins/widgets coming soon!';
 }
 
 // Initialize Quill when the modal is opened for the first time
