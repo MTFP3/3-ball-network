@@ -8,44 +8,44 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
     #wp-sidebar {
-  position: fixed;
-  left: 0; top: 0; bottom: 0;
-  width: 220px;
-  background: #23282d;
-  color: #fff;
-  padding: 1em 0;
-  z-index: 100;
-}
-#wp-sidebar .wp-logo {
-  font-size: 1.3em;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2em;
-}
-#wp-sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-#wp-sidebar ul li {
-  margin: 1em 0;
-}
-#wp-sidebar ul li a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.5em 2em;
-  display: block;
-  transition: background 0.2s;
-}
-#wp-sidebar ul li a:hover {
-  background: #007cba;
-}
-body {
-  margin-left: 220px;
-}
-#main-content {
-  margin-left: 0;
-  padding: 2em;
-}
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      width: 220px;
+      background: #23282d;
+      color: #fff;
+      padding: 1em 0;
+      z-index: 100;
+    }
+    #wp-sidebar .wp-logo {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    #wp-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    #wp-sidebar ul li {
+      margin: 1em 0;
+    }
+    #wp-sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5em 2em;
+      display: block;
+      transition: background 0.2s;
+    }
+    #wp-sidebar ul li a:hover {
+      background: #007cba;
+    }
+    body {
+      margin-left: 220px;
+    }
+    #main-content {
+      margin-left: 0;
+      padding: 2em;
+    }
     #login-section, #admin-dashboard, #dashboard-section, #pages-section, #media-section, #users-section, #comments-section, #settings-section, #plugins-section { max-width: 800px; margin: 0 auto; }
     input, button, select { display: block; width: 100%; margin: 0.5em 0; padding: 0.5em; }
     button { background: #0074d9; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
@@ -67,27 +67,27 @@ body {
       #login-section, #admin-dashboard, #dashboard-section, #pages-section, #media-section, #users-section, #comments-section, #settings-section, #plugins-section { max-width: 98vw; margin: 1em auto; }
       #edit-modal { width: 95vw; }
     }
-#pages-table th, #pages-table td {
-  padding: 0.5em;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-}
-#pages-table th {
-  background: #f8f9fa;
-}
-.status-badge {
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-size: 0.9em;
-  color: #fff;
-}
-.status-badge.published { background: #28a745; }
-.status-badge.draft { background: #6c757d; }
-#page-modal input, #page-modal select {
-  width: 100%;
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-}
+    #pages-table th, #pages-table td {
+      padding: 0.5em;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    #pages-table th {
+      background: #f8f9fa;
+    }
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      color: #fff;
+    }
+    .status-badge.published { background: #28a745; }
+    .status-badge.draft { background: #6c757d; }
+    #page-modal input, #page-modal select {
+      width: 100%;
+      margin-bottom: 0.5em;
+      padding: 0.5em;
+    }
   </style>
 </head>
 <body>
@@ -178,23 +178,11 @@ body {
         <h2>Plugins/Widgets</h2>
         <div id="plugins-list"></div>
       </div>
-      <div id="edit-modal">
-        <h3>Edit Page</h3>
-        <input id="edit-title" placeholder="Title"><br>
-        <input id="edit-path" placeholder="Path"><br>
-        <div id="edit-content-editor"></div>
-        <input id="edit-author" placeholder="Author"><br>
-        <input id="edit-date" type="date" placeholder="Date"><br>
-        <button onclick="saveEditPage()">Save</button>
-        <button onclick="closeEditModal()">Cancel</button>
-        <button onclick="previewPage()">Preview</button>
-        <div id="edit-error" style="color:red;"></div>
-        <div id="page-preview"></div>
-      </div>
       <div id="admin-message"></div>
       <div id="loading-spinner">Loading...</div>
     </div>
   </div>
+  <!-- Page Modal for Add/Edit -->
   <div id="page-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000; max-width:500px; width:95vw;">
     <h3 id="page-modal-title">Add Page</h3>
     <input id="modal-title" placeholder="Title"><br>
