@@ -32,6 +32,7 @@ async function checkIsAdmin(email) {
   if (adminDocSnap.exists()) {
     const adminData = adminDocSnap.data();
     const adminEmails = adminData.email;
+    console.log("Admin emails in Firestore:", adminEmails, "User email:", email);
     return Array.isArray(adminEmails) && adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase());
   }
   return false;
