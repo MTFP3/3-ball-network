@@ -1,7 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, setDoc, query, orderBy, limit, startAfter, startAt } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, addDoc, getDocs, setDoc, deleteDoc, query, orderBy, limit, startAfter, startAt } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
+// Your Firebase config here
 const firebaseConfig = {
   apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
   authDomain: "ball-network-web.firebaseapp.com",
@@ -12,38 +13,92 @@ const firebaseConfig = {
   measurementId: "G-ZS07SKSRRL"
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-const auth = getAuth();
-const db = getFirestore();
+const loginSection = document.getElementById("login-section");
+const dashboard = document.getElementById("admin-dashboard");
+const loginBtn = document.getElementById("login-btn");
+const loginError = document.getElementById("login-error");
+const logoutBtn = document.getElementById("logout-btn");
 
-let currentUserRole = null;
+let currentUserIsAdmin = false;
 
-// --- Roles ---
-async function getUserRole(email) {
-  const usersCol = collection(db, "adminUsers");
-  const usersSnapshot = await getDocs(usersCol);
-  let role = null;
-  usersSnapshot.forEach(docSnap => {
-    const data = docSnap.data();
-    if (data.email && data.email.toLowerCase() === email.toLowerCase()) {
-      role = data.role || "admin";
+// --- Admin Check using Array in admin/adminUsers ---
+async function checkIsAdmin(email) {
+  const adminDocRef = doc(db, "admin", "adminUsers");
+  const adminDocSnap = await getDoc(adminDocRef);
+  if (adminDocSnap.exists()) {
+    const adminData = adminDocSnap.data();
+    const adminEmails = adminData.email;
+    return Array.isArray(adminEmails) && adminEmails.map(e => e.toLowerCase()).includes(email.toLowerCase());
+  }
+  return false;
+}
+
+// --- Login Logic ---
+loginBtn.onclick = async () => {
+  loginError.textContent = "";
+  const email = document.getElementById("admin-email").value.trim();
+  const password = document.getElementById("admin-password").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    currentUserIsAdmin = await checkIsAdmin(user.email);
+    if (currentUserIsAdmin) {
+      loginSection.style.display = "none";
+      dashboard.style.display = "block";
+      loadPages();
+      // Hide admin user management UI
+      document.getElementById('admin-users-section').style.display = 'none';
+      document.getElementById('audit-log-section').style.display = 'none';
+    } else {
+      loginError.textContent = "You are not an admin.";
+      await signOut(auth);
     }
-  });
-  return role;
-}
+  } catch (error) {
+    loginError.textContent = "Login failed. Please try again.";
+    document.getElementById('admin-password').value = "";
+  }
+};
 
-async function isAdmin(email) {
-  return (await getUserRole(email)) === "admin";
-}
-async function isEditor(email) {
-  const role = await getUserRole(email);
-  return role === "admin" || role === "editor";
-}
-async function isViewer(email) {
-  const role = await getUserRole(email);
-  return role === "viewer";
-}
+logoutBtn.onclick = async () => {
+  await signOut(auth);
+  dashboard.style.display = "none";
+  loginSection.style.display = "block";
+};
+
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    currentUserIsAdmin = await checkIsAdmin(user.email);
+    if (currentUserIsAdmin) {
+      loginSection.style.display = "none";
+      dashboard.style.display = "block";
+      loadPages();
+      document.getElementById('admin-users-section').style.display = 'none';
+      document.getElementById('audit-log-section').style.display = 'none';
+    } else {
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('admin-dashboard').style.display = 'none';
+    }
+  } else {
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('admin-dashboard').style.display = 'none';
+  }
+});
+
+// --- Page Management Logic with Pagination ---
+let lastVisible = null;
+let firstVisible = null;
+let pageSize = 5;
+let pageStack = [];
+
+// --- Quill Editors ---
+let quillEdit = null;
+let quillAdd = null;
 
 // --- Audit Log ---
 async function logAudit(action, details) {
@@ -58,73 +113,6 @@ async function logAudit(action, details) {
     // Optionally handle audit log errors
   }
 }
-
-// --- Login Logic ---
-document.getElementById('login-btn').onclick = async function() {
-  const email = document.getElementById('admin-email').value;
-  const password = document.getElementById('admin-password').value;
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    currentUserRole = await getUserRole(email);
-    if (currentUserRole) {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('admin-dashboard').style.display = 'block';
-      loadPages();
-      loadAdminUsers();
-      if (currentUserRole === "admin") loadAuditLog();
-      document.getElementById('add-page-section').style.display = (currentUserRole === "viewer") ? "none" : "block";
-      document.getElementById('admin-users-section').style.display = (currentUserRole === "admin") ? "block" : "none";
-    } else {
-      signOut(auth);
-      document.getElementById('login-error').textContent = "You are not an admin.";
-    }
-  } catch (error) {
-    document.getElementById('login-error').textContent = "Login failed. Please try again.";
-    document.getElementById('admin-password').value = "";
-  }
-};
-
-onAuthStateChanged(auth, async user => {
-  if (user) {
-    currentUserRole = await getUserRole(user.email);
-    if (currentUserRole) {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('admin-dashboard').style.display = 'block';
-      loadPages();
-      loadAdminUsers();
-      if (currentUserRole === "admin") loadAuditLog();
-      document.getElementById('add-page-section').style.display = (currentUserRole === "viewer") ? "none" : "block";
-      document.getElementById('admin-users-section').style.display = (currentUserRole === "admin") ? "block" : "none";
-    } else {
-      document.getElementById('login-section').style.display = 'block';
-      document.getElementById('admin-dashboard').style.display = 'none';
-    }
-  } else {
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('admin-dashboard').style.display = 'none';
-  }
-});
-
-function showSpinner(show) {
-  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
-}
-
-function showMessage(msg, color="green") {
-  const el = document.getElementById('admin-message');
-  el.textContent = msg;
-  el.style.color = color;
-  setTimeout(() => { el.textContent = ""; }, 2000);
-}
-
-function sanitize(str) {
-  const temp = document.createElement('div');
-  temp.textContent = str;
-  return temp.innerHTML;
-}
-
-// --- Quill Editors ---
-let quillEdit = null;
-let quillAdd = null;
 
 // --- Pagination State ---
 let lastVisible = null;
@@ -366,65 +354,6 @@ async function importPages(e) {
   showSpinner(false);
 }
 
-// --- Admin Users Logic ---
-async function loadAdminUsers() {
-  if (currentUserRole !== "admin") {
-    document.getElementById('admin-users-section').style.display = 'none';
-    return;
-  }
-  showSpinner(true);
-  try {
-    const usersCol = collection(db, "adminUsers");
-    const usersSnapshot = await getDocs(usersCol);
-    let html = "";
-    const currentUser = auth.currentUser ? auth.currentUser.email : "";
-    usersSnapshot.forEach(docSnap => {
-      const data = docSnap.data();
-      const isSelf = data.email && data.email.toLowerCase() === currentUser.toLowerCase();
-      html += `<li>${sanitize(data.email)} (${sanitize(data.role || "admin")}) <button onclick="removeAdminUser('${docSnap.id}')" ${isSelf ? "disabled" : ""}>Remove</button></li>`;
-    });
-    document.getElementById('admin-users-list').innerHTML = html;
-    document.getElementById('admin-users-section').style.display = 'block';
-  } catch (e) {
-    showMessage("Failed to load admin users.", "red");
-  }
-  showSpinner(false);
-}
-
-window.addAdminUser = async function() {
-  if (currentUserRole !== "admin") return;
-  showSpinner(true);
-  const email = document.getElementById('new-admin-email').value.trim();
-  const role = document.getElementById('new-admin-role').value;
-  if (!email) {
-    document.getElementById('admin-user-error').textContent = "Email required.";
-    showSpinner(false);
-    return;
-  }
-  try {
-    await addDoc(collection(db, "adminUsers"), { email: sanitize(email), role: sanitize(role) });
-    await logAudit("addAdminUser", { email, role });
-    document.getElementById('new-admin-email').value = "";
-    loadAdminUsers();
-  } catch (e) {
-    showMessage("Failed to add admin.", "red");
-  }
-  showSpinner(false);
-};
-
-window.removeAdminUser = async function(id) {
-  if (currentUserRole !== "admin") return;
-  showSpinner(true);
-  try {
-    await deleteDoc(doc(db, "adminUsers", id));
-    await logAudit("removeAdminUser", { id });
-    loadAdminUsers();
-  } catch (e) {
-    showMessage("Failed to remove admin.", "red");
-  }
-  showSpinner(false);
-};
-
 // --- Audit Log Viewing ---
 async function loadAuditLog() {
   if (currentUserRole !== "admin") return;
@@ -450,5 +379,5 @@ if (localStorage.getItem('darkMode') === 'true') {
 
 // Initialize Quill when the modal is opened for the first time
 window.onload = function() {
-  window.initQuill();
+  window.initQuill && window.initQuill();
 };
