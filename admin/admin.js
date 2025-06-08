@@ -52,12 +52,6 @@ loginBtn.onclick = async () => {
     if (currentUserIsAdmin) {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
-      loadPages();
-      // Hide admin user management UI
-      document.getElementById('admin-users-section').style.display = 'none';
-      document.getElementById('audit-log-section').style.display = 'none';
-      // After successful login or onAuthStateChanged
-      loadDashboard();
       showSection('dashboard');
     } else {
       loginError.textContent = "You are not an admin.";
@@ -81,12 +75,6 @@ onAuthStateChanged(auth, async user => {
     if (currentUserIsAdmin) {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
-      loadPages();
-      // Hide admin user management UI
-      document.getElementById('admin-users-section').style.display = 'none';
-      document.getElementById('audit-log-section').style.display = 'none';
-      // After successful login or onAuthStateChanged
-      loadDashboard();
       showSection('dashboard');
     } else {
       document.getElementById('login-section').style.display = 'block';
@@ -129,8 +117,11 @@ async function loadPages(direction = "next") {
     lastVisible = pageSnapshot.docs[pageSnapshot.docs.length - 1];
     if (direction === "next" && firstVisible) pageStack.push(firstVisible);
 
-    document.getElementById('prev-page-btn').onclick = () => loadPages("prev");
-    document.getElementById('next-page-btn').onclick = () => loadPages("next");
+    // Only set onclick if buttons exist
+    const prevBtn = document.getElementById('prev-page-btn');
+    const nextBtn = document.getElementById('next-page-btn');
+    if (prevBtn) prevBtn.onclick = () => loadPages("prev");
+    if (nextBtn) nextBtn.onclick = () => loadPages("next");
   } catch (e) {
     showMessage("Failed to load pages.", "red");
   }
@@ -287,18 +278,6 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Add this CSS to your <style> for status badges:
-`
-.status-badge {
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-size: 0.9em;
-  color: #fff;
-}
-.status-badge.published { background: #28a745; }
-.status-badge.draft { background: #6c757d; }
-`
-
 // --- Audit Log ---
 async function logAudit(action, details) {
   try {
@@ -313,32 +292,14 @@ async function logAudit(action, details) {
   }
 }
 
-// --- Audit Log Viewing ---
-async function loadAuditLog() {
-  if (!currentUserIsAdmin) return;
-  const logsCol = collection(db, "auditLogs");
-  const logsSnapshot = await getDocs(logsCol);
-  let html = "";
-  logsSnapshot.forEach(docSnap => {
-    const data = docSnap.data();
-    html += `<li>${sanitize(data.timestamp)} - ${sanitize(data.user)}: ${sanitize(data.action)}</li>`;
-  });
-  document.getElementById('audit-log-list').innerHTML = html;
-  document.getElementById('audit-log-section').style.display = 'block';
-}
-
 // --- Dashboard Loading ---
 async function loadDashboard() {
-  // Example: count pages, users, recent activity
   let statsHtml = '';
   let recentHtml = '';
   try {
-    // Pages count
     const pagesSnap = await getDocs(collection(db, "pages"));
     statsHtml += `<div><b>Pages:</b> ${pagesSnap.size}</div>`;
-    // Users count (stub, replace with real user count if using Firebase Auth)
     statsHtml += `<div><b>Users:</b> (coming soon)</div>`;
-    // Recent activity (stub, replace with audit log or recent pages)
     recentHtml += `<h3>Recent Activity</h3><ul>`;
     pagesSnap.docs.slice(-5).forEach(docSnap => {
       const d = docSnap.data();
@@ -353,35 +314,7 @@ async function loadDashboard() {
   document.getElementById('recent-activity').innerHTML = recentHtml;
 }
 
-// --- Dark Mode ---
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-}
-if (localStorage.getItem('darkMode') === 'true') {
-  document.body.classList.add('dark-mode');
-}
-
-// --- Utility ---
-function showSpinner(show) {
-  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
-}
-function showMessage(msg, color = "green") {
-  const el = document.getElementById('admin-message');
-  el.textContent = msg;
-  el.style.color = color;
-  setTimeout(() => { el.textContent = ""; }, 3000);
-}
-function sanitize(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-// Section switching logic
+// --- Section switching logic ---
 window.showSection = function(section) {
   const sections = [
     'dashboard-section', 'pages-section', 'media-section', 'users-section',
@@ -404,15 +337,15 @@ window.showSection = function(section) {
   if (section === 'pages') loadPages();
 };
 
-// Media Library (stub)
-document.getElementById('media-upload').onchange = function() {
-  alert('Media upload coming soon!');
-};
+// --- Media Library (stub) ---
 function loadMedia() {
   document.getElementById('media-list').innerHTML = 'Media library coming soon!';
 }
+document.getElementById('media-upload').onchange = function() {
+  alert('Media upload coming soon!');
+};
 
-// User Management (stub)
+// --- User Management (stub) ---
 function addUser() {
   alert('User management coming soon!');
 }
@@ -420,12 +353,12 @@ function loadUsers() {
   document.getElementById('users-list').innerHTML = 'User list coming soon!';
 }
 
-// Comments (stub)
+// --- Comments (stub) ---
 function loadComments() {
   document.getElementById('comments-list').innerHTML = 'Comments moderation coming soon!';
 }
 
-// Settings (stub)
+// --- Settings (stub) ---
 function saveSettings() {
   document.getElementById('settings-message').textContent = 'Settings saved (not really, just a stub)!';
 }
@@ -435,12 +368,35 @@ function loadSettings() {
   document.getElementById('site-theme').value = '#007cba';
 }
 
-// Plugins (stub)
+// --- Plugins (stub) ---
 function loadPlugins() {
   document.getElementById('plugins-list').innerHTML = 'Plugins/widgets coming soon!';
 }
 
-// Initialize Quill when the modal is opened for the first time
-window.onload = function() {
-  window.initQuill && window.initQuill();
-};
+// --- Utility ---
+function showSpinner(show) {
+  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
+}
+function showMessage(msg, color = "green") {
+  const el = document.getElementById('admin-message');
+  el.textContent = msg;
+  el.style.color = color;
+  setTimeout(() => { el.textContent = ""; }, 3000);
+}
+function sanitize(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// --- Dark Mode ---
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark-mode');
+}
