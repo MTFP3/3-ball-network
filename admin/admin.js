@@ -91,7 +91,6 @@ onAuthStateChanged(auth, async user => {
 });
 
 // --- Page Management Logic with Pagination ---
-let lastVisible = null;
 let firstVisible = null;
 let pageSize = 5;
 let pageStack = [];
@@ -114,12 +113,6 @@ async function logAudit(action, details) {
   }
 }
 
-// --- Pagination State ---
-let lastVisible = null;
-let firstVisible = null;
-let pageSize = 5;
-let pageStack = [];
-
 // --- Page Management Logic with Pagination ---
 async function loadPages(direction = "next") {
   showSpinner(true);
@@ -139,7 +132,8 @@ async function loadPages(direction = "next") {
       html += `<li>
         <b>${sanitize(data.title)}</b> (${sanitize(data.path)}) 
         <br>Author: ${sanitize(data.author || "")} | Date: ${sanitize(data.date || "")}`;
-      if (currentUserRole !== "viewer") {
+      // Only allow edit/delete for admins
+      if (currentUserIsAdmin) {
         html += `
         <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`, \`${data.author ? data.author.replace(/`/g, '\\`') : ''}\`, \`${data.date ? data.date.replace(/`/g, '\\`') : ''}\`)">Edit</button>
         <button onclick="deletePage('${docSnap.id}')">Delete</button>`;
@@ -186,7 +180,7 @@ async function loadPages(direction = "next") {
 }
 
 window.addPage = async function() {
-  if (currentUserRole === "viewer") return;
+  if (!currentUserIsAdmin) return;
   showSpinner(true);
   const title = document.getElementById('new-title').value;
   const path = document.getElementById('new-path').value;
@@ -218,7 +212,7 @@ window.addPage = async function() {
 };
 
 window.deletePage = async function(id) {
-  if (currentUserRole === "viewer") return;
+  if (!currentUserIsAdmin) return;
   if (!confirm("Are you sure you want to delete this page?")) return;
   showSpinner(true);
   try {
@@ -235,7 +229,7 @@ window.deletePage = async function(id) {
 let editingPageId = null;
 
 window.editPage = function(id, title, path, content, author = "", date = "") {
-  if (currentUserRole === "viewer") return;
+  if (!currentUserIsAdmin) return;
   editingPageId = id;
   document.getElementById('edit-title').value = title;
   document.getElementById('edit-path').value = path;
@@ -258,7 +252,7 @@ window.closeEditModal = function() {
 };
 
 window.saveEditPage = async function() {
-  if (currentUserRole === "viewer") return;
+  if (!currentUserIsAdmin) return;
   showSpinner(true);
   const content = quillEdit ? quillEdit.root.innerHTML : "";
   const title = document.getElementById('edit-title').value;
@@ -356,7 +350,7 @@ async function importPages(e) {
 
 // --- Audit Log Viewing ---
 async function loadAuditLog() {
-  if (currentUserRole !== "admin") return;
+  if (!currentUserIsAdmin) return;
   const logsCol = collection(db, "auditLogs");
   const logsSnapshot = await getDocs(logsCol);
   let html = "";
@@ -375,6 +369,25 @@ function toggleDarkMode() {
 }
 if (localStorage.getItem('darkMode') === 'true') {
   document.body.classList.add('dark-mode');
+}
+
+// --- Utility ---
+function showSpinner(show) {
+  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
+}
+function showMessage(msg, color = "green") {
+  const el = document.getElementById('admin-message');
+  el.textContent = msg;
+  el.style.color = color;
+  setTimeout(() => { el.textContent = ""; }, 3000);
+}
+function sanitize(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 // Initialize Quill when the modal is opened for the first time
