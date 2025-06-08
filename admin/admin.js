@@ -463,8 +463,6 @@ function isAdmin() {
   return currentUserIsAdmin;
 }
 
-
-
 // In user management, only admins can remove users
 window.deleteUser = async function(id) {
   if (!isAdmin()) {
@@ -481,8 +479,8 @@ window.deleteUser = async function(id) {
   }
 };
 
-// --- Comments (stub) ---
-function loadComments() {
+// --- Comments ---
+async function loadComments() {
   const list = document.getElementById('comments-list');
   list.innerHTML = "Loading...";
   try {
@@ -545,6 +543,24 @@ function loadPlugins() {
   document.getElementById('plugins-list').innerHTML = 'Plugins/widgets coming soon!';
 }
 
+// --- Audit Log (stub) ---
+async function loadAuditLog() {
+  const list = document.getElementById('audit-log-list');
+  list.innerHTML = "Loading...";
+  try {
+    const snap = await getDocs(collection(db, "auditLogs"));
+    list.innerHTML = "";
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${sanitize(d.action)}:</b> ${JSON.stringify(d.details)} <span style="color:#888;">${sanitize(d.user)} @ ${sanitize(d.timestamp)}</span>`;
+      list.appendChild(li);
+    });
+  } catch (e) {
+    list.innerHTML = "Failed to load audit log.";
+  }
+}
+
 // --- UI Utility Functions ---
 
 function toggleDarkMode() {
@@ -602,6 +618,11 @@ function showMessage(msg, type = "primary") {
       alert(msg);
     }
   }
+}
+
+// --- Sidebar role update (optional, stub) ---
+function updateSidebarForRole() {
+  // Optionally hide/show sidebar items based on admin status
 }
 
 
