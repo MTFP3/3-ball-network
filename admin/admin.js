@@ -156,10 +156,6 @@ function renderPagesTable(pages) {
     `;
     tbody.appendChild(tr);
   });
-  // Add a bulk delete button:
-  document.getElementById('pages-section').insertAdjacentHTML('beforeend', `
-    <button onclick="bulkDeletePages()">Delete Selected</button>
-  `);
 }
 
 // Filter table by search
@@ -467,30 +463,7 @@ function isAdmin() {
   return currentUserIsAdmin;
 }
 
-// Example: Only show delete button if admin
-function renderPagesTable(pages) {
-  const tbody = document.getElementById('pages-table').querySelector('tbody');
-  tbody.innerHTML = "";
-  pages.forEach(page => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="checkbox" class="page-checkbox" value="${page.id}"></td>
-      <td>${sanitize(page.title)}</td>
-      <td>${sanitize(page.author || "")}</td>
-      <td>${sanitize(page.date || "")}</td>
-      <td>
-        <span class="status-badge ${page.status === 'published' ? 'published' : 'draft'}">
-          ${page.status ? capitalize(page.status) : 'Draft'}
-        </span>
-      </td>
-      <td>
-        <button onclick="openEditPageModal('${page.id}')">Edit</button>
-        ${isAdmin() ? `<button onclick="deletePage('${page.id}')">Delete</button>` : ''}
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+
 
 // In user management, only admins can remove users
 window.deleteUser = async function(id) {
@@ -597,18 +570,38 @@ function toggleSidebar() {
   document.getElementById('wp-sidebar').classList.toggle('d-none');
 }
 
-// --- Section Switching ---
-
-function showSection(section) {
-  // Hide all sections
-  document.querySelectorAll('#admin-dashboard > div[id$="-section"], #admin-dashboard > div[id$="-section"]').forEach(div => {
-    div.style.display = 'none';
+// --- Utility: Sanitize HTML to prevent XSS ---
+function sanitize(str) {
+  if (typeof str !== "string") return "";
+  return str.replace(/[&<>"'`=\/]/g, function (s) {
+    return ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+      "`": "&#96;",
+      "=": "&#61;",
+      "/": "&#47;"
+    })[s];
   });
-  // Remove active from all sidebar links
-  document.querySelectorAll('#wp-sidebar ul li a').forEach(a => a.classList.remove('active'));
-  // Show selected section
-  if (section === 'dashboard') {
-    document.getElementById('dashboard-section').style.display = '';
+}
+
+// --- Utility: Show message to user (fallback to toast if available) ---
+function showMessage(msg, type = "primary") {
+  if (typeof showToast === "function") {
+    showToast(msg, type);
   } else {
-    const sec = document.getElementById(section + '-section');
-    if
+    // fallback: show in a message div if toast not available
+    const div = document.getElementById('admin-message');
+    if (div) {
+      div.textContent = msg;
+      div.style.color = type === "red" ? "red" : "#007cba";
+      setTimeout(() => { div.textContent = ""; }, 3000);
+    } else {
+      alert(msg);
+    }
+  }
+}
+
+
