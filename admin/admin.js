@@ -92,6 +92,8 @@ onAuthStateChanged(auth, async user => {
 });
 
 // --- Page Management Logic with Pagination ---
+
+let lastVisible = null;
 let firstVisible = null;
 let pageSize = 5;
 let pageStack = [];
