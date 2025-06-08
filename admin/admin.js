@@ -401,6 +401,7 @@ window.showSection = function(section) {
   if (section === 'comments') loadComments();
   if (section === 'settings') loadSettings();
   if (section === 'plugins') loadPlugins();
+  if (section === 'pages') loadPages();
 };
 
 // Media Library (stub)
