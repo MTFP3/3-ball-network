@@ -67,6 +67,27 @@ body {
       #login-section, #admin-dashboard, #dashboard-section, #pages-section, #media-section, #users-section, #comments-section, #settings-section, #plugins-section { max-width: 98vw; margin: 1em auto; }
       #edit-modal { width: 95vw; }
     }
+#pages-table th, #pages-table td {
+  padding: 0.5em;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+#pages-table th {
+  background: #f8f9fa;
+}
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  color: #fff;
+}
+.status-badge.published { background: #28a745; }
+.status-badge.draft { background: #6c757d; }
+#page-modal input, #page-modal select {
+  width: 100%;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+}
   </style>
 </head>
 <body>
@@ -98,7 +119,29 @@ body {
         <div id="recent-activity"></div>
       </div>
       <div id="pages-section" style="display:none;">
-        <!-- Your existing pages UI will be rendered here by JS -->
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2>Pages</h2>
+          <button onclick="openAddPageModal()">Add New Page</button>
+        </div>
+        <input id="search-pages" placeholder="Search pages..." oninput="filterPagesTable()">
+        <table id="pages-table" style="width:100%;margin-top:1em;">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- JS will render rows here -->
+          </tbody>
+        </table>
+        <div style="margin-top:1em;">
+          <button id="prev-page-btn">Previous</button>
+          <button id="next-page-btn">Next</button>
+        </div>
       </div>
       <div id="media-section" style="display:none;">
         <h2>Media Library</h2>
@@ -151,6 +194,21 @@ body {
       <div id="admin-message"></div>
       <div id="loading-spinner">Loading...</div>
     </div>
+  </div>
+  <div id="page-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; border:1px solid #ccc; padding:1em; z-index:1000; max-width:500px; width:95vw;">
+    <h3 id="page-modal-title">Add Page</h3>
+    <input id="modal-title" placeholder="Title"><br>
+    <input id="modal-path" placeholder="Path (e.g. /about)"><br>
+    <div id="modal-content-editor"></div>
+    <input id="modal-author" placeholder="Author"><br>
+    <input id="modal-date" type="date" placeholder="Date"><br>
+    <select id="modal-status">
+      <option value="published">Published</option>
+      <option value="draft">Draft</option>
+    </select><br>
+    <button onclick="saveModalPage()">Save</button>
+    <button onclick="closePageModal()">Cancel</button>
+    <div id="modal-error" style="color:red;"></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
   <script type="module" src="admin.js"></script>
