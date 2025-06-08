@@ -34,6 +34,7 @@ document.getElementById('login-btn').onclick = function() {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('admin-dashboard').style.display = 'block';
         loadPages();
+        loadAdminUsers();
       } else {
         signOut(auth);
         document.getElementById('login-error').textContent = "You are not an admin.";
@@ -52,23 +53,21 @@ onAuthStateChanged(auth, user => {
   if (user && adminEmails.map(e => e.toLowerCase()).includes(user.email.toLowerCase())) {
     document.getElementById('login-section').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
-    let html = `
-      <h2>Welcome to the Admin Panel!</h2>
-      <button id="logout-btn">Logout</button>
-    `;
-    document.getElementById('admin-dashboard').innerHTML = html;
-    document.getElementById('logout-btn').onclick = function() {
-      signOut(auth);
-    };
     loadPages();
+    loadAdminUsers();
   } else {
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('admin-dashboard').style.display = 'none';
   }
 });
 
+function showSpinner(show) {
+  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
+}
+
 // --- Page Management Logic ---
 async function loadPages() {
+  showSpinner(true);
   const pagesCol = collection(db, "pages");
   const pageSnapshot = await getDocs(pagesCol);
   let html = "<h3>Pages</h3><ul>";
@@ -76,7 +75,8 @@ async function loadPages() {
     const data = docSnap.data();
     html += `<li>
       <b>${sanitize(data.title)}</b> (${sanitize(data.path)}) 
-      <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`)">Edit</button>
+      <br>Author: ${sanitize(data.author || "")} | Date: ${sanitize(data.date || "")}
+      <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`, \`${data.author ? data.author.replace(/`/g, '\\`') : ''}\`, \`${data.date ? data.date.replace(/`/g, '\\`') : ''}\`)">Edit</button>
       <button onclick="deletePage('${docSnap.id}')">Delete</button>
     </li>`;
   });
@@ -86,41 +86,54 @@ async function loadPages() {
     <input id="new-title" placeholder="Title">
     <input id="new-path" placeholder="Path (e.g. /about)">
     <textarea id="new-content" placeholder="Content"></textarea>
+    <input id="new-author" placeholder="Author">
+    <input id="new-date" type="date" placeholder="Date">
     <button onclick="addPage()">Add Page</button>
     <div id="page-error" style="color:red;"></div>
+    <input id="search-pages" placeholder="Search pages..." oninput="filterPages()">
   `;
   document.getElementById('admin-dashboard').innerHTML = html;
+  showSpinner(false);
 }
 
 window.addPage = async function() {
   const title = document.getElementById('new-title').value;
   const path = document.getElementById('new-path').value;
   const content = document.getElementById('new-content').value;
+  const author = document.getElementById('new-author').value;
+  const date = document.getElementById('new-date').value;
   if (!title || !path) {
     document.getElementById('page-error').textContent = "Title and path are required.";
+    showMessage("Title and path are required.", "red");
     return;
   }
-  // When adding a page
   await addDoc(collection(db, "pages"), { 
     title: sanitize(title), 
     path: sanitize(path), 
-    content: sanitize(content) 
+    content: sanitize(content),
+    author: sanitize(author),
+    date: date
   });
+  showMessage("Page added!");
   loadPages();
 };
 
 window.deletePage = async function(id) {
+  if (!confirm("Are you sure you want to delete this page?")) return;
   await deleteDoc(doc(db, "pages", id));
+  showMessage("Page deleted!");
   loadPages();
 };
 
 let editingPageId = null;
 
-window.editPage = function(id, title, path, content) {
+window.editPage = function(id, title, path, content, author = "", date = "") {
   editingPageId = id;
   document.getElementById('edit-title').value = title;
   document.getElementById('edit-path').value = path;
   document.getElementById('edit-content').value = content;
+  document.getElementById('edit-author').value = author;
+  document.getElementById('edit-date').value = date;
   document.getElementById('edit-modal').style.display = 'block';
 };
 
@@ -133,17 +146,22 @@ window.saveEditPage = async function() {
   const title = document.getElementById('edit-title').value;
   const path = document.getElementById('edit-path').value;
   const content = document.getElementById('edit-content').value;
+  const author = document.getElementById('edit-author').value;
+  const date = document.getElementById('edit-date').value;
   if (!title || !path) {
     document.getElementById('edit-error').textContent = "Title and path are required.";
+    showMessage("Title and path are required.", "red");
     return;
   }
-  // When editing a page
   await setDoc(doc(db, "pages", editingPageId), { 
     title: sanitize(title), 
     path: sanitize(path), 
-    content: sanitize(content) 
+    content: sanitize(content),
+    author: sanitize(author),
+    date: date
   });
   closeEditModal();
+  showMessage("Page updated!");
   loadPages();
 };
 
@@ -152,3 +170,47 @@ function sanitize(str) {
   temp.textContent = str;
   return temp.innerHTML;
 }
+
+function showMessage(msg, color="green") {
+  const el = document.getElementById('admin-message');
+  el.textContent = msg;
+  el.style.color = color;
+  setTimeout(() => { el.textContent = ""; }, 2000);
+}
+
+window.filterPages = function() {
+  const query = document.getElementById('search-pages').value.toLowerCase();
+  const items = document.querySelectorAll('#admin-dashboard ul li');
+  items.forEach(li => {
+    li.style.display = li.textContent.toLowerCase().includes(query) ? '' : 'none';
+  });
+};
+
+// --- Admin Users Logic ---
+async function loadAdminUsers() {
+  const usersCol = collection(db, "adminUsers");
+  const usersSnapshot = await getDocs(usersCol);
+  let html = "";
+  usersSnapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    html += `<li>${sanitize(data.email)} <button onclick="removeAdminUser('${docSnap.id}')">Remove</button></li>`;
+  });
+  document.getElementById('admin-users-list').innerHTML = html;
+  document.getElementById('admin-users-section').style.display = 'block';
+}
+
+window.addAdminUser = async function() {
+  const email = document.getElementById('new-admin-email').value.trim();
+  if (!email) {
+    document.getElementById('admin-user-error').textContent = "Email required.";
+    return;
+  }
+  await addDoc(collection(db, "adminUsers"), { email: sanitize(email) });
+  document.getElementById('new-admin-email').value = "";
+  loadAdminUsers();
+};
+
+window.removeAdminUser = async function(id) {
+  await deleteDoc(doc(db, "adminUsers", id));
+  loadAdminUsers();
+};
