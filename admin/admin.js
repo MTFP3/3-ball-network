@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, collection, addDoc, getDocs, setDoc, deleteDoc, query, orderBy, limit, startAfter, startAt } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, listAll, deleteObject } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
 // Your Firebase config here
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 const loginSection = document.getElementById("login-section");
 const dashboard = document.getElementById("admin-dashboard");
@@ -71,6 +73,8 @@ logoutBtn.onclick = async () => {
 
 onAuthStateChanged(auth, async user => {
   if (user) {
+    document.getElementById('admin-email').textContent = user.email;
+    document.getElementById('admin-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email)}`;
     currentUserIsAdmin = await checkIsAdmin(user.email);
     if (currentUserIsAdmin) {
       loginSection.style.display = "none";
@@ -84,6 +88,7 @@ onAuthStateChanged(auth, async user => {
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('admin-dashboard').style.display = 'none';
   }
+  updateSidebarForRole();
 });
 
 // --- Pages Table Logic ---
@@ -135,6 +140,7 @@ function renderPagesTable(pages) {
   pages.forEach(page => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
+      <td><input type="checkbox" class="page-checkbox" value="${page.id}"></td>
       <td>${sanitize(page.title)}</td>
       <td>${sanitize(page.author || "")}</td>
       <td>${sanitize(page.date || "")}</td>
@@ -145,19 +151,25 @@ function renderPagesTable(pages) {
       </td>
       <td>
         <button onclick="openEditPageModal('${page.id}')">Edit</button>
-        <button onclick="deletePage('${page.id}')">Delete</button>
+        ${isAdmin() ? `<button onclick="deletePage('${page.id}')">Delete</button>` : ''}
       </td>
     `;
     tbody.appendChild(tr);
   });
+  // Add a bulk delete button:
+  document.getElementById('pages-section').insertAdjacentHTML('beforeend', `
+    <button onclick="bulkDeletePages()">Delete Selected</button>
+  `);
 }
 
 // Filter table by search
 window.filterPagesTable = function() {
   const query = document.getElementById('search-pages').value.toLowerCase();
+  const status = document.getElementById('filter-status').value;
   const filtered = currentPages.filter(page =>
-    (page.title && page.title.toLowerCase().includes(query)) ||
-    (page.author && page.author.toLowerCase().includes(query))
+    (!status || page.status === status) &&
+    ((page.title && page.title.toLowerCase().includes(query)) ||
+    (page.author && page.author.toLowerCase().includes(query)))
   );
   renderPagesTable(filtered);
 };
@@ -297,9 +309,16 @@ async function loadDashboard() {
   let statsHtml = '';
   let recentHtml = '';
   try {
-    const pagesSnap = await getDocs(collection(db, "pages"));
+    const [pagesSnap, usersSnap, commentsSnap] = await Promise.all([
+      getDocs(collection(db, "pages")),
+      getDocs(collection(db, "users")),
+      getDocs(collection(db, "comments"))
+    ]);
     statsHtml += `<div><b>Pages:</b> ${pagesSnap.size}</div>`;
-    statsHtml += `<div><b>Users:</b> (coming soon)</div>`;
+    statsHtml += `<div><b>Users:</b> ${usersSnap.size}</div>`;
+    statsHtml += `<div><b>Comments:</b> ${commentsSnap.size}</div>`;
+    // Media count (optional, if you want to count files in storage)
+    // statsHtml += `<div><b>Media:</b> ...</div>`;
     recentHtml += `<h3>Recent Activity</h3><ul>`;
     pagesSnap.docs.slice(-5).forEach(docSnap => {
       const d = docSnap.data();
@@ -318,7 +337,7 @@ async function loadDashboard() {
 window.showSection = function(section) {
   const sections = [
     'dashboard-section', 'pages-section', 'media-section', 'users-section',
-    'comments-section', 'settings-section', 'plugins-section'
+    'comments-section', 'settings-section', 'plugins-section', 'audit-section'
   ];
   sections.forEach(id => {
     const el = document.getElementById(id);
@@ -335,37 +354,217 @@ window.showSection = function(section) {
   if (section === 'settings') loadSettings();
   if (section === 'plugins') loadPlugins();
   if (section === 'pages') loadPages();
+  if (section === 'audit') loadAuditLog();
 };
 
-// --- Media Library (stub) ---
-function loadMedia() {
-  document.getElementById('media-list').innerHTML = 'Media library coming soon!';
+// --- Media Library with Firebase Storage ---
+async function loadMedia() {
+  const list = document.getElementById('media-list');
+  list.innerHTML = "Loading...";
+  try {
+    const mediaFolder = storageRef(storage, 'uploads/');
+    const res = await listAll(mediaFolder);
+    // Fetch all captions
+    const metaSnap = await getDocs(collection(db, "mediaMeta"));
+    const metaMap = {};
+    metaSnap.forEach(doc => { metaMap[doc.data().path] = doc.data().caption; });
+    list.innerHTML = "";
+    for (const itemRef of res.items) {
+      const url = await getDownloadURL(itemRef);
+      const caption = metaMap[itemRef.fullPath] || "";
+      const div = document.createElement('div');
+      div.style.display = "inline-block";
+      div.style.margin = "5px";
+      div.innerHTML = `
+        <img src="${url}" style="max-width:120px;display:block;margin-bottom:4px;">
+        <div style="font-size:0.9em;color:#555;">${sanitize(caption)}</div>
+        <button onclick="deleteMedia('${itemRef.fullPath}')">Delete</button>
+      `;
+      list.appendChild(div);
+    }
+    if (res.items.length === 0) list.innerHTML = "No media uploaded yet.";
+  } catch (e) {
+    list.innerHTML = "Failed to load media.";
+  }
 }
-document.getElementById('media-upload').onchange = function() {
-  alert('Media upload coming soon!');
+
+document.getElementById('media-upload').onchange = async function(e) {
+  const files = Array.from(e.target.files);
+  const caption = document.getElementById('media-caption').value;
+  if (!files.length) return;
+  showSpinner(true);
+  try {
+    for (const file of files) {
+      const fileRef = storageRef(storage, 'uploads/' + Date.now() + '-' + file.name);
+      await uploadBytes(fileRef, file);
+      // Save metadata
+      await addDoc(collection(db, "mediaMeta"), {
+        path: fileRef.fullPath,
+        caption: caption,
+        uploaded: new Date().toISOString()
+      });
+    }
+    showMessage("Upload complete!");
+    loadMedia();
+  } catch (e) {
+    showMessage("Upload failed.", "red");
+  }
+  showSpinner(false);
 };
 
-// --- User Management (stub) ---
-function addUser() {
-  alert('User management coming soon!');
+window.deleteMedia = async function(path) {
+  if (!confirm("Delete this file?")) return;
+  showSpinner(true);
+  try {
+    await deleteObject(storageRef(storage, path));
+    showMessage("Deleted!");
+    loadMedia();
+  } catch (e) {
+    showMessage("Delete failed.", "red");
+  }
+  showSpinner(false);
+};
+
+// --- User Management ---
+window.addUser = async function() {
+  const email = document.getElementById('new-user-email').value.trim();
+  const role = document.getElementById('new-user-role').value;
+  const errorDiv = document.getElementById('user-error');
+  errorDiv.textContent = "";
+  if (!email) {
+    errorDiv.textContent = "Email required.";
+    return;
+  }
+  try {
+    await addDoc(collection(db, "users"), { email, role });
+    document.getElementById('new-user-email').value = "";
+    loadUsers();
+    showMessage("User added!");
+  } catch (e) {
+    errorDiv.textContent = "Failed to add user.";
+  }
+};
+
+async function loadUsers() {
+  const list = document.getElementById('users-list');
+  list.innerHTML = "Loading...";
+  try {
+    const snap = await getDocs(collection(db, "users"));
+    list.innerHTML = "";
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const li = document.createElement('li');
+      li.innerHTML = `${sanitize(d.email)} (${sanitize(d.role)}) <button onclick="deleteUser('${docSnap.id}')">Remove</button>`;
+      list.appendChild(li);
+    });
+  } catch (e) {
+    list.innerHTML = "Failed to load users.";
+  }
 }
-function loadUsers() {
-  document.getElementById('users-list').innerHTML = 'User list coming soon!';
+
+// Use this everywhere you want to check for admin:
+function isAdmin() {
+  return currentUserIsAdmin;
 }
+
+// Example: Only show delete button if admin
+function renderPagesTable(pages) {
+  const tbody = document.getElementById('pages-table').querySelector('tbody');
+  tbody.innerHTML = "";
+  pages.forEach(page => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="checkbox" class="page-checkbox" value="${page.id}"></td>
+      <td>${sanitize(page.title)}</td>
+      <td>${sanitize(page.author || "")}</td>
+      <td>${sanitize(page.date || "")}</td>
+      <td>
+        <span class="status-badge ${page.status === 'published' ? 'published' : 'draft'}">
+          ${page.status ? capitalize(page.status) : 'Draft'}
+        </span>
+      </td>
+      <td>
+        <button onclick="openEditPageModal('${page.id}')">Edit</button>
+        ${isAdmin() ? `<button onclick="deletePage('${page.id}')">Delete</button>` : ''}
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// In user management, only admins can remove users
+window.deleteUser = async function(id) {
+  if (!isAdmin()) {
+    showMessage("Only admins can remove users.", "red");
+    return;
+  }
+  if (!confirm("Remove this user?")) return;
+  try {
+    await deleteDoc(doc(db, "users", id));
+    loadUsers();
+    showMessage("User removed!");
+  } catch (e) {
+    showMessage("Failed to remove user.", "red");
+  }
+};
 
 // --- Comments (stub) ---
 function loadComments() {
-  document.getElementById('comments-list').innerHTML = 'Comments moderation coming soon!';
+  const list = document.getElementById('comments-list');
+  list.innerHTML = "Loading...";
+  try {
+    const snap = await getDocs(collection(db, "comments"));
+    list.innerHTML = "";
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${sanitize(d.author || "Anon")}:</b> ${sanitize(d.text)} <button onclick="deleteComment('${docSnap.id}')">Delete</button>`;
+      list.appendChild(li);
+    });
+  } catch (e) {
+    list.innerHTML = "Failed to load comments.";
+  }
 }
 
+window.deleteComment = async function(id) {
+  if (!confirm("Delete this comment?")) return;
+  try {
+    await deleteDoc(doc(db, "comments", id));
+    loadComments();
+    showMessage("Comment deleted!");
+  } catch (e) {
+    showMessage("Failed to delete comment.", "red");
+  }
+};
+
 // --- Settings (stub) ---
-function saveSettings() {
-  document.getElementById('settings-message').textContent = 'Settings saved (not really, just a stub)!';
-}
-function loadSettings() {
-  document.getElementById('site-title').value = '3 Ball Network';
-  document.getElementById('site-logo').value = '';
-  document.getElementById('site-theme').value = '#007cba';
+window.saveSettings = async function() {
+  const title = document.getElementById('site-title').value;
+  const logo = document.getElementById('site-logo').value;
+  const theme = document.getElementById('site-theme').value;
+  try {
+    await setDoc(doc(db, "settings", "site"), { title, logo, theme });
+    document.getElementById('settings-message').textContent = "Settings saved!";
+  } catch (e) {
+    document.getElementById('settings-message').textContent = "Failed to save settings.";
+  }
+};
+
+async function loadSettings() {
+  try {
+    const snap = await getDoc(doc(db, "settings", "site"));
+    if (snap.exists()) {
+      const d = snap.data();
+      document.getElementById('site-title').value = d.title || '';
+      document.getElementById('site-logo').value = d.logo || '';
+      document.getElementById('site-theme').value = d.theme || '#007cba';
+    }
+  } catch (e) {
+    // fallback to defaults
+    document.getElementById('site-title').value = '3 Ball Network';
+    document.getElementById('site-logo').value = '';
+    document.getElementById('site-theme').value = '#007cba';
+  }
 }
 
 // --- Plugins (stub) ---
@@ -373,30 +572,43 @@ function loadPlugins() {
   document.getElementById('plugins-list').innerHTML = 'Plugins/widgets coming soon!';
 }
 
-// --- Utility ---
-function showSpinner(show) {
-  document.getElementById('loading-spinner').style.display = show ? 'block' : 'none';
-}
-function showMessage(msg, color = "green") {
-  const el = document.getElementById('admin-message');
-  el.textContent = msg;
-  el.style.color = color;
-  setTimeout(() => { el.textContent = ""; }, 3000);
-}
-function sanitize(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
+// --- UI Utility Functions ---
 
-// --- Dark Mode ---
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
+  document.getElementById('wp-sidebar').classList.toggle('dark-mode');
   localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 }
-if (localStorage.getItem('darkMode') === 'true') {
-  document.body.classList.add('dark-mode');
+if (localStorage.getItem('darkMode') === 'true') toggleDarkMode();
+
+function showToast(msg, type = "primary") {
+  const toast = document.getElementById('admin-toast');
+  const body = document.getElementById('admin-toast-body');
+  toast.className = `toast align-items-center text-bg-${type} border-0`;
+  body.textContent = msg;
+  new bootstrap.Toast(toast).show();
 }
+
+function showSpinner(show = true) {
+  document.getElementById('loading-overlay').style.display = show ? 'flex' : 'none';
+}
+
+function toggleSidebar() {
+  document.getElementById('wp-sidebar').classList.toggle('d-none');
+}
+
+// --- Section Switching ---
+
+function showSection(section) {
+  // Hide all sections
+  document.querySelectorAll('#admin-dashboard > div[id$="-section"], #admin-dashboard > div[id$="-section"]').forEach(div => {
+    div.style.display = 'none';
+  });
+  // Remove active from all sidebar links
+  document.querySelectorAll('#wp-sidebar ul li a').forEach(a => a.classList.remove('active'));
+  // Show selected section
+  if (section === 'dashboard') {
+    document.getElementById('dashboard-section').style.display = '';
+  } else {
+    const sec = document.getElementById(section + '-section');
+    if
