@@ -98,32 +98,16 @@ onAuthStateChanged(auth, async user => {
   }
 });
 
-// --- Page Management Logic with Pagination ---
-
+// --- Pages Table Logic ---
 let lastVisible = null;
 let firstVisible = null;
 let pageSize = 5;
 let pageStack = [];
+let currentPages = [];
+let editingPageId = null;
+let quillModal = null;
 
-// --- Quill Editors ---
-let quillEdit = null;
-let quillAdd = null;
-
-// --- Audit Log ---
-async function logAudit(action, details) {
-  try {
-    await addDoc(collection(db, "auditLogs"), {
-      action,
-      details,
-      user: auth.currentUser ? auth.currentUser.email : "unknown",
-      timestamp: new Date().toISOString()
-    });
-  } catch (e) {
-    // Optionally handle audit log errors
-  }
-}
-
-// --- Page Management Logic with Pagination ---
+// Load pages as table
 async function loadPages(direction = "next") {
   showSpinner(true);
   try {
@@ -136,26 +120,9 @@ async function loadPages(direction = "next") {
       q = query(collection(db, "pages"), orderBy("title"), startAt(prev), limit(pageSize));
     }
     const pageSnapshot = await getDocs(q);
-    let html = "<h3>Pages</h3><ul>";
-    pageSnapshot.forEach(docSnap => {
-      const data = docSnap.data();
-      html += `<li>
-        <b>${sanitize(data.title)}</b> (${sanitize(data.path)}) 
-        <br>Author: ${sanitize(data.author || "")} | Date: ${sanitize(data.date || "")}`;
-      // Only allow edit/delete for admins
-      if (currentUserIsAdmin) {
-        html += `
-        <button onclick="editPage('${docSnap.id}', \`${data.title.replace(/`/g, '\\`')}\`, \`${data.path.replace(/`/g, '\\`')}\`, \`${data.content ? data.content.replace(/`/g, '\\`') : ''}\`, \`${data.author ? data.author.replace(/`/g, '\\`') : ''}\`, \`${data.date ? data.date.replace(/`/g, '\\`') : ''}\`)">Edit</button>
-        <button onclick="deletePage('${docSnap.id}')">Delete</button>`;
-      }
-      html += `</li>`;
-    });
-    html += "</ul>";
-    html += `
-      <button id="prev-page-btn">Previous</button>
-      <button id="next-page-btn">Next</button>
-    `;
-    document.getElementById('pages-section').innerHTML = html;
+    currentPages = pageSnapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+
+    renderPagesTable(currentPages);
 
     // Pagination state
     firstVisible = pageSnapshot.docs[0];
@@ -164,63 +131,142 @@ async function loadPages(direction = "next") {
 
     document.getElementById('prev-page-btn').onclick = () => loadPages("prev");
     document.getElementById('next-page-btn').onclick = () => loadPages("next");
-
-    // Re-initialize Add Page Quill after rendering
-    if (quillAdd) { quillAdd = null; }
-    setTimeout(() => {
-      if (!quillAdd && document.getElementById('new-content-editor')) {
-        quillAdd = new Quill('#new-content-editor', { theme: 'snow' });
-      }
-    }, 0);
-
-    // Re-attach logout and other events
-    document.getElementById('logout-btn').onclick = function() {
-      signOut(auth);
-    };
-    document.getElementById('export-pages-btn').onclick = exportPages;
-    document.getElementById('import-pages-btn').onclick = function() {
-      document.getElementById('import-pages-file').click();
-    };
-    document.getElementById('import-pages-file').onchange = importPages;
-    document.getElementById('toggle-dark-mode').onclick = toggleDarkMode;
   } catch (e) {
     showMessage("Failed to load pages.", "red");
   }
   showSpinner(false);
 }
 
-window.addPage = async function() {
-  if (!currentUserIsAdmin) return;
+// Render table
+function renderPagesTable(pages) {
+  const tbody = document.getElementById('pages-table').querySelector('tbody');
+  tbody.innerHTML = "";
+  pages.forEach(page => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${sanitize(page.title)}</td>
+      <td>${sanitize(page.author || "")}</td>
+      <td>${sanitize(page.date || "")}</td>
+      <td>
+        <span class="status-badge ${page.status === 'published' ? 'published' : 'draft'}">
+          ${page.status ? capitalize(page.status) : 'Draft'}
+        </span>
+      </td>
+      <td>
+        <button onclick="openEditPageModal('${page.id}')">Edit</button>
+        <button onclick="deletePage('${page.id}')">Delete</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Filter table by search
+window.filterPagesTable = function() {
+  const query = document.getElementById('search-pages').value.toLowerCase();
+  const filtered = currentPages.filter(page =>
+    (page.title && page.title.toLowerCase().includes(query)) ||
+    (page.author && page.author.toLowerCase().includes(query))
+  );
+  renderPagesTable(filtered);
+};
+
+// Open Add Page Modal
+window.openAddPageModal = function() {
+  editingPageId = null;
+  document.getElementById('page-modal-title').textContent = "Add Page";
+  document.getElementById('modal-title').value = "";
+  document.getElementById('modal-path').value = "";
+  document.getElementById('modal-author').value = "";
+  document.getElementById('modal-date').value = "";
+  document.getElementById('modal-status').value = "published";
+  document.getElementById('modal-error').textContent = "";
+  document.getElementById('page-modal').style.display = 'block';
+  setTimeout(() => {
+    if (!quillModal && document.getElementById('modal-content-editor')) {
+      quillModal = new Quill('#modal-content-editor', { theme: 'snow' });
+    }
+    if (quillModal) quillModal.setContents([]);
+  }, 0);
+};
+
+// Open Edit Page Modal
+window.openEditPageModal = async function(id) {
+  editingPageId = id;
+  const docRef = doc(db, "pages", id);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) return;
+  const data = docSnap.data();
+  document.getElementById('page-modal-title').textContent = "Edit Page";
+  document.getElementById('modal-title').value = data.title || "";
+  document.getElementById('modal-path').value = data.path || "";
+  document.getElementById('modal-author').value = data.author || "";
+  document.getElementById('modal-date').value = data.date || "";
+  document.getElementById('modal-status').value = data.status || "draft";
+  document.getElementById('modal-error').textContent = "";
+  document.getElementById('page-modal').style.display = 'block';
+  setTimeout(() => {
+    if (!quillModal && document.getElementById('modal-content-editor')) {
+      quillModal = new Quill('#modal-content-editor', { theme: 'snow' });
+    }
+    if (quillModal) quillModal.root.innerHTML = data.content || "";
+  }, 0);
+};
+
+// Save (add or edit) page
+window.saveModalPage = async function() {
   showSpinner(true);
-  const title = document.getElementById('new-title').value;
-  const path = document.getElementById('new-path').value;
-  const content = quillAdd ? quillAdd.root.innerHTML : "";
-  const author = document.getElementById('new-author').value;
-  const date = document.getElementById('new-date').value;
+  const title = document.getElementById('modal-title').value;
+  const path = document.getElementById('modal-path').value;
+  const author = document.getElementById('modal-author').value;
+  const date = document.getElementById('modal-date').value;
+  const status = document.getElementById('modal-status').value;
+  const content = quillModal ? quillModal.root.innerHTML : "";
   if (!title || !path) {
-    document.getElementById('page-error').textContent = "Title and path are required.";
-    showMessage("Title and path are required.", "red");
+    document.getElementById('modal-error').textContent = "Title and path are required.";
     showSpinner(false);
     return;
   }
   try {
-    await addDoc(collection(db, "pages"), { 
-      title: sanitize(title), 
-      path: sanitize(path), 
-      content: sanitize(content),
-      author: sanitize(author),
-      date: date
-    });
-    await logAudit("addPage", { title, path });
-    showMessage("Page added!");
+    if (editingPageId) {
+      await setDoc(doc(db, "pages", editingPageId), {
+        title: sanitize(title),
+        path: sanitize(path),
+        content: sanitize(content),
+        author: sanitize(author),
+        date: date,
+        status: status
+      });
+      await logAudit("editPage", { id: editingPageId, title, path });
+      showMessage("Page updated!");
+    } else {
+      await addDoc(collection(db, "pages"), {
+        title: sanitize(title),
+        path: sanitize(path),
+        content: sanitize(content),
+        author: sanitize(author),
+        date: date,
+        status: status
+      });
+      await logAudit("addPage", { title, path });
+      showMessage("Page added!");
+    }
+    closePageModal();
     loadPages();
-    if (quillAdd) quillAdd.setContents([]);
   } catch (e) {
-    showMessage("Failed to add page.", "red");
+    document.getElementById('modal-error').textContent = "Failed to save page.";
   }
   showSpinner(false);
 };
 
+// Close modal
+window.closePageModal = function() {
+  document.getElementById('page-modal').style.display = 'none';
+  editingPageId = null;
+  if (quillModal) quillModal.setContents([]);
+};
+
+// Delete page
 window.deletePage = async function(id) {
   if (!currentUserIsAdmin) return;
   if (!confirm("Are you sure you want to delete this page?")) return;
@@ -236,126 +282,35 @@ window.deletePage = async function(id) {
   showSpinner(false);
 };
 
-let editingPageId = null;
-
-window.editPage = function(id, title, path, content, author = "", date = "") {
-  if (!currentUserIsAdmin) return;
-  editingPageId = id;
-  document.getElementById('edit-title').value = title;
-  document.getElementById('edit-path').value = path;
-  document.getElementById('edit-author').value = author;
-  document.getElementById('edit-date').value = date;
-  document.getElementById('edit-modal').style.display = 'block';
-  setTimeout(() => {
-    if (!quillEdit && document.getElementById('edit-content-editor')) {
-      quillEdit = new Quill('#edit-content-editor', { theme: 'snow' });
-    }
-    if (quillEdit) quillEdit.root.innerHTML = content || "";
-  }, 0);
-  document.getElementById('page-preview').style.display = 'none';
-};
-
-window.closeEditModal = function() {
-  document.getElementById('edit-modal').style.display = 'none';
-  editingPageId = null;
-  if (quillEdit) quillEdit.setContents([]);
-};
-
-window.saveEditPage = async function() {
-  if (!currentUserIsAdmin) return;
-  showSpinner(true);
-  const content = quillEdit ? quillEdit.root.innerHTML : "";
-  const title = document.getElementById('edit-title').value;
-  const path = document.getElementById('edit-path').value;
-  const author = document.getElementById('edit-author').value;
-  const date = document.getElementById('edit-date').value;
-  if (!title || !path) {
-    document.getElementById('edit-error').textContent = "Title and path are required.";
-    showMessage("Title and path are required.", "red");
-    showSpinner(false);
-    return;
-  }
-  try {
-    await setDoc(doc(db, "pages", editingPageId), { 
-      title: sanitize(title), 
-      path: sanitize(path), 
-      content: sanitize(content),
-      author: sanitize(author),
-      date: date
-    });
-    await logAudit("editPage", { id: editingPageId, title, path });
-    closeEditModal();
-    showMessage("Page updated!");
-    loadPages();
-  } catch (e) {
-    showMessage("Failed to update page.", "red");
-  }
-  showSpinner(false);
-};
-
-window.previewPage = function() {
-  const content = quillEdit ? quillEdit.root.innerHTML : "";
-  const previewDiv = document.getElementById('page-preview');
-  previewDiv.innerHTML = content;
-  previewDiv.style.display = 'block';
-};
-
-window.filterPages = function() {
-  const query = document.getElementById('search-pages').value.toLowerCase();
-  const items = document.querySelectorAll('#pages-section ul li');
-  items.forEach(li => {
-    li.style.display = li.textContent.toLowerCase().includes(query) ? '' : 'none';
-  });
-};
-
-// --- Export/Import Pages ---
-async function exportPages() {
-  showSpinner(true);
-  try {
-    const pagesCol = collection(db, "pages");
-    const pageSnapshot = await getDocs(pagesCol);
-    const pages = [];
-    pageSnapshot.forEach(docSnap => {
-      pages.push({ id: docSnap.id, ...docSnap.data() });
-    });
-    const blob = new Blob([JSON.stringify(pages, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = "pages.json";
-    a.click();
-    URL.revokeObjectURL(url);
-    showMessage("Exported pages as JSON!");
-    await logAudit("exportPages", {});
-  } catch (e) {
-    showMessage("Failed to export pages.", "red");
-  }
-  showSpinner(false);
+// Utility for status badge
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-async function importPages(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  showSpinner(true);
+// Add this CSS to your <style> for status badges:
+`
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  color: #fff;
+}
+.status-badge.published { background: #28a745; }
+.status-badge.draft { background: #6c757d; }
+`
+
+// --- Audit Log ---
+async function logAudit(action, details) {
   try {
-    const text = await file.text();
-    const pages = JSON.parse(text);
-    for (const page of pages) {
-      await addDoc(collection(db, "pages"), {
-        title: sanitize(page.title),
-        path: sanitize(page.path),
-        content: sanitize(page.content),
-        author: sanitize(page.author),
-        date: page.date
-      });
-    }
-    showMessage("Imported pages!");
-    await logAudit("importPages", { count: pages.length });
-    loadPages();
+    await addDoc(collection(db, "auditLogs"), {
+      action,
+      details,
+      user: auth.currentUser ? auth.currentUser.email : "unknown",
+      timestamp: new Date().toISOString()
+    });
   } catch (e) {
-    showMessage("Failed to import pages.", "red");
+    // Optionally handle audit log errors
   }
-  showSpinner(false);
 }
 
 // --- Audit Log Viewing ---
