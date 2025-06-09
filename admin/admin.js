@@ -23,7 +23,7 @@ const loginSection = document.getElementById("login-section");
 const dashboard = document.getElementById("admin-dashboard");
 const loginBtn = document.getElementById("login-btn");
 const loginError = document.getElementById("login-error");
-const logoutBtn = document.getElementById("logout-btn");
+const logoutBtn = document.querySelector('a[title="Logout"]');
 
 let currentUserIsAdmin = false;
 
@@ -65,7 +65,8 @@ loginBtn.onclick = async () => {
   }
 };
 
-logoutBtn.onclick = async () => {
+logoutBtn.onclick = async (e) => {
+  e.preventDefault();
   await signOut(auth);
   dashboard.style.display = "none";
   loginSection.style.display = "block";
