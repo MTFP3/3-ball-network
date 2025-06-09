@@ -314,8 +314,6 @@ async function loadDashboard() {
     statsHtml += `<div><b>Pages:</b> ${pagesSnap.size}</div>`;
     statsHtml += `<div><b>Users:</b> ${usersSnap.size}</div>`;
     statsHtml += `<div><b>Comments:</b> ${commentsSnap.size}</div>`;
-    // Media count (optional, if you want to count files in storage)
-    // statsHtml += `<div><b>Media:</b> ...</div>`;
     recentHtml += `<h3>Recent Activity</h3><ul>`;
     pagesSnap.docs.slice(-5).forEach(docSnap => {
       const d = docSnap.data();
@@ -323,6 +321,7 @@ async function loadDashboard() {
     });
     recentHtml += `</ul>`;
   } catch (e) {
+    console.error("Dashboard load error:", e); // <--- Add this line
     statsHtml = "Failed to load stats.";
     recentHtml = "";
   }
