@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - 3 Ball Network</title>
+  <style>
+    .password-container { display: flex; align-items: center; }
+    .password-container button { margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <h2>Register</h2>
+  <form id="register-form" autocomplete="off">
+    <label>
+      Email<br>
+      <input type="email" id="reg-email" required autocomplete="username">
+    </label><br><br>
+    <label>
+      Password<br>
+      <span class="password-container">
+        <input type="password" id="reg-password" required autocomplete="new-password">
+        <button type="button" id="toggle-password">Show</button>
+      </span>
+    </label><br><br>
+    <label>
+      Role<br>
+      <select id="reg-role" required>
+        <option value="">Select Role</option>
+        <option value="player">Player</option>
+        <option value="coach">Coach</option>
+        <option value="scout">Scout</option>
+        <option value="fan">Fan</option>
+      </select>
+    </label><br><br>
+    <button type="submit">Register</button>
+    <div id="register-loading" style="display:none;">Loading...</div>
+    <div id="reg-error" style="color:red"></div>
+  </form>
+  <p>Already have an account? <a href="login.html">Login here</a></p>
+  <script type="module" src="register.js"></script>
+</body>
+</html>
