@@ -43,6 +43,7 @@ async function checkIsAdmin(email) {
 // --- Login Logic ---
 loginBtn.onclick = async () => {
   loginError.textContent = "";
+  showSpinner(true); // Show spinner on login click
   const email = document.getElementById("admin-email").value.trim();
   const password = document.getElementById("admin-password").value;
 
@@ -55,16 +56,16 @@ loginBtn.onclick = async () => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       showSection('dashboard');
-      showSpinner(false); // <--- Add this line
+      showSpinner(false); // Hide spinner on login success
     } else {
       loginError.textContent = "You are not an admin.";
       await signOut(auth);
-      showSpinner(false); // <--- Add this line
+      showSpinner(false); // Hide spinner if not admin
     }
   } catch (error) {
     loginError.textContent = "Login failed. Please try again.";
     document.getElementById('admin-password').value = "";
-    showSpinner(false); // <--- Add this line
+    showSpinner(false); // Hide spinner on error
   }
 };
 
@@ -84,13 +85,16 @@ onAuthStateChanged(auth, async user => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       showSection('dashboard');
+      showSpinner(false); // Hide spinner if user is already logged in
     } else {
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('admin-dashboard').style.display = 'none';
+      showSpinner(false); // Hide spinner if not admin
     }
   } else {
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('admin-dashboard').style.display = 'none';
+    showSpinner(false); // Hide spinner if not logged in
   }
   updateSidebarForRole();
 });
@@ -306,7 +310,7 @@ async function logAudit(action, details) {
 
 // --- Dashboard Loading ---
 async function loadDashboard() {
-  showSpinner(true); // <--- Add this line
+  showSpinner(true);
   let statsHtml = '';
   let recentHtml = '';
   try {
@@ -331,7 +335,7 @@ async function loadDashboard() {
   }
   document.getElementById('dashboard-stats').innerHTML = statsHtml;
   document.getElementById('recent-activity').innerHTML = recentHtml;
-  showSpinner(false); // <--- Add this line
+  showSpinner(false);
 }
 
 // --- Section switching logic ---
