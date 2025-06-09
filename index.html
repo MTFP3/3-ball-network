@@ -5,34 +5,391 @@
   <title>3 Ball Network</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f8f9fa; color: #222; }
-    header { background: #007cba; color: #fff; padding: 2em 1em; text-align: center; }
-    nav { background: #fff; padding: 1em 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    nav a { margin: 0 1em; color: #007cba; text-decoration: none; font-weight: 500; }
-    nav a:hover { text-decoration: underline; }
-    .hero { max-width: 700px; margin: 2em auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2em; text-align: center; }
-    .portal-links { margin: 2em 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5em; }
-    .portal-link { background: #007cba; color: #fff; padding: 1em 2em; border-radius: 8px; text-decoration: none; font-size: 1.1em; transition: background 0.2s; }
-    .portal-link:hover { background: #005f8a; }
-    footer { text-align: center; color: #888; margin: 3em 0 1em 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: #222;
+      min-height: 100vh;
+    }
+    header {
+      background: transparent;
+      text-align: center;
+      padding: 2.5em 1em 1em 1em;
+    }
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 0.5em;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+    }
+    .site-title {
+      font-size: 2.5em;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fff;
+      margin: 0.2em 0 0.1em 0;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .site-tagline {
+      color: #e0fbfc;
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+    }
+    nav {
+      background: rgba(255,255,255,0.95);
+      padding: 1em 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      text-align: center;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto 1.5em auto;
+      max-width: 700px;
+    }
+    nav a {
+      margin: 0 1.2em;
+      color: #007cba;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.08em;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #00b4d8;
+      text-decoration: underline;
+    }
+    .hero {
+      max-width: 700px;
+      margin: 2.5em auto 2em auto;
+      background: rgba(255,255,255,0.97);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2.5em 2em 2em 2em;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -60px; left: -60px; width: 180px; height: 180px;
+      background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
+      opacity: 0.18;
+      z-index: 0;
+    }
+    .hero h2 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+      color: #007cba;
+      font-weight: 700;
+      letter-spacing: 1px;
+      z-index: 1;
+      position: relative;
+    }
+    .hero p {
+      font-size: 1.15em;
+      color: #444;
+      margin-bottom: 2em;
+      z-index: 1;
+      position: relative;
+    }
+    .portal-links {
+      margin: 2em 0 1em 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5em;
+      z-index: 1;
+      position: relative;
+    }
+    .portal-link {
+      background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+      color: #fff;
+      padding: 1.1em 2.2em;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1.15em;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .portal-link:active::after {
+      content: "";
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 0; height: 0;
+      background: rgba(255,255,255,0.4);
+      border-radius: 100%;
+      transform: translate(-50%, -50%);
+      animation: ripple 0.5s linear;
+      z-index: 2;
+    }
+    @keyframes ripple {
+      to {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+      }
+    }
+    .portal-link:hover {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+    }
+    .spotlight {
+      margin-top: 2.5em;
+      background: rgba(0,124,186,0.07);
+      border-radius: 12px;
+      padding: 1.5em 1em;
+      font-size: 1.08em;
+      color: #007cba;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    footer {
+      text-align: center;
+      color: #e0fbfc;
+      margin: 3em 0 1em 0;
+      font-size: 1em;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.10);
+    }
+    .cta-banner {
+      background: rgba(255,255,255,0.95);
+      padding: 1.5em 1em;
+      border-radius: 12px;
+      text-align: center;
+      margin: 2em auto;
+      max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .cta-banner h3 {
+      margin: 0 0 0.5em 0;
+      color: #007cba;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+    .features {
+      max-width: 700px;
+      margin: 3em auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5em;
+    }
+    .feature {
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding: 2em 1.5em;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    }
+    .feature h4 {
+      font-size: 1.3em;
+      margin-bottom: 0.5em;
+      color: #007cba;
+      font-weight: 700;
+    }
+    .feature p {
+      font-size: 1em;
+      color: #555;
+      margin: 0;
+    }
+    .social-links {
+      text-align: center;
+      margin: 2em 0;
+    }
+    .social-links a {
+      margin: 0 1em;
+      color: #007cba;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .social-links a:hover {
+      color: #00b4d8;
+      text-decoration: underline;
+    }
+    .faq-section {
+      max-width: 700px;
+      margin: 3em auto 2em auto;
+      background: rgba(255,255,255,0.97);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2em 2em 1em 2em;
+    }
+    .faq-section h3 {
+      text-align: center;
+      color: #007cba;
+      margin-bottom: 1em;
+    }
+    .faq {
+      margin: 1.5em 0;
+    }
+    .faq-question {
+      width: 100%;
+      background: #007cba;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 1em;
+      text-align: left;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 8px;
+      margin: 0.5em 0 0 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .faq-question:hover, .faq-question.active {
+      background: #00b4d8;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      background: #f1f8fb;
+      color: #222;
+      border-radius: 0 0 8px 8px;
+      padding: 0 1em;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.3s;
+      font-size: 1em;
+    }
+    .faq-question.active + .faq-answer {
+      max-height: 200px;
+      padding: 1em;
+      margin-bottom: 0.5em;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .hero, .cta-banner, .features, .faq-section {
+      animation: fadeInUp 0.9s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (max-width: 600px) {
+      .hero, nav { max-width: 98vw; padding: 1em; }
+      .portal-link { padding: 1em 1em; font-size: 1em; }
+    }
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const faqQuestions = document.querySelectorAll(".faq-question");
+      faqQuestions.forEach(question => {
+        question.addEventListener("click", function() {
+          const answer = this.nextElementSibling;
+          const isVisible = answer.style.display === "block";
+          document.querySelectorAll(".faq-answer").forEach(ans => ans.style.display = "none");
+          answer.style.display = isVisible ? "none" : "block";
+        });
+      });
+    });
+  </script>
+  <script>
+    // FAQ accordion logic
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Close others
+        document.querySelectorAll('.faq-question').forEach(b => {
+          if (b !== btn) b.classList.remove('active');
+        });
+        document.querySelectorAll('.faq-answer').forEach(ans => {
+          if (ans.previousElementSibling !== btn) ans.style.maxHeight = null;
+        });
+        // Toggle this one
+        btn.classList.toggle('active');
+        const answer = btn.nextElementSibling;
+        if (btn.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+          answer.style.maxHeight = null;
+        }
+      });
+    });
+  </script>
+  <script>
+    // Animated counters
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.counter').forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-count');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / 60);
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    });
+  </script>
+  <script>
+    // Scroll-to-top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.onscroll = function() {
+      scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    };
+    scrollBtn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
+  <script>
+    // Fade-in on scroll
+    document.addEventListener("DOMContentLoaded", function() {
+      const faders = document.querySelectorAll('.fade-in-section');
+      const appearOptions = { threshold: 0.15 };
+      const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, appearOptions);
+      faders.forEach(fader => appearOnScroll.observe(fader));
+    });
+  </script>
 </head>
 <body>
   <header>
-    <h1>3 Ball Network</h1>
-    <p>Connecting Players, Coaches, Scouts, and Fans</p>
+    <img src="logo.png" alt="3 Ball Network Logo" class="logo">
+    <div class="site-title">3 Ball Network</div>
+    <div class="site-tagline">Connecting Players, Coaches, Scouts, and Fans</div>
   </header>
   <nav>
     <a href="/">Home</a>
     <a href="/users/registration/">Register</a>
     <a href="/users/login.html">Login</a>
-    <a href="/admin/">Admin</a>
   </nav>
-  <div class="hero">
+  <div class="hero fade-in-section">
     <h2>Welcome to the 3 Ball Network</h2>
     <p>
-      Join our community to connect, discover talent, and grow your basketball journey.<br>
-      Choose your portal to get started:
+      Discover your basketball journey.<br>
+      Whether you're a player, coach, scout, or fan, there's a place for you here.<br>
+      <b>Choose your portal to get started:</b>
     </p>
     <div class="portal-links">
       <a class="portal-link" href="/users/player/">Player Portal</a>
@@ -40,7 +397,54 @@
       <a class="portal-link" href="/users/scout/">Scout Portal</a>
       <a class="portal-link" href="/users/fan/">Fan Portal</a>
     </div>
+    <div class="spotlight">
+      <strong>Spotlight:</strong> <em>Join now and be part of the fastest-growing basketball network. Connect, showcase your talent, and get discovered!</em>
+    </div>
   </div>
+  <div class="cta-banner fade-in-section">
+    <h3>Ready to elevate your game?</h3>
+    <a class="portal-link" href="/users/registration/">Join Now</a>
+  </div>
+  <div class="features fade-in-section">
+    <div class="feature">
+      <h4>Verified Profiles</h4>
+      <p><span class="counter" data-count="1200">0</span>+ users verified</p>
+    </div>
+    <div class="feature">
+      <h4>Direct Messaging</h4>
+      <p><span class="counter" data-count="350">0</span>+ messages sent daily</p>
+    </div>
+    <div class="feature">
+      <h4>Talent Showcases</h4>
+      <p><span class="counter" data-count="75">0</span>+ highlights shared</p>
+    </div>
+  </div>
+  <div class="social-links">
+    <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a>
+    <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a>
+  </div>
+  <div class="faq-section fade-in-section">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq">
+      <button class="faq-question">What is 3 Ball Network?</button>
+      <div class="faq-answer">
+        3 Ball Network is a platform connecting basketball players, coaches, scouts, and fans to grow their network, discover talent, and share their journey.
+      </div>
+      <button class="faq-question">How do I join?</button>
+      <div class="faq-answer">
+        Click "Register" at the top, select your role, and fill out the form. You'll be guided to your personalized portal!
+      </div>
+      <button class="faq-question">Is it free?</button>
+      <div class="faq-answer">
+        Yes, joining and using the basic features of 3 Ball Network is free for all users.
+      </div>
+      <button class="faq-question">Can I switch my role later?</button>
+      <div class="faq-answer">
+        For security, role changes require admin approval. Contact support if you need to switch.
+      </div>
+    </div>
+  </div>
+  <button id="scrollTopBtn" title="Back to top" style="display:none;position:fixed;bottom:2em;right:2em;z-index:1000;background:#007cba;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5em;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">↑</button>
   <footer>
     &copy; 2025 3 Ball Network. All rights reserved.
   </footer>
