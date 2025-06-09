@@ -55,13 +55,16 @@ loginBtn.onclick = async () => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       showSection('dashboard');
+      showSpinner(false); // <--- Add this line
     } else {
       loginError.textContent = "You are not an admin.";
       await signOut(auth);
+      showSpinner(false); // <--- Add this line
     }
   } catch (error) {
     loginError.textContent = "Login failed. Please try again.";
     document.getElementById('admin-password').value = "";
+    showSpinner(false); // <--- Add this line
   }
 };
 
@@ -303,6 +306,7 @@ async function logAudit(action, details) {
 
 // --- Dashboard Loading ---
 async function loadDashboard() {
+  showSpinner(true); // <--- Add this line
   let statsHtml = '';
   let recentHtml = '';
   try {
@@ -321,12 +325,13 @@ async function loadDashboard() {
     });
     recentHtml += `</ul>`;
   } catch (e) {
-    console.error("Dashboard load error:", e); // <--- Add this line
+    console.error("Dashboard load error:", e);
     statsHtml = "Failed to load stats.";
     recentHtml = "";
   }
   document.getElementById('dashboard-stats').innerHTML = statsHtml;
   document.getElementById('recent-activity').innerHTML = recentHtml;
+  showSpinner(false); // <--- Add this line
 }
 
 // --- Section switching logic ---
