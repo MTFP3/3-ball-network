@@ -43,7 +43,7 @@ async function checkIsAdmin(email) {
 // --- Login Logic ---
 loginBtn.onclick = async () => {
   loginError.textContent = "";
-  showSpinner(true); // Show spinner on login click
+  
   const email = document.getElementById("admin-email").value.trim();
   const password = document.getElementById("admin-password").value;
 
@@ -56,16 +56,16 @@ loginBtn.onclick = async () => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       showSection('dashboard');
-      showSpinner(false); // Hide spinner on login success
+      
     } else {
       loginError.textContent = "You are not an admin.";
       await signOut(auth);
-      showSpinner(false); // Hide spinner if not admin
+      
     }
   } catch (error) {
     loginError.textContent = "Login failed. Please try again.";
     document.getElementById('admin-password').value = "";
-    showSpinner(false); // Hide spinner on error
+    
   }
 };
 
@@ -85,16 +85,16 @@ onAuthStateChanged(auth, async user => {
       loginSection.style.display = "none";
       dashboard.style.display = "block";
       showSection('dashboard');
-      showSpinner(false); // Hide spinner if user is already logged in
+      
     } else {
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('admin-dashboard').style.display = 'none';
-      showSpinner(false); // Hide spinner if not admin
+      
     }
   } else {
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('admin-dashboard').style.display = 'none';
-    showSpinner(false); // Hide spinner if not logged in
+    
   }
   updateSidebarForRole();
 });
@@ -110,7 +110,7 @@ let quillModal = null;
 
 // Load pages as table
 async function loadPages(direction = "next") {
-  showSpinner(true);
+  
   try {
     let q = query(collection(db, "pages"), orderBy("title"), limit(pageSize));
     if (direction === "next" && lastVisible) {
@@ -138,7 +138,7 @@ async function loadPages(direction = "next") {
   } catch (e) {
     showMessage("Failed to load pages.", "red");
   }
-  showSpinner(false);
+  
 }
 
 // Render table
@@ -222,7 +222,7 @@ window.openEditPageModal = async function(id) {
 
 // Save (add or edit) page
 window.saveModalPage = async function() {
-  showSpinner(true);
+  
   const title = document.getElementById('modal-title').value;
   const path = document.getElementById('modal-path').value;
   const author = document.getElementById('modal-author').value;
@@ -231,7 +231,7 @@ window.saveModalPage = async function() {
   const content = quillModal ? quillModal.root.innerHTML : "";
   if (!title || !path) {
     document.getElementById('modal-error').textContent = "Title and path are required.";
-    showSpinner(false);
+    
     return;
   }
   try {
@@ -263,7 +263,7 @@ window.saveModalPage = async function() {
   } catch (e) {
     document.getElementById('modal-error').textContent = "Failed to save page.";
   }
-  showSpinner(false);
+  
 };
 
 // Close modal
@@ -277,7 +277,7 @@ window.closePageModal = function() {
 window.deletePage = async function(id) {
   if (!currentUserIsAdmin) return;
   if (!confirm("Are you sure you want to delete this page?")) return;
-  showSpinner(true);
+  
   try {
     await deleteDoc(doc(db, "pages", id));
     await logAudit("deletePage", { id });
@@ -286,7 +286,7 @@ window.deletePage = async function(id) {
   } catch (e) {
     showMessage("Failed to delete page.", "red");
   }
-  showSpinner(false);
+  
 };
 
 // Utility for status badge
@@ -310,7 +310,7 @@ async function logAudit(action, details) {
 
 // --- Dashboard Loading ---
 async function loadDashboard() {
-  showSpinner(true);
+  
   let statsHtml = '';
   let recentHtml = '';
   try {
@@ -335,7 +335,7 @@ async function loadDashboard() {
   }
   document.getElementById('dashboard-stats').innerHTML = statsHtml;
   document.getElementById('recent-activity').innerHTML = recentHtml;
-  showSpinner(false);
+  
 }
 
 // --- Section switching logic ---
@@ -397,7 +397,7 @@ document.getElementById('media-upload').onchange = async function(e) {
   const files = Array.from(e.target.files);
   const caption = document.getElementById('media-caption').value;
   if (!files.length) return;
-  showSpinner(true);
+  
   try {
     for (const file of files) {
       const fileRef = storageRef(storage, 'uploads/' + Date.now() + '-' + file.name);
@@ -414,12 +414,12 @@ document.getElementById('media-upload').onchange = async function(e) {
   } catch (e) {
     showMessage("Upload failed.", "red");
   }
-  showSpinner(false);
+  
 };
 
 window.deleteMedia = async function(path) {
   if (!confirm("Delete this file?")) return;
-  showSpinner(true);
+  
   try {
     await deleteObject(storageRef(storage, path));
     showMessage("Deleted!");
@@ -427,7 +427,7 @@ window.deleteMedia = async function(path) {
   } catch (e) {
     showMessage("Delete failed.", "red");
   }
-  showSpinner(false);
+  
 };
 
 // --- User Management ---
@@ -587,9 +587,6 @@ function showToast(msg, type = "primary") {
   new bootstrap.Toast(toast).show();
 }
 
-function showSpinner(show = true) {
-  document.getElementById('loading-overlay').style.display = show ? 'flex' : 'none';
-}
 
 function toggleSidebar() {
   document.getElementById('wp-sidebar').classList.toggle('d-none');
