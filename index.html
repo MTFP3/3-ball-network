@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>3 Ball Network</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; margin: 2em; }
-    h1 { color: #2d3e50; }
-    a.button {
-      display: inline-block;
-      padding: 0.5em 1em;
-      background: #0074d9;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 1em;
-    }
-    a.button:hover { background: #005fa3; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f8f9fa; color: #222; }
+    header { background: #007cba; color: #fff; padding: 2em 1em; text-align: center; }
+    nav { background: #fff; padding: 1em 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    nav a { margin: 0 1em; color: #007cba; text-decoration: none; font-weight: 500; }
+    nav a:hover { text-decoration: underline; }
+    .hero { max-width: 700px; margin: 2em auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 2em; text-align: center; }
+    .portal-links { margin: 2em 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5em; }
+    .portal-link { background: #007cba; color: #fff; padding: 1em 2em; border-radius: 8px; text-decoration: none; font-size: 1.1em; transition: background 0.2s; }
+    .portal-link:hover { background: #005f8a; }
+    footer { text-align: center; color: #888; margin: 3em 0 1em 0; }
   </style>
 </head>
 <body>
-  <h1>Welcome to 3 Ball Network</h1>
-  <p>This is your homepage. Click below to log in as admin.</p>
-  <a href="/admin/admin.html" class="button">Admin Login</a>
+  <header>
+    <h1>3 Ball Network</h1>
+    <p>Connecting Players, Coaches, Scouts, and Fans</p>
+  </header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/users/registration/">Register</a>
+    <a href="/users/login.html">Login</a>
+    <a href="/admin/">Admin</a>
+  </nav>
+  <div class="hero">
+    <h2>Welcome to the 3 Ball Network</h2>
+    <p>
+      Join our community to connect, discover talent, and grow your basketball journey.<br>
+      Choose your portal to get started:
+    </p>
+    <div class="portal-links">
+      <a class="portal-link" href="/users/player/">Player Portal</a>
+      <a class="portal-link" href="/users/coach/">Coach Portal</a>
+      <a class="portal-link" href="/users/scout/">Scout Portal</a>
+      <a class="portal-link" href="/users/fan/">Fan Portal</a>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 3 Ball Network. All rights reserved.
+  </footer>
 </body>
 </html>
