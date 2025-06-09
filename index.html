@@ -11,60 +11,81 @@
       background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
       color: #222;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     header {
       background: transparent;
       text-align: center;
-      padding: 2.5em 1em 1em 1em;
+      padding: 3em 1em 1.5em 1em;
+      position: relative;
     }
     .logo {
-      width: 120px;
+      width: 140px;
       height: auto;
-      margin-bottom: 0.5em;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+      margin-bottom: 0.7em;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.13));
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .logo:hover {
+      transform: scale(1.07) rotate(-3deg);
     }
     .site-title {
-      font-size: 2.5em;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-size: 2.8em;
+      font-weight: 900;
+      letter-spacing: 2.5px;
       color: #fff;
       margin: 0.2em 0 0.1em 0;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      text-shadow: 0 4px 18px rgba(0,0,0,0.13);
     }
     .site-tagline {
       color: #e0fbfc;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-      letter-spacing: 1px;
+      font-size: 1.25em;
+      margin-bottom: 0.7em;
+      letter-spacing: 1.2px;
+      font-weight: 500;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     nav {
-      background: rgba(255,255,255,0.95);
-      padding: 1em 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      background: rgba(255,255,255,0.98);
+      padding: 1.1em 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
       text-align: center;
-      border-radius: 0 0 18px 18px;
-      margin: 0 auto 1.5em auto;
-      max-width: 700px;
+      border-radius: 0 0 22px 22px;
+      margin: 0 auto 2em auto;
+      max-width: 720px;
+      font-size: 1.13em;
     }
     nav a {
-      margin: 0 1.2em;
+      margin: 0 1.5em;
       color: #007cba;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.08em;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #00b4d8;
+      transition: width 0.3s;
+      margin: 0 auto;
     }
     nav a:hover {
       color: #00b4d8;
-      text-decoration: underline;
+    }
+    nav a:hover::after {
+      width: 100%;
     }
     .hero {
-      max-width: 700px;
+      max-width: 750px;
       margin: 2.5em auto 2em auto;
-      background: rgba(255,255,255,0.97);
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      padding: 2.5em 2em 2em 2em;
+      background: rgba(255,255,255,0.99);
+      border-radius: 22px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+      padding: 3em 2em 2.5em 2em;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -72,24 +93,24 @@
     .hero::before {
       content: "";
       position: absolute;
-      top: -60px; left: -60px; width: 180px; height: 180px;
+      top: -80px; left: -80px; width: 220px; height: 220px;
       background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
-      opacity: 0.18;
+      opacity: 0.16;
       z-index: 0;
     }
     .hero h2 {
-      font-size: 2em;
+      font-size: 2.2em;
       margin-bottom: 0.5em;
       color: #007cba;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
       z-index: 1;
       position: relative;
     }
     .hero p {
-      font-size: 1.15em;
+      font-size: 1.18em;
       color: #444;
-      margin-bottom: 2em;
+      margin-bottom: 2.2em;
       z-index: 1;
       position: relative;
     }
@@ -98,20 +119,20 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.5em;
+      gap: 1.7em;
       z-index: 1;
       position: relative;
     }
     .portal-link {
       background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
       color: #fff;
-      padding: 1.1em 2.2em;
-      border-radius: 12px;
+      padding: 1.2em 2.5em;
+      border-radius: 14px;
       text-decoration: none;
-      font-size: 1.15em;
-      font-weight: 600;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      transition: background 0.2s, transform 0.2s;
+      font-size: 1.18em;
+      font-weight: 700;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       border: none;
       outline: none;
       cursor: pointer;
@@ -139,62 +160,59 @@
     }
     .portal-link:hover {
       background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
     }
     .spotlight {
       margin-top: 2.5em;
-      background: rgba(0,124,186,0.07);
-      border-radius: 12px;
+      background: rgba(0,124,186,0.09);
+      border-radius: 14px;
       padding: 1.5em 1em;
-      font-size: 1.08em;
+      font-size: 1.12em;
       color: #007cba;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-    }
-    footer {
-      text-align: center;
-      color: #e0fbfc;
-      margin: 3em 0 1em 0;
-      font-size: 1em;
-      letter-spacing: 1px;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.10);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
     }
     .cta-banner {
-      background: rgba(255,255,255,0.95);
-      padding: 1.5em 1em;
-      border-radius: 12px;
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      color: #fff;
+      padding: 2em 1em 1.5em 1em;
+      border-radius: 14px;
       text-align: center;
-      margin: 2em auto;
+      margin: 2.5em auto 2em auto;
       max-width: 600px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      font-size: 1.18em;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
     .cta-banner h3 {
       margin: 0 0 0.5em 0;
-      color: #007cba;
+      color: #fff;
       font-size: 1.5em;
-      font-weight: 700;
+      font-weight: 800;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
     }
     .features {
-      max-width: 700px;
+      max-width: 800px;
       margin: 3em auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5em;
+      gap: 2em;
     }
     .feature {
-      background: rgba(255,255,255,0.95);
-      border-radius: 12px;
-      padding: 2em 1.5em;
+      background: rgba(255,255,255,0.97);
+      border-radius: 14px;
+      padding: 2.2em 1.5em;
       text-align: center;
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .feature:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.13);
     }
     .feature h4 {
       font-size: 1.3em;
@@ -215,7 +233,8 @@
       margin: 0 1em;
       color: #007cba;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 1.15em;
       transition: color 0.2s;
     }
     .social-links a:hover {
@@ -223,17 +242,19 @@
       text-decoration: underline;
     }
     .faq-section {
-      max-width: 700px;
+      max-width: 750px;
       margin: 3em auto 2em auto;
-      background: rgba(255,255,255,0.97);
-      border-radius: 18px;
+      background: rgba(255,255,255,0.99);
+      border-radius: 22px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      padding: 2em 2em 1em 2em;
+      padding: 2.5em 2em 1.5em 2em;
     }
     .faq-section h3 {
       text-align: center;
       color: #007cba;
       margin-bottom: 1em;
+      font-size: 1.5em;
+      font-weight: 800;
     }
     .faq {
       margin: 1.5em 0;
@@ -244,14 +265,15 @@
       color: #fff;
       border: none;
       outline: none;
-      padding: 1em;
+      padding: 1.1em;
       text-align: left;
-      font-size: 1.1em;
-      font-weight: 600;
-      border-radius: 8px;
+      font-size: 1.13em;
+      font-weight: 700;
+      border-radius: 10px;
       margin: 0.5em 0 0 0;
       cursor: pointer;
       transition: background 0.2s;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
     }
     .faq-question:hover, .faq-question.active {
       background: #00b4d8;
@@ -261,7 +283,7 @@
       overflow: hidden;
       background: #f1f8fb;
       color: #222;
-      border-radius: 0 0 8px 8px;
+      border-radius: 0 0 10px 10px;
       padding: 0 1em;
       transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.3s;
       font-size: 1em;
@@ -287,9 +309,20 @@
       opacity: 1;
       transform: none;
     }
-    @media (max-width: 600px) {
-      .hero, nav { max-width: 98vw; padding: 1em; }
+    #scrollTopBtn {
+      display:none;position:fixed;bottom:2em;right:2em;z-index:1000;
+      background:#007cba;color:#fff;border:none;border-radius:50%;
+      width:48px;height:48px;font-size:1.5em;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover {
+      background: #00b4d8;
+      transform: scale(1.1);
+    }
+    @media (max-width: 700px) {
+      .hero, nav, .faq-section, .cta-banner { max-width: 98vw; padding: 1em; }
       .portal-link { padding: 1em 1em; font-size: 1em; }
+      .features { grid-template-columns: 1fr; }
     }
   </style>
   <script>
@@ -444,9 +477,10 @@
       </div>
     </div>
   </div>
-  <button id="scrollTopBtn" title="Back to top" style="display:none;position:fixed;bottom:2em;right:2em;z-index:1000;background:#007cba;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.5em;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">↑</button>
+  <button id="scrollTopBtn" title="Back to top">↑</button>
   <footer>
     &copy; 2025 3 Ball Network. All rights reserved.
   </footer>
+  <!-- (Keep your JS scripts as before) -->
 </body>
 </html>
