@@ -356,6 +356,12 @@ function getCommonFields(role) {
 
 const fieldsByRole = {
   player: getCommonFields("player") + `
+    <label>Position(s)</label>
+    <div id="player-positions-checkboxes" style="display:flex;gap:1em;justify-content:center;margin-bottom:1em;">
+      <label><input type="checkbox" name="player-position" value="guard"> Guard</label>
+      <label><input type="checkbox" name="player-position" value="forward"> Forward</label>
+      <label><input type="checkbox" name="player-position" value="center"> Center</label>
+    </div>
     <label for="player-height-ft">Height</label>
     <div style="display:flex;gap:0.5em;">
       <input type="number" id="player-height-ft" min="4" max="7" placeholder="Feet" required style="flex:1;">
@@ -363,21 +369,22 @@ const fieldsByRole = {
     </div>
     <label for="player-weight">Weight (lbs)</label>
     <input type="number" id="player-weight" min="80" max="400" required>
-    <label for="player-position">Position(s)</label>
-    <select id="player-position" multiple required>
-      <option value="guard">Guard</option>
-      <option value="forward">Forward</option>
-      <option value="center">Center</option>
-    </select>
     <label>Gender</label>
     <select id="player-gender" required>
       <option value="">Select Gender</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
-    <small style="color:#007cba;display:block;margin-top:-0.8em;margin-bottom:1em;">Hold Ctrl (Windows) or Command (Mac) to select multiple positions.</small>
   `,
-  coach: getCommonFields("coach"),
+  coach: getCommonFields("coach") + `
+    <label>Level(s) Coached</label>
+    <div id="coach-levels-checkboxes" style="display:flex;gap:1em;justify-content:center;margin-bottom:1em;">
+      <label><input type="checkbox" name="coach-level" value="Middle School"> Middle School</label>
+      <label><input type="checkbox" name="coach-level" value="High School"> High School</label>
+      <label><input type="checkbox" name="coach-level" value="AAU"> AAU</label>
+      <label><input type="checkbox" name="coach-level" value="Both"> Both</label>
+    </div>
+  `,
   scout: getCommonFields("scout"),
   fan: getCommonFields("fan")
 };
@@ -413,6 +420,27 @@ document.getElementById('register-form').addEventListener('submit', async functi
   const password = document.getElementById('reg-password').value;
   const photoFile = document.getElementById('reg-photo').files[0];
   const role = document.getElementById('reg-role').value;
+
+  // Get checked positions for player
+  let positions = [];
+  if (role === "player") {
+    positions = Array.from(document.querySelectorAll('input[name="player-position"]:checked')).map(cb => cb.value);
+    if (positions.length === 0) {
+      document.getElementById('reg-error').textContent = "Please select at least one position.";
+      return;
+    }
+  }
+
+  // Get checked levels for coach
+  let coachLevels = [];
+  if (role === "coach") {
+    coachLevels = Array.from(document.querySelectorAll('input[name="coach-level"]:checked')).map(cb => cb.value);
+    if (coachLevels.length === 0) {
+      document.getElementById('reg-error').textContent = "Please select at least one level coached.";
+      return;
+    }
+  }
+
   // ...get other fields as needed...
 
   try {
@@ -426,12 +454,15 @@ document.getElementById('register-form').addEventListener('submit', async functi
     const photoURL = await storageRef.getDownloadURL();
 
     // 3. Save user info to Firestore
-    await firebase.firestore().collection('users').doc(user.uid).set({
+    const userData = {
       email,
       role,
       photoURL,
+      positions,
+      coachLevels,
       // ...add other fields here...
-    });
+    };
+    await firebase.firestore().collection('users').doc(user.uid).set(userData);
 
     alert('Registration successful!');
     // Redirect or show success message
