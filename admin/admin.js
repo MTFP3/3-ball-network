@@ -310,39 +310,93 @@ async function logAudit(action, details) {
 
 // --- Dashboard Loading ---
 async function loadDashboard() {
-  
+  // Custom welcome
+  const user = auth.currentUser;
+  document.getElementById('dashboard-welcome').textContent = user ? user.email : "Admin";
+
+  // Quick links already in HTML
+
+  // Stats and chart
   let statsHtml = '';
   let recentHtml = '';
+  let auditHtml = '';
+  let pageCounts = { published: 0, draft: 0 };
+
   try {
-    const [pagesSnap, usersSnap, commentsSnap] = await Promise.all([
+    const [pagesSnap, usersSnap, commentsSnap, auditSnap] = await Promise.all([
       getDocs(collection(db, "pages")),
       getDocs(collection(db, "users")),
-      getDocs(collection(db, "comments"))
+      getDocs(collection(db, "comments")),
+      getDocs(query(collection(db, "auditLogs"), orderBy("timestamp", "desc"), limit(5)))
     ]);
-    statsHtml += `<div><b>Pages:</b> ${pagesSnap.size}</div>`;
-    statsHtml += `<div><b>Users:</b> ${usersSnap.size}</div>`;
-    statsHtml += `<div><b>Comments:</b> ${commentsSnap.size}</div>`;
-    recentHtml += `<h3>Recent Activity</h3><ul>`;
-    pagesSnap.docs.slice(-5).forEach(docSnap => {
+
+    // Count published/draft pages for chart
+    pagesSnap.forEach(docSnap => {
       const d = docSnap.data();
-      recentHtml += `<li>${d.title} (${d.path})</li>`;
+      if (d.status === "published") pageCounts.published++;
+      else pageCounts.draft++;
+    });
+
+    // Stats cards
+    statsHtml = `
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div class="dashboard-card"><b>Pages</b><div>${pagesSnap.size}</div></div>
+        <div class="dashboard-card"><b>Users</b><div>${usersSnap.size}</div></div>
+        <div class="dashboard-card"><b>Comments</b><div>${commentsSnap.size}</div></div>
+      </div>
+    `;
+
+    // Recent pages
+    recentHtml = `<h4>Recent Pages</h4><ul>`;
+    pagesSnap.docs.slice(-5).reverse().forEach(docSnap => {
+      const d = docSnap.data();
+      recentHtml += `<li><b>${sanitize(d.title)}</b> <span style="color:#888;">(${sanitize(d.path)})</span></li>`;
     });
     recentHtml += `</ul>`;
+
+    // Recent audit log
+    auditHtml = `<h4 class="mt-4">Recent Admin Actions</h4><ul>`;
+    auditSnap.forEach(docSnap => {
+      const d = docSnap.data();
+      auditHtml += `<li><b>${sanitize(d.action)}</b> by ${sanitize(d.user)} <span style="color:#888;">@ ${sanitize(d.timestamp)}</span></li>`;
+    });
+    auditHtml += `</ul>`;
+
   } catch (e) {
-    console.error("Dashboard load error:", e);
     statsHtml = "Failed to load stats.";
     recentHtml = "";
+    auditHtml = "";
   }
+
   document.getElementById('dashboard-stats').innerHTML = statsHtml;
-  document.getElementById('recent-activity').innerHTML = recentHtml;
-  
+  document.getElementById('recent-activity').innerHTML = recentHtml + auditHtml;
+
+  // Chart.js: show published vs draft pages
+  const ctx = document.getElementById('dashboard-chart').getContext('2d');
+  if (window.dashboardChart) window.dashboardChart.destroy();
+  window.dashboardChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Published', 'Draft'],
+      datasets: [{
+        data: [pageCounts.published, pageCounts.draft],
+        backgroundColor: ['#28a745', '#6c757d']
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: true, position: 'bottom' }
+      }
+    }
+  });
 }
 
 // --- Section switching logic ---
 window.showSection = function(section) {
   const sections = [
     'dashboard-section', 'pages-section', 'media-section', 'users-section',
-    'comments-section', 'settings-section', 'plugins-section', 'audit-section'
+    'comments-section', 'settings-section', 'plugins-section', 'audit-section',
+    'players-section', 'coaches-section', 'scouts-section', 'fans-section'
   ];
   sections.forEach(id => {
     const el = document.getElementById(id);
@@ -360,6 +414,10 @@ window.showSection = function(section) {
   if (section === 'plugins') loadPlugins();
   if (section === 'pages') loadPages();
   if (section === 'audit') loadAuditLog();
+  if (section === 'players') loadPlayers();
+  if (section === 'coaches') loadCoaches();
+  if (section === 'scouts') loadScouts();
+  if (section === 'fans') loadFans();
 };
 
 // --- Media Library with Firebase Storage ---
@@ -629,6 +687,35 @@ function showMessage(msg, type = "primary") {
 // --- Sidebar role update (optional, stub) ---
 function updateSidebarForRole() {
   // Optionally hide/show sidebar items based on admin status
+}
+
+// --- Custom CSS Styles ---
+const style = document.createElement('style');
+style.textContent = `
+  .dashboard-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px 24px;
+    min-width: 120px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    font-size: 1.2em;
+  }
+`;
+document.head.appendChild(style);
+
+// --- Players, Coaches, Scouts, Fans (stub) ---
+async function loadPlayers() {
+  document.getElementById('players-list').innerHTML = "Players portal coming soon!";
+}
+async function loadCoaches() {
+  document.getElementById('coaches-list').innerHTML = "Coaches portal coming soon!";
+}
+async function loadScouts() {
+  document.getElementById('scouts-list').innerHTML = "Scouts portal coming soon!";
+}
+async function loadFans() {
+  document.getElementById('fans-list').innerHTML = "Fans portal coming soon!";
 }
 
 
