@@ -205,6 +205,29 @@
       Already have an account? <a href="../login.html">Login here</a>
     </div>
   </div>
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQtX2fabgZQt3y5g9",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "749015998465",
+      appId: "1:749015998465:web:59ac02f3f4c2ec5da350a0",
+      measurementId: "G-ZS07SKSRRL"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
   <script type="module" src="register.js"></script>
   <script>
 const APP_ID = "9c508bbf";
@@ -297,7 +320,7 @@ function addDependentDropdowns(role) {
       let cities = [];
       try {
         // Fetch districts for the state from SchoolDigger
-        const res = await fetch(`https://api.schooldigger.com/v1.2/districts?st=${encodeURIComponent(this.value)}&appID=${APP_ID}&appKey=${API_KEY}`);
+        const res = await fetch(`https://us-central1-YOUR_PROJECT.cloudfunctions.net/getDistricts?st=${encodeURIComponent(this.value)}`);
         const data = await res.json();
         // Extract unique city names from districts
         cities = [...new Set(data.districts.map(d => d.city))].filter(Boolean).sort();
@@ -316,7 +339,7 @@ function addDependentDropdowns(role) {
       let schools = [];
       try {
         const state = stateSel.value;
-        const res = await fetch(`https://api.schooldigger.com/v1.2/schools?st=${encodeURIComponent(state)}&city=${encodeURIComponent(this.value)}&appID=${APP_ID}&appKey=${API_KEY}`);
+        const res = await fetch(`https://us-central1-YOUR_PROJECT.cloudfunctions.net/getSchools?st=${encodeURIComponent(state)}&city=${encodeURIComponent(this.value)}`);
         const data = await res.json();
         // Filter for middle and high schools
         schools = data.schoolList
