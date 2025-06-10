@@ -259,14 +259,16 @@
   <div class="register-hero">
     <h2>Register</h2>
     <p>Join the 3 Ball Network and connect with players, coaches, scouts, and fans!</p>
-    <form id="register-form" autocomplete="off">
+    <form id="register-form" autocomplete="off" enctype="multipart/form-data">
       <label for="reg-email">Email</label>
       <input type="email" id="reg-email" required autocomplete="username">
       <label for="reg-password">Create Password</label>
       <span class="password-container">
-        <input type="password" id="reg-password" required autocomplete="new-password">
+        <input type="password" id="reg-password" required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}" title="At least 8 characters, 1 uppercase, 1 lowercase, 1 number">
         <button type="button" id="toggle-password">Show</button>
       </span>
+      <label for="reg-photo">Profile Photo</label>
+      <input type="file" id="reg-photo" name="photo" accept="image/*" required>
       <label for="reg-role">Role</label>
       <select id="reg-role" required>
         <option value="">Select Role</option>
@@ -284,6 +286,27 @@
       Already have an account? <a href="../login.html">Login here</a>
     </div>
   </div>
+  <!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<!-- Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<!-- Firestore -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!-- Storage -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyD4XJLc3_CLvOhvMsytQx2fabgZQt3y5g0",
+    authDomain: "ball-network-web.firebaseapp.com",
+    projectId: "ball-network-web",
+    storageBucket: "ball-network-web.appspot.com",
+    messagingSenderId: "749015998465",
+    appId: "1:749015998465:web:59ac026f3f4c2ec5da3500",
+    measurementId: "G-ZS07SKSRRL"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
   <script>
 const roleFields = document.getElementById('role-fields');
 const roleSelect = document.getElementById('reg-role');
@@ -321,10 +344,10 @@ function getCommonFields(role) {
     <label for="${role}-state">State</label>
     <select id="${role}-state" required>${getStateOptions()}</select>
     <label for="${role}-city">City</label>
-    <select id="${role}-city" required disabled><option value="">Select City</option></select>
+    <input type="text" id="${role}-city" required placeholder="Enter your city">
     ${(role === "player" || role === "coach") ? `
       <label for="${role}-school">School</label>
-      <select id="${role}-school" required disabled><option value="">Select School</option></select>
+      <input type="text" id="${role}-school" required placeholder="Enter your school">
     ` : ""}
     <label for="${role}-phone">Phone Number</label>
     <input type="tel" id="${role}-phone" required pattern="[0-9]{10,}">
@@ -340,14 +363,19 @@ const fieldsByRole = {
     </div>
     <label for="player-weight">Weight (lbs)</label>
     <input type="number" id="player-weight" min="80" max="400" required>
-    <label for="player-position">Position</label>
-    <input type="text" id="player-position" required>
+    <label for="player-position">Position(s)</label>
+    <select id="player-position" multiple required>
+      <option value="guard">Guard</option>
+      <option value="forward">Forward</option>
+      <option value="center">Center</option>
+    </select>
     <label>Gender</label>
     <select id="player-gender" required>
       <option value="">Select Gender</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
     </select>
+    <small style="color:#007cba;display:block;margin-top:-0.8em;margin-bottom:1em;">Hold Ctrl (Windows) or Command (Mac) to select multiple positions.</small>
   `,
   coach: getCommonFields("coach"),
   scout: getCommonFields("scout"),
@@ -356,95 +384,8 @@ const fieldsByRole = {
 
 roleSelect.addEventListener('change', function() {
   roleFields.innerHTML = fieldsByRole[this.value] || '';
-  setTimeout(() => addDependentDropdowns(this.value), 0); // Wait for DOM update
 });
 
-function addDependentDropdowns(role) {
-  if (!role) return;
-  let stateSel = document.getElementById(`${role}-state`);
-  let citySel = document.getElementById(`${role}-city`);
-  let schoolSel = document.getElementById(`${role}-school`);
-
-  // Remove previous listeners by cloning
-  if (stateSel) {
-    const newStateSel = stateSel.cloneNode(true);
-    stateSel.parentNode.replaceChild(newStateSel, stateSel);
-    stateSel = newStateSel;
-  }
-  if (citySel) {
-    const newCitySel = citySel.cloneNode(true);
-    citySel.parentNode.replaceChild(newCitySel, citySel);
-    citySel = newCitySel;
-  }
-  if (schoolSel) {
-    const newSchoolSel = schoolSel.cloneNode(true);
-    schoolSel.parentNode.replaceChild(newSchoolSel, schoolSel);
-    schoolSel = newSchoolSel;
-  }
-
-  // State -> City
-  if (stateSel && citySel) {
-    stateSel.addEventListener('change', async function() {
-      citySel.innerHTML = `<option value="">Loading...</option>`;
-      citySel.disabled = true;
-      if (schoolSel) {
-        schoolSel.innerHTML = `<option value="">Select School</option>`;
-        schoolSel.disabled = true;
-      }
-      if (!this.value) {
-        citySel.innerHTML = `<option value="">Select City</option>`;
-        return;
-      }
-      try {
-        const res = await fetch(`/getCities?state=${encodeURIComponent(this.value)}`);
-        const data = await res.json();
-        let cities = [];
-        if (data && data.cities) {
-          cities = data.cities;
-        } else if (Array.isArray(data)) {
-          cities = data;
-        }
-        citySel.innerHTML = `<option value="">Select City</option>` +
-          cities.map(city => `<option value="${city}">${city}</option>`).join('');
-        citySel.disabled = false;
-      } catch (e) {
-        citySel.innerHTML = `<option value="">Select City</option>`;
-        citySel.disabled = true;
-      }
-    });
-  }
-
-  // City -> School (for player/coach)
-  if (citySel && schoolSel) {
-    citySel.addEventListener('change', async function() {
-      schoolSel.innerHTML = `<option value="">Loading...</option>`;
-      schoolSel.disabled = true;
-      if (!this.value) {
-        schoolSel.innerHTML = `<option value="">Select School</option>`;
-        return;
-      }
-      try {
-        const state = stateSel.value;
-        const res = await fetch(`/getSchools?state=${encodeURIComponent(state)}&city=${encodeURIComponent(this.value)}`);
-        const data = await res.json();
-        let schools = [];
-        if (data && data.schools) {
-          schools = data.schools;
-        } else if (data && data.schoolList) {
-          schools = data.schoolList;
-        }
-        schoolSel.innerHTML = `<option value="">Select School</option>` +
-          schools.map(s => `<option value="${s.schoolName}">${s.schoolName}</option>`).join('');
-        schoolSel.disabled = false;
-      } catch (e) {
-        schoolSel.innerHTML = `<option value="">Select School</option>`;
-        schoolSel.disabled = true;
-      }
-    });
-  }
-}
-
-// Password visibility toggle
 document.addEventListener('DOMContentLoaded', () => {
   const pwInput = document.getElementById('reg-password');
   const pwBtn = document.getElementById('toggle-password');
@@ -458,6 +399,44 @@ document.addEventListener('DOMContentLoaded', () => {
         pwBtn.textContent = "Show";
       }
     };
+  }
+});
+
+// Capitalize first letter of each word for name, city, school fields
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, c => c.toUpperCase());
+}
+
+document.getElementById('register-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('reg-email').value;
+  const password = document.getElementById('reg-password').value;
+  const photoFile = document.getElementById('reg-photo').files[0];
+  const role = document.getElementById('reg-role').value;
+  // ...get other fields as needed...
+
+  try {
+    // 1. Create user in Firebase Auth
+    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+
+    // 2. Upload photo to Firebase Storage
+    const storageRef = firebase.storage().ref(`profile_photos/${user.uid}`);
+    await storageRef.put(photoFile);
+    const photoURL = await storageRef.getDownloadURL();
+
+    // 3. Save user info to Firestore
+    await firebase.firestore().collection('users').doc(user.uid).set({
+      email,
+      role,
+      photoURL,
+      // ...add other fields here...
+    });
+
+    alert('Registration successful!');
+    // Redirect or show success message
+  } catch (error) {
+    document.getElementById('reg-error').textContent = error.message;
   }
 });
   </script>
