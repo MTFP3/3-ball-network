@@ -207,133 +207,135 @@
   </div>
   <script type="module" src="register.js"></script>
   <script>
-    const APP_ID = "9c508bbf";
+const APP_ID = "9c508bbf";
 const API_KEY = "3b9071a22c350a8fc0bc8aef3ffb6226";
 
-    // Example data for states, cities, and schools (expand as needed)
-    const stateCitySchool = {
-      "California": {
-        "Los Angeles": ["LA High", "Westside Prep"],
-        "San Francisco": ["SF Academy", "Golden Gate HS"]
-      },
-      "Texas": {
-        "Houston": ["Houston Central", "Bayou HS"],
-        "Dallas": ["Dallas North", "Lone Star Prep"]
+const roleFields = document.getElementById('role-fields');
+const roleSelect = document.getElementById('reg-role');
+
+function getStateOptions() {
+  const states = [
+    "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
+    "Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts",
+    "Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey",
+    "New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
+    "South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia",
+    "Wisconsin","Wyoming"
+  ];
+  return `<option value="">Select State</option>` +
+    states.map(state => `<option value="${state}">${state}</option>`).join('');
+}
+
+function getCommonFields(role) {
+  return `
+    <label for="${role}-first">First Name</label>
+    <input type="text" id="${role}-first" required>
+    <label for="${role}-last">Last Name</label>
+    <input type="text" id="${role}-last" required>
+    <label for="${role}-state">State</label>
+    <select id="${role}-state" required>${getStateOptions()}</select>
+    <label for="${role}-city">City</label>
+    <select id="${role}-city" required><option value="">Select City</option></select>
+    ${role === "player" || role === "coach" ? `
+      <label for="${role}-school">School</label>
+      <select id="${role}-school" required><option value="">Select School</option></select>
+    ` : ""}
+    <label for="${role}-phone">Phone Number</label>
+    <input type="tel" id="${role}-phone" required pattern="[0-9]{10,}">
+  `;
+}
+
+const fieldsByRole = {
+  player: getCommonFields("player") + `
+    <label for="player-height-ft">Height</label>
+    <div style="display:flex;gap:0.5em;">
+      <input type="number" id="player-height-ft" min="4" max="7" placeholder="Feet" required style="flex:1;">
+      <input type="number" id="player-height-in" min="0" max="11" placeholder="Inches" required style="flex:1;">
+    </div>
+    <label for="player-weight">Weight (lbs)</label>
+    <input type="number" id="player-weight" min="80" max="400" required>
+    <label for="player-position">Position</label>
+    <input type="text" id="player-position" required>
+    <label>Gender</label>
+    <select id="player-gender" required>
+      <option value="">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  `,
+  coach: getCommonFields("coach"),
+  scout: getCommonFields("scout"),
+  fan: getCommonFields("fan")
+};
+
+roleSelect.addEventListener('change', function() {
+  roleFields.innerHTML = fieldsByRole[this.value] || '';
+  addDependentDropdowns(this.value);
+});
+
+function addDependentDropdowns(role) {
+  if (!role) return;
+  const stateSel = document.getElementById(`${role}-state`);
+  const citySel = document.getElementById(`${role}-city`);
+  const schoolSel = document.getElementById(`${role}-school`);
+
+  // State -> City
+  if (stateSel && citySel) {
+    stateSel.addEventListener('change', async function() {
+      citySel.innerHTML = `<option value="">Loading...</option>`;
+      let cities = [];
+      try {
+        // Fetch districts for the state from SchoolDigger
+        const res = await fetch(`https://api.schooldigger.com/v1.2/districts?st=${encodeURIComponent(this.value)}&appID=${APP_ID}&appKey=${API_KEY}`);
+        const data = await res.json();
+        // Extract unique city names from districts
+        cities = [...new Set(data.districts.map(d => d.city))].filter(Boolean).sort();
+      } catch (e) {
+        cities = [];
       }
-    };
-
-    const roleFields = document.getElementById('role-fields');
-    const roleSelect = document.getElementById('reg-role');
-
-    function getStateOptions() {
-      const states = [
-        "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia",
-        "Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts",
-        "Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey",
-        "New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
-        "South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia",
-        "Wisconsin","Wyoming"
-      ];
-      return `<option value="">Select State</option>` +
-        states.map(state => `<option value="${state}">${state}</option>`).join('');
-    }
-
-    function getCityOptions(state) {
-      if (!stateCitySchool[state]) return `<option value="">Select City</option>`;
-      return `<option value="">Select City</option>` +
-        Object.keys(stateCitySchool[state]).map(city => `<option value="${city}">${city}</option>`).join('');
-    }
-
-    function getSchoolOptions(state, city) {
-      if (!stateCitySchool[state] || !stateCitySchool[state][city]) return `<option value="">Select School</option>`;
-      return `<option value="">Select School</option>` +
-        stateCitySchool[state][city].map(school => `<option value="${school}">${school}</option>`).join('');
-    }
-
-    function getCommonFields(role) {
-      return `
-        <label for="${role}-first">First Name</label>
-        <input type="text" id="${role}-first" required>
-        <label for="${role}-last">Last Name</label>
-        <input type="text" id="${role}-last" required>
-        <label for="${role}-state">State</label>
-        <select id="${role}-state" required>${getStateOptions()}</select>
-        <label for="${role}-city">City</label>
-        <select id="${role}-city" required><option value="">Select City</option></select>
-        ${role === "player" || role === "coach" ? `
-          <label for="${role}-school">School</label>
-          <select id="${role}-school" required><option value="">Select School</option></select>
-        ` : ""}
-        <label for="${role}-phone">Phone Number</label>
-        <input type="tel" id="${role}-phone" required pattern="[0-9]{10,}">
-      `;
-    }
-
-    const fieldsByRole = {
-      player: getCommonFields("player") + `
-        <label for="player-height-ft">Height</label>
-        <div style="display:flex;gap:0.5em;">
-          <input type="number" id="player-height-ft" min="4" max="7" placeholder="Feet" required style="flex:1;">
-          <input type="number" id="player-height-in" min="0" max="11" placeholder="Inches" required style="flex:1;">
-        </div>
-        <label for="player-weight">Weight (lbs)</label>
-        <input type="number" id="player-weight" min="80" max="400" required>
-        <label for="player-position">Position</label>
-        <input type="text" id="player-position" required>
-        <label>Gender</label>
-        <select id="player-gender" required>
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      `,
-      coach: getCommonFields("coach"),
-      scout: getCommonFields("scout"),
-      fan: getCommonFields("fan")
-    };
-
-    roleSelect.addEventListener('change', function() {
-      roleFields.innerHTML = fieldsByRole[this.value] || '';
-      addDependentDropdowns(this.value);
+      citySel.innerHTML = `<option value="">Select City</option>` +
+        cities.map(city => `<option value="${city}">${city}</option>`).join('');
+      if (schoolSel) schoolSel.innerHTML = `<option value="">Select School</option>`;
     });
-
-    function addDependentDropdowns(role) {
-      if (!role) return;
-      const stateSel = document.getElementById(`${role}-state`);
-      const citySel = document.getElementById(`${role}-city`);
-      const schoolSel = document.getElementById(`${role}-school`);
-
-      if (stateSel && citySel) {
-        stateSel.addEventListener('change', async function() {
-          // Fetch cities from your server or API
-          const response = await fetch(`/api/cities?state=${encodeURIComponent(this.value)}`);
-          const cities = await response.json();
-          citySel.innerHTML = `<option value="">Select City</option>` +
-            cities.map(city => `<option value="${city}">${city}</option>`).join('');
-          if (schoolSel) schoolSel.innerHTML = `<option value="">Select School</option>`;
-        });
+  }
+  // City -> School (for player/coach)
+  if (citySel && schoolSel) {
+    citySel.addEventListener('change', async function() {
+      schoolSel.innerHTML = `<option value="">Loading...</option>`;
+      let schools = [];
+      try {
+        const state = stateSel.value;
+        const res = await fetch(`https://api.schooldigger.com/v1.2/schools?st=${encodeURIComponent(state)}&city=${encodeURIComponent(this.value)}&appID=${APP_ID}&appKey=${API_KEY}`);
+        const data = await res.json();
+        // Filter for middle and high schools
+        schools = data.schoolList
+          .filter(s => s.level === "Middle" || s.level === "High")
+          .map(s => s.schoolName);
+      } catch (e) {
+        schools = [];
       }
-      if (citySel && schoolSel) {
-        citySel.addEventListener('change', async function() {
-          // Fetch schools from your server or API
-          const state = stateSel.value;
-          const response = await fetch(`/api/schools?state=${encodeURIComponent(state)}&city=${encodeURIComponent(this.value)}`);
-          const schools = await response.json();
-          schoolSel.innerHTML = `<option value="">Select School</option>` +
-            schools.map(school => `<option value="${school}">${school}</option>`).join('');
-        });
-      }
-    }
+      schoolSel.innerHTML = `<option value="">Select School</option>` +
+        schools.map(school => `<option value="${school}">${school}</option>`).join('');
+    });
+  }
+}
 
-    async function getSchools(state, city) {
-      const res = await fetch(`https://api.schooldigger.com/v1.2/schools?st=${state}&city=${encodeURIComponent(city)}&appID=${APP_ID}&appKey=${API_KEY}`);
-      const data = await res.json();
-      // Filter for middle and high schools
-      const schools = data.schoolList.filter(s => 
-        s.level === "Middle" || s.level === "High"
-      ).map(s => s.schoolName);
-      return schools;
-    }
+// Password visibility toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const pwInput = document.getElementById('reg-password');
+  const pwBtn = document.getElementById('toggle-password');
+  if (pwBtn && pwInput) {
+    pwBtn.onclick = () => {
+      if (pwInput.type === "password") {
+        pwInput.type = "text";
+        pwBtn.textContent = "Hide";
+      } else {
+        pwInput.type = "password";
+        pwBtn.textContent = "Show";
+      }
+    };
+  }
+});
   </script>
 </body>
 </html>
