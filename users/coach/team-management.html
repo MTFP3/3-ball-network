@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Team Management</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h2>Team Management</h2>
+  <form id="create-team-form">
+    <input type="text" id="team-name" placeholder="Team Name" required>
+    <button type="submit">Create Team</button>
+  </form>
+  <div id="teams-list"></div>
+  <script>
+    // Initialize Firebase (reuse config as above)
+    // ...firebaseConfig and firebase.initializeApp...
+
+    firebase.auth().onAuthStateChanged(async user => {
+      if (!user) return location.href = '/users/login.html';
+      // Only allow coaches
+      const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+      if (doc.data().role !== 'coach') return location.href = '/users/dashboard.html';
+
+      // List teams
+      const teamsRef = firebase.firestore().collection('team').where('coachid', '==', user.uid);
+      teamsRef.get().then(snapshot => {
+        let html = '<h3>Your Teams</h3>';
+        snapshot.forEach(doc => {
+          const t = doc.data();
+          html += `<div>${t.school || ''} ${t.mascot || ''} (${t.city}, ${t.state})</div>`;
+        });
+        document.getElementById('teams-list').innerHTML = html;
+      });
+
+      // Create team
+      document.getElementById('create-team-form').onsubmit = async function(e) {
+        e.preventDefault();
+        const teamName = document.getElementById('team-name').value.trim();
+        await firebase.firestore().collection('team').add({
+          coachid: user.uid,
+          coach: doc.data().firstName + ' ' + doc.data().lastName,
+          mascot: teamName,
+          city: '',
+          state: '',
+          school: '',
+          level: '',
+        });
+        location.reload();
+      };
+    });
+  </script>
+</body>
+</html>

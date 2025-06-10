@@ -1,17 +1,446 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Player Portal</title>
+  <meta charset="UTF-8">
+  <title>Player Portal - 3 Ball Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
+  <style>
+    .player-profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2em;
+      background: rgba(255,255,255,0.97);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2em 2em 2em 2em;
+      margin: 2em auto 1.5em auto;
+      max-width: 900px;
+    }
+    .player-profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+      border: 4px solid #00b4d8;
+      background: #e0fbfc;
+    }
+    .player-profile-info {
+      flex: 1;
+    }
+    .player-name {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #007cba;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin-bottom: 0.2em;
+    }
+    .player-meta {
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 0.7em;
+    }
+    .player-bio {
+      font-size: 1.08em;
+      color: #333;
+      margin-top: 1em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .stats-card {
+      background: rgba(255,255,255,0.99);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 2em 1.5em;
+      max-width: 900px;
+      margin: 0 auto 2em auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+    }
+    .stat-block {
+      text-align: center;
+      min-width: 120px;
+      flex: 1;
+    }
+    .stat-label {
+      font-size: 1em;
+      color: #007cba;
+      font-weight: 700;
+      margin-bottom: 0.2em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .stat-value {
+      font-size: 2em;
+      font-weight: 900;
+      color: #222;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .dashboard-section {
+      max-width: 900px;
+      margin: 0 auto 2em auto;
+      background: rgba(255,255,255,0.99);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 2em 1.5em;
+    }
+    .dashboard-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      margin-bottom: 2em;
+      justify-content: center;
+    }
+    .dashboard-link {
+      background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+      color: #fff;
+      padding: 1.1em 2em;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 900;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .dashboard-link:hover {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    }
+    .recent-activity {
+      margin-top: 1.5em;
+    }
+    .recent-activity h3 {
+      color: #007cba;
+      font-size: 1.2em;
+      font-weight: 900;
+      margin-bottom: 0.7em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .activity-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #444;
+      font-size: 1em;
+    }
+    .activity-list li {
+      margin-bottom: 0.5em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    @media (max-width: 700px) {
+      .player-profile-header, .stats-card, .dashboard-section { flex-direction: column; max-width: 98vw; padding: 1em; }
+      .player-profile-header { gap: 1em; }
+      .dashboard-links { flex-direction: column; gap: 1em; }
+    }
+  </style>
 </head>
 <body>
+  <div class="banner-logo">
+    <img src="../../Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+  </div>
+  <header>
+    <div class="site-title">3 Ball Network</div>
+    <div class="site-tagline">Player Portal</div>
+  </header>
   <nav>
     <a href="/">Home</a>
     <a href="/users/registration/">Register</a>
     <a href="/users/login.html">Login</a>
+    <a href="/users/player/">Player Portal</a>
+    <a href="/users/coach/">Coach Portal</a>
+    <a href="/users/scout/">Scout Portal</a>
+    <a href="/users/fan/">Fan Portal</a>
   </nav>
-  <h2>Welcome to the Player Portal</h2>
-  <div id="player-content"></div>
+
+  <!-- Profile Header -->
+  <div class="player-profile-header">
+    <img src="../../Media/default-profile.png" alt="Profile Photo" class="player-profile-pic" id="profile-pic">
+    <div class="player-profile-info">
+      <div class="player-name" id="player-name">Player Name</div>
+      <div class="player-meta" id="player-meta">
+        Position: <span id="player-position">Guard</span> &nbsp;|&nbsp;
+        Height: <span id="player-height">6'2"</span> &nbsp;|&nbsp;
+        Weight: <span id="player-weight">185 lbs</span>
+      </div>
+      <div class="player-bio" id="player-bio">
+        <em>Bio coming soon...</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Card -->
+  <div class="stats-card">
+    <div class="stat-block">
+      <div class="stat-label">PPG</div>
+      <div class="stat-value" id="stat-ppg">18.2</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">RPG</div>
+      <div class="stat-value" id="stat-rpg">7.4</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">APG</div>
+      <div class="stat-value" id="stat-apg">5.1</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">SPG</div>
+      <div class="stat-value" id="stat-spg">2.3</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">BPG</div>
+      <div class="stat-value" id="stat-bpg">1.1</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Section -->
+  <div class="dashboard-section">
+    <div class="dashboard-links">
+      <a class="dashboard-link" href="#">Edit Profile</a>
+      <a class="dashboard-link" href="#">Upload Highlight Video</a>
+      <a class="dashboard-link" href="#">Messages</a>
+      <a class="dashboard-link" href="#">Find Coaches/Scouts</a>
+      <a class="dashboard-link" href="#">View Schedule</a>
+    </div>
+    <div class="recent-activity">
+      <h3>Recent Activity</h3>
+      <ul class="activity-list">
+        <li>Uploaded highlight video: "2025 Season Mix"</li>
+        <li>Received message from Coach Smith</li>
+        <li>Updated profile information</li>
+        <li>Connected with Scout Johnson</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add more ESPN/NBA-style sections below -->
+
+  <!-- Career Highlights Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Career Highlights</h3>
+    <ul class="activity-list">
+      <li>2024 All-State First Team</li>
+      <li>2023 District MVP</li>
+      <li>2022 State Champion</li>
+      <li>Scored 40 points in a single game</li>
+    </ul>
+  </div>
+
+  <!-- Video Highlights Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Video Highlights</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:center;">
+      <div style="background:#eee;border-radius:12px;overflow:hidden;max-width:320px;">
+        <video controls width="320" poster="../../Media/video-thumb1.jpg">
+          <source src="../../Media/highlight1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="padding:0.5em 1em;font-size:1em;">2025 Season Mix</div>
+      </div>
+      <div style="background:#eee;border-radius:12px;overflow:hidden;max-width:320px;">
+        <video controls width="320" poster="../../Media/video-thumb2.jpg">
+          <source src="../../Media/highlight2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="padding:0.5em 1em;font-size:1em;">Top Plays 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social/News Feed Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">News & Social Feed</h3>
+    <ul class="activity-list">
+      <li><strong>3 Ball Network:</strong> New showcase event announced for July 2025!</li>
+      <li><strong>Coach Smith:</strong> "Excited to see your progress this season!"</li>
+      <li><strong>NBA News:</strong> NBA Draft Combine results are in.</li>
+    </ul>
+  </div>
+
+  <!-- Upcoming Games/Schedule Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Upcoming Games</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:1em;">
+      <thead>
+        <tr style="background:#e0fbfc;">
+          <th style="padding:0.7em;">Date</th>
+          <th style="padding:0.7em;">Opponent</th>
+          <th style="padding:0.7em;">Location</th>
+          <th style="padding:0.7em;">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.7em;">06/15/2025</td>
+          <td style="padding:0.7em;">Central High</td>
+          <td style="padding:0.7em;">Home</td>
+          <td style="padding:0.7em;">7:00 PM</td>
+        </tr>
+        <tr>
+          <td style="padding:0.7em;">06/22/2025</td>
+          <td style="padding:0.7em;">Westside Prep</td>
+          <td style="padding:0.7em;">Away</td>
+          <td style="padding:0.7em;">6:30 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Academic Info Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Academic Info</h3>
+    <ul class="activity-list">
+      <li>GPA: <strong>3.7</strong></li>
+      <li>ACT: <strong>25</strong></li>
+      <li>Honor Roll: <strong>2023, 2024</strong></li>
+    </ul>
+  </div>
+
+  <!-- Recruit Me Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Recruit Me</h3>
+    <p>
+      <a class="dashboard-link" href="mailto:player@email.com">Contact Player</a>
+      <a class="dashboard-link" href="#">Download Player Resume</a>
+    </p>
+  </div>
+
+  <!-- Edit Profile Modal (hidden by default) -->
+  <div id="edit-profile-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:2em 2em 1.5em 2em;border-radius:18px;max-width:400px;width:95vw;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+      <h2 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;font-size:1.3em;margin-bottom:1em;">Edit Profile</h2>
+      <form id="edit-profile-form">
+        <label for="edit-name">Name</label>
+        <input type="text" id="edit-name" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-position">Position</label>
+        <input type="text" id="edit-position" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-height">Height</label>
+        <input type="text" id="edit-height" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-weight">Weight</label>
+        <input type="text" id="edit-weight" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-gpa">GPA</label>
+        <input type="text" id="edit-gpa" style="width:100%;margin-bottom:1em;">
+        <label for="edit-bio">Bio</label>
+        <textarea id="edit-bio" style="width:100%;height:60px;margin-bottom:1em;"></textarea>
+        <div style="display:flex;justify-content:space-between;gap:1em;">
+          <button type="submit" class="dashboard-link" style="flex:1;">Save</button>
+          <button type="button" id="close-edit-profile" class="dashboard-link" style="background:#ccc;color:#222;flex:1;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyD4XJLc3_CLvOhvMsytQx2fabgZQt3y5g0",
+    authDomain: "ball-network-web.firebaseapp.com",
+    projectId: "ball-network-web",
+    storageBucket: "ball-network-web.appspot.com",
+    messagingSenderId: "749015998465",
+    appId: "1:749015998465:web:59ac026f3f4c2ec5da3500",
+    measurementId: "G-ZS07SKSRRL"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // Helper: Get current user and load profile
+  firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      window.location.href = "/users/login.html";
+      return;
+    }
+    const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+    const data = doc.data() || {};
+
+    // Fill profile info
+    document.getElementById('player-name').textContent = data.name || "Player Name";
+    document.getElementById('player-position').textContent = data.position || "Position";
+    document.getElementById('player-height').textContent = data.height || "Height";
+    document.getElementById('player-weight').textContent = data.weight || "Weight";
+    document.getElementById('player-bio').textContent = data.bio || "Bio coming soon...";
+    document.getElementById('profile-pic').src = data.photoURL || "../../Media/default-profile.png";
+    // Academic Info
+    document.querySelector('.dashboard-section ul.activity-list').innerHTML = `
+      <li>GPA: <strong>${data.gpa || ""}</strong></li>
+      <li>ACT: <strong>${data.act || ""}</strong></li>
+      <li>Honor Roll: <strong>${data.honorRoll || ""}</strong></li>
+    `;
+    // Recruit Me
+    document.querySelector('.dashboard-section p a.dashboard-link[href^="mailto:"]').href = `mailto:${data.email || "player@email.com"}`;
+    // Approval Status
+    if (data.approved) {
+      document.getElementById('player-approval-status').textContent = "✔ Approved";
+    } else {
+      document.getElementById('player-approval-status').textContent = "⏳ Pending Approval";
+    }
+  });
+
+  // Edit Profile Modal logic
+  document.querySelectorAll('.dashboard-link').forEach(link => {
+    if (link.textContent.includes('Edit Profile')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Pre-fill modal with current info
+        document.getElementById('edit-name').value = document.getElementById('player-name').textContent;
+        document.getElementById('edit-position').value = document.getElementById('player-position').textContent;
+        document.getElementById('edit-height').value = document.getElementById('player-height').textContent;
+        document.getElementById('edit-weight').value = document.getElementById('player-weight').textContent;
+        document.getElementById('edit-gpa').value = document.querySelector('.dashboard-section ul.activity-list li:nth-child(1) strong').textContent;
+        document.getElementById('edit-bio').value = document.getElementById('player-bio').textContent;
+        document.getElementById('edit-profile-modal').style.display = 'flex';
+      });
+    }
+  });
+  document.getElementById('close-edit-profile').onclick = function() {
+    document.getElementById('edit-profile-modal').style.display = 'none';
+  };
+
+  // Save profile to Firestore
+  document.getElementById('edit-profile-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const user = firebase.auth().currentUser;
+    if (!user) return;
+    const updatedData = {
+      name: document.getElementById('edit-name').value,
+      position: document.getElementById('edit-position').value,
+      height: document.getElementById('edit-height').value,
+      weight: document.getElementById('edit-weight').value,
+      gpa: document.getElementById('edit-gpa').value,
+      bio: document.getElementById('edit-bio').value
+    };
+    await firebase.firestore().collection('users').doc(user.uid).set(updatedData, { merge: true });
+    // Update UI
+    document.getElementById('player-name').textContent = updatedData.name;
+    document.getElementById('player-position').textContent = updatedData.position;
+    document.getElementById('player-height').textContent = updatedData.height;
+    document.getElementById('player-weight').textContent = updatedData.weight;
+    document.getElementById('player-bio').textContent = updatedData.bio;
+    document.querySelector('.dashboard-section ul.activity-list li:nth-child(1) strong').textContent = updatedData.gpa;
+    document.getElementById('edit-profile-modal').style.display = 'none';
+  };
+
+  // Logout function
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = "/users/login.html";
+    });
+  }
+</script>
+
   <button onclick="logout()">Logout</button>
   <script type="module" src="player.js"></script>
 </body>

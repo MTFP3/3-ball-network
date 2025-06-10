@@ -416,10 +416,23 @@ function capitalizeWords(str) {
 
 document.getElementById('register-form').addEventListener('submit', async function(e) {
   e.preventDefault();
+  document.getElementById('register-loading').style.display = 'block';
+  document.getElementById('reg-error').textContent = '';
   const email = document.getElementById('reg-email').value;
   const password = document.getElementById('reg-password').value;
   const photoFile = document.getElementById('reg-photo').files[0];
   const role = document.getElementById('reg-role').value;
+
+  // Get role-specific fields
+  const firstName = capitalizeWords(document.getElementById(`${role}-first`).value);
+  const lastName = capitalizeWords(document.getElementById(`${role}-last`).value);
+  const state = document.getElementById(`${role}-state`).value;
+  const city = capitalizeWords(document.getElementById(`${role}-city`).value);
+  const phoneNumber = document.getElementById(`${role}-phone`).value;
+  let school = "";
+  if (role === "player" || role === "coach") {
+    school = capitalizeWords(document.getElementById(`${role}-school`).value);
+  }
 
   // Get checked positions for player
   let positions = [];
@@ -441,12 +454,20 @@ document.getElementById('register-form').addEventListener('submit', async functi
     }
   }
 
-  // ...get other fields as needed...
+  // Player extra fields
+  let heightFt = "", heightIn = "", weight = "", gender = "";
+  if (role === "player") {
+    heightFt = document.getElementById('player-height-ft').value;
+    heightIn = document.getElementById('player-height-in').value;
+    weight = document.getElementById('player-weight').value;
+    gender = document.getElementById('player-gender').value;
+  }
 
   try {
     // 1. Create user in Firebase Auth
     const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
+    const userId = user.uid;
 
     // 2. Upload photo to Firebase Storage
     const storageRef = firebase.storage().ref(`profile_photos/${user.uid}`);
@@ -455,20 +476,32 @@ document.getElementById('register-form').addEventListener('submit', async functi
 
     // 3. Save user info to Firestore
     const userData = {
+      userId,
       email,
       role,
+      firstName,
+      lastName,
+      state,
+      city,
+      phoneNumber,
+      school,
       photoURL,
       positions,
       coachLevels,
-      // ...add other fields here...
+      heightFt,
+      heightIn,
+      weight,
+      gender
     };
-    await firebase.firestore().collection('users').doc(user.uid).set(userData);
+
+    await firebase.firestore().collection('users').doc(userId).set(userData);
 
     alert('Registration successful!');
     // Redirect or show success message
   } catch (error) {
     document.getElementById('reg-error').textContent = error.message;
   }
+  document.getElementById('register-loading').style.display = 'none';
 });
   </script>
 </body>

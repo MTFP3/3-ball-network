@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - 3 Ball Network</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+  <style>
+    .nav-links { margin-bottom: 20px; }
+    .nav-links a, .nav-links button { margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">Profile</a>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <div id="dashboard-content"></div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLvOhvMsytQx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "749015998465",
+      appId: "1:749015998465:web:59ac026f3f4c2ec5da3500",
+      measurementId: "G-ZS07SKSRRL"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = '/users/login.html';
+      });
+    }
+
+    firebase.auth().onAuthStateChanged(async user => {
+      if (!user) return location.href = '/users/login.html';
+      const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+      const data = doc.data();
+      const dashboard = document.getElementById('dashboard-content');
+      if (data.role === 'player') {
+        dashboard.innerHTML = `
+          <h2>Welcome, Player ${data.firstName}!</h2>
+          <p>Your Team: ${data.team || 'Not assigned'}</p>
+          <p>Stats and schedule coming soon!</p>
+        `;
+      } else if (data.role === 'coach') {
+        dashboard.innerHTML = `
+          <h2>Welcome, Coach ${data.firstName}!</h2>
+          <button onclick="location.href='team-management.html'">Manage Teams</button>
+          <div id="coach-teams"></div>
+        `;
+        // Optionally, load and display teams coached by this user
+      } else if (data.role === 'scout') {
+        dashboard.innerHTML = `<h2>Welcome, Scout ${data.firstName}!</h2><p>Scout features coming soon!</p>`;
+      } else if (data.role === 'fan') {
+        dashboard.innerHTML = `<h2>Welcome, Fan ${data.firstName}!</h2><p>Fan features coming soon!</p>`;
+      } else {
+        dashboard.innerHTML = `<h2>Welcome!</h2>`;
+      }
+    });
+  </script>
+</body>
+</html>
