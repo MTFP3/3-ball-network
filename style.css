@@ -72,6 +72,7 @@ nav {
   font-family: 'Montserrat', Arial, sans-serif;
 }
 nav a {
+  display: inline-block; /* Ensures horizontal layout */
   margin: 0 1.5em;
   color: #007cba;
   text-decoration: none;
