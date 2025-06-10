@@ -113,7 +113,7 @@ const fieldsByRole = {
 
 roleSelect.addEventListener('change', function() {
   roleFields.innerHTML = fieldsByRole[this.value] || '';
-  addDependentDropdowns(this.value);
+  setTimeout(() => addDependentDropdowns(this.value), 0); // Wait for DOM update
 });
 
 function addDependentDropdowns(role) {
@@ -121,6 +121,23 @@ function addDependentDropdowns(role) {
   const stateSel = document.getElementById(`${role}-state`);
   const citySel = document.getElementById(`${role}-city`);
   const schoolSel = document.getElementById(`${role}-school`);
+
+  // Remove previous listeners by cloning
+  if (stateSel) {
+    const newStateSel = stateSel.cloneNode(true);
+    stateSel.parentNode.replaceChild(newStateSel, stateSel);
+    stateSel = newStateSel;
+  }
+  if (citySel) {
+    const newCitySel = citySel.cloneNode(true);
+    citySel.parentNode.replaceChild(newCitySel, citySel);
+    citySel = newCitySel;
+  }
+  if (schoolSel) {
+    const newSchoolSel = schoolSel.cloneNode(true);
+    schoolSel.parentNode.replaceChild(newSchoolSel, schoolSel);
+    schoolSel = newSchoolSel;
+  }
 
   // State -> City
   if (stateSel && citySel) {
