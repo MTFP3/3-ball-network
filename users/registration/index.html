@@ -370,6 +370,60 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 });
+
+// Add this to your registration page
+const stateSelect = document.getElementById('stateSelect');
+const citySelect = document.getElementById('citySelect');
+const schoolSelect = document.getElementById('schoolSelect');
+
+// When state changes, fetch cities
+stateSelect.addEventListener('change', async () => {
+  const state = stateSelect.value;
+  citySelect.innerHTML = '<option value="">Select City</option>';
+  schoolSelect.innerHTML = '<option value="">Select School</option>';
+  schoolSelect.disabled = true;
+
+  if (!state) {
+    citySelect.disabled = true;
+    return;
+  }
+
+  citySelect.disabled = false;
+  const res = await fetch(`/getCities?state=${state}`);
+  const data = await res.json();
+  if (data && data.cities) {
+    data.cities.forEach(city => {
+      const opt = document.createElement('option');
+      opt.value = city;
+      opt.textContent = city;
+      citySelect.appendChild(opt);
+    });
+  }
+});
+
+// When city changes, fetch schools
+citySelect.addEventListener('change', async () => {
+  const state = stateSelect.value;
+  const city = citySelect.value;
+  schoolSelect.innerHTML = '<option value="">Select School</option>';
+
+  if (!city) {
+    schoolSelect.disabled = true;
+    return;
+  }
+
+  schoolSelect.disabled = false;
+  const res = await fetch(`/getSchools?state=${state}&city=${encodeURIComponent(city)}`);
+  const data = await res.json();
+  if (data && data.schools) {
+    data.schools.forEach(school => {
+      const opt = document.createElement('option');
+      opt.value = school.schoolName;
+      opt.textContent = school.schoolName;
+      schoolSelect.appendChild(opt);
+    });
+  }
+});
   </script>
 </body>
 </html>
