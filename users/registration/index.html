@@ -1,28 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Register - 3 Ball Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts: Urbanist & Montserrat for a modern, energetic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    .password-container { display: flex; align-items: center; }
-    .password-container button { margin-left: 8px; }
+    body {
+      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: #222;
+      min-height: 100vh;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+    .banner-logo {
+      width: 100vw;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5em 0 1em 0;
+      margin: 0;
+    }
+    .banner-logo-img {
+      max-width: 320px;
+      width: 90vw;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));
+      border-radius: 24px;
+      background: none;
+      padding: 0.5em 1.5em;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      border: none;
+    }
+    .register-card {
+      max-width: 420px;
+      margin: 3em auto 2em auto;
+      background: rgba(255,255,255,0.99);
+      border-radius: 28px;
+      box-shadow: 0 8px 36px rgba(0,0,0,0.16);
+      padding: 2.5em 2em 2em 2em;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Urbanist', Arial, sans-serif;
+      animation: fadeInUp 0.9s cubic-bezier(.4,0,.2,1);
+    }
+    .register-card h2 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2em;
+      font-weight: 900;
+      color: #007cba;
+      margin-bottom: 0.5em;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .register-card p {
+      color: #444;
+      font-size: 1.08em;
+      margin-bottom: 2em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+      align-items: stretch;
+    }
+    label {
+      text-align: left;
+      font-weight: 700;
+      color: #007cba;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2em;
+    }
+    input, select {
+      font-family: 'Urbanist', Arial, sans-serif;
+      font-size: 1.08em;
+      padding: 0.9em 1em;
+      border-radius: 10px;
+      border: 1.5px solid #cce6f6;
+      background: #f7fbfd;
+      margin-top: 0.2em;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input:focus, select:focus {
+      border: 1.5px solid #007cba;
+      background: #eaf6fb;
+    }
+    .password-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    #toggle-password {
+      background: #007cba;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #toggle-password:hover {
+      background: #00b4d8;
+    }
+    button[type="submit"] {
+      background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 1.15em;
+      padding: 1em 0;
+      border: none;
+      border-radius: 12px;
+      margin-top: 1em;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    button[type="submit"]:hover {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    }
+    #register-loading {
+      color: #007cba;
+      font-weight: 700;
+      margin-top: 0.5em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    #reg-error {
+      color: #e63946;
+      font-weight: 700;
+      margin-top: 0.5em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .login-link {
+      margin-top: 2em;
+      font-size: 1em;
+      color: #007cba;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .login-link a {
+      color: #00b4d8;
+      text-decoration: none;
+      font-weight: 700;
+      transition: text-decoration 0.2s;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 600px) {
+      .register-card { max-width: 98vw; padding: 1em; }
+      .banner-logo-img { max-width: 90vw; padding: 0.5em; }
+      .banner-logo { padding: 1em 0 0.5em 0; }
+    }
   </style>
 </head>
 <body>
-  <h2>Register</h2>
-  <form id="register-form" autocomplete="off">
-    <label>
-      Email<br>
+  <div class="banner-logo">
+    <img src="../../Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+  </div>
+  <div class="register-card">
+    <h2>Register</h2>
+    <p>Join the 3 Ball Network and connect with players, coaches, scouts, and fans!</p>
+    <form id="register-form" autocomplete="off">
+      <label for="reg-email">Email</label>
       <input type="email" id="reg-email" required autocomplete="username">
-    </label><br><br>
-    <label>
-      Password<br>
+      <label for="reg-password">Password</label>
       <span class="password-container">
         <input type="password" id="reg-password" required autocomplete="new-password">
         <button type="button" id="toggle-password">Show</button>
       </span>
-    </label><br><br>
-    <label>
-      Role<br>
+      <label for="reg-role">Role</label>
       <select id="reg-role" required>
         <option value="">Select Role</option>
         <option value="player">Player</option>
@@ -30,12 +196,115 @@
         <option value="scout">Scout</option>
         <option value="fan">Fan</option>
       </select>
-    </label><br><br>
-    <button type="submit">Register</button>
-    <div id="register-loading" style="display:none;">Loading...</div>
-    <div id="reg-error" style="color:red"></div>
-  </form>
-  <p>Already have an account? <a href="login.html">Login here</a></p>
+      <div id="role-fields"></div>
+      <button type="submit">Register</button>
+      <div id="register-loading" style="display:none;">Loading...</div>
+      <div id="reg-error"></div>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="../login.html">Login here</a>
+    </div>
+  </div>
   <script type="module" src="register.js"></script>
+  <script>
+    // Example data for states, cities, and schools (expand as needed)
+    const stateCitySchool = {
+      "California": {
+        "Los Angeles": ["LA High", "Westside Prep"],
+        "San Francisco": ["SF Academy", "Golden Gate HS"]
+      },
+      "Texas": {
+        "Houston": ["Houston Central", "Bayou HS"],
+        "Dallas": ["Dallas North", "Lone Star Prep"]
+      }
+    };
+
+    const roleFields = document.getElementById('role-fields');
+    const roleSelect = document.getElementById('reg-role');
+
+    function getStateOptions() {
+      return `<option value="">Select State</option>` +
+        Object.keys(stateCitySchool).map(state => `<option value="${state}">${state}</option>`).join('');
+    }
+
+    function getCityOptions(state) {
+      if (!stateCitySchool[state]) return `<option value="">Select City</option>`;
+      return `<option value="">Select City</option>` +
+        Object.keys(stateCitySchool[state]).map(city => `<option value="${city}">${city}</option>`).join('');
+    }
+
+    function getSchoolOptions(state, city) {
+      if (!stateCitySchool[state] || !stateCitySchool[state][city]) return `<option value="">Select School</option>`;
+      return `<option value="">Select School</option>` +
+        stateCitySchool[state][city].map(school => `<option value="${school}">${school}</option>`).join('');
+    }
+
+    function getCommonFields(role) {
+      return `
+        <label for="${role}-first">First Name</label>
+        <input type="text" id="${role}-first" required>
+        <label for="${role}-last">Last Name</label>
+        <input type="text" id="${role}-last" required>
+        <label for="${role}-state">State</label>
+        <select id="${role}-state" required>${getStateOptions()}</select>
+        <label for="${role}-city">City</label>
+        <select id="${role}-city" required><option value="">Select City</option></select>
+        ${role === "player" || role === "coach" ? `
+          <label for="${role}-school">School</label>
+          <select id="${role}-school" required><option value="">Select School</option></select>
+        ` : ""}
+        <label for="${role}-phone">Phone Number</label>
+        <input type="tel" id="${role}-phone" required pattern="[0-9]{10,}">
+      `;
+    }
+
+    const fieldsByRole = {
+      player: getCommonFields("player") + `
+        <label for="player-height-ft">Height</label>
+        <div style="display:flex;gap:0.5em;">
+          <input type="number" id="player-height-ft" min="4" max="7" placeholder="Feet" required style="flex:1;">
+          <input type="number" id="player-height-in" min="0" max="11" placeholder="Inches" required style="flex:1;">
+        </div>
+        <label for="player-weight">Weight (lbs)</label>
+        <input type="number" id="player-weight" min="80" max="400" required>
+        <label for="player-position">Position</label>
+        <input type="text" id="player-position" required>
+        <label>Gender</label>
+        <select id="player-gender" required>
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      `,
+      coach: getCommonFields("coach"),
+      scout: getCommonFields("scout"),
+      fan: getCommonFields("fan")
+    };
+
+    roleSelect.addEventListener('change', function() {
+      roleFields.innerHTML = fieldsByRole[this.value] || '';
+      addDependentDropdowns(this.value);
+    });
+
+    function addDependentDropdowns(role) {
+      if (!role) return;
+      const stateSel = document.getElementById(`${role}-state`);
+      const citySel = document.getElementById(`${role}-city`);
+      const schoolSel = document.getElementById(`${role}-school`);
+
+      if (stateSel && citySel) {
+        stateSel.addEventListener('change', function() {
+          citySel.innerHTML = getCityOptions(this.value);
+          if (schoolSel) schoolSel.innerHTML = `<option value="">Select School</option>`;
+        });
+      }
+      if (citySel && schoolSel) {
+        citySel.addEventListener('change', function() {
+          const state = stateSel.value;
+          schoolSel.innerHTML = getSchoolOptions(state, this.value);
+        });
+      }
+    }
+  </script>
 </body>
 </html>
