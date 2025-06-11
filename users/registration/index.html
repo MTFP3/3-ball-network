@@ -295,7 +295,6 @@
 <!-- Storage -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script>
-  // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyD4XJLc3_CLvOhvMsytQx2fabgZQt3y5g0",
     authDomain: "ball-network-web.firebaseapp.com",
@@ -305,7 +304,9 @@
     appId: "1:749015998465:web:59ac026f3f4c2ec5da3500",
     measurementId: "G-ZS07SKSRRL"
   };
-  firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 </script>
   <script>
 const roleFields = document.getElementById('role-fields');
