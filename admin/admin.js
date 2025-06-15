@@ -1,6 +1,6 @@
 // --- Firebase Imports ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
@@ -74,38 +74,81 @@ function showConfirm(message, onConfirm) {
   // Implement in utils.js if needed
 }
 
-// --- Dynamic Module Imports ---
+// --- Section Loader Map ---
 const sectionLoaders = {
-  "dashboard-link": async () => (await import('./dashboard.js')).initDashboardSection(),
-  "pages-link": async () => (await import('./pages.js')).initPagesSection(),
-  "media-link": async () => (await import('./media.js')).initMediaSection(),
-  "users-link": async () => (await import('./users.js')).initUsersSection(),
-  "comments-link": async () => (await import('./comments.js')).initCommentsSection(),
-  "settings-link": async () => (await import('./settings.js')).initSettingsSection(),
-  "plugins-link": async () => (await import('./plugins.js')).initPluginsSection(),
-  "audit-link": async () => (await import('./audit.js')).initAuditSection(),
-  "players-link": async () => (await import('./players.js')).initPlayersSection(),
-  "coaches-link": async () => (await import('./coaches.js')).initCoachesSection(),
-  "scouts-link": async () => (await import('./scouts.js')).initScoutsSection(),
-  "fans-link": async () => (await import('./fans.js')).initFansSection()
+  "dashboard-section": () => import('./dashboard.js').then(m => m.initDashboardSection()),
+  "pages-section": () => import('./pages.js').then(m => m.initPagesSection()),
+  "media-section": () => import('./media.js').then(m => m.initMediaSection()),
+  "users-section": () => import('./users.js').then(m => m.initUsersSection()),
+  "comments-section": () => import('./comments.js').then(m => m.initCommentsSection()),
+  "settings-section": () => import('./settings.js').then(m => m.initSettingsSection()),
+  "plugins-section": () => import('./plugins.js').then(m => m.initPluginsSection()),
+  "audit-section": () => import('./audit.js').then(m => m.initAuditSection()),
+  "players-section": () => import('./players.js').then(m => m.initPlayersSection()),
+  "coaches-section": () => import('./coaches.js').then(m => m.initCoachesSection()),
+  "scouts-section": () => import('./scouts.js').then(m => m.initScoutsSection()),
+  "fans-section": () => import('./fans.js').then(m => m.initFansSection())
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  Object.keys(sectionLoaders).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('click', async (e) => {
-      e.preventDefault();
-      // Hide all sections
-      document.querySelectorAll('main > div[id$="-section"]').forEach(div => div.style.display = 'none');
-      // Load and show the selected section
-      await sectionLoaders[id]();
-      // Show the section (each module should handle showing its section)
-    });
-  });
+// --- UI Helpers ---
+function showSection(sectionId) {
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  const section = document.getElementById(sectionId);
+  if (section) section.classList.add('active');
+  // Load section logic if available
+  if (sectionLoaders[sectionId]) sectionLoaders[sectionId]();
+}
 
-  // Optionally, load dashboard by default
-  sectionLoaders["dashboard-link"]();
+// --- Auth State ---
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById('wp-sidebar').style.display = '';
+    showSection('dashboard-section');
+  } else {
+    document.getElementById('wp-sidebar').style.display = '';
+    showSection('admin-login');
+  }
 });
+
+// --- Login Form ---
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const errorDiv = document.getElementById('login-error');
+  errorDiv.textContent = '';
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    showSection('dashboard-section');
+  } catch (err) {
+    errorDiv.textContent = err.message;
+  }
+});
+
+// --- Logout ---
+document.getElementById('logout-link').addEventListener('click', async (e) => {
+  e.preventDefault();
+  await signOut(auth);
+  showSection('admin-login');
+});
+
+// --- Sidebar Navigation ---
+[
+  'dashboard-link', 'pages-link', 'media-link', 'users-link', 'comments-link',
+  'settings-link', 'plugins-link', 'audit-link', 'players-link', 'coaches-link', 'scouts-link', 'fans-link'
+].forEach(linkId => {
+  const link = document.getElementById(linkId);
+  if (link) {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const sectionId = linkId.replace('-link', '-section');
+      showSection(sectionId);
+    });
+  }
+});
+
+// Hide sidebar until auth state is known
+document.getElementById('wp-sidebar').style.display = 'none';
 
 export {
   db,
