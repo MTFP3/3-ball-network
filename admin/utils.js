@@ -61,3 +61,12 @@ export function trackMetric(event, details = {}) {
   // Send to analytics backend
   console.log('Tracked metric:', event, details);
 }
+
+<meta http-equiv="Content-Security-Policy"
+  content="
+    default-src 'self';
+    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://www.gstatic.com;
+    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    img-src 'self' data: https://ui-avatars.com;
+    font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com;
+  "></meta>
