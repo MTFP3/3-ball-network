@@ -65,3 +65,7 @@ window.deleteComment = function(id) {
 
 // Optionally, call loadComments when the comments section is shown
 // Example: in admin.js, when switching to comments section, call loadComments();
+
+export function initCommentsSection() {
+  document.getElementById('comments-section').style.display = '';
+}

@@ -84,5 +84,10 @@ window.deleteMedia = function(fullPath) {
   });
 };
 
+// Initialize media section
+export function initMediaSection() {
+  document.getElementById('media-section').style.display = '';
+}
+
 // Optionally, call loadMedia when the media section is shown
 // Example: in admin.js, when switching to media section, call loadMedia();

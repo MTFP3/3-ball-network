@@ -108,3 +108,7 @@ export async function loadDashboard() {
     }
   }
 }
+
+export function initDashboardSection() {
+  document.getElementById('dashboard-section').style.display = '';
+}

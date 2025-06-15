@@ -74,13 +74,38 @@ function showConfirm(message, onConfirm) {
   // Implement in utils.js if needed
 }
 
-// --- Module Imports ---
-import './pages.js';
-import './media.js';
-import './users.js';
-import './comments.js';
-import './dashboard.js';
-import './utils.js';
+// --- Dynamic Module Imports ---
+const sectionLoaders = {
+  "dashboard-link": async () => (await import('./dashboard.js')).initDashboardSection(),
+  "pages-link": async () => (await import('./pages.js')).initPagesSection(),
+  "media-link": async () => (await import('./media.js')).initMediaSection(),
+  "users-link": async () => (await import('./users.js')).initUsersSection(),
+  "comments-link": async () => (await import('./comments.js')).initCommentsSection(),
+  "settings-link": async () => (await import('./settings.js')).initSettingsSection(),
+  "plugins-link": async () => (await import('./plugins.js')).initPluginsSection(),
+  "audit-link": async () => (await import('./audit.js')).initAuditSection(),
+  "players-link": async () => (await import('./players.js')).initPlayersSection(),
+  "coaches-link": async () => (await import('./coaches.js')).initCoachesSection(),
+  "scouts-link": async () => (await import('./scouts.js')).initScoutsSection(),
+  "fans-link": async () => (await import('./fans.js')).initFansSection()
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  Object.keys(sectionLoaders).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', async (e) => {
+      e.preventDefault();
+      // Hide all sections
+      document.querySelectorAll('main > div[id$="-section"]').forEach(div => div.style.display = 'none');
+      // Load and show the selected section
+      await sectionLoaders[id]();
+      // Show the section (each module should handle showing its section)
+    });
+  });
+
+  // Optionally, load dashboard by default
+  sectionLoaders["dashboard-link"]();
+});
 
 export {
   db,

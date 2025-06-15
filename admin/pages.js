@@ -105,3 +105,7 @@ export async function loadPages() {
   const pages = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
   renderPagesTable(pages);
 }
+
+export function initPagesSection() {
+  document.getElementById('pages-section').style.display = '';
+}
