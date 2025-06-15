@@ -62,11 +62,17 @@ export function trackMetric(event, details = {}) {
   console.log('Tracked metric:', event, details);
 }
 
+// REMOVE the <meta> tag from here and place it in your HTML <head> instead.
+// Updated CSP below for reference:
+
+/*
 <meta http-equiv="Content-Security-Policy"
   content="
     default-src 'self';
-    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://www.gstatic.com;
-    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://www.gstatic.com https://www.gstatic.com/firebasejs/ https://www.googleapis.com;
+    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com;
     img-src 'self' data: https://ui-avatars.com;
-    font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com;
-  "></meta>
+    font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com https://fonts.googleapis.com https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/fonts/;
+  ">
+</meta>
+*/
