@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>3 Ball Network</title>
+  <title>3 Ball Network | Basketball Community Platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Google Fonts: Urbanist & Montserrat for a modern, energetic look -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <meta name="description" content="3 Ball Network connects basketball players, coaches, scouts, and fans. Register, showcase your talent, and grow your basketball network.">
   <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <script type="module" src="/shared/firebase.js"></script>
   <style>
     body {
       font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
@@ -139,7 +140,7 @@
       opacity: 0.16;
       z-index: 0;
     }
-    .hero h2 {
+    .hero h1 {
       font-size: 2.4em;
       margin-bottom: 0.5em;
       color: #007cba;
@@ -238,7 +239,7 @@
       font-family: 'Montserrat', Arial, sans-serif;
       text-transform: uppercase;
     }
-    .cta-banner h3 {
+    .cta-banner h2 {
       margin: 0 0 0.5em 0;
       color: #fff;
       font-size: 1.6em;
@@ -266,7 +267,7 @@
       transform: translateY(-4px) scale(1.05);
       box-shadow: 0 8px 28px rgba(0,0,0,0.13);
     }
-    .feature h4 {
+    .feature h3 {
       font-size: 1.3em;
       margin-bottom: 0.5em;
       color: #007cba;
@@ -307,7 +308,7 @@
       padding: 2.5em 2em 1.5em 2em;
       font-family: 'Urbanist', Arial, sans-serif;
     }
-    .faq-section h3 {
+    .faq-section h2 {
       text-align: center;
       color: #007cba;
       margin-bottom: 1em;
@@ -391,12 +392,10 @@
       .logo { width: 90px; }
     }
   </style>
-  <!-- (Keep your JS scripts as before) -->
-  <script type="module" src="/shared/firebase.js"></script>
 </head>
 <body>
   <div class="banner-logo">
-    <img src="Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+    <img src="/Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
   </div>
   <header>
     <div class="site-title">3 Ball Network</div>
@@ -406,71 +405,88 @@
     <a href="/">Home</a>
     <a href="/users/registration/">Register</a>
     <a href="/users/login.html">Login</a>
+    <a href="/private-policy">Privacy Policy</a>
   </nav>
-  <div class="hero fade-in-section">
-    <h2>Welcome to the 3 Ball Network</h2>
-    <p>
-      Discover your basketball journey.<br>
-      Whether you're a player, coach, scout, or fan, there's a place for you here.<br>
-      <b>Choose your portal to get started:</b>
-    </p>
-    <div class="portal-links">
-      <a class="portal-link" href="/users/player/">Player Portal</a>
-      <a class="portal-link" href="/users/coach/">Coach Portal</a>
-      <a class="portal-link" href="/users/scout/">Scout Portal</a>
-      <a class="portal-link" href="/users/fan/">Fan Portal</a>
-    </div>
-    <div class="spotlight">
-      <strong>Spotlight:</strong> <em>Join now and be part of the fastest-growing basketball network. Connect, showcase your talent, and get discovered!</em>
-    </div>
-  </div>
-  <div class="cta-banner fade-in-section">
-    <h3>Ready to elevate your game?</h3>
-    <a class="portal-link" href="/users/registration/">Join Now</a>
-  </div>
-  <div class="features fade-in-section">
-    <div class="feature">
-      <h4>Verified Profiles</h4>
-      <p><span class="counter" data-count="1200">0</span>+ users verified</p>
-    </div>
-    <div class="feature">
-      <h4>Direct Messaging</h4>
-      <p><span class="counter" data-count="350">0</span>+ messages sent daily</p>
-    </div>
-    <div class="feature">
-      <h4>Talent Showcases</h4>
-      <p><span class="counter" data-count="75">0</span>+ highlights shared</p>
-    </div>
-  </div>
-  <div class="social-links">
-    <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a>
-    <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a>
-  </div>
-  <div class="faq-section fade-in-section">
-    <h3>Frequently Asked Questions</h3>
-    <div class="faq">
-      <button class="faq-question">What is 3 Ball Network?</button>
-      <div class="faq-answer">
-        3 Ball Network is a platform connecting basketball players, coaches, scouts, and fans to grow their network, discover talent, and share their journey.
+  <main>
+    <section class="hero fade-in-section">
+      <h1>Welcome to the 3 Ball Network</h1>
+      <p>
+        <strong>3 Ball Network</strong> is a secure, community-driven platform for basketball players, coaches, scouts, and fans.<br>
+        <br>
+        <b>What can you do here?</b>
+        <ul>
+          <li>Create a verified basketball profile</li>
+          <li>Connect and message with other members</li>
+          <li>Showcase your highlights and achievements</li>
+          <li>Discover and be discovered by scouts and coaches</li>
+        </ul>
+      </p>
+      <div class="portal-links">
+        <a class="portal-link" href="/users/player/">Player Portal</a>
+        <a class="portal-link" href="/users/coach/">Coach Portal</a>
+        <a class="portal-link" href="/users/scout/">Scout Portal</a>
+        <a class="portal-link" href="/users/fan/">Fan Portal</a>
       </div>
-      <button class="faq-question">How do I join?</button>
-      <div class="faq-answer">
-        Click "Register" at the top, select your role, and fill out the form. You'll be guided to your personalized portal!
+      <div class="spotlight">
+        <strong>Spotlight:</strong> <em>Join now and be part of the fastest-growing basketball network. Connect, showcase your talent, and get discovered!</em>
       </div>
-      <button class="faq-question">Is it free?</button>
-      <div class="faq-answer">
-        Yes, joining and using the basic features of 3 Ball Network is free for all users.
+    </section>
+    <section class="purpose fade-in-section">
+      <h2>Why do we request your data?</h2>
+      <p>
+        3 Ball Network collects your name, email, basketball stats, and profile photo to:
+        <ul>
+          <li>Verify your identity and role (player, coach, scout, or fan)</li>
+          <li>Personalize your experience and connect you with the right people</li>
+          <li>Protect our community from spam and abuse</li>
+        </ul>
+        We never sell your data. For full details, see our <a href="/privacy.html">Privacy Policy</a>.
+      </p>
+    </section>
+    <section class="cta-banner fade-in-section">
+      <h2>Ready to elevate your game?</h2>
+      <a class="portal-link" href="/users/registration/">Join Now</a>
+    </section>
+    <section class="features fade-in-section">
+      <div class="feature">
+        <h3>Verified Profiles</h3>
+        <p>1200+ users verified</p>
       </div>
-      <button class="faq-question">Can I switch my role later?</button>
-      <div class="faq-answer">
-        For security, role changes require admin approval. Contact support if you need to switch.
+      <div class="feature">
+        <h3>Direct Messaging</h3>
+        <p>350+ messages sent daily</p>
       </div>
-    </div>
-  </div>
-  <button id="scrollTopBtn" title="Back to top">↑</button>
+      <div class="feature">
+        <h3>Talent Showcases</h3>
+        <p>75+ highlights shared</p>
+      </div>
+    </section>
+    <section class="faq-section fade-in-section">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What is 3 Ball Network?</summary>
+        <p>3 Ball Network is a platform connecting basketball players, coaches, scouts, and fans to grow their network, discover talent, and share their journey.</p>
+      </details>
+      <details>
+        <summary>How do I join?</summary>
+        <p>Click "Register" at the top, select your role, and fill out the form. You'll be guided to your personalized portal!</p>
+      </details>
+      <details>
+        <summary>Is it free?</summary>
+        <p>Yes, joining and using the basic features of 3 Ball Network is free for all users.</p>
+      </details>
+      <details>
+        <summary>Can I switch my role later?</summary>
+        <p>For security, role changes require admin approval. Contact support if you need to switch.</p>
+      </details>
+    </section>
+    <section class="social-links">
+      <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener">Twitter</a>
+    </section>
+  </main>
   <footer>
-    &copy; 2025 3 Ball Network. All rights reserved.
+    &copy; 2025 3 Ball Network. All rights reserved. | <a href="/privacy.html">Privacy Policy</a>
   </footer>
-  <!-- (Keep your JS scripts as before) -->
 </body>
 </html>
