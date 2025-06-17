@@ -72,9 +72,27 @@
     }
     h2 {
       font-size: 2rem;
-      color: #007cba;
       margin-top: 0;
       text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    /* White backgrounds: blue headings */
+    section[style*="background-color: #f8f8f8"] h2 {
+      color: #007cba !important;
+    }
+    /* Blue/gradient backgrounds: white headings */
+    section:not([style*="background-color: #f8f8f8"]) h2,
+    section:not([style*="background-color: #f8f8f8"]) h1 {
+      color: #fff !important;
+      background: none;
+      -webkit-text-fill-color: unset;
+      text-fill-color: unset;
+    }
+    /* Optional: keep About Us gradient effect on white bg only */
+    section:not([style*="background-color: #f8f8f8"]) h1 {
+      color: #fff !important;
+      background: none;
+      -webkit-text-fill-color: unset;
+      text-fill-color: unset;
     }
     section {
       width: 100vw;
