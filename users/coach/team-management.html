@@ -1,55 +1,446 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Team Management</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <meta name="description" content="Manage your basketball teams, players, and reports.">
+  <link rel="stylesheet" href="../../styles/dashboard.css">
+  <style>
+    .btn {
+      background: #007cba;
+      color: #fff;
+      border: none;
+      padding: 0.5em 1.2em;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 0.2em 0.2em 0.2em 0;
+      transition: background 0.2s;
+    }
+    .btn[disabled] {
+      background: #b3b3b3;
+      cursor: not-allowed;
+    }
+    [role="tab"][aria-selected="true"] {
+      background: #007cba;
+      color: #fff;
+      font-weight: bold;
+      outline: 2px solid #007cba;
+    }
+    [role="tab"]:focus {
+      outline: 2px solid #007cba;
+    }
+    .error-message {
+      color: #d90429;
+      font-weight: bold;
+    }
+    .success-message {
+      color: #007cba;
+      font-weight: bold;
+    }
+    .spinner {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border: 2px solid #007cba;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5em;
+    }
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+    .visually-hidden-focusable:active,
+    .visually-hidden-focusable:focus {
+      position: static !important;
+      height: auto; width: auto;
+      overflow: visible;
+      clip: auto;
+      background: #fff;
+      color: #007cba;
+      padding: 0.5em 1em;
+      z-index: 1000;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @media (max-width: 600px) {
+      nav, .tab-content, form, #teams-list {
+        font-size: 1em;
+      }
+      [role="tablist"] {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+      }
+      table {
+        font-size: 0.95em;
+      }
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #333; /* Improved contrast */
+      padding: 0.5em;
+      text-align: left;
+    }
+    th {
+      background: #eaf6fb; /* Improved contrast */
+    }
+    tr:focus-within {
+      outline: 2px solid #007cba;
+      background: #e6f7ff;
+    }
+  </style>
 </head>
 <body>
-  <h2>Team Management</h2>
-  <form id="create-team-form">
-    <input type="text" id="team-name" placeholder="Team Name" required>
-    <button type="submit">Create Team</button>
-  </form>
-  <div id="teams-list"></div>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="visually-hidden visually-hidden-focusable">Skip to main content</a>
+  <noscript>
+    <div class="error-message" role="alert">
+      JavaScript is required for full functionality of this page.
+    </div>
+  </noscript>
+  <header>
+    <nav>
+      <a href="coach.html">Coach Dashboard</a> |
+      <a href="team-management.html" aria-current="page">Team Management</a> |
+      <button type="button" class="btn" onclick="window.logout()" style="float:right;">Logout</button>
+    </nav>
+  </header>
+  <main id="main-content" role="main">
+    <h1>Team Management</h1>
+
+    <!-- Create Team -->
+    <section aria-labelledby="create-team-heading">
+      <h2 id="create-team-heading">Create a Team</h2>
+      <form id="create-team-form" novalidate>
+        <label for="team-name" class="visually-hidden">Team Name</label>
+        <input type="text" id="team-name" placeholder="Team Name" required autocomplete="off" aria-required="true" aria-describedby="team-name-error">
+        <button type="submit" class="btn" id="create-team-btn">Create Team</button>
+        <span id="team-name-error" class="error-message" role="alert" tabindex="-1" style="margin-left:1em;"></span>
+      </form>
+      <div id="teams-list-container">
+        <h3>Your Teams</h3>
+        <div id="teams-list"></div>
+      </div>
+      <div id="sync-status" aria-live="polite" role="status" style="margin-top:1em; font-weight:bold;"></div>
+      <div id="success-status" aria-live="polite" role="status" class="success-message" style="margin-top:0.5em;"></div>
+    </section>
+
+    <!-- Tabs -->
+    <section aria-label="Team Management Features">
+      <div role="tablist" aria-label="Team Management Tabs" style="margin:1em 0;">
+        <button
+          type="button"
+          id="tab-scouting"
+          role="tab"
+          aria-selected="true"
+          aria-controls="scouting-tab"
+          tabindex="0"
+          class="btn"
+          onclick="setTab(event, 'scouting-tab')"
+        >Generate Scouting Report</button>
+        <button
+          type="button"
+          id="tab-ratings"
+          role="tab"
+          aria-selected="false"
+          aria-controls="player-ratings"
+          tabindex="-1"
+          class="btn"
+          onclick="setTab(event, 'player-ratings')"
+        >Player Ratings</button>
+        <button
+          type="button"
+          id="tab-heatmap"
+          role="tab"
+          aria-selected="false"
+          aria-controls="heatmap-tab"
+          tabindex="-1"
+          class="btn"
+          onclick="setTab(event, 'heatmap-tab')"
+        >Shot Heatmap</button>
+      </div>
+      <!-- Live region for announcing tab changes -->
+      <div id="tab-status" class="visually-hidden" aria-live="polite" role="status"></div>
+
+      <!-- Scouting Report Tab Content -->
+      <div id="scouting-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-scouting" tabindex="0" aria-hidden="false" style="display:none;">
+        <h2 style="color:#007cba;">Generate Scouting Report</h2>
+        <label for="scouting-player-select">Select Player:</label>
+        <select id="scouting-player-select"></select>
+
+        <label for="scouting-notes" style="display:block;margin-top:1em;">Scout Notes:</label>
+        <textarea id="scouting-notes" rows="4" style="width:100%;"></textarea>
+
+        <label for="scouting-tags" style="display:block;margin-top:1em;">Select Tags:</label>
+        <select id="scouting-tags" multiple>
+          <option value="athletic">Athletic</option>
+          <option value="shooter">Shooter</option>
+          <option value="defender">Defender</option>
+          <option value="playmaker">Playmaker</option>
+          <option value="leader">Leader</option>
+        </select>
+
+        <button type="button" class="btn" style="margin-top:1em;" id="generate-scouting-btn">Generate PDF Report</button>
+        <div id="scouting-status" aria-live="polite" role="status" style="margin-top:1em;font-weight:bold;"></div>
+
+        <h3 style="margin-top:2em;">Team Scouting Reports</h3>
+        <div id="team-report-list"></div>
+      </div>
+
+      <!-- Player Ratings Display -->
+      <div id="player-ratings" class="tab-content" role="tabpanel" aria-labelledby="tab-ratings" tabindex="0" aria-hidden="true" style="display:none;">
+        <h2 style="color:#007cba;">Player Ratings</h2>
+        <label for="ratings-player-select">Select Player:</label>
+        <select id="ratings-player-select"></select>
+        <div>
+          <strong>Overall Rating:</strong> <span id="overall-rating">-</span>
+        </div>
+        <div>
+          <strong>Scoring:</strong> <span id="rating-scoring">-</span>
+        </div>
+        <div>
+          <strong>Athleticism:</strong> <span id="rating-athleticism">-</span>
+        </div>
+        <div>
+          <strong>Playmaking:</strong> <span id="rating-playmaking">-</span>
+        </div>
+        <div>
+          <strong>Defense:</strong> <span id="rating-defense">-</span>
+        </div>
+        <div>
+          <strong>Basketball IQ:</strong> <span id="rating-iq">-</span>
+        </div>
+      </div>
+
+      <!-- Heatmap Tab -->
+      <div id="heatmap-tab" class="tab-content" role="tabpanel" aria-labelledby="tab-heatmap" tabindex="0" aria-hidden="true" style="display:none;">
+        <h2 style="color:#007cba;">Shot Heatmap</h2>
+        <label for="heatmap-player-select">Select Player:</label>
+        <select id="heatmap-player-select"></select>
+        <canvas id="heatmap-canvas" width="400" height="200" style="border:1px solid #ccc;margin-top:1em;"></canvas>
+      </div>
+    </section>
+
+    <button id="download-resume-btn" type="button" class="btn" aria-label="Download your player resume (only visible to players)" style="margin-top:2em;">Download Resume</button>
+  </main>
+  <footer style="margin-top:2em; text-align:center; color:#888;" role="contentinfo">
+    &copy; 2025 3 Ball Network
+    <div style="font-size:0.9em; margin-top:0.5em;">
+      <strong>Security Reminder:</strong> All actions are logged and require proper authorization.
+    </div>
+  </footer>
+
+  <script type="module" src="/shared/firebase.js"></script>
+  <script type="module" src="team-management.js"></script>
   <script>
-    // Initialize Firebase (reuse config as above)
-    // ...firebaseConfig and firebase.initializeApp...
-
-    firebase.auth().onAuthStateChanged(async user => {
-      if (!user) return location.href = '/users/login.html';
-      // Only allow coaches
-      const doc = await firebase.firestore().collection('users').doc(user.uid).get();
-      if (doc.data().role !== 'coach') return location.href = '/users/dashboard.html';
-
-      // List teams
-      const teamsRef = firebase.firestore().collection('team').where('coachid', '==', user.uid);
-      teamsRef.get().then(snapshot => {
-        let html = '<h3>Your Teams</h3>';
-        snapshot.forEach(doc => {
-          const t = doc.data();
-          html += `<div>${t.school || ''} ${t.mascot || ''} (${t.city}, ${t.state})</div>`;
-        });
-        document.getElementById('teams-list').innerHTML = html;
+    // Accessible tab switching logic with keyboard navigation and focus management
+    function setTab(event, tabId) {
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+      tabs.forEach(btn => {
+        const selected = btn.getAttribute('aria-controls') === tabId;
+        btn.setAttribute('aria-selected', selected ? 'true' : 'false');
+        btn.tabIndex = selected ? 0 : -1;
       });
+      panels.forEach(panel => {
+        const isActive = panel.id === tabId;
+        panel.style.display = isActive ? '' : 'none';
+        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+      // Move focus to the first focusable element in the panel for accessibility
+      const panel = document.getElementById(tabId);
+      if (panel) {
+        const focusable = panel.querySelector('select, input, textarea, button, [tabindex]:not([tabindex="-1"])');
+        if (focusable) focusable.focus();
+        else panel.focus();
+      }
+      // Announce tab change for screen readers
+      const tabStatus = document.getElementById('tab-status');
+      if (tabStatus) {
+        const activeTab = tabs.find(btn => btn.getAttribute('aria-selected') === 'true');
+        tabStatus.textContent = activeTab ? activeTab.textContent + ' tab selected' : '';
+      }
+      // Call showTab for JS logic (if needed)
+      if (typeof showTab === 'function') showTab(tabId);
+      if (event) event.preventDefault();
+    }
 
-      // Create team
-      document.getElementById('create-team-form').onsubmit = async function(e) {
-        e.preventDefault();
-        const teamName = document.getElementById('team-name').value.trim();
-        await firebase.firestore().collection('team').add({
-          coachid: user.uid,
-          coach: doc.data().firstName + ' ' + doc.data().lastName,
-          mascot: teamName,
-          city: '',
-          state: '',
-          school: '',
-          level: '',
+    // Keyboard navigation for tabs
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      tabs.forEach(tab => {
+        tab.addEventListener('keydown', e => {
+          let idx = tabs.indexOf(document.activeElement);
+          if (e.key === 'ArrowRight') {
+            idx = (idx + 1) % tabs.length;
+            tabs[idx].focus();
+            setTab(null, tabs[idx].getAttribute('aria-controls'));
+            e.preventDefault();
+          } else if (e.key === 'ArrowLeft') {
+            idx = (idx - 1 + tabs.length) % tabs.length;
+            tabs[idx].focus();
+            setTab(null, tabs[idx].getAttribute('aria-controls'));
+            e.preventDefault();
+          }
         });
-        location.reload();
-      };
+      });
+      // Initial load
+      setTab(null, 'scouting-tab');
+      loadTeams();
     });
+
+    // Team creation and loading with error handling and loading indicator
+    document.getElementById('create-team-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const teamName = document.getElementById('team-name').value.trim();
+      const errorSpan = document.getElementById('team-name-error');
+      const successSpan = document.getElementById('success-status');
+      errorSpan.textContent = '';
+      successSpan.textContent = '';
+      errorSpan.setAttribute('tabindex', '-1');
+      if (!teamName) {
+        errorSpan.textContent = 'Please enter a team name.';
+        errorSpan.focus();
+        document.getElementById('team-name').focus();
+        return;
+      }
+      const teamsList = document.getElementById('teams-list');
+      const createBtn = document.getElementById('create-team-btn');
+      createBtn.disabled = true;
+      teamsList.innerHTML = '<span class="spinner" aria-hidden="true"></span>Creating your team...';
+      try {
+        const response = await fetch('/api/teams', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: teamName }),
+        });
+        if (response.ok) {
+          document.getElementById('team-name').value = '';
+          loadTeams();
+          document.getElementById('sync-status').textContent = '';
+          successSpan.textContent = 'Team created successfully!';
+          successSpan.focus();
+        } else if (response.status === 404) {
+          document.getElementById('sync-status').textContent = 'API endpoint not found (404). Please contact support.';
+          document.getElementById('sync-status').className = 'error-message';
+          document.getElementById('sync-status').focus();
+        } else {
+          const error = await response.json();
+          document.getElementById('sync-status').textContent = `Could not create team: ${error.message}`;
+          document.getElementById('sync-status').className = 'error-message';
+          document.getElementById('sync-status').focus();
+          loadTeams();
+        }
+      } catch (err) {
+        document.getElementById('sync-status').textContent = 'Network error while creating your team.';
+        document.getElementById('sync-status').className = 'error-message';
+        document.getElementById('sync-status').focus();
+        loadTeams();
+      }
+      createBtn.disabled = false;
+    });
+
+    // Responsive table/list for teams with keyboard navigation
+    async function loadTeams() {
+      const teamsList = document.getElementById('teams-list');
+      teamsList.innerHTML = '<span class="spinner" aria-hidden="true"></span>Loading your teams...';
+      try {
+        const response = await fetch('/api/teams');
+        if (response.ok) {
+          const teams = await response.json();
+          if (teams.length === 0) {
+            teamsList.innerHTML = '<div>No teams found.</div>';
+            return;
+          }
+          // Responsive table with keyboard navigation and focusable headers
+          let html = `<table aria-label="Your Teams"><thead><tr><th tabindex="0">Team Name</th></tr></thead><tbody>`;
+          teams.forEach((team, idx) => {
+            html += `<tr tabindex="0" aria-label="Team: ${team.name}"><td>${team.name}</td></tr>`;
+          });
+          html += `</tbody></table>`;
+          teamsList.innerHTML = html;
+          // Keyboard navigation for table rows
+          teamsList.querySelectorAll('tr[tabindex="0"]').forEach(row => {
+            row.addEventListener('keydown', e => {
+              const rows = Array.from(teamsList.querySelectorAll('tr[tabindex="0"]'));
+              let idx = rows.indexOf(document.activeElement);
+              if (e.key === 'ArrowDown') {
+                idx = (idx + 1) % rows.length;
+                rows[idx].focus();
+                e.preventDefault();
+              } else if (e.key === 'ArrowUp') {
+                idx = (idx - 1 + rows.length) % rows.length;
+                rows[idx].focus();
+                e.preventDefault();
+              }
+            });
+          });
+        } else if (response.status === 404) {
+          teamsList.innerHTML = '<div class="error-message" role="alert">API endpoint not found (404). Please contact support.</div>';
+        } else {
+          teamsList.innerHTML = '<div class="error-message" role="alert">Could not load teams. Please try again later.</div>';
+        }
+      } catch (err) {
+        teamsList.innerHTML = '<div class="error-message" role="alert">Network error while loading your teams.</div>';
+      }
+    }
+
+    // Loading state for Resume button and consistent language
+    const resumeBtn = document.getElementById('download-resume-btn');
+    if (resumeBtn) {
+      resumeBtn.addEventListener('click', async function() {
+        resumeBtn.disabled = true;
+        const originalText = resumeBtn.textContent;
+        resumeBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span>Preparing your resume...';
+        try {
+          // Assume window.generateResume is set up in your JS
+          if (typeof window.generateResume === 'function') {
+            await window.generateResume();
+          }
+        } finally {
+          resumeBtn.disabled = false;
+          resumeBtn.textContent = originalText;
+        }
+      });
+    }
+
+    // Example focus trap for modal dialogs (if you add modals in the future)
+    window.trapFocus = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      const focusableEls = modal.querySelectorAll('a, button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+      const firstFocusableEl = focusableEls[0];
+      const lastFocusableEl = focusableEls[focusableEls.length - 1];
+      modal.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+          if (e.shiftKey) { // shift + tab
+            if (document.activeElement === firstFocusableEl) {
+              lastFocusableEl.focus();
+              e.preventDefault();
+            }
+          } else { // tab
+            if (document.activeElement === lastFocusableEl) {
+              firstFocusableEl.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      });
+    };
   </script>
 </body>
 </html>

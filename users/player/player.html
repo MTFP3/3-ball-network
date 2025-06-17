@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Player Portal - 3 Ball Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .player-profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2em;
+      background: rgba(255,255,255,0.97);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2em 2em 2em 2em;
+      margin: 2em auto 1.5em auto;
+      max-width: 900px;
+    }
+    .player-profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+      border: 4px solid #00b4d8;
+      background: #e0fbfc;
+    }
+    .player-profile-info {
+      flex: 1;
+    }
+    .player-name {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #007cba;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin-bottom: 0.2em;
+    }
+    .player-meta {
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 0.7em;
+    }
+    .player-bio {
+      font-size: 1.08em;
+      color: #333;
+      margin-top: 1em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .stats-card {
+      background: rgba(255,255,255,0.99);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 2em 1.5em;
+      max-width: 900px;
+      margin: 0 auto 2em auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+    }
+    .stat-block {
+      text-align: center;
+      min-width: 120px;
+      flex: 1;
+    }
+    .stat-label {
+      font-size: 1em;
+      color: #007cba;
+      font-weight: 700;
+      margin-bottom: 0.2em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .stat-value {
+      font-size: 2em;
+      font-weight: 900;
+      color: #222;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .dashboard-section {
+      max-width: 900px;
+      margin: 0 auto 2em auto;
+      background: rgba(255,255,255,0.99);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 2em 1.5em;
+    }
+    .dashboard-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      margin-bottom: 2em;
+      justify-content: center;
+    }
+    .dashboard-link {
+      background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+      color: #fff;
+      padding: 1.1em 2em;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 900;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .dashboard-link:hover {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    }
+    .recent-activity {
+      margin-top: 1.5em;
+    }
+    .recent-activity h3 {
+      color: #007cba;
+      font-size: 1.2em;
+      font-weight: 900;
+      margin-bottom: 0.7em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .activity-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #444;
+      font-size: 1em;
+    }
+    .activity-list li {
+      margin-bottom: 0.5em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    button {
+      background: #00b4d8;
+      color: white;
+      padding: 0.5em 1.2em;
+      border: none;
+      border-radius: 10px;
+      margin-right: 0.5em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #007cba;
+    }
+    /* Add this to your <style> block or style.css */
+.badge {
+  display: inline-block;
+  background: #e0fbfc;
+  color: #007cba;
+  font-weight: 700;
+  padding: 0.4em 1em;
+  border-radius: 16px;
+  margin: 0.2em 0.4em;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1em;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s;
+}
+.badge:hover {
+  background: #00b4d8;
+  color: #fff;
+}
+    @media (max-width: 700px) {
+      .player-profile-header, .stats-card, .dashboard-section { flex-direction: column; max-width: 98vw; padding: 1em; }
+      .player-profile-header { gap: 1em; }
+      .dashboard-links { flex-direction: column; gap: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner-logo">
+    <img src="../../Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+  </div>
+  <header>
+    <div class="site-title">3 Ball Network</div>
+    <div class="site-tagline">Player Portal</div>
+  </header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/users/registration/">Register</a>
+    <a href="/users/login.html">Login</a>
+    <a href="/users/player/">Player Portal</a>
+    <a href="/users/coach/">Coach Portal</a>
+    <a href="/users/scout/">Scout Portal</a>
+    <a href="/users/fan/">Fan Portal</a>
+  </nav>
+
+  <!-- Profile Header -->
+  <div class="player-profile-header">
+    <img src="../../Media/default-profile.png" alt="Profile Photo" class="player-profile-pic" id="profile-pic">
+    <div class="player-profile-info">
+      <div class="player-name" id="player-name">Player Name</div>
+      <div class="player-meta" id="player-meta">
+        Position: <span id="player-position">Guard</span> &nbsp;|&nbsp;
+        Height: <span id="player-height">6'2"</span> &nbsp;|&nbsp;
+        Weight: <span id="player-weight">185 lbs</span>
+      </div>
+      <div class="player-bio" id="player-bio">
+        <em>Bio coming soon...</em>
+      </div>
+      <div id="player-rating"></div>
+    </div>
+  </div>
+
+  <!-- Stats Card -->
+  <div class="stats-card">
+    <div class="stat-block">
+      <div class="stat-label">PPG</div>
+      <div class="stat-value" id="stat-ppg">18.2</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">RPG</div>
+      <div class="stat-value" id="stat-rpg">7.4</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">APG</div>
+      <div class="stat-value" id="stat-apg">5.1</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">SPG</div>
+      <div class="stat-value" id="stat-spg">2.3</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">BPG</div>
+      <div class="stat-value" id="stat-bpg">1.1</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Section -->
+  <div class="dashboard-section">
+    <div class="dashboard-links">
+      <a class="dashboard-link" href="#">Edit Profile</a>
+      <a class="dashboard-link" href="#">Upload Highlight Video</a>
+      <a class="dashboard-link" href="#">Messages</a>
+      <a class="dashboard-link" href="#">Find Coaches/Scouts</a>
+      <a class="dashboard-link" href="#">View Schedule</a>
+    </div>
+    <div class="recent-activity">
+      <h3>Recent Activity</h3>
+      <ul class="activity-list">
+        <li>Uploaded highlight video: "2025 Season Mix"</li>
+        <li>Received message from Coach Smith</li>
+        <li>Updated profile information</li>
+        <li>Connected with Scout Johnson</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add more ESPN/NBA-style sections below -->
+
+  <!-- Career Highlights Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Career Highlights</h3>
+    <ul class="activity-list">
+      <li>2024 All-State First Team</li>
+      <li>2023 District MVP</li>
+      <li>2022 State Champion</li>
+      <li>Scored 40 points in a single game</li>
+    </ul>
+  </div>
+
+  <!-- Video Highlights Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Video Highlights</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:center;">
+      <div style="background:#eee;border-radius:12px;overflow:hidden;max-width:320px;">
+        <video controls width="320" poster="../../Media/video-thumb1.jpg">
+          <source src="../../Media/highlight1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="padding:0.5em 1em;font-size:1em;">2025 Season Mix</div>
+      </div>
+      <div style="background:#eee;border-radius:12px;overflow:hidden;max-width:320px;">
+        <video controls width="320" poster="../../Media/video-thumb2.jpg">
+          <source src="../../Media/highlight2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="padding:0.5em 1em;font-size:1em;">Top Plays 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social/News Feed Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">News & Social Feed</h3>
+    <ul class="activity-list">
+      <li><strong>3 Ball Network:</strong> New showcase event announced for July 2025!</li>
+      <li><strong>Coach Smith:</strong> "Excited to see your progress this season!"</li>
+      <li><strong>NBA News:</strong> NBA Draft Combine results are in.</li>
+    </ul>
+  </div>
+
+  <!-- Upcoming Games/Schedule Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Upcoming Games</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:1em;">
+      <thead>
+        <tr style="background:#e0fbfc;">
+          <th style="padding:0.7em;">Date</th>
+          <th style="padding:0.7em;">Opponent</th>
+          <th style="padding:0.7em;">Location</th>
+          <th style="padding:0.7em;">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.7em;">06/15/2025</td>
+          <td style="padding:0.7em;">Central High</td>
+          <td style="padding:0.7em;">Home</td>
+          <td style="padding:0.7em;">7:00 PM</td>
+        </tr>
+        <tr>
+          <td style="padding:0.7em;">06/22/2025</td>
+          <td style="padding:0.7em;">Westside Prep</td>
+          <td style="padding:0.7em;">Away</td>
+          <td style="padding:0.7em;">6:30 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Academic Info Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Academic Info</h3>
+    <ul class="activity-list">
+      <li>GPA: <strong>3.7</strong></li>
+      <li>ACT: <strong>25</strong></li>
+      <li>Honor Roll: <strong>2023, 2024</strong></li>
+    </ul>
+  </div>
+
+  <!-- Recruit Me Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Recruit Me</h3>
+    <p>
+      <a class="dashboard-link" href="mailto:player@email.com">Contact Player</a>
+      <a class="dashboard-link" href="#">Download Player Resume</a>
+    </p>
+    <button id="download-resume-btn" class="dashboard-link">Download Resume</button>
+  </div>
+
+  <!-- Edit Profile Modal (hidden by default) -->
+  <div id="edit-profile-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:2em 2em 1.5em 2em;border-radius:18px;max-width:400px;width:95vw;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+      <h2 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;font-size:1.3em;margin-bottom:1em;">Edit Profile</h2>
+      <form id="edit-profile-form">
+        <label for="edit-name">Name</label>
+        <input type="text" id="edit-name" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-position">Position</label>
+        <input type="text" id="edit-position" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-height">Height</label>
+        <input type="text" id="edit-height" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-weight">Weight</label>
+        <input type="text" id="edit-weight" style="width:100%;margin-bottom:1em;" required>
+        <label for="edit-gpa">GPA</label>
+        <input type="text" id="edit-gpa" style="width:100%;margin-bottom:1em;">
+        <label for="edit-bio">Bio</label>
+        <textarea id="edit-bio" style="width:100%;height:60px;margin-bottom:1em;"></textarea>
+        <div style="display:flex;justify-content:space-between;gap:1em;">
+          <button type="submit" class="dashboard-link" style="flex:1;">Save</button>
+          <button type="button" id="close-edit-profile" class="dashboard-link" style="background:#ccc;color:#222;flex:1;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Stat Form Section -->
+  <div class="dashboard-section">
+    <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Stat Submission</h3>
+    <form id="stat-form" style="display:flex;flex-direction:column;gap:1em;">
+      <input type="number" id="points" placeholder="Points" required>
+      <input type="number" id="rebounds" placeholder="Rebounds" required>
+      <input type="number" id="minutes" placeholder="Minutes Played" required>
+      <button type="submit" class="dashboard-link" style="width:100%;">Get Grade</button>
+    </form>
+    <div id="grade-result" style="margin-top:1em;font-size:1.1em;color:#007cba;"></div>
+  </div>
+
+  <!-- Video Upload Form -->
+<div class="dashboard-section">
+  <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Upload Highlight Video</h3>
+  <form id="video-upload-form" style="display:flex;gap:1em;flex-wrap:wrap;">
+    <input type="text" id="video-url" placeholder="Paste YouTube or Hudl Link" required style="flex:2;min-width:200px;">
+    <button type="submit" class="dashboard-link" style="flex:1;">Upload Video</button>
+  </form>
+  <div id="upload-message" style="margin-top:1em;font-size:1.1em;"></div>
+</div>
+
+<!-- MP4 Upload Form Section -->
+<div class="dashboard-section">
+  <h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Upload MP4 Video</h3>
+  <form id="mp4-upload-form">
+    <input type="file" id="video-file" accept="video/mp4" required>
+    <button type="submit">Upload MP4 File</button>
+  </form>
+  <div id="mp4-upload-message"></div>
+</div>
+
+  <!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-heatmap/build/index.umd.js"></script>
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyD4XJLc3_CLvOhvMsytQx2fabgZQt3y5g0",
+    authDomain: "ball-network-web.firebaseapp.com",
+    projectId: "ball-network-web",
+    storageBucket: "ball-network-web.appspot.com",
+    messagingSenderId: "749015998465",
+    appId: "1:749015998465:web:59ac026f3f4c2ec5da3500",
+    measurementId: "G-ZS07SKSRRL"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // Helper: Get current user and load profile & stats
+  firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+      window.location.href = "/users/login.html";
+      return;
+    }
+    try {
+      const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+      const data = doc.data() || {};
+
+      // Fill profile info
+      document.getElementById('player-name').textContent = data.name || "Player Name";
+      document.getElementById('player-position').textContent = data.position || "Position";
+      document.getElementById('player-height').textContent = data.height || "Height";
+      document.getElementById('player-weight').textContent = data.weight || "Weight";
+      document.getElementById('player-bio').textContent = data.bio || "Bio coming soon...";
+      document.getElementById('profile-pic').src = data.photoURL || "../../Media/default-profile.png";
+
+      // Academic Info
+      const academicSection = document.querySelectorAll('.dashboard-section ul.activity-list')[0];
+      if (academicSection) {
+        academicSection.innerHTML = `
+          <li>GPA: <strong>${data.gpa || ""}</strong></li>
+          <li>ACT: <strong>${data.act || ""}</strong></li>
+          <li>Honor Roll: <strong>${data.honorRoll || ""}</strong></li>
+        `;
+      }
+
+      // Recruit Me
+      const recruitLink = document.querySelector('.dashboard-section p a.dashboard-link[href^="mailto:"]');
+      if (recruitLink) {
+        recruitLink.href = `mailto:${data.email || "player@email.com"}`;
+      }
+
+      // Approval Status (optional)
+      if (document.getElementById('player-approval-status')) {
+        document.getElementById('player-approval-status').textContent = data.approved ? "✔ Approved" : "⏳ Pending Approval";
+      }
+
+      // --- Dynamic Stats Summary ---
+      // Fetch last 10 games and calculate averages
+      const gradesSnap = await firebase.firestore().collection('grades')
+        .where('playerId', '==', user.uid)
+        .orderBy('timestamp', 'desc')
+        .limit(10)
+        .get();
+      const grades = gradesSnap.docs.map(doc => doc.data());
+      let totals = { points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0 }, count = 0;
+      grades.forEach(g => {
+        if (g.stats) {
+          totals.points += Number(g.stats.points) || 0;
+          totals.rebounds += Number(g.stats.rebounds) || 0;
+          totals.assists += Number(g.stats.assists) || 0;
+          totals.steals += Number(g.stats.steals) || 0;
+          totals.blocks += Number(g.stats.blocks) || 0;
+          count++;
+        }
+      });
+      // Avoid division by zero
+      document.getElementById('stat-ppg').textContent = count ? (totals.points / count).toFixed(1) : "0.0";
+      document.getElementById('stat-rpg').textContent = count ? (totals.rebounds / count).toFixed(1) : "0.0";
+      document.getElementById('stat-apg').textContent = count ? (totals.assists / count).toFixed(1) : "0.0";
+      document.getElementById('stat-spg').textContent = count ? (totals.steals / count).toFixed(1) : "0.0";
+      document.getElementById('stat-bpg').textContent = count ? (totals.blocks / count).toFixed(1) : "0.0";
+
+      // --- Dynamic Video Highlights ---
+      const videoSection = document.querySelectorAll('.dashboard-section')[3]; // 4th section is Video Highlights
+      if (videoSection) {
+        const videosSnap = await firebase.firestore().collection('videos')
+          .where('uploadedBy', '==', user.uid)
+          .orderBy('createdAt', 'desc')
+          .limit(6)
+          .get();
+        const videos = videosSnap.docs.map(doc => doc.data());
+        let html = `<div style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:center;">`;
+        if (videos.length) {
+          videos.forEach(v => {
+            html += `
+              <div style="background:#eee;border-radius:12px;overflow:hidden;max-width:320px;">
+                <video controls width="320" poster="${v.thumbnail || '../../Media/video-thumb1.jpg'}">
+                  <source src="${v.videoUrl || v.videoLink}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div style="padding:0.5em 1em;font-size:1em;">${v.title || 'Highlight'}</div>
+              </div>
+            `;
+          });
+        } else {
+          html += `<div>No highlight videos uploaded yet.</div>`;
+        }
+        html += `</div>`;
+        videoSection.innerHTML = `<h3 style="color:#007cba;font-family:'Montserrat',Arial,sans-serif;font-weight:900;">Video Highlights</h3>${html}`;
+      }
+
+    } catch (err) {
+      // Error handling for missing elements or Firestore errors
+      console.error("Error loading player data:", err);
+      if (document.getElementById('player-name')) document.getElementById('player-name').textContent = "Error loading profile";
+      if (document.getElementById('stat-ppg')) document.getElementById('stat-ppg').textContent = "N/A";
+      if (document.getElementById('stat-rpg')) document.getElementById('stat-rpg').textContent = "N/A";
+      if (document.getElementById('stat-apg')) document.getElementById('stat-apg').textContent = "N/A";
+      if (document.getElementById('stat-spg')) document.getElementById('stat-spg').textContent = "N/A";
+      if (document.getElementById('stat-bpg')) document.getElementById('stat-bpg').textContent = "N/A";
+      const videoSection = document.querySelectorAll('.dashboard-section')[3];
+      if (videoSection) videoSection.innerHTML = "<div style='color:red;'>Error loading videos.</div>";
+    }
+  });
+
+  // Edit Profile Modal logic
+  document.querySelectorAll('.dashboard-link').forEach(link => {
+    if (link.textContent.includes('Edit Profile')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Pre-fill modal with current info
+        document.getElementById('edit-name').value = document.getElementById('player-name').textContent;
+        document.getElementById('edit-position').value = document.getElementById('player-position').textContent;
+        document.getElementById('edit-height').value = document.getElementById('player-height').textContent;
+        document.getElementById('edit-weight').value = document.getElementById('player-weight').textContent;
+        document.getElementById('edit-gpa').value = document.querySelector('.dashboard-section ul.activity-list li:nth-child(1) strong').textContent;
+        document.getElementById('edit-bio').value = document.getElementById('player-bio').textContent;
+        document.getElementById('edit-profile-modal').style.display = 'flex';
+      });
+    }
+  });
+  document.getElementById('close-edit-profile').onclick = function() {
+    document.getElementById('edit-profile-modal').style.display = 'none';
+  };
+
+  // Save profile to Firestore
+  document.getElementById('edit-profile-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const user = firebase.auth().currentUser;
+    if (!user) return;
+    const updatedData = {
+      name: document.getElementById('edit-name').value,
+      position: document.getElementById('edit-position').value,
+      height: document.getElementById('edit-height').value,
+      weight: document.getElementById('edit-weight').value,
+      gpa: document.getElementById('edit-gpa').value,
+      bio: document.getElementById('edit-bio').value
+    };
+    await firebase.firestore().collection('users').doc(user.uid).set(updatedData, { merge: true });
+    // Update UI
+    document.getElementById('player-name').textContent = updatedData.name;
+    document.getElementById('player-position').textContent = updatedData.position;
+    document.getElementById('player-height').textContent = updatedData.height;
+    document.getElementById('player-weight').textContent = updatedData.weight;
+    document.getElementById('player-bio').textContent = updatedData.bio;
+    document.querySelector('.dashboard-section ul.activity-list li:nth-child(1) strong').textContent = updatedData.gpa;
+    document.getElementById('edit-profile-modal').style.display = 'none';
+  };
+
+  // Logout function
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = "/users/login.html";
+    });
+  }
+
+  // Grade calculation logic
+  document.getElementById('stat-form').onsubmit = function(e) {
+    e.preventDefault();
+    const points = parseFloat(document.getElementById('points').value);
+    const rebounds = parseFloat(document.getElementById('rebounds').value);
+    const minutes = parseFloat(document.getElementById('minutes').value);
+    if (isNaN(points) || isNaN(rebounds) || isNaN(minutes)) {
+      alert("Please enter valid numbers for all fields.");
+      return;
+    }
+    // Simple grade calculation: (PPG + RPG) / MPG
+    const ppg = points / (minutes / 40);
+    const rpg = rebounds / (minutes / 40);
+    const grade = (ppg + rpg) / 2;
+    function getLetterGrade(grade) {
+      if (grade >= 90) return 'A';
+      if (grade >= 80) return 'B';
+      if (grade >= 70) return 'C';
+      if (grade >= 60) return 'D';
+      return 'F';
+    }
+    document.getElementById('grade-result').textContent =
+      `Estimated Grade: ${grade.toFixed(2)} (${getLetterGrade(grade)})`;
+  };
+
+  // Video upload logic
+  document.getElementById('video-upload-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const url = document.getElementById('video-url').value.trim();
+    if (!url) {
+      document.getElementById('upload-message').textContent = "Please enter a video URL.";
+      return;
+    }
+    // Here you would typically handle the video URL, e.g., upload to server or save to Firestore
+    document.getElementById('upload-message').textContent = "Video URL submitted: " + url;
+    document.getElementById('video-url').value = ""; // Clear input
+  };
+
+  // MP4 file upload logic
+  document.getElementById('mp4-upload-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const fileInput = document.getElementById('video-file');
+    const file = fileInput.files[0];
+    if (!file) {
+      document.getElementById('mp4-upload-message').textContent = "Please select an MP4 file to upload.";
+      return;
+    }
+    // Here you would typically handle the file upload, e.g., upload to server or save to Firestore
+    document.getElementById('mp4-upload-message').textContent = "MP4 file ready for upload: " + file.name;
+    fileInput.value = ""; // Clear input
+  };
+
+  // Save video info offline
+function saveOfflineVideo() {
+  const fileInput = document.getElementById('offline-video-file');
+  const linkInput = document.getElementById('offline-video-link');
+  let videoData = {};
+
+  if (fileInput.files && fileInput.files[0]) {
+    // Save file info (not the file itself) for offline queue
+    videoData = {
+      type: 'file',
+      name: fileInput.files[0].name,
+      lastModified: fileInput.files[0].lastModified,
+      // Optionally, you can use FileReader to store a base64 string for true offline, but that's large!
+    };
+    localStorage.setItem('offlineVideoFile', JSON.stringify(videoData));
+    alert('Video file info saved for upload when online.');
+  } else if (linkInput.value.trim()) {
+    videoData = {
+      type: 'link',
+      url: linkInput.value.trim()
+    };
+    localStorage.setItem('offlineVideoLink', JSON.stringify(videoData));
+    alert('Video link saved for upload when online.');
+  } else {
+    alert('Please select a video file or paste a link.');
+  }
+}
+
+// Sync offline video to Firebase/Storage
+async function syncOfflineVideo() {
+  const fileData = JSON.parse(localStorage.getItem('offlineVideoFile') || 'null');
+  const linkData = JSON.parse(localStorage.getItem('offlineVideoLink') || 'null');
+  const user = firebase.auth().currentUser;
+  if (!user) return alert('You must be logged in.');
+
+  if (fileData && document.getElementById('offline-video-file').files[0]) {
+    // Upload file to Firebase Storage
+    const file = document.getElementById('offline-video-file').files[0];
+    const storageRef = firebase.storage().ref(`videos/${user.uid}/${Date.now()}_${file.name}`);
+    await storageRef.put(file);
+    const videoUrl = await storageRef.getDownloadURL();
+
+    // Save video metadata to Firestore
+    await firebase.firestore().collection('videos').add({
+      uploadedBy: user.uid,
+      videoUrl,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    localStorage.removeItem('offlineVideoFile');
+    alert('Video file uploaded and saved!');
+  } else if (linkData && linkData.url) {
+    // Save link to Firestore
+    await firebase.firestore().collection('videos').add({
+      uploadedBy: user.uid,
+      videoLink: linkData.url,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    localStorage.removeItem('offlineVideoLink');
+    alert('Video link saved!');
+  } else {
+    alert('No offline video to sync.');
+  }
+}
+  // Highlights filter logic
+  function filterHighlights(type) {
+    const allHighlights = document.querySelectorAll('#highlight-gallery .highlight-item');
+    allHighlights.forEach(item => {
+      if (type === 'all' || item.classList.contains(type)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // Sample highlights data (replace with real data from Firestore)
+  const highlightsData = [
+    { id: 1, type: 'madeShot', videoUrl: '../../Media/highlight1.mp4', thumbnail: '../../Media/video-thumb1.jpg', title: '2025 Season Mix' },
+    { id: 2, type: 'madeShot', videoUrl: '../../Media/highlight2.mp4', thumbnail: '../../Media/video-thumb2.jpg', title: 'Top Plays 2024' },
+    // Add more highlights as needed
+  ];
+
+  // Load highlights into the gallery
+  function loadHighlights() {
+    const gallery = document.getElementById('highlight-gallery');
+    gallery.innerHTML = '';
+    highlightsData.forEach(highlight => {
+      const div = document.createElement('div');
+      div.className = 'highlight-item';
+      div.style = 'flex: 1 1 calc(50% - 1em); box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;';
+      div.innerHTML = `
+        <video controls style="width:100%;" poster="${highlight.thumbnail}">
+          <source src="${highlight.videoUrl}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="padding: 0.5em; font-size: 1em; text-align: center;">${highlight.title}</div>
+      `;
+      div.classList.add(highlight.type); // Add class for filtering
+      gallery.appendChild(div);
+    });
+  }
+
+  // Initial load
+  loadHighlights();
+  filterHighlights('all'); // Show all highlights by default
+
+  // Resume Modal logic
+  document.getElementById('download-resume-btn').onclick = async function() {
+    const user = firebase.auth().currentUser;
+    if (!user) return;
+
+    // Fetch profile
+    const userDoc = await firebase.firestore().collection('users').doc(user.uid).get();
+    const profile = userDoc.data() || {};
+
+    // Fetch grades (stats)
+    const gradesSnap = await firebase.firestore().collection('grades')
+      .where('playerId', '==', user.uid)
+      .orderBy('timestamp', 'desc')
+      .limit(10)
+      .get();
+    const grades = gradesSnap.docs.map(doc => doc.data());
+
+    // Fetch highlight videos
+    const videosSnap = await firebase.firestore().collection('videos')
+      .where('uploadedBy', '==', user.uid)
+      .orderBy('createdAt', 'desc')
+      .limit(3)
+      .get();
+    const videos = videosSnap.docs.map(doc => doc.data());
+
+    // Build resume HTML
+    let html = `
+      <h2 style="color:#007cba;">${profile.name || "Player Name"} — Resume</h2>
+      <p><strong>Position:</strong> ${profile.position || ""} &nbsp; <strong>Height:</strong> ${profile.height || ""} &nbsp; <strong>Weight:</strong> ${profile.weight || ""}</p>
+      <p><strong>GPA:</strong> ${profile.gpa || ""}</p>
+      <p><strong>Bio:</strong> ${profile.bio || ""}</p>
+      <hr>
+      <h3 style="color:#007cba;">Recent Game Stats</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:#f0f4f8;">
+          <th>Date</th><th>Points</th><th>Reb</th><th>Ast</th><th>Stl</th><th>Blk</th><th>Grade</th>
+        </tr>
+        ${grades.map(g => `
+          <tr>
+            <td>${g.timestamp && g.timestamp.toDate ? g.timestamp.toDate().toLocaleDateString() : ''}</td>
+            <td>${g.stats?.points || 0}</td>
+            <td>${g.stats?.rebounds || 0}</td>
+            <td>${g.stats?.assists || 0}</td>
+            <td>${g.stats?.steals || 0}</td>
+            <td>${g.stats?.blocks || 0}</td>
+            <td>${g.grade || ''}</td>
+          </tr>
+        `).join('')}
+      </table>
+      <hr>
+      <h3 style="color:#007cba;">Highlight Videos</h3>
+      <div style="display:flex;gap:1em;flex-wrap:wrap;">
+        ${videos.map(v => `
+          <video controls width="200" style="border-radius:8px;">
+            <source src="${v.videoUrl || v.videoLink}" type="video/mp4">
+          </video>
+        `).join('')}
+      </div>
+    `;
+
+    document.getElementById('player-resume-content').innerHTML = `
+      <button onclick="document.getElementById('player-resume-modal').style.display='none'" style="position:absolute;top:1em;right:1em;">Close</button>
+      ${html}
+      <button onclick="window.print()" style="margin-top:2em;">Print or Save as PDF</button>
+    `;
+    document.getElementById('player-resume-modal').style.display = 'flex';
+  };
+
+  // Logout button
+  document.getElementById('logout-btn').onclick = function() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = "/users/login.html";
+    });
+  };
+
+  let heatmapChart = null;
+
+async function loadHeatmap() {
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+
+  const doc = await firebase.firestore()
+    .collection('heatmaps').doc(user.uid)
+    .collection('season').doc('shots').get();
+
+  if (!doc.exists) {
+    console.warn('No heatmap data found.');
+    drawHeatmap([]); // Clear chart if no data
+    return;
+  }
+
+  const shotData = doc.data().data || [];
+
+  drawHeatmap(shotData);
+}
+
+function drawHeatmap(data) {
+  const ctx = document.getElementById('heatmap-canvas').getContext('2d');
+
+  // Destroy previous chart if exists
+  if (window.heatmapChart) {
+    window.heatmapChart.destroy();
+  }
+
+  window.heatmapChart = new Chart(ctx, {
+    type: 'matrix',
+    data: {
+      datasets: [{
+        label: 'Shot Density',
+        data: data.map(d => ({ x: d.x, y: d.y, v: d.value })),
+        backgroundColor: ctx => {
+          const value = ctx.raw.v;
+          return `rgba(0, 123, 255, ${Math.min(1, value / 5)})`;
+        },
+        width: ({ chart }) => chart.chartArea.width / 20 - 2,
+        height: ({ chart }) => chart.chartArea.height / 10 - 2,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.05)'
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: () => '',
+            label: ctx => `Shots: ${ctx.raw.v}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          display: true,
+          min: 0,
+          max: 20,
+          title: { display: true, text: 'Court X' }
+        },
+        y: {
+          display: true,
+          min: 0,
+          max: 10,
+          title: { display: true, text: 'Court Y' }
+        }
+      }
+    }
+  });
+}
+
+// Call after auth is ready
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    loadHeatmap();
+    loadImprovementPlan();
+    // ...other onAuthStateChanged logic...
+  }
+});
+
+async function loadImprovementPlan() {
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+
+  const planDiv = document.getElementById('improvement-plan-content');
+  planDiv.innerHTML = "<p>Loading personalized feedback...</p>";
+
+  try {
+    // Example: Fetch from Firestore collection 'improvementPlans'
+    const doc = await firebase.firestore().collection('improvementPlans').doc(user.uid).get();
+    if (doc.exists && doc.data().plan) {
+      planDiv.innerHTML = `<p>${doc.data().plan}</p>`;
+    } else {
+      planDiv.innerHTML = `<p>No improvement plan found. Ask your coach for feedback!</p>`;
+    }
+  } catch (err) {
+    planDiv.innerHTML = `<p>Error loading improvement plan.</p>`;
+  }
+}
+
+// Coach AI Question Submission
+document.getElementById('submit-question-btn').onclick = async function() {
+  const question = document.getElementById('coach-question').value.trim();
+  const responseDiv = document.getElementById('coach-response');
+  responseDiv.textContent = "Thinking...";
+  if (!question) {
+    responseDiv.textContent = "Please enter a question.";
+    return;
+  }
+  try {
+    const askAICoach = firebase.functions().httpsCallable('askAICoach');
+    const result = await askAICoach({ question });
+    responseDiv.textContent = result.data.answer;
+  } catch (err) {
+    responseDiv.textContent = "Sorry, there was an error getting your answer.";
+  }
+};
+
+// --- Statkeeper Logic ---
+
+let statkeeperStats = {};
+let statkeeperPlayerId = null;
+
+// Populate player dropdown with all players (or just team if you want)
+async function populatePlayerSelect() {
+  const select = document.getElementById('player-select');
+  select.innerHTML = '';
+  const snapshot = await firebase.firestore().collection('users').where('role', '==', 'player').get();
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const option = document.createElement('option');
+    option.value = doc.id;
+    option.textContent = data.name || doc.id;
+    select.appendChild(option);
+  });
+  if (select.options.length > 0) {
+    statkeeperPlayerId = select.value;
+    statkeeperStats = {};
+    updateStatOutput();
+  }
+}
+
+document.getElementById('player-select').onchange = function() {
+  statkeeperPlayerId = this.value;
+  statkeeperStats = {};
+  updateStatOutput();
+};
+
+function recordStat(stat) {
+  if (!statkeeperPlayerId) return;
+  statkeeperStats[stat] = (statkeeperStats[stat] || 0) + 1;
+  updateStatOutput();
+}
+
+function updateStatOutput() {
+  document.getElementById('stat-output').textContent =
+    `Player: ${statkeeperPlayerId || 'None selected'}\n` +
+    JSON.stringify(statkeeperStats, null, 2);
+}
+
+// Offline save/load using localStorage
+function saveOfflineStats() {
+  if (!statkeeperPlayerId) return;
+  localStorage.setItem(`statkeeper_${statkeeperPlayerId}`, JSON.stringify(statkeeperStats));
+  alert('Stats saved offline!');
+}
+
+function syncOfflineStats() {
+  if (!statkeeperPlayerId) return;
+  const stats = JSON.parse(localStorage.getItem(`statkeeper_${statkeeperPlayerId}`) || '{}');
+  if (Object.keys(stats).length === 0) {
+    alert('No offline stats to sync.');
+    return;
+  }
+  const db = firebase.firestore();
+  db.collection('grades').add({
+    playerId: statkeeperPlayerId,
+    stats: stats,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    alert('Stats synced to Firebase!');
+    localStorage.removeItem(`statkeeper_${statkeeperPlayerId}`);
+    statkeeperStats = {};
+    updateStatOutput();
+  });
+}
+
+// Show/hide tab logic (if not already present)
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+}
+
+// Initialize Statkeeper tab on page load
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('statkeeper-tab')) {
+    populatePlayerSelect();
+  }
+});
+
+// 2K-style rating (call your Firebase Function)
+async function loadPlayerRating() {
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+  // Make sure you have initialized Firebase Functions
+  const getRating = firebase.functions().httpsCallable('getPlayerRating');
+  try {
+    const result = await getRating({ playerId: user.uid });
+    document.getElementById('player-rating').textContent =
+      `2K Rating: ${result.data.rating || 'N/A'}`;
+  } catch (err) {
+    document.getElementById('player-rating').textContent = '2K Rating: N/A';
+  }
+}
+
+// Call loadPlayerRating after auth state changes
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    loadPlayerRating();
+  }
+});
+
+// Example badge loader
+function loadBadges(badges) {
+  const list = document.getElementById('badges-list');
+  list.innerHTML = badges.map(b => `<span class="badge" style="display:inline-block;background:#e0fbfc;color:#007cba;font-weight:700;padding:0.4em 1em;border-radius:16px;margin:0.2em 0.4em;">${b}</span>`).join(' ');
+}
+
+// Example: Load badges from Firestore (if you store them there)
+firebase.auth().onAuthStateChanged(async user => {
+  if (user) {
+    const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+    const data = doc.data() || {};
+    // If badges are stored as an array in user doc
+    if (data.badges && Array.isArray(data.badges)) {
+      loadBadges(data.badges);
+    } else {
+      // Fallback: static badges
+      loadBadges(['Lockdown Defender', '3PT Specialist']);
+    }
+  }
+});
+  </script>
+
+  <button onclick="logout()">Logout</button>
+  <div id="player-content"></div>
+<div id="player-grade"></div>
+  <script type="module" src="/shared/firebase.js"></script>
+  <script type="module" src="player.js"></script>
+
+  <!-- Game Recap Section -->
+  <div class="dashboard-section" id="game-recap-section">
+    <h3 style="color:#007cba;font-family:'Montserrat';font-weight:900;">Game Recap</h3>
+    <div id="game-recap-content">
+      <p>Loading recap...</p>
+    </div>
+  </div>
+
+  <!-- Resume Modal (hidden by default) -->
+  <div id="player-resume-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;">
+    <div id="player-resume-content" style="background:#fff;padding:2em;max-width:700px;width:90vw;max-height:90vh;overflow:auto;border-radius:12px;position:relative;">
+      <button onclick="document.getElementById('player-resume-modal').style.display='none'" style="position:absolute;top:1em;right:1em;">Close</button>
+      <!-- Resume content will be injected here -->
+    </div>
+  </div>
+
+  <div style="margin-bottom:1em;">
+    <button onclick="filterShots('all')">All</button>
+    <button onclick="filterShots('made')">Made</button>
+    <button onclick="filterShots('missed')">Missed</button>
+  </div>
+  <select id="heatmap-scope" style="margin-bottom:1em;">
+    <option value="season">Season</option>
+    <option value="latest">Latest Game</option>
+  </select>
+
+  <!-- Badges Section -->
+  <div class="dashboard-section" id="badges-section">
+    <h3 style="color:#007cba;">Badges</h3>
+    <div id="badges-list"></div>
+  </div>
+</body>
+</html>

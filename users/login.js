@@ -1,4 +1,5 @@
-import { auth, db } from '../shared/auth.js';
+import { db, auth, storage } from '../../shared/firebase.js';
+// ...existing code...
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
