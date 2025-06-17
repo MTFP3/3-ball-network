@@ -232,6 +232,27 @@ button[type="submit"]:hover {
   background: #b2e0f7;
 }
 
+/* Use Bebas Neue for all major headings */
+h1, h2, h3, .site-title {
+  font-family: 'Bebas Neue', 'Montserrat', Arial, sans-serif !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Add a gradient effect to main headings for extra pop */
+h1, .site-title {
+  background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Add a subtle shadow for depth */
+h1, h2, h3, .site-title {
+  text-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
 /* Animation */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px);}
