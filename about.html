@@ -125,6 +125,17 @@
       letter-spacing: 1px;
       margin-top: 3em;
     }
+    /* Make blue text white in blue/colored sections */
+    section[style*="background-color: #f8f8f8"] strong,
+    section[style*="background-color: #f8f8f8"] em,
+    section[style*="background-color: #f8f8f8"] h2 {
+      color: #007cba !important;
+    }
+    section[style*="background-color"] strong,
+    section[style*="background-color"] em,
+    section[style*="background-color"] h2 {
+      color: #fff !important;
+    }
     @media (max-width: 700px) {
       h1 { font-size: 2em; }
       h2 { font-size: 1.3em; }
