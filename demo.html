@@ -465,10 +465,132 @@
     </div>
   </section>
 
-  <!-- Section 7: CTA -->
+  <!-- Section 7: AI Game Film Analyzer Portal -->
+  <section style="background: linear-gradient(120deg, #caf0f8 60%, #b2f7ef 100%);">
+    <h2 style="color:#007cba;">AI Game Film Analyzer Portal</h2>
+    <div style="max-width:600px; margin:2em auto; background:#fff; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08); padding:2em;">
+      <!-- Step 1: Upload or Paste Link -->
+      <div style="margin-bottom:2em;">
+        <div style="font-weight:700; color:#007cba; margin-bottom:0.5em;">1. Upload Your Game Film</div>
+        <form style="display:flex; flex-wrap:wrap; gap:1em; justify-content:center; align-items:center;">
+          <input type="url" placeholder="Paste YouTube link or MP4 URL" style="flex:1 1 220px; padding:0.7em; border-radius:8px; border:1px solid #b2f7ef; font-size:1em;">
+          <button type="button" style="padding:0.7em 2em; border-radius:8px; background:#00b4d8; color:#fff; font-weight:bold; border:none; font-size:1em; cursor:pointer;">Analyze</button>
+        </form>
+        <div style="font-size:0.95em; color:#666; margin-top:0.5em;">Supported: YouTube, Hudl, or direct MP4 links</div>
+      </div>
+      <!-- Step 2: AI Processing (mocked as instant for demo) -->
+      <div style="margin-bottom:2em;">
+        <div style="font-weight:700; color:#007cba; margin-bottom:0.5em;">2. AI Analyzes Your Film</div>
+        <div style="background:#e0fbfc; border-radius:8px; padding:1em; color:#007cba;">
+          <span style="font-weight:bold;">AI is breaking down every play...</span><br>
+          Detecting players, tracking stats, and mapping shot locations.
+        </div>
+      </div>
+      <!-- Step 3: Results -->
+      <div>
+        <div style="font-weight:700; color:#007cba; margin-bottom:0.5em;">3. Get Your Results</div>
+        <div style="display:flex; flex-wrap:wrap; gap:2em; justify-content:center;">
+          <div>
+            <strong>Stats:</strong>
+            <ul style="text-align:left; margin-top:0.5em;">
+              <li>Points: <b>24</b></li>
+              <li>Assists: <b>7</b></li>
+              <li>Rebounds: <b>10</b></li>
+              <li>Steals: <b>3</b></li>
+              <li>Blocks: <b>2</b></li>
+              <li>Turnovers: <b>1</b></li>
+              <li>FG%: <b>58%</b></li>
+              <li>3PT%: <b>42%</b></li>
+            </ul>
+          </div>
+          <div>
+            <strong>Heat Zones:</strong>
+            <div style="margin-top:0.5em;">
+              <img src="/Media/demo-ai-shotchart.png" alt="AI Shot Chart" class="heatmap-img" style="width:180px;">
+              <div style="font-size:0.95em; color:#666;">Shot Chart</div>
+            </div>
+            <div style="margin-top:1em;">
+              <img src="/Media/demo-ai-reboundmap.png" alt="AI Rebound Zones" class="heatmap-img" style="width:180px;">
+              <div style="font-size:0.95em; color:#666;">Rebound Zones</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:2em;">
+          <strong>AI Summary:</strong>
+          <div style="background:#e0fbfc; border-radius:8px; padding:1em; margin-top:0.5em; color:#007cba;">
+            "Player dominated the paint and perimeter, showing strong finishing and vision. Defensive impact high with multiple steals and blocks. Shot chart shows hot zones on both wings."
+          </div>
+        </div>
+        <div style="margin-top:2em;">
+          <strong>Highlight Clip:</strong>
+          <div class="highlight-clip" style="margin-top:0.7em;">
+            <iframe width="100%" height="225" src="https://www.youtube.com/embed/ScMzIvxBSi4" title="AI Highlight Clip" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div style="margin-top:2em;">
+          <a href="/Media/sample-ai-report.pdf" class="pdf-link" target="_blank">Download Full AI Report (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8: CTA -->
   <div class="sticky-cta">
     Ready to make every game a statement?
     <a href="/users/registration/">Join the 3 Ball Network Now</a>
   </div>
+
+  <!-- Add this script just before </body> -->
+  <script>
+    // Demo AI Analyze Button: Show loading animation, then show results
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('section h2:contains("AI Game Film Analyzer Portal")')
+        ?.parentElement.querySelector('form');
+      if (!form) return;
+
+      const aiSection = form.closest('div');
+      // Create loading overlay
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.style.position = 'fixed';
+      loadingOverlay.style.top = 0;
+      loadingOverlay.style.left = 0;
+      loadingOverlay.style.width = '100vw';
+      loadingOverlay.style.height = '100vh';
+      loadingOverlay.style.background = 'rgba(255,255,255,0.92)';
+      loadingOverlay.style.display = 'flex';
+      loadingOverlay.style.flexDirection = 'column';
+      loadingOverlay.style.justifyContent = 'center';
+      loadingOverlay.style.alignItems = 'center';
+      loadingOverlay.style.zIndex = 9999;
+      loadingOverlay.style.fontFamily = "'Montserrat', Arial, sans-serif";
+      loadingOverlay.style.transition = 'opacity 0.4s';
+      loadingOverlay.innerHTML = `
+        <img src="/Media/logo.png" alt="3 Ball Network Logo" style="width:110px; height:auto; margin-bottom:2em; filter:drop-shadow(0 4px 16px #00b4d8aa);">
+        <div style="margin-bottom:1.5em; font-size:1.2em; color:#007cba; font-weight:700;">Analyzing your game film...</div>
+        <div style="width:48px; height:48px; border:6px solid #00b4d8; border-top:6px solid #caf0f8; border-radius:50%; animation: spin 1s linear infinite;"></div>
+        <style>
+          @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+          }
+        </style>
+      `;
+      loadingOverlay.style.display = 'none';
+      document.body.appendChild(loadingOverlay);
+
+      form.querySelector('button[type="button"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Show loading overlay
+        loadingOverlay.style.display = 'flex';
+        setTimeout(() => {
+          loadingOverlay.style.opacity = '0';
+          setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+            loadingOverlay.style.opacity = '1';
+          }, 400);
+        }, 2200); // Simulate 2.2s AI processing
+      });
+    });
+  </script>
 </body>
 </html>
