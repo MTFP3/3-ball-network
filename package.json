@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Basketball community platform connecting players, coaches, scouts, and fans",
   "scripts": {
-    "build": "echo 'No build needed for static site'"
+    "build": "echo 'No build step needed for static site'",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
