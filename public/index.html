@@ -1,50 +1,528 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3 Ball Network</title>
-  <link rel="stylesheet" href="/assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>3 Ball Network | Basketball Community Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="3 Ball Network connects basketball players, coaches, scouts, and fans. Register, showcase your talent, and grow your basketball network.">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <script type="module" src="/assets/js/firebaseConfig.js"></script>
+  <style>
+    body {
+      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: #222;
+      min-height: 100vh;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+    .banner-logo {
+      width: 100vw;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5em 0 1em 0;
+      margin: 0;
+    }
+    .banner-logo-img {
+      max-width: 320px;
+      width: 90vw;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));
+      border-radius: 24px;
+      background: none;
+      padding: 0.5em 1.5em;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      border: none; /* Remove border */
+    }
+    @media (max-width: 700px) {
+      .banner-logo-img { max-width: 90vw; padding: 0.5em; }
+      .banner-logo { padding: 1em 0 0.5em 0; }
+    }
+    header {
+      background: transparent;
+      text-align: center;
+      padding: 3em 1em 1.5em 1em;
+      position: relative;
+    }
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 0.7em;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.18));
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      border-radius: 18px;
+      background: #fff;
+      padding: 0.5em;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    }
+    .logo:hover {
+      transform: scale(1.09) rotate(-4deg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .site-title {
+      font-family: 'Montserrat', 'Urbanist', Arial, sans-serif;
+      font-size: 3em;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #fff;
+      margin: 0.2em 0 0.1em 0;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      text-transform: uppercase;
+    }
+    .site-tagline {
+      font-family: 'Urbanist', Arial, sans-serif;
+      color: #e0fbfc;
+      font-size: 1.35em;
+      margin-bottom: 0.7em;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    nav {
+      background: rgba(255,255,255,0.98);
+      padding: 1.1em 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      text-align: center;
+      border-radius: 0 0 22px 22px;
+      margin: 0 auto 2em auto;
+      max-width: 720px;
+      font-size: 1.18em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    nav a {
+      margin: 0 1.5em;
+      color: #007cba;
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+      position: relative;
+      text-transform: uppercase;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transition: width 0.3s;
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+    nav a:hover {
+      color: #00b4d8;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    .hero {
+      max-width: 750px;
+      margin: 2.5em auto 2em auto;
+      background: rgba(255,255,255,0.99);
+      border-radius: 28px;
+      box-shadow: 0 8px 36px rgba(0,0,0,0.16);
+      padding: 3em 2em 2.5em 2em;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -80px; left: -80px; width: 220px; height: 220px;
+      background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
+      opacity: 0.16;
+      z-index: 0;
+    }
+    .hero h1 {
+      font-size: 2.4em;
+      margin-bottom: 0.5em;
+      color: #007cba;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      z-index: 1;
+      position: relative;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .hero p {
+      font-size: 1.22em;
+      color: #444;
+      margin-bottom: 2.2em;
+      z-index: 1;
+      position: relative;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .portal-links {
+      margin: 2em 0 1em 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.7em;
+      z-index: 1;
+      position: relative;
+    }
+    .portal-link {
+      background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+      color: #fff;
+      padding: 1.2em 2.5em;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: 1.18em;
+      font-weight: 900;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .portal-link:active::after {
+      content: "";
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 0; height: 0;
+      background: rgba(255,255,255,0.4);
+      border-radius: 100%;
+      transform: translate(-50%, -50%);
+      animation: ripple 0.5s linear;
+      z-index: 2;
+    }
+    @keyframes ripple {
+      to {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+      }
+    }
+    .portal-link:hover {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+      letter-spacing: 2px;
+    }
+    .spotlight {
+      margin-top: 2.5em;
+      background: rgba(0,124,186,0.09);
+      border-radius: 14px;
+      padding: 1.5em 1em;
+      font-size: 1.15em;
+      color: #007cba;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .cta-banner {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+      color: #fff;
+      padding: 2em 1em 1.5em 1em;
+      border-radius: 18px;
+      text-align: center;
+      margin: 2.5em auto 2em auto;
+      max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      font-size: 1.22em;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .cta-banner h2 {
+      margin: 0 0 0.5em 0;
+      color: #fff;
+      font-size: 1.6em;
+      font-weight: 900;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .features {
+      max-width: 800px;
+      margin: 3em auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2em;
+    }
+    .feature {
+      background: rgba(255,255,255,0.97);
+      border-radius: 18px;
+      padding: 2.2em 1.5em;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .feature:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    }
+    .feature h3 {
+      font-size: 1.3em;
+      margin-bottom: 0.5em;
+      color: #007cba;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .feature p {
+      font-size: 1.08em;
+      color: #555;
+      margin: 0;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .social-links {
+      text-align: center;
+      margin: 2em 0;
+    }
+    .social-links a {
+      margin: 0 1em;
+      color: #007cba;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 1.18em;
+      transition: color 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .social-links a:hover {
+      color: #00b4d8;
+      text-decoration: underline;
+    }
+    .faq-section {
+      max-width: 750px;
+      margin: 3em auto 2em auto;
+      background: rgba(255,255,255,0.99);
+      border-radius: 22px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 2.5em 2em 1.5em 2em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .faq-section h2 {
+      text-align: center;
+      color: #007cba;
+      margin-bottom: 1em;
+      font-size: 1.5em;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .faq {
+      margin: 1.5em 0;
+    }
+    .faq-question {
+      width: 100%;
+      background: #007cba;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 1.1em;
+      text-align: left;
+      font-size: 1.13em;
+      font-weight: 900;
+      border-radius: 10px;
+      margin: 0.5em 0 0 0;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .faq-question:hover, .faq-question.active {
+      background: #00b4d8;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      background: #f1f8fb;
+      color: #222;
+      border-radius: 0 0 10px 10px;
+      padding: 0 1em;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.3s;
+      font-size: 1.08em;
+      font-family: 'Urbanist', Arial, sans-serif;
+    }
+    .faq-question.active + .faq-answer {
+      max-height: 200px;
+      padding: 1em;
+      margin-bottom: 0.5em;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .hero, .cta-banner, .features, .faq-section {
+      animation: fadeInUp 0.9s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    #scrollTopBtn {
+      display:none;position:fixed;bottom:2em;right:2em;z-index:1000;
+      background:#007cba;color:#fff;border:none;border-radius:50%;
+      width:48px;height:48px;font-size:1.5em;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;
+      transition: background 0.2s, transform 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    #scrollTopBtn:hover {
+      background: #00b4d8;
+      transform: scale(1.1);
+    }
+    section {
+      border-radius: 22px;
+      margin-bottom: 2.5em;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    #what-we-do {
+      background: linear-gradient(120deg, #e0fbfc 60%, #b2f7ef 100%);
+    }
+    #how-it-works {
+      background: linear-gradient(120deg, #f5f5f5 60%, #caf0f8 100%);
+    }
+    #why-it-matters {
+      background: linear-gradient(120deg, #fff 60%, #e0fbfc 100%);
+    }
+    #audience {
+      background: linear-gradient(120deg, #f5f5f5 60%, #b2f7ef 100%);
+    }
+    #features {
+      background: linear-gradient(120deg, #fff 60%, #caf0f8 100%);
+    }
+    ul, ol {
+      font-size: 1.13em;
+      line-height: 1.7;
+    }
+
+    blockquote {
+      border-left: 6px solid #00b4d8;
+      background: rgba(0, 180, 216, 0.07);
+      padding: 1.2em 1.5em;
+      font-style: italic;
+      color: #007cba;
+      border-radius: 12px;
+      margin: 1.5em auto;
+    }
+    @media (max-width: 700px) {
+      .hero, nav, .faq-section, .cta-banner { max-width: 98vw; padding: 1em; }
+      .portal-link { padding: 1em 1em; font-size: 1em; }
+      .features { grid-template-columns: 1fr; }
+      .site-title { font-size: 2em; }
+      .logo { width: 90px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="banner-logo">
+    <img src="/Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+  </div>
   <header>
-    <nav>
-      <div class="logo">3 Ball Network</div>
-      <ul>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/register.html">Join</a></li>
-        <li><a href="/login.html">Login</a></li>
-      </ul>
-    </nav>
+    <div class="site-title">3 Ball Network</div>
+    <div class="site-tagline">Connecting Players, Coaches, Scouts, and Fans</div>
   </header>
-
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about.html">About Us</a>
+    <a href="/register.html">Register</a>
+    <a href="/login.html">Login</a>
+  </nav>
   <main>
-    <section class="hero">
-      <h1>Where Every Game Is a Statement</h1>
-      <p>The future of scouting, stats, and athlete development — powered by AI.</p>
-      <div class="join-buttons">
-        <a href="/register.html?role=player">Join as Player</a>
-        <a href="/register.html?role=coach">Join as Coach</a>
-        <a href="/register.html?role=scout">Join as Scout</a>
-        <a href="/register.html?role=fan">Join as Fan</a>
+    <!-- Hero Section with Background Video -->
+    <section id="hero" style="position:relative; overflow:hidden; min-height:340px;">
+      <video autoplay muted loop playsinline
+        style="width:100vw; height:100%; min-height:340px; object-fit:cover; position:absolute; top:0; left:0; z-index:-1;">
+        <source src="your-background-video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div style="padding: 100px 20px; text-align: center; color: white; background: rgba(0,0,0,0.45);">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5em;">Every Game Is a Statement.</h1>
+        <p style="font-size: 1.15rem; margin-top: 20px; max-width: 600px; margin-left:auto; margin-right:auto;">
+          Grading every performance, developing complete athletes, and giving real exposure—powered by real coaches.
+        </p>
       </div>
     </section>
-  </main>
 
+    <!-- What We Do -->
+    <section id="what-we-do" style="padding: 60px 20px; max-width: 1000px; margin: auto; text-align:center;">
+      <h2>What We Do</h2>
+      <ul style="list-style: none; padding-left: 0; text-align:left; display:inline-block;">
+        <li><strong>🎓 Every Game Is Graded Based on Performance</strong><br>Real coaches watch film and assign performance-based letter grades—no politics, no favorites.</li><br>
+        <li><strong>📊 Player Breakdown & Analysis</strong><br>We evaluate your game the way college and pro programs do—skills, effort, body language, and impact.</li><br>
+        <li><strong>📄 Scouting Reports</strong><br>Detailed writeups that highlight your strengths, areas for growth, and overall potential.</li><br>
+        <li><strong>📚 Education That Matters</strong><br>We prepare you off the court too—learn NIL, leadership, social media awareness, interview skills, and more.</li><br>
+        <li><strong>🎥 Coming Soon: Live Game Streams with Playback</strong><br>Watch your games live or rewatch every play. Every possession tells your story.</li>
+      </ul>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" style="padding: 60px 20px; background-color: #f5f5f5; text-align:center;">
+      <h2>How It Works</h2>
+      <ol style="display:inline-block; text-align:left;">
+        <li>Join as a player, coach, scout, or fan.</li>
+        <li>Upload your game film or connect your Hudl/YouTube link.</li>
+        <li>Our staff handles the rest—grading, breakdowns, and analysis delivered straight to your dashboard.</li>
+      </ol>
+    </section>
+
+    <!-- Why It Matters -->
+    <section id="why-it-matters" style="padding: 60px 20px; text-align:center;">
+      <h2>Why It Matters</h2>
+      <blockquote style="font-size: 1.2rem; font-style: italic; max-width:600px; margin:auto;">
+        Traditional scouting is broken. We're rebuilding it from the ground up — with real evaluation, transparency, and performance that speaks for itself.
+      </blockquote>
+    </section>
+
+    <!-- Who It's For -->
+    <section id="audience" style="padding: 60px 20px; background-color: #f5f5f5; text-align:center;">
+      <h2>Who It's For</h2>
+      <ul style="display:inline-block; text-align:left;">
+        <li>🏀 <strong>Players</strong> – Get the breakdown and recognition your game deserves.</li>
+        <li>🧑‍🏫 <strong>Coaches</strong> – Track growth without the guesswork.</li>
+        <li>👀 <strong>Scouts</strong> – Discover real talent with no fluff.</li>
+        <li>🙌 <strong>Fans</strong> – Follow rising stars from day one.</li>
+      </ul>
+    </section>
+
+    <!-- Features List -->
+    <section id="features" style="padding: 60px 20px; text-align:center;">
+      <h2>Our Core Features</h2>
+      <ul style="display:inline-block; text-align:left;">
+        <li>Game Grades (A–F based on performance)</li>
+        <li>Player Analysis</li>
+        <li>Scouting Reports</li>
+        <li>Live Game Streams & Playback (Coming Soon)</li>
+        <li>Education: NIL, Leadership, Etiquette, Social Media Training</li>
+        <li>ESPN-style Stat Overlays & Heatmaps</li>
+        <li>2K-style Player Ratings</li>
+        <li>Weekly Player Resumes</li>
+        <li>Coach & Scout Dashboards</li>
+        <li>Fan Access to Watchlists & Favorites</li>
+      </ul>
+    </section>
+    
+  </main>
   <footer>
-    <p>&copy; 2025 3 Ball Network</p>
-    <a href="/privacy.html">Privacy Policy</a>
-    <a href="/terms.html">Terms of Service</a>
-    <p>Contact: support@3ballnetwork.com</p>
+    &copy; 2025 3 Ball Network. All rights reserved. | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
   </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
 </body>
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
-<script src="/assets/js/firebaseConfig.js"></script>

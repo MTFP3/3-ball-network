@@ -1,3 +1,4 @@
 sendgrid.env
 .env
 .DS_Store
+vsce-debug.log
