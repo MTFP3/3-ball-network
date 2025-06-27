@@ -74,23 +74,83 @@
       margin-top: 0;
       text-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    /* White backgrounds: blue headings */
+    
+    /* Neon glow effect for all headings */
+    h1, h2, h3 {
+      background: linear-gradient(90deg, #00b4d8 0%, #007cba 50%, #00e5ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 
+        0 0 10px rgba(0, 180, 216, 0.6),
+        0 0 20px rgba(0, 180, 216, 0.4),
+        0 0 30px rgba(0, 180, 216, 0.3);
+      filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.5));
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        text-shadow: 
+          0 0 10px rgba(0, 180, 216, 0.6),
+          0 0 20px rgba(0, 180, 216, 0.4),
+          0 0 30px rgba(0, 180, 216, 0.3);
+      }
+      to {
+        text-shadow: 
+          0 0 15px rgba(0, 180, 216, 0.8),
+          0 0 25px rgba(0, 180, 216, 0.6),
+          0 0 35px rgba(0, 180, 216, 0.4);
+      }
+    }
+    
+    /* White background sections - enhanced styling */
+    section[style*="background-color: #f8f8f8"] {
+      background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%) !important;
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 180, 216, 0.1);
+    }
+    
     section[style*="background-color: #f8f8f8"] h2 {
-      color: #007cba !important;
+      background: linear-gradient(90deg, #007cba 0%, #00b4d8 50%, #0099cc 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      text-shadow: 
+        0 0 8px rgba(0, 124, 186, 0.4),
+        0 0 15px rgba(0, 124, 186, 0.3) !important;
     }
-    /* Blue/gradient backgrounds: white headings */
-    section:not([style*="background-color: #f8f8f8"]) h2,
-    section:not([style*="background-color: #f8f8f8"]) h1 {
-      color: #fff !important;
-      background: none;
-      -webkit-text-fill-color: unset;
+    
+    section[style*="background-color: #f8f8f8"] p,
+    section[style*="background-color: #f8f8f8"] li {
+      color: #333 !important;
     }
-    /* Optional: keep About Us gradient effect on white bg only */
-    section:not([style*="background-color: #f8f8f8"]) h1 {
-      color: #fff !important;
-      background: none;
-      -webkit-text-fill-color: unset;
+    
+    /* Blue/gradient background sections - glowing effects */
+    section:not([style*="background-color: #f8f8f8"]) {
+      background: linear-gradient(135deg, rgba(0, 124, 186, 0.9) 0%, rgba(0, 180, 216, 0.8) 100%) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
+    
+    section:not([style*="background-color: #f8f8f8"]) h2 {
+      color: #ffffff !important;
+      background: none !important;
+      -webkit-text-fill-color: #ffffff !important;
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(0, 180, 216, 0.6),
+        0 0 30px rgba(0, 180, 216, 0.4) !important;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    }
+    
+    section:not([style*="background-color: #f8f8f8"]) p,
+    section:not([style*="background-color: #f8f8f8"]) li {
+      color: #ffffff !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
     section {
       width: 100vw;
       max-width: 100%;

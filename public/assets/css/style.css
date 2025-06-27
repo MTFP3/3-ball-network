@@ -1,8 +1,12 @@
-/* Base styles */
+/* Base styles with enhanced visual appeal */
 body {
   font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
   margin: 0;
-  background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 124, 186, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(0, 180, 216, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
   color: #222;
   min-height: 100vh;
   overflow-x: hidden;
@@ -99,34 +103,69 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* Card/Hero/Registration */
+/* Card/Hero/Registration with enhanced visual effects */
 .hero, .register-hero {
   max-width: 750px;
   margin: 2.5em auto 2em auto;
-  background: rgba(255,255,255,0.99);
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%);
   border-radius: 28px;
-  box-shadow: 0 8px 36px rgba(0,0,0,0.16);
+  box-shadow: 
+    0 8px 36px rgba(0,0,0,0.16),
+    0 0 0 1px rgba(0, 180, 216, 0.2),
+    inset 0 1px 0 rgba(255,255,255,0.8);
   padding: 3em 2em 2.5em 2em;
   text-align: center;
   position: relative;
   overflow: hidden;
   font-family: 'Urbanist', Arial, sans-serif;
   animation: fadeInUp 0.9s cubic-bezier(.4,0,.2,1);
+  backdrop-filter: blur(10px);
+}
+
+.hero::before, .register-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 .hero h2, .register-hero h2 {
   font-size: 2.1em;
   margin-bottom: 0.5em;
-  color: #007cba;
+  background: linear-gradient(90deg, #007cba 0%, #00b4d8 50%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 8px rgba(0, 124, 186, 0.5),
+    0 0 15px rgba(0, 124, 186, 0.3),
+    0 0 25px rgba(0, 124, 186, 0.2);
+  filter: drop-shadow(0 0 6px rgba(0, 124, 186, 0.4));
   font-weight: 900;
   letter-spacing: 1.5px;
   font-family: 'Montserrat', Arial, sans-serif;
   text-transform: uppercase;
+  position: relative;
+  z-index: 1;
 }
 .hero p, .register-hero p {
   font-size: 1.18em;
   color: #444;
   margin-bottom: 2em;
   font-family: 'Urbanist', Arial, sans-serif;
+  position: relative;
+  z-index: 1;
 }
 
 /* Registration Form */
@@ -232,19 +271,81 @@ button[type="submit"]:hover {
   background: #b2e0f7;
 }
 
-/* Use Bebas Neue for all major headings */
+/* Use Bebas Neue for all major headings with neon glow effect */
 h1, h2, h3, .site-title {
   font-family: 'Bebas Neue', 'Montserrat', Arial, sans-serif !important;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
-/* Add a gradient effect to main headings for extra pop */
-h1, .site-title {
-  background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+/* Neon glow effect for all headings */
+h1, h2, h3 {
+  background: linear-gradient(90deg, #00b4d8 0%, #007cba 50%, #00e5ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 
+    0 0 10px rgba(0, 180, 216, 0.6),
+    0 0 20px rgba(0, 180, 216, 0.4),
+    0 0 30px rgba(0, 180, 216, 0.3);
+  filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.5));
+  animation: neonGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+  from {
+    text-shadow: 
+      0 0 10px rgba(0, 180, 216, 0.6),
+      0 0 20px rgba(0, 180, 216, 0.4),
+      0 0 30px rgba(0, 180, 216, 0.3);
+  }
+  to {
+    text-shadow: 
+      0 0 15px rgba(0, 180, 216, 0.8),
+      0 0 25px rgba(0, 180, 216, 0.6),
+      0 0 35px rgba(0, 180, 216, 0.4);
+  }
+}
+
+/* Special styling for site title */
+.site-title {
+  background: linear-gradient(90deg, #ffffff 0%, #00e5ff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.8),
+    0 0 25px rgba(0, 229, 255, 0.6),
+    0 0 35px rgba(0, 229, 255, 0.4);
+  animation: titleGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.8),
+      0 0 25px rgba(0, 229, 255, 0.6),
+      0 0 35px rgba(0, 229, 255, 0.4);
+  }
+  to {
+    text-shadow: 
+      0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(0, 229, 255, 0.8),
+      0 0 40px rgba(0, 229, 255, 0.6);
+  }
+}
+
+/* Enhanced hero section headings */
+.hero h2, .register-hero h2 {
+  background: linear-gradient(90deg, #007cba 0%, #00b4d8 50%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 8px rgba(0, 124, 186, 0.5),
+    0 0 15px rgba(0, 124, 186, 0.3),
+    0 0 25px rgba(0, 124, 186, 0.2);
+  filter: drop-shadow(0 0 6px rgba(0, 124, 186, 0.4));
 }
 
 /* Add a subtle shadow for depth */
