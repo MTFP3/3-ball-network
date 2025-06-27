@@ -1,10 +1,8 @@
 // Import the functions you need from the SDKs you need
-require('dotenv').config(); // 👈 loads your .env file
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -13,7 +11,7 @@ const firebaseConfig = {
   authDomain: "ball-network-web.firebaseapp.com",
   databaseURL: "https://ball-network-web-default-rtdb.firebaseio.com",
   projectId: "ball-network-web",
-  storageBucket: "your-project-id.appspot.com",
+  storageBucket: "ball-network-web.appspot.com",
   messagingSenderId: "740915998465",
   appId: "1:740915998465:web:59ac026f3f4c2ec5da3500",
   measurementId: "G-ZS07SKSRRL"
@@ -21,6 +19,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase services
+const auth = getAuth(app);
+const db = getFirestore(app);
 const analytics = getAnalytics(app);
+
+// Export the services for use in other files
+export { auth, db, analytics };
 
 

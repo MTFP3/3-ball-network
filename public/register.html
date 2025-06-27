@@ -1,13 +1,217 @@
-<!-- register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - 3 Ball Network</title>
+  <title>Register | 3 Ball Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Join 3 Ball Network - Connect with players, coaches, scouts, and fans">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="banner-logo">
+    <img src="/Media/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+  </div>
+  <header>
+    <div class="site-title">3 Ball Network</div>
+    <div class="site-tagline">Join Our Basketball Community</div>
+  </header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about.html">About Us</a>
+    <a href="/register.html">Register</a>
+    <a href="/login.html">Login</a>
+  </nav>
+
+  <main>
+    <div class="register-hero">
+      <h2>Create Your Account</h2>
+      <p>Choose your role and start your basketball journey with us</p>
+      
+      <!-- Role Selection -->
+      <div id="roleSelection" style="margin: 2em 0;">
+        <label style="display: block; margin: 0.5em 0; font-size: 1.1em;">
+          <input type="radio" name="role" value="player" checked style="margin-right: 0.5em;"> 
+          🏀 Player - Showcase your skills
+        </label>
+        <label style="display: block; margin: 0.5em 0; font-size: 1.1em;">
+          <input type="radio" name="role" value="coach" style="margin-right: 0.5em;"> 
+          🧑‍🏫 Coach - Develop talent
+        </label>
+        <label style="display: block; margin: 0.5em 0; font-size: 1.1em;">
+          <input type="radio" name="role" value="scout" style="margin-right: 0.5em;"> 
+          👀 Scout - Discover prospects
+        </label>
+        <label style="display: block; margin: 0.5em 0; font-size: 1.1em;">
+          <input type="radio" name="role" value="fan" style="margin-right: 0.5em;"> 
+          🙌 Fan - Follow the action
+        </label>
+      </div>
+
+      <!-- Player Registration Form -->
+      <div id="playerFormSection">
+        <h3 style="color: #007cba; margin-top: 2em;">Player Information</h3>
+        <form id="playerForm">
+          <label for="playerName">Full Name</label>
+          <input type="text" id="playerName" placeholder="Enter your full name" required />
+          
+          <label for="playerEmail">Email</label>
+          <input type="email" id="playerEmail" placeholder="Enter your email" required />
+          
+          <label for="playerPassword">Password</label>
+          <div class="password-container">
+            <input type="password" id="playerPassword" placeholder="Create a password" required />
+            <button type="button" onclick="togglePassword('playerPassword')">Show</button>
+          </div>
+          
+          <label for="playerGender">Gender</label>
+          <select id="playerGender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          
+          <label for="playerHeight">Height</label>
+          <input type="text" id="playerHeight" placeholder="e.g., 6'1&quot;" required />
+          
+          <label for="playerWeight">Weight (lbs)</label>
+          <input type="number" id="playerWeight" placeholder="Enter weight" required />
+          
+          <label for="playerSchool">School</label>
+          <input type="text" id="playerSchool" placeholder="School name" required />
+          
+          <label for="playerCity">City</label>
+          <input type="text" id="playerCity" placeholder="Your city" required />
+          
+          <label for="playerState">State</label>
+          <input type="text" id="playerState" placeholder="Your state" required />
+          
+          <button type="submit">Register as Player</button>
+        </form>
+      </div>
+
+      <!-- Coach Registration Form -->
+      <div id="coachFormSection" style="display: none;">
+        <h3 style="color: #007cba; margin-top: 2em;">Coach Information</h3>
+        <form id="coachForm">
+          <label for="coachName">Full Name</label>
+          <input type="text" id="coachName" placeholder="Enter your full name" required />
+          
+          <label for="coachEmail">Email</label>
+          <input type="email" id="coachEmail" placeholder="Enter your email" required />
+          
+          <label for="coachPassword">Password</label>
+          <div class="password-container">
+            <input type="password" id="coachPassword" placeholder="Create a password" required />
+            <button type="button" onclick="togglePassword('coachPassword')">Show</button>
+          </div>
+          
+          <label for="coachSchool">School/Organization</label>
+          <input type="text" id="coachSchool" placeholder="Where do you coach?" required />
+          
+          <label for="coachExperience">Years of Experience</label>
+          <input type="number" id="coachExperience" placeholder="Years coaching" required />
+          
+          <button type="submit">Register as Coach</button>
+        </form>
+      </div>
+
+      <!-- Scout Registration Form -->
+      <div id="scoutFormSection" style="display: none;">
+        <h3 style="color: #007cba; margin-top: 2em;">Scout Information</h3>
+        <form id="scoutForm">
+          <label for="scoutName">Full Name</label>
+          <input type="text" id="scoutName" placeholder="Enter your full name" required />
+          
+          <label for="scoutEmail">Email</label>
+          <input type="email" id="scoutEmail" placeholder="Enter your email" required />
+          
+          <label for="scoutPassword">Password</label>
+          <div class="password-container">
+            <input type="password" id="scoutPassword" placeholder="Create a password" required />
+            <button type="button" onclick="togglePassword('scoutPassword')">Show</button>
+          </div>
+          
+          <label for="scoutOrganization">Organization</label>
+          <input type="text" id="scoutOrganization" placeholder="College, pro team, etc." required />
+          
+          <button type="submit">Register as Scout</button>
+        </form>
+      </div>
+
+      <!-- Fan Registration Form -->
+      <div id="fanFormSection" style="display: none;">
+        <h3 style="color: #007cba; margin-top: 2em;">Fan Information</h3>
+        <form id="fanForm">
+          <label for="fanName">Full Name</label>
+          <input type="text" id="fanName" placeholder="Enter your full name" required />
+          
+          <label for="fanEmail">Email</label>
+          <input type="email" id="fanEmail" placeholder="Enter your email" required />
+          
+          <label for="fanPassword">Password</label>
+          <div class="password-container">
+            <input type="password" id="fanPassword" placeholder="Create a password" required />
+            <button type="button" onclick="togglePassword('fanPassword')">Show</button>
+          </div>
+          
+          <label for="fanLocation">Location</label>
+          <input type="text" id="fanLocation" placeholder="City, State" required />
+          
+          <button type="submit">Register as Fan</button>
+        </form>
+      </div>
+
+      <div class="login-link">
+        Already have an account? <a href="/login.html">Sign in here</a>
+      </div>
+
+      <div id="register-loading" style="display: none;">Creating your account...</div>
+      <div id="reg-error"></div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 3 Ball Network. All rights reserved. | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+  </footer>
+
+  <script>
+    // Role switching functionality
+    document.querySelectorAll('input[name="role"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        // Hide all forms
+        document.querySelectorAll('[id$="FormSection"]').forEach(section => {
+          section.style.display = 'none';
+        });
+        
+        // Show selected form
+        const selectedRole = this.value;
+        document.getElementById(selectedRole + 'FormSection').style.display = 'block';
+      });
+    });
+
+    // Password toggle functionality
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      const button = field.nextElementSibling;
+      
+      if (field.type === 'password') {
+        field.type = 'text';
+        button.textContent = 'Hide';
+      } else {
+        field.type = 'password';
+        button.textContent = 'Show';
+      }
+    }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  <script src="/assets/js/firebaseConfig.js"></script>
+</body>
+</html>
   <main>
     <h1>Join 3 Ball Network</h1>
 
