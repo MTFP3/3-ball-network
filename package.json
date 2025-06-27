@@ -2,9 +2,12 @@
   "name": "3-ball-network",
   "version": "1.0.0",
   "description": "Basketball community platform connecting players, coaches, scouts, and fans",
+  "main": "index.js",
   "scripts": {
     "build": "echo 'No build step needed for static site'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "echo 'Static site - no start command needed'",
+    "install": "echo 'No dependencies to install for static site'"
   },
   "repository": {
     "type": "git",
@@ -12,5 +15,7 @@
   },
   "keywords": ["basketball", "sports", "community", "scouting"],
   "author": "3 Ball Network",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
 }
