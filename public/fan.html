@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fan Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f2f2f2; }
+    h1, h3 { border-bottom: 2px solid #ccc; padding-bottom: 4px; }
+    section { background: white; margin: 15px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .highlight-link { display: block; margin-bottom: 4px; }
+    .alert { background: #fffae6; padding: 10px; border-left: 6px solid #ffc107; margin-bottom: 10px; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📣 Fan Feed</h1>
+
+  <section>
+    <h3>🎥 New Highlights</h3>
+    <div id="alertHighlights" class="alert" style="display: none;">🔥 New highlights added today!</div>
+    <div id="fanHighlights"></div>
+  </section>
+
+  <section>
+    <h3>📊 Game Reports</h3>
+    <div id="alertReports" class="alert" style="display: none;">📊 New reports posted today!</div>
+    <div id="fanReports"></div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+    import { getFirestore, doc, getDoc, collection, getDocs, query } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "740915998465",
+      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const fanId = localStorage.getItem("fanId") || "demoFan";
+
+    const fanSnap = await getDoc(doc(db, "fans", fanId));
+    const fanData = fanSnap.exists() ? fanSnap.data() : {};
+    const followedPlayers = fanData.playersFollowing || [];
+    const followedTeams = fanData.teamsFollowing || [];
+
+    const highlightDiv = document.getElementById("fanHighlights");
+    const reportDiv = document.getElementById("fanReports");
+
+    const today = new Date().toDateString();
+    let highlightToday = false;
+    let reportToday = false;
+
+    const highlightMap = [];
+    for (let playerId of followedPlayers) {
+      const ref = doc(db, "players", playerId);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) continue;
+      const d = snap.data();
+      (d.highlights || []).forEach(link => {
+        highlightMap.push({ name: d.name || playerId, link, date: d.updatedAt || new Date().toISOString() });
+        if (d.updatedAt && new Date(d.updatedAt).toDateString() === today) highlightToday = true;
+      });
+    }
+
+    highlightMap.sort((a, b) => new Date(b.date) - new Date(a.date));
+    highlightMap.forEach(h => {
+      highlightDiv.innerHTML += `<a class='highlight-link' href='${h.link}' target='_blank'>🎬 ${h.name}</a>`;
+    });
+    if (highlightToday) document.getElementById("alertHighlights").style.display = "block";
+
+    const reportSnap = await getDocs(query(collection(db, "scoutingReports")));
+    const reportList = [];
+    reportSnap.forEach(r => {
+      const data = r.data();
+      if (followedPlayers.includes(data.playerId) || followedTeams.includes(data.teamName)) {
+        reportList.push({ summary: data.summary, player: data.playerName || data.teamName, date: data.updatedAt || new Date().toISOString() });
+        if (data.updatedAt && new Date(data.updatedAt).toDateString() === today) reportToday = true;
+      }
+    });
+
+    reportList.sort((a, b) => new Date(b.date) - new Date(a.date));
+    reportList.forEach(r => {
+      reportDiv.innerHTML += `<div><strong>${r.player}</strong>: ${r.summary}</div><br>`;
+    });
+    if (reportToday) document.getElementById("alertReports").style.display = "block";
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Profile</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; color: #111; }
+    h1, h3 { border-bottom: 2px solid #ccc; padding-bottom: 4px; margin-bottom: 10px; }
+    section { background: white; border-radius: 8px; padding: 15px; margin: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    ul { list-style: none; padding: 0; }
+    li { padding: 4px 0; }
+    a { color: #0071ce; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button.follow { margin-top: 10px; background: #0071ce; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1 id="teamTitle">🏀 Team Profile</h1>
+  <button class="follow" id="followTeam">⭐ Follow Team</button>
+
+  <section>
+    <h3>🏷️ Smart Tags</h3>
+    <ul id="teamTags"></ul>
+  </section>
+
+  <section>
+    <h3>📊 Team Record</h3>
+    <p id="teamRecord"></p>
+  </section>
+
+  <section>
+    <h3>🔥 Top Performers</h3>
+    <ul id="topPlayers"></ul>
+  </section>
+
+  <section>
+    <h3>🎥 Recent Games</h3>
+    <ul id="recentGames"></ul>
+  </section>
+
+  <section>
+    <h3>📞 Coach Contact</h3>
+    <p id="coachContact"></p>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs, orderBy, limit } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+    import { follow } from '/assets/js/fanFollow.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "740915998465",
+      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const teamName = params.get("team") || "Demo Team";
+    document.getElementById("teamTitle").innerText = `🏀 ${teamName} Profile`;
+    document.getElementById("followTeam").onclick = () => follow("team", teamName);
+
+    // Smart Tags
+    const ref = doc(db, "teams", teamName);
+    const snap = await getDoc(ref);
+    const teamData = snap.exists() ? snap.data() : {};
+    document.getElementById("teamTags").innerHTML = (teamData.tags || []).map(t => `<li>${t}</li>`).join('');
+
+    // Team Record
+    const games = await getDocs(query(collection(db, "games"), where("teamName", "==", teamName)));
+    let wins = 0;
+    games.forEach(g => { if (g.data().result === "win") wins++; });
+    document.getElementById("teamRecord").innerText = `Wins: ${wins} / Games: ${games.size}`;
+
+    // Top Performers
+    const top = await getDocs(query(collection(db, "players"), where("team", "==", teamName)));
+    const list = document.getElementById("topPlayers");
+    top.forEach(p => {
+      const d = p.data();
+      const playerName = d.name || p.id;
+      list.innerHTML += `<li><a href="playerProfile.html?id=${p.id}" target="_blank">${playerName}</a> - Avg Grade: ${d.avgGrade || "N/A"}</li>`;
+    });
+
+    // Recent Games
+    const recent = await getDocs(query(
+      collection(db, "games"),
+      where("teamName", "==", teamName),
+      orderBy("gameDate", "desc"),
+      limit(3)
+    ));
+    const videoList = document.getElementById("recentGames");
+    recent.forEach(g => {
+      const d = g.data();
+      videoList.innerHTML += `<li><a href="${d.videoUrl}" target="_blank">${d.opponent} - ${d.gameDate}</a></li>`;
+    });
+
+    // Coach Contact
+    const coach = await getDocs(query(collection(db, "coaches"), where("teamNames", "array-contains", teamName)));
+    coach.forEach(c => {
+      const d = c.data();
+      document.getElementById("coachContact").innerText = `${d.firstName || "Coach"} ${d.lastName || ""} | Email: ${d.email || "N/A"}`;
+    });
+  </script>
+</body>
+</html>

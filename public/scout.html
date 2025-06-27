@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scout Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <h1>🏀 Scout Dashboard</h1>
+
+  <section>
+    <h3>📄 Search Scouting Reports</h3>
+    <input id="searchPlayerId" placeholder="Player ID" />
+    <input id="searchGameId" placeholder="Game ID" />
+    <button onclick="searchReports()">🔍 Search</button>
+    <div id="reportList"></div>
+  </section>
+
+  <section>
+    <h3>📊 Compare Players</h3>
+    <input id="compareP1" placeholder="Player ID 1" />
+    <input id="compareP2" placeholder="Player ID 2" />
+    <button onclick="comparePlayers()">Compare</button>
+    <div id="comparisonResults"></div>
+  </section>
+
+  <section>
+    <h3>🏆 Team Comparison Tool</h3>
+    <input id="teamOne" placeholder="Team Name 1" />
+    <input id="teamTwo" placeholder="Team Name 2" />
+    <button onclick="compareTeams()">Compare</button>
+    <div id="teamComparisonResults"></div>
+  </section>
+
+  <section>
+    <h3>🏷️ Smart Tags</h3>
+    <ul id="smartTags"></ul>
+  </section>
+
+  <script type="module" src="/assets/js/scoutDashboard.js"></script>
+  <script type="module" src="/assets/js/playerComparison.js"></script>
+  <script type="module" src="/assets/js/teamComparison.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "740915998465",
+      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const playerId = localStorage.getItem("playerId") || "demoPlayer";
+
+    const ref = doc(db, "players", playerId);
+    const snap = await getDoc(ref);
+    const data = snap.exists() ? snap.data() : {};
+    const tagList = document.getElementById("smartTags");
+    tagList.innerHTML = (data.tags || []).map(t => `<li>${t}</li>`).join('');
+  </script>
+</body>
+</html>

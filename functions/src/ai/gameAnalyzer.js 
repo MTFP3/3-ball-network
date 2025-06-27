@@ -1,0 +1,38 @@
+// gameAnalyzer.js
+export function generateScoutingReport(stats, highlights) {
+  console.log("📋 Generating AI scouting report...");
+
+  const strengths = [];
+  const improvements = [];
+
+  if (stats.points >= 15) strengths.push("Consistent scorer");
+  if (stats.assists >= 4) strengths.push("Good facilitator");
+  if (stats.rebounds >= 6) strengths.push("Strong rebounder");
+
+  if (stats.turnovers >= 3) improvements.push("Decision making");
+  if (stats.fouls >= 4) improvements.push("Discipline on defense");
+
+  return {
+    strengths: strengths.length > 0 ? strengths : ["N/A"],
+    improvements: improvements.length > 0 ? improvements : ["N/A"],
+    summary: `Player scored ${stats.points} points with ${stats.rebounds} rebounds and ${stats.assists} assists. Overall impact: ${stats.plusMinus}.`
+  };
+}
+
+export function generateGameRecap(teamName, opponent, teamScore, opponentScore, topPerformers) {
+  const title = `${teamName} ${teamScore} - ${opponent} ${opponentScore}`;
+
+  let body = `In a hard-fought matchup between ${teamName} and ${opponent}, `;
+  body += `${teamName} ${teamScore > opponentScore ? 'came out on top' : 'fell short'}, `;
+  body += `with a final score of ${teamScore}-${opponentScore}.\n\n`;
+
+  body += `Top performers:\n`;
+  topPerformers.forEach(player => {
+    body += `- ${player.name}: ${player.points} PTS, ${player.rebounds} REB, ${player.assists} AST\n`;
+  });
+
+  return {
+    title,
+    body
+  };
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Coach Dashboard</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>📤 Upload Game Video</h2>
+      <form id="uploadForm">
+        <input type="text" id="gameId" placeholder="Game ID" required />
+        <input type="text" id="teamName" placeholder="Your Team Name" required />
+        <input type="text" id="opponent" placeholder="Opponent Team Name" required />
+        <input type="date" id="gameDate" required />
+        <input type="url" id="videoUrl" placeholder="Video URL (MP4/Hudl/YouTube)" required />
+        <button type="submit">Submit for Analysis</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>📋 Team Game History</h2>
+      <div id="teamGameHistory"></div>
+    </section>
+
+    <section>
+      <h2>👀 Player Breakdowns</h2>
+      <div id="coachPlayerView"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/assets/js/coachDashboard.js"></script>
+</body>
+</html>

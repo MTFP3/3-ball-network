@@ -1,0 +1,94 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - 3 Ball Network</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <!-- Registration fields start -->
+      <div>
+        <input type="radio" name="role" value="player" checked /> Player
+        <input type="radio" name="role" value="coach" /> Coach
+        <input type="radio" name="role" value="scout" /> Scout
+        <input type="radio" name="role" value="fan" /> Fan
+      </div>
+      <button id="registerBtn" type="button">Register</button>
+      <!-- Registration fields end -->
+      <button type="button" id="loginBtn">Login</button>
+    </form>
+    <div id="loginError" style="color:red;"></div>
+  </main>
+</body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<script src="/assets/js/firebaseConfig.js"></script>
+<script src="/assets/js/firebaseAuth.js"></script>
+<script type="module">
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  import { app } from "/assets/js/firebaseConfig.js";
+
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('loginError');
+    errorDiv.textContent = "";
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      // Check role from Firestore
+      const playerDoc = await getDoc(doc(db, "players", uid));
+      if (playerDoc.exists()) {
+        window.location.href = "/portals/player/dashboard.html";
+      } else {
+        // Check other roles or redirect to error
+        errorDiv.textContent = "Role not found. Please contact support.";
+      }
+    } catch (error) {
+      errorDiv.textContent = error.message;
+    }
+  });
+
+  document.getElementById("loginBtn").addEventListener("click", function() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    loginUser(email, password);
+  });
+
+  function loginUser(email, password) {
+    const errorDiv = document.getElementById('loginError');
+    errorDiv.textContent = "";
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const uid = userCredential.user.uid;
+        // Check role from Firestore
+        const playerDoc = await getDoc(doc(db, "players", uid));
+        if (playerDoc.exists()) {
+          window.location.href = "/portals/player/dashboard.html";
+        } else {
+          // Check other roles or redirect to error
+          errorDiv.textContent = "Role not found. Please contact support.";
+        }
+      })
+      .catch((error) => {
+        errorDiv.textContent = error.message;
+      });
+  }
+</script>

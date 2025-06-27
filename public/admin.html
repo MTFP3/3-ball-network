@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    section { background: white; border-radius: 8px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    input, select, button, textarea { padding: 6px; margin: 5px 0; width: 100%; max-width: 300px; display: block; }
+    h1, h2 { border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h1>🔐 Admin HQ</h1>
+
+  <section>
+    <h2>🚫 Ban User</h2>
+    <input id="banUid" placeholder="User UID" />
+    <button onclick="banUser()">Ban User</button>
+    <p id="banResult"></p>
+  </section>
+
+  <section>
+    <h2>🏷️ Edit Tags</h2>
+    <input id="entityId" placeholder="Player or Team ID" />
+    <textarea id="tagList" placeholder="Enter tags separated by commas"></textarea>
+    <button onclick="editTags()">Update Tags</button>
+    <p id="tagResult"></p>
+  </section>
+
+  <section>
+    <h2>🚩 Flagged Content</h2>
+    <div id="flaggedItems"></div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+    import { getFirestore, doc, setDoc, updateDoc, getDocs, collection, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "740915998465",
+      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.banUser = async () => {
+      const uid = document.getElementById("banUid").value;
+      if (!uid) return alert("❌ Please enter a UID");
+      try {
+        await setDoc(doc(db, "bannedUsers", uid), { banned: true, reason: "manual" });
+        document.getElementById("banResult").innerText = `✅ User ${uid} has been banned.`;
+      } catch (e) {
+        document.getElementById("banResult").innerText = `❌ Error: ${e.message}`;
+      }
+    };
+
+    window.editTags = async () => {
+      const id = document.getElementById("entityId").value;
+      const tags = document.getElementById("tagList").value.split(',').map(t => t.trim());
+      if (!id || tags.length === 0) return alert("❌ Enter ID and tags");
+      try {
+        const ref = doc(db, "players", id);
+        await updateDoc(ref, { smartTags: tags });
+        document.getElementById("tagResult").innerText = `✅ Tags updated for ${id}`;
+      } catch {
+        try {
+          const ref = doc(db, "teams", id);
+          await updateDoc(ref, { tags });
+          document.getElementById("tagResult").innerText = `✅ Tags updated for ${id}`;
+        } catch (e) {
+          document.getElementById("tagResult").innerText = `❌ Error: ${e.message}`;
+        }
+      }
+    };
+
+    const flagged = await getDocs(collection(db, "flags"));
+    const container = document.getElementById("flaggedItems");
+    flagged.forEach(f => {
+      const data = f.data();
+      const div = document.createElement("div");
+      div.style.marginBottom = "10px";
+      div.innerHTML = `
+        <strong>🚩 ${data.type}</strong> on <code>${data.targetId}</code>: ${data.reason || "No reason"}
+        <br>
+        <button onclick="resolveFlag('${f.id}')">Resolve</button>
+      `;
+      container.appendChild(div);
+    });
+
+    window.resolveFlag = async (id) => {
+      await deleteDoc(doc(db, "flags", id));
+      alert("✅ Flag resolved and removed.");
+      location.reload();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+/* 3 Ball Network Global Stylesheet */
+
+/*========================*/
+/* FONTS */
+/*========================*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/*========================*/
+/* GLOBAL ELEMENTS */
+/*========================*/
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: #333;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+/*========================*/
+/* PAGE LAYOUTS */
+/*========================*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+/*========================*/
+/* HEADER + NAV */
+/*========================*/
+.header {
+  background: #000;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar a {
+  color: #fff;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+/*========================*/
+/* DASHBOARDS */
+/*========================*/
+.dashboard {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.dashboard-card {
+  padding: 20px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.dashboard-card h4 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+/*========================*/
+/* CHARTS + METRICS */
+/*========================*/
+.chart-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+/*========================*/
+/* BADGES */
+/*========================*/
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 50px;
+  background-color: #f1f3f5;
+  color: #212529;
+  margin-right: 8px;
+}
+
+/*========================*/
+/* FOOTER */
+/*========================*/
+.footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 14px;
+}

@@ -1,0 +1,151 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - 3 Ball Network</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Join 3 Ball Network</h1>
+
+    <!-- Role Selection -->
+    <label><input type="radio" name="role" value="player" checked> Player</label>
+    <label><input type="radio" name="role" value="coach"> Coach</label>
+    <label><input type="radio" name="role" value="scout"> Scout</label>
+    <label><input type="radio" name="role" value="fan"> Fan</label>
+
+    <hr>
+
+    <h2>Player Registration</h2>
+<form id="playerForm">
+  <input type="text" id="name" placeholder="Full Name" required />
+  <input type="text" id="gender" placeholder="Gender (M/F/Other)" required />
+  <input type="text" id="height" placeholder="Height (e.g., 6'1\")" required />
+  <input type="text" id="weight" placeholder="Weight (lbs)" required />
+  <input type="text" id="school" placeholder="School Name" required />
+  <input type="text" id="city" placeholder="City" required />
+  <input type="text" id="state" placeholder="State" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Register Player</button>
+</form>
+
+
+    <!-- Coach Form -->
+    <form id="coachForm" class="role-form hidden">
+      <h2>Coach Registration</h2>
+      <input type="text" id="c_name" placeholder="Full Name" required />
+      <input type="text" id="teamName" placeholder="Team Name" required />
+      <input type="text" id="schoolOrAAU" placeholder="School / AAU / Both" required />
+      <input type="text" id="c_state" placeholder="State" required />
+      <input type="url" id="profilePhoto" placeholder="Profile Photo URL (optional)" />
+      <input type="text" id="instagram" placeholder="Instagram (optional)" />
+      <input type="text" id="twitter" placeholder="Twitter (optional)" />
+      <input type="email" id="c_email" placeholder="Email" required />
+      <input type="password" id="c_password" placeholder="Password" required />
+      <button type="submit">Register Coach</button>
+    </form>
+
+    <!-- Scout Form -->
+    <form id="scoutForm" class="role-form hidden">
+      <h2>Scout Registration</h2>
+      <input type="text" id="s_name" placeholder="Full Name" required />
+      <input type="text" id="scoutLevel" placeholder="Scouting Level (HS, College, Pro)" required />
+      <input type="url" id="s_profile" placeholder="Profile Picture URL (optional)" />
+      <input type="email" id="s_email" placeholder="Email" required />
+      <input type="password" id="s_password" placeholder="Password" required />
+      <button type="submit">Register Scout</button>
+    </form>
+
+    <!-- Fan Form -->
+    <form id="fanForm" class="role-form hidden">
+      <h2>Fan Registration</h2>
+      <input type="text" id="f_name" placeholder="Full Name" required />
+      <input type="email" id="f_email" placeholder="Email" required />
+      <input type="password" id="f_password" placeholder="Password" required />
+      <button type="submit">Register Fan</button>
+    </form>
+
+    <div id="registerError" style="color:red;"></div>
+  </main>
+
+  <script>
+  document.querySelectorAll("input[name='role']").forEach((input) => {
+    input.addEventListener("change", () => {
+      const value = input.value;
+      document.querySelectorAll(".role-form").forEach(f => f.classList.add("hidden"));
+      document.getElementById(value + "Form").classList.remove("hidden");
+    });
+  });
+
+  // Player
+  document.getElementById("playerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("p_name").value,
+      jerseyNumber: document.getElementById("jerseyNumber").value,
+      position: document.getElementById("position").value,
+      school: document.getElementById("school").value,
+      gradeLevel: document.getElementById("gradeLevel").value,
+      height: document.getElementById("height").value,
+      weight: document.getElementById("weight").value,
+      state: document.getElementById("state").value,
+      highlightLink: document.getElementById("highlightLink").value
+    };
+    registerUser(document.getElementById("p_email").value, document.getElementById("p_password").value, 'player', data);
+  });
+
+  // Coach
+  document.getElementById("coachForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("c_name").value,
+      teamName: document.getElementById("teamName").value,
+      coachingType: document.getElementById("schoolOrAAU").value,
+      state: document.getElementById("c_state").value,
+      profilePhoto: document.getElementById("profilePhoto").value,
+      instagram: document.getElementById("instagram").value,
+      twitter: document.getElementById("twitter").value
+    };
+    registerUser(document.getElementById("c_email").value, document.getElementById("c_password").value, 'coach', data);
+  });
+
+  // Scout
+  document.getElementById("scoutForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("s_name").value,
+      level: document.getElementById("scoutLevel").value,
+      profile: document.getElementById("s_profile").value
+    };
+    registerUser(document.getElementById("s_email").value, document.getElementById("s_password").value, 'scout', data);
+  });
+
+  // Fan
+  document.getElementById("fanForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("f_name").value
+    };
+    registerUser(document.getElementById("f_email").value, document.getElementById("f_password").value, 'fan', data);
+  });
+  </script>
+
+  <style>
+  .hidden { display: none; }
+  form input { display: block; margin: 8px 0; }
+  form button { margin-top: 10px; }
+  </style>
+</body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<script src="/assets/js/firebaseConfig.js"></script>
+<script src="/assets/js/firebaseAuth.js"></script>
+
+

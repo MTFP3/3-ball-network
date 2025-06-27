@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <h1>🎓 Coach Dashboard</h1>
+
+  <section>
+    <form id="uploadForm">
+      <input id="gameId" placeholder="Game ID" required />
+      <input id="teamName" placeholder="Team Name" required />
+      <input id="opponent" placeholder="Opponent" />
+      <input id="gameDate" type="date" required />
+      <input id="videoUrl" placeholder="YouTube or Hudl Link" required />
+      <button type="submit">Upload Game</button>
+    </form>
+  </section>
+
+  <div id="gameBreakdownView"></div>
+
+  <section>
+    <h3>📊 Team Stat Trends</h3>
+    <canvas id="teamChart" width="400" height="200"></canvas>
+  </section>
+
+  <section>
+    <h3>📈 Upload Trends</h3>
+    <canvas id="uploadTrendChart" width="400" height="200"></canvas>
+  </section>
+
+  <section>
+    <h3>📉 Win/Loss Trend</h3>
+    <canvas id="winLossChart" width="400" height="200"></canvas>
+  </section>
+
+  <section>
+    <h3>📊 Compare Players</h3>
+    <input id="compareP1" placeholder="Player ID 1" />
+    <input id="compareP2" placeholder="Player ID 2" />
+    <button onclick="comparePlayers()">Compare</button>
+    <div id="comparisonResults"></div>
+  </section>
+
+  <section>
+    <h3>🏆 Team Comparison Tool</h3>
+    <input id="teamOne" placeholder="Team Name 1" />
+    <input id="teamTwo" placeholder="Team Name 2" />
+    <button onclick="compareTeams()">Compare</button>
+    <div id="teamComparisonResults"></div>
+  </section>
+
+  <section>
+    <h3>🏷️ Smart Tags (Your Team)</h3>
+    <ul id="teamTags"></ul>
+  </section>
+
+  <section>
+    <h3>🧮 Advanced Metrics</h3>
+    <div id="metricsViewer"></div>
+  </section>
+
+  <script type="module" src="/assets/js/coachDashboard.js"></script>
+  <script type="module" src="/assets/js/playerComparison.js"></script>
+  <script type="module" src="/assets/js/teamComparison.js"></script>
+  <script type="module" src="/assets/js/teamCharts.js"></script>
+  <script type="module" src="/assets/js/coachAnalytics.js"></script>
+  <script type="module" src="/assets/js/winLossChart.js"></script>
+  <script type="module" src="/assets/js/advancedMetricsViewer.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
+      authDomain: "ball-network-web.firebaseapp.com",
+      projectId: "ball-network-web",
+      storageBucket: "ball-network-web.appspot.com",
+      messagingSenderId: "740915998465",
+      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const team = localStorage.getItem("team") || "Demo Team";
+
+    const ref = doc(db, "teams", team);
+    const snap = await getDoc(ref);
+    const data = snap.exists() ? snap.data() : {};
+    const tagList = document.getElementById("teamTags");
+    tagList.innerHTML = (data.tags || []).map(t => `<li>${t}</li>`).join('');
+
+    // --- AI Coach Chat ---
+    const playerId = localStorage.getItem("playerId") || "demoPlayer";
+    const chatBox = document.getElementById("chatBox");
+
+    window.sendCoachMessage = async function() {
+      const input = document.getElementById("chatInput");
+      const question = input.value.trim();
+      if (!question) return;
+
+      const ref = doc(db, "players", playerId);
+      const snap = await getDoc(ref);
+      const data = snap.exists() ? snap.data() : {};
+
+      const reply = await getCoachResponse(question, data);
+      chatBox.innerHTML += `<div><strong>You:</strong> ${question}</div>`;
+      chatBox.innerHTML += `<div><strong>Coach:</strong> ${reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+      input.value = "";
+    };
+
+    async function getCoachResponse(question, playerData) {
+      // TEMP MOCK — replace with AI function call or Firebase Function
+      const avg = playerData.avgGrade || 0;
+      const advice = avg >= 70 ? "Keep up the great work and focus on consistency!" : "Let’s work on defense and shot selection this week.";
+      return `Your average grade is ${avg}. ${advice}`;
+    }
+  </script>
+</body>
+</html>
