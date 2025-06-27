@@ -1,0 +1,15 @@
+{
+  "name": "3-ball-network",
+  "version": "1.0.0",
+  "description": "Basketball community platform connecting players, coaches, scouts, and fans",
+  "scripts": {
+    "build": "echo 'No build needed for static site'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "keywords": ["basketball", "sports", "community", "scouting"],
+  "author": "3 Ball Network",
+  "license": "ISC"
+}
