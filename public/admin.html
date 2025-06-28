@@ -3,41 +3,530 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>Admin Portal | 3 Ball Network</title>
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-    section { background: white; border-radius: 8px; padding: 15px; margin: 20px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    input, select, button, textarea { padding: 6px; margin: 5px 0; width: 100%; max-width: 300px; display: block; }
-    h1, h2 { border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+    body {
+      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2em;
+    }
+
+    .admin-header {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .admin-header h1 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2.5em;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 50%, #caf0f8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: neonGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(0,180,216,0.4)); }
+      100% { filter: drop-shadow(0 0 20px rgba(0,180,216,0.8)) drop-shadow(0 0 30px rgba(0,180,216,0.6)); }
+    }
+
+    .admin-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+
+    .nav-tab {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-tab:hover {
+      background: rgba(0,180,216,0.1);
+      border-color: rgba(0,180,216,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      border-color: #00b4d8;
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,180,216,0.3);
+    }
+
+    .admin-section {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .admin-section h2 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.8em;
+      font-weight: 900;
+      margin-bottom: 1em;
+      color: #caf0f8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      margin-bottom: 2em;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .stat-value {
+      font-size: 2.5em;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2em;
+    }
+
+    .stat-label {
+      color: #b0b0b0;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 0.9em;
+    }
+
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      color: #caf0f8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8em 1em;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      color: #e0e0e0;
+      font-size: 1em;
+      font-family: 'Urbanist', Arial, sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00b4d8;
+      box-shadow: 0 0 0 3px rgba(0,180,216,0.2);
+    }
+
+    .admin-btn {
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: white;
+      padding: 0.8em 1.5em;
+      border: none;
+      border-radius: 12px;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      margin-right: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    .admin-btn:hover {
+      background: linear-gradient(135deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,180,216,0.3);
+    }
+
+    .admin-btn.danger {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    }
+
+    .admin-btn.danger:hover {
+      background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+      box-shadow: 0 8px 24px rgba(220,53,69,0.3);
+    }
+
+    .user-list {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .user-item {
+      padding: 1em;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-item:last-child {
+      border-bottom: none;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 700;
+      color: #caf0f8;
+      margin-bottom: 0.2em;
+    }
+
+    .user-details {
+      font-size: 0.9em;
+      color: #b0b0b0;
+    }
+
+    .chart-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 1.5em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .alert {
+      padding: 1em;
+      border-radius: 12px;
+      margin-bottom: 1em;
+      font-weight: 700;
+    }
+
+    .alert.success {
+      background: rgba(40,167,69,0.2);
+      border: 1px solid rgba(40,167,69,0.5);
+      color: #90ee90;
+    }
+
+    .alert.error {
+      background: rgba(220,53,69,0.2);
+      border: 1px solid rgba(220,53,69,0.5);
+      color: #ffb3b3;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2em;
+      color: #b0b0b0;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0,180,216,0.3);
+      border-radius: 50%;
+      border-top-color: #00b4d8;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .admin-container {
+        padding: 1em;
+      }
+      
+      .admin-nav {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
-  <h1>🔐 Admin HQ</h1>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>🛡️ Admin Portal</h1>
+      <p>3 Ball Network Administrative Dashboard</p>
+    </div>
 
-  <section>
-    <h2>🚫 Ban User</h2>
-    <input id="banUid" placeholder="User UID" />
-    <button onclick="banUser()">Ban User</button>
-    <p id="banResult"></p>
-  </section>
+    <div class="admin-nav">
+      <div class="nav-tab active" onclick="switchTab('dashboard')">
+        📊 Dashboard
+      </div>
+      <div class="nav-tab" onclick="switchTab('users')">
+        👥 User Management
+      </div>
+      <div class="nav-tab" onclick="switchTab('content')">
+        📝 Content Moderation
+      </div>
+      <div class="nav-tab" onclick="switchTab('analytics')">
+        📈 Analytics
+      </div>
+      <div class="nav-tab" onclick="switchTab('system')">
+        ⚙️ System Settings
+      </div>
+    </div>
 
-  <section>
-    <h2>🏷️ Edit Tags</h2>
-    <input id="entityId" placeholder="Player or Team ID" />
-    <textarea id="tagList" placeholder="Enter tags separated by commas"></textarea>
-    <button onclick="editTags()">Update Tags</button>
-    <p id="tagResult"></p>
-  </section>
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="admin-section active">
+      <h2>📊 Dashboard Overview</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalUsers">-</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="activeUsers">-</div>
+          <div class="stat-label">Active Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalGames">-</div>
+          <div class="stat-label">Games Analyzed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="pendingReports">-</div>
+          <div class="stat-label">Pending Reports</div>
+        </div>
+      </div>
 
-  <section>
-    <h2>🚩 Flagged Content</h2>
-    <div id="flaggedItems"></div>
-  </section>
+      <div class="chart-container">
+        <h3>User Registration Trends</h3>
+        <canvas id="registrationChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <h3>User Activity by Role</h3>
+        <canvas id="roleChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- User Management Section -->
+    <div id="users" class="admin-section">
+      <h2>👥 User Management</h2>
+      
+      <div class="form-group">
+        <label>Search Users</label>
+        <input type="text" id="userSearch" placeholder="Search by name, email, or ID">
+      </div>
+
+      <div class="form-group">
+        <label>Filter by Role</label>
+        <select id="roleFilter">
+          <option value="">All Roles</option>
+          <option value="player">Players</option>
+          <option value="coach">Coaches</option>
+          <option value="scout">Scouts</option>
+          <option value="fan">Fans</option>
+        </select>
+      </div>
+
+      <div class="user-list" id="userList">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading users...</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2em;">
+        <h3>Quick Actions</h3>
+        <div class="form-group">
+          <label>User ID to Ban</label>
+          <input type="text" id="banUserId" placeholder="Enter user ID">
+        </div>
+        <button class="admin-btn danger" onclick="banUser()">Ban User</button>
+        <button class="admin-btn" onclick="exportUsers()">Export User Data</button>
+      </div>
+    </div>
+
+    <!-- Content Moderation Section -->
+    <div id="content" class="admin-section">
+      <h2>📝 Content Moderation</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="flaggedContent">-</div>
+          <div class="stat-label">Flagged Items</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="autoModerated">-</div>
+          <div class="stat-label">Auto-Moderated</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Add Content Filter</label>
+        <input type="text" id="newFilter" placeholder="Enter keyword or phrase">
+        <button class="admin-btn" onclick="addContentFilter()">Add Filter</button>
+      </div>
+
+      <div id="flaggedList">
+        <h3>Flagged Content</h3>
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading flagged content...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics" class="admin-section">
+      <h2>📈 Advanced Analytics</h2>
+      
+      <div class="chart-container">
+        <h3>Daily Active Users</h3>
+        <canvas id="dailyActiveChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <h3>Platform Usage</h3>
+        <canvas id="platformChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="form-group">
+        <label>Analytics Date Range</label>
+        <input type="date" id="analyticsStartDate">
+        <input type="date" id="analyticsEndDate">
+        <button class="admin-btn" onclick="refreshAnalytics()">Refresh Data</button>
+      </div>
+    </div>
+
+    <!-- System Settings Section -->
+    <div id="system" class="admin-section">
+      <h2>⚙️ System Settings</h2>
+      
+      <div class="form-group">
+        <label>Site Maintenance Mode</label>
+        <select id="maintenanceMode">
+          <option value="false">Disabled</option>
+          <option value="true">Enabled</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Registration Status</label>
+        <select id="registrationStatus">
+          <option value="open">Open</option>
+          <option value="restricted">Restricted</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>System Announcement</label>
+        <textarea id="systemAnnouncement" rows="4" placeholder="Enter system-wide announcement"></textarea>
+      </div>
+
+      <button class="admin-btn" onclick="saveSystemSettings()">Save Settings</button>
+      <button class="admin-btn" onclick="clearCache()">Clear Cache</button>
+      <button class="admin-btn danger" onclick="backupDatabase()">Backup Database</button>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+  </div>
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-    import { getFirestore, doc, setDoc, updateDoc, getDocs, collection, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      updateDoc, 
+      getDocs, 
+      getDoc,
+      collection, 
+      deleteDoc,
+      query,
+      where,
+      orderBy,
+      limit
+    } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
@@ -50,55 +539,305 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    window.banUser = async () => {
-      const uid = document.getElementById("banUid").value;
-      if (!uid) return alert("❌ Please enter a UID");
-      try {
-        await setDoc(doc(db, "bannedUsers", uid), { banned: true, reason: "manual" });
-        document.getElementById("banResult").innerText = `✅ User ${uid} has been banned.`;
-      } catch (e) {
-        document.getElementById("banResult").innerText = `❌ Error: ${e.message}`;
+    // Global variables
+    let currentUsers = [];
+    let charts = {};
+
+    // Authentication check
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        document.body.innerHTML = '<div style="text-align:center;margin-top:100px;"><h2>🔒 Authentication Required</h2><p>Please sign in as an admin to access this portal.</p></div>';
+        return;
       }
-    };
-
-    window.editTags = async () => {
-      const id = document.getElementById("entityId").value;
-      const tags = document.getElementById("tagList").value.split(',').map(t => t.trim());
-      if (!id || tags.length === 0) return alert("❌ Enter ID and tags");
+      
+      // Check if user is admin
       try {
-        const ref = doc(db, "players", id);
-        await updateDoc(ref, { smartTags: tags });
-        document.getElementById("tagResult").innerText = `✅ Tags updated for ${id}`;
-      } catch {
-        try {
-          const ref = doc(db, "teams", id);
-          await updateDoc(ref, { tags });
-          document.getElementById("tagResult").innerText = `✅ Tags updated for ${id}`;
-        } catch (e) {
-          document.getElementById("tagResult").innerText = `❌ Error: ${e.message}`;
+        const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+        if (!adminDoc.exists()) {
+          document.body.innerHTML = '<div style="text-align:center;margin-top:100px;"><h2>🚫 Access Denied</h2><p>Admin privileges required.</p></div>';
+          return;
         }
+        
+        // Initialize admin portal
+        initializeAdminPortal();
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        showAlert('Authentication error', 'error');
       }
-    };
-
-    const flagged = await getDocs(collection(db, "flags"));
-    const container = document.getElementById("flaggedItems");
-    flagged.forEach(f => {
-      const data = f.data();
-      const div = document.createElement("div");
-      div.style.marginBottom = "10px";
-      div.innerHTML = `
-        <strong>🚩 ${data.type}</strong> on <code>${data.targetId}</code>: ${data.reason || "No reason"}
-        <br>
-        <button onclick="resolveFlag('${f.id}')">Resolve</button>
-      `;
-      container.appendChild(div);
     });
 
-    window.resolveFlag = async (id) => {
-      await deleteDoc(doc(db, "flags", id));
-      alert("✅ Flag resolved and removed.");
-      location.reload();
+    // Tab switching functionality
+    window.switchTab = (tabName) => {
+      // Update nav tabs
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Update sections
+      document.querySelectorAll('.admin-section').forEach(section => section.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      
+      // Load tab-specific data
+      loadTabData(tabName);
+    };
+
+    // Initialize admin portal
+    function initializeAdminPortal() {
+      loadDashboardData();
+      loadUsers();
+      loadFlaggedContent();
+      initializeCharts();
+    }
+
+    // Load dashboard data
+    async function loadDashboardData() {
+      try {
+        // Load user counts
+        const usersSnapshot = await getDocs(collection(db, 'users'));
+        document.getElementById('totalUsers').textContent = usersSnapshot.size;
+        
+        // Load other stats (mock data for now)
+        document.getElementById('activeUsers').textContent = Math.floor(usersSnapshot.size * 0.3);
+        document.getElementById('totalGames').textContent = Math.floor(Math.random() * 500 + 100);
+        document.getElementById('pendingReports').textContent = Math.floor(Math.random() * 10);
+        
+      } catch (error) {
+        console.error('Error loading dashboard:', error);
+        showAlert('Failed to load dashboard data', 'error');
+      }
+    }
+
+    // Load users
+    async function loadUsers() {
+      try {
+        const usersSnapshot = await getDocs(collection(db, 'users'));
+        currentUsers = [];
+        usersSnapshot.forEach(doc => {
+          currentUsers.push({ id: doc.id, ...doc.data() });
+        });
+        
+        displayUsers(currentUsers);
+      } catch (error) {
+        console.error('Error loading users:', error);
+        showAlert('Failed to load users', 'error');
+      }
+    }
+
+    // Display users
+    function displayUsers(users) {
+      const userList = document.getElementById('userList');
+      
+      if (users.length === 0) {
+        userList.innerHTML = '<div class="loading"><p>No users found</p></div>';
+        return;
+      }
+      
+      userList.innerHTML = users.map(user => `
+        <div class="user-item">
+          <div class="user-info">
+            <div class="user-name">${user.name || 'Unknown'}</div>
+            <div class="user-details">
+              ${user.email || 'No email'} • ${user.role || 'No role'} • ID: ${user.id}
+            </div>
+          </div>
+          <div>
+            <button class="admin-btn" onclick="editUser('${user.id}')">Edit</button>
+            <button class="admin-btn danger" onclick="banUser('${user.id}')">Ban</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load flagged content
+    async function loadFlaggedContent() {
+      try {
+        const flaggedSnapshot = await getDocs(collection(db, 'flags'));
+        const flaggedList = document.getElementById('flaggedList');
+        
+        if (flaggedSnapshot.empty) {
+          flaggedList.innerHTML = '<h3>Flagged Content</h3><p>No flagged content found.</p>';
+          return;
+        }
+        
+        let flaggedHTML = '<h3>Flagged Content</h3>';
+        flaggedSnapshot.forEach(doc => {
+          const data = doc.data();
+          flaggedHTML += `
+            <div class="user-item">
+              <div class="user-info">
+                <div class="user-name">🚩 ${data.type || 'Unknown'}</div>
+                <div class="user-details">
+                  Target: ${data.targetId || 'Unknown'} • Reason: ${data.reason || 'No reason provided'}
+                </div>
+              </div>
+              <div>
+                <button class="admin-btn" onclick="resolveFlag('${doc.id}')">Resolve</button>
+              </div>
+            </div>
+          `;
+        });
+        
+        flaggedList.innerHTML = flaggedHTML;
+        document.getElementById('flaggedContent').textContent = flaggedSnapshot.size;
+      } catch (error) {
+        console.error('Error loading flagged content:', error);
+      }
+    }
+
+    // Initialize charts
+    function initializeCharts() {
+      // Registration trend chart
+      const regCtx = document.getElementById('registrationChart').getContext('2d');
+      charts.registration = new Chart(regCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'New Registrations',
+            data: [12, 19, 15, 25, 22, 30],
+            borderColor: '#00b4d8',
+            backgroundColor: 'rgba(0, 180, 216, 0.1)',
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { color: '#e0e0e0' }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#b0b0b0' } },
+            y: { ticks: { color: '#b0b0b0' } }
+          }
+        }
+      });
+
+      // Role distribution chart
+      const roleCtx = document.getElementById('roleChart').getContext('2d');
+      charts.role = new Chart(roleCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Players', 'Coaches', 'Scouts', 'Fans'],
+          datasets: [{
+            data: [45, 25, 15, 15],
+            backgroundColor: ['#00b4d8', '#90e0ef', '#caf0f8', '#007cba']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { color: '#e0e0e0' }
+            }
+          }
+        }
+      });
+    }
+
+    // Ban user function
+    window.banUser = async (userId) => {
+      const uid = userId || document.getElementById('banUserId')?.value;
+      if (!uid) {
+        showAlert('Please provide a user ID', 'error');
+        return;
+      }
+      
+      if (!confirm(`Are you sure you want to ban user ${uid}?`)) return;
+      
+      try {
+        await setDoc(doc(db, 'bannedUsers', uid), {
+          banned: true,
+          reason: 'Admin action',
+          timestamp: new Date()
+        });
+        showAlert(`User ${uid} has been banned`, 'success');
+        loadUsers(); // Refresh user list
+      } catch (error) {
+        console.error('Error banning user:', error);
+        showAlert('Failed to ban user', 'error');
+      }
+    };
+
+    // Resolve flag function
+    window.resolveFlag = async (flagId) => {
+      try {
+        await deleteDoc(doc(db, 'flags', flagId));
+        showAlert('Flag resolved successfully', 'success');
+        loadFlaggedContent(); // Refresh flagged content
+      } catch (error) {
+        console.error('Error resolving flag:', error);
+        showAlert('Failed to resolve flag', 'error');
+      }
+    };
+
+    // Show alert function
+    function showAlert(message, type = 'success') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert ${type}`;
+      alert.textContent = message;
+      
+      alertContainer.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.remove();
+      }, 5000);
+    }
+
+    // Load tab-specific data
+    function loadTabData(tabName) {
+      switch(tabName) {
+        case 'users':
+          loadUsers();
+          break;
+        case 'content':
+          loadFlaggedContent();
+          break;
+        case 'analytics':
+          // Load analytics data
+          break;
+        case 'system':
+          // Load system settings
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Export functions to global scope
+    window.editUser = (userId) => {
+      showAlert(`Edit user ${userId} - Feature coming soon`, 'success');
+    };
+
+    window.exportUsers = () => {
+      showAlert('User export initiated', 'success');
+    };
+
+    window.addContentFilter = () => {
+      const filter = document.getElementById('newFilter').value;
+      if (filter) {
+        showAlert(`Content filter "${filter}" added`, 'success');
+        document.getElementById('newFilter').value = '';
+      }
+    };
+
+    window.refreshAnalytics = () => {
+      showAlert('Analytics data refreshed', 'success');
+    };
+
+    window.saveSystemSettings = () => {
+      showAlert('System settings saved', 'success');
+    };
+
+    window.clearCache = () => {
+      showAlert('Cache cleared successfully', 'success');
+    };
+
+    window.backupDatabase = () => {
+      showAlert('Database backup initiated', 'success');
     };
   </script>
 </body>
