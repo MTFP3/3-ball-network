@@ -526,7 +526,7 @@
       orderBy,
       limit
     } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
-    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
@@ -548,7 +548,7 @@
     // Authentication check
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        document.body.innerHTML = '<div style="text-align:center;margin-top:100px;"><h2>🔒 Authentication Required</h2><p>Please sign in as an admin to access this portal.</p></div>';
+        showLoginForm();
         return;
       }
       
@@ -804,6 +804,101 @@
           break;
         default:
           break;
+      }
+    }
+
+    // Show login form function
+    function showLoginForm() {
+      document.body.innerHTML = `
+        <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+          <div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 3em; border: 1px solid rgba(255,255,255,0.1); max-width: 400px; width: 90%; text-align: center;">
+            <div style="margin-bottom: 2em;">
+              <img src="/logo.png" alt="3 Ball Network" style="height: 60px; margin-bottom: 1em;">
+              <h1 style="font-family: 'Montserrat', Arial, sans-serif; font-size: 2em; font-weight: 900; margin: 0; background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 50%, #caf0f8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase; letter-spacing: 2px;">Admin Portal</h1>
+              <p style="color: #b0b0b0; margin-top: 0.5em;">Administrator access required</p>
+            </div>
+            
+            <div id="loginAlert" style="display: none; padding: 1em; border-radius: 10px; margin-bottom: 1em;"></div>
+            
+            <form id="loginForm" style="text-align: left;">
+              <div style="margin-bottom: 1.5em;">
+                <label for="adminEmail" style="display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;">Email Address</label>
+                <input type="email" id="adminEmail" required style="width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;">
+              </div>
+              
+              <div style="margin-bottom: 2em;">
+                <label for="adminPassword" style="display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;">Password</label>
+                <input type="password" id="adminPassword" required style="width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;">
+              </div>
+              
+              <button type="submit" style="width: 100%; padding: 1em; background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 1em; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
+                Sign In
+              </button>
+            </form>
+            
+            <div style="margin-top: 2em; padding-top: 1.5em; border-top: 1px solid rgba(255,255,255,0.1);">
+              <p style="color: #888; font-size: 0.9em; margin: 0;">
+                🔒 Secure admin authentication
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add login form handler
+      document.getElementById('loginForm').addEventListener('submit', handleAdminLogin);
+    }
+
+    // Handle admin login
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      const alertDiv = document.getElementById('loginAlert');
+      
+      try {
+        // Show loading state
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Signing In...';
+        submitBtn.disabled = true;
+        
+        // Sign in with Firebase Auth
+        await signInWithEmailAndPassword(auth, email, password);
+        
+        // The onAuthStateChanged listener will handle the rest
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        
+        // Reset button
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Sign In';
+        submitBtn.disabled = false;
+        
+        // Show error
+        alertDiv.style.display = 'block';
+        alertDiv.style.background = 'rgba(255, 69, 58, 0.1)';
+        alertDiv.style.border = '1px solid rgba(255, 69, 58, 0.3)';
+        alertDiv.style.color = '#ff453a';
+        alertDiv.textContent = getErrorMessage(error.code);
+      }
+    }
+
+    // Get user-friendly error messages
+    function getErrorMessage(errorCode) {
+      switch (errorCode) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          return 'Invalid email or password. Please try again.';
+        case 'auth/too-many-requests':
+          return 'Too many failed attempts. Please try again later.';
+        case 'auth/network-request-failed':
+          return 'Network error. Please check your connection.';
+        default:
+          return 'Login failed. Please try again.';
       }
     }
 
