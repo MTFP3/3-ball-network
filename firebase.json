@@ -16,6 +16,22 @@
         "destination": "/admin.html"
       },
       {
+        "source": "/demo-player",
+        "destination": "/demo-player.html"
+      },
+      {
+        "source": "/demo-coach",
+        "destination": "/demo-coach.html"
+      },
+      {
+        "source": "/demo-fan",
+        "destination": "/demo-fan.html"
+      },
+      {
+        "source": "/demo-scout",
+        "destination": "/demo-scout.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
@@ -24,6 +40,26 @@
       {
         "source": "/ball-network-web.web.app/**",
         "destination": "https://3ballnetwork.com/:splat",
+        "type": 301
+      },
+      {
+        "source": "/demo-player.html",
+        "destination": "https://3ballnetwork.com/demo-player",
+        "type": 301
+      },
+      {
+        "source": "/demo-coach.html",
+        "destination": "https://3ballnetwork.com/demo-coach",
+        "type": 301
+      },
+      {
+        "source": "/demo-fan.html",
+        "destination": "https://3ballnetwork.com/demo-fan",
+        "type": 301
+      },
+      {
+        "source": "/demo-scout.html",
+        "destination": "https://3ballnetwork.com/demo-scout",
         "type": 301
       }
     ],

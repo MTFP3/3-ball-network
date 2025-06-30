@@ -121,14 +121,13 @@ firebase deploy --only hosting
 if [ $? -eq 0 ]; then
     print_success "🎉 Deployment completed successfully!"
     print_status "Your site is live at:"
-    echo "   📱 https://ball-network-web.web.app"
-    echo "   🌐 https://3ballnetwork.com (if custom domain is configured)"
+    echo "   🌐 https://3ballnetwork.com"
     
     # Post-deployment checks
     print_status "Running post-deployment verification..."
     
     # Check if site is accessible
-    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://ball-network-web.web.app)
+    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://3ballnetwork.com)
     if [ "$HTTP_STATUS" = "200" ]; then
         print_success "✅ Site is accessible and responding"
     else

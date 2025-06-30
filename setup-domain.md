@@ -47,10 +47,10 @@ Firebase will automatically provision and manage SSL certificates for your custo
 Once setup is complete:
 - `https://3ballnetwork.com` → Your main website
 - `https://3ballnetwork.com/admin` → Admin portal
-- `https://3ballnetwork.com/demo-player.html` → Player demo
-- `https://3ballnetwork.com/demo-coach.html` → Coach demo
-- `https://3ballnetwork.com/demo-fan.html` → Fan demo
-- `https://3ballnetwork.com/demo-scout.html` → Scout demo
+- `https://3ballnetwork.com/demo-player` → Player demo
+- `https://3ballnetwork.com/demo-coach` → Coach demo
+- `https://3ballnetwork.com/demo-fan` → Fan demo
+- `https://3ballnetwork.com/demo-scout` → Scout demo
 
 ## 🔄 Automatic Redirects
 The firebase.json configuration includes redirects from the Firebase default domain to your custom domain.
