@@ -16,16 +16,28 @@ class MessagingSystem {
   }
 
   async initializeFirebase() {
-    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js');
-    const { getFirestore, onSnapshot, collection, addDoc, query, orderBy, where } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js');
-    
+    const { initializeApp } = await import(
+      'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js'
+    );
+    const {
+      getFirestore,
+      onSnapshot,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      where,
+    } = await import(
+      'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js'
+    );
+
     const firebaseConfig = {
-      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-      authDomain: "ball-network-web.firebaseapp.com",
-      projectId: "ball-network-web",
-      storageBucket: "ball-network-web.appspot.com",
-      messagingSenderId: "740915998465",
-      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+      apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+      authDomain: 'ball-network-web.firebaseapp.com',
+      projectId: 'ball-network-web',
+      storageBucket: 'ball-network-web.appspot.com',
+      messagingSenderId: '740915998465',
+      appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
     };
 
     const app = initializeApp(firebaseConfig);
@@ -109,7 +121,7 @@ class MessagingSystem {
         this.orderBy('lastMessageTime', 'desc')
       );
 
-      this.onSnapshot(conversationsQuery, (snapshot) => {
+      this.onSnapshot(conversationsQuery, snapshot => {
         this.renderConversations(snapshot.docs);
       });
     } catch (error) {
@@ -119,7 +131,7 @@ class MessagingSystem {
 
   renderConversations(conversations) {
     const conversationsContainer = document.getElementById('conversations');
-    
+
     if (conversations.length === 0) {
       conversationsContainer.innerHTML = `
         <div class="no-conversations">
@@ -133,11 +145,12 @@ class MessagingSystem {
       return;
     }
 
-    conversationsContainer.innerHTML = conversations.map(doc => {
-      const data = doc.data();
-      const otherParticipant = data.participants.find(p => p !== this.userId);
-      
-      return `
+    conversationsContainer.innerHTML = conversations
+      .map(doc => {
+        const data = doc.data();
+        const otherParticipant = data.participants.find(p => p !== this.userId);
+
+        return `
         <div class="conversation-item ${data.unread ? 'unread' : ''}" 
              onclick="messagingSystem.openConversation('${doc.id}', '${otherParticipant}')">
           <div class="conversation-avatar">
@@ -154,24 +167,29 @@ class MessagingSystem {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     // Update total unread count
-    const totalUnread = conversations.reduce((sum, doc) => sum + (doc.data().unreadCount || 0), 0);
+    const totalUnread = conversations.reduce(
+      (sum, doc) => sum + (doc.data().unreadCount || 0),
+      0
+    );
     document.getElementById('unreadCount').textContent = totalUnread;
-    document.getElementById('unreadCount').style.display = totalUnread > 0 ? 'block' : 'none';
+    document.getElementById('unreadCount').style.display =
+      totalUnread > 0 ? 'block' : 'none';
   }
 
   async openConversation(conversationId, otherUserId) {
     this.activeConversation = conversationId;
-    
+
     // Show chat area
     document.getElementById('conversationList').style.display = 'none';
     document.getElementById('chatArea').style.display = 'flex';
-    
+
     // Load messages
     this.loadMessages(conversationId);
-    
+
     // Load other user info
     await this.loadOtherUserInfo(otherUserId);
   }
@@ -183,7 +201,7 @@ class MessagingSystem {
         this.orderBy('timestamp', 'asc')
       );
 
-      this.onSnapshot(messagesQuery, (snapshot) => {
+      this.onSnapshot(messagesQuery, snapshot => {
         this.renderMessages(snapshot.docs);
       });
     } catch (error) {
@@ -193,12 +211,13 @@ class MessagingSystem {
 
   renderMessages(messages) {
     const messagesContainer = document.getElementById('messages');
-    
-    messagesContainer.innerHTML = messages.map(doc => {
-      const data = doc.data();
-      const isOwn = data.senderId === this.userId;
-      
-      return `
+
+    messagesContainer.innerHTML = messages
+      .map(doc => {
+        const data = doc.data();
+        const isOwn = data.senderId === this.userId;
+
+        return `
         <div class="message ${isOwn ? 'own' : 'other'}">
           <div class="message-content">
             <div class="message-text">${data.text}</div>
@@ -206,7 +225,8 @@ class MessagingSystem {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     // Scroll to bottom
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -215,16 +235,22 @@ class MessagingSystem {
   async sendMessage() {
     const input = document.getElementById('messageInput');
     const text = input.value.trim();
-    
+
     if (!text || !this.activeConversation) return;
 
     try {
-      await this.addDoc(this.collection(this.db, `conversations/${this.activeConversation}/messages`), {
-        text,
-        senderId: this.userId,
-        timestamp: new Date(),
-        type: 'text'
-      });
+      await this.addDoc(
+        this.collection(
+          this.db,
+          `conversations/${this.activeConversation}/messages`
+        ),
+        {
+          text,
+          senderId: this.userId,
+          timestamp: new Date(),
+          type: 'text',
+        }
+      );
 
       input.value = '';
     } catch (error) {
@@ -257,13 +283,16 @@ class MessagingSystem {
 
   formatTime(timestamp) {
     if (!timestamp) return '';
-    
+
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
     const now = new Date();
     const diff = now - date;
-    
+
     if (diff < 24 * 60 * 60 * 1000) {
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
     } else {
       return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
     }

@@ -70,18 +70,34 @@ class SearchEngine {
     `;
 
     // Add event listeners
-    document.getElementById('searchInput').addEventListener('input', this.debounce(this.performSearch.bind(this), 300));
-    document.getElementById('roleFilter').addEventListener('change', this.performSearch.bind(this));
-    document.getElementById('locationFilter').addEventListener('input', this.debounce(this.performSearch.bind(this), 300));
-    document.getElementById('positionFilter').addEventListener('change', this.performSearch.bind(this));
-    document.getElementById('skillFilter').addEventListener('change', this.performSearch.bind(this));
+    document
+      .getElementById('searchInput')
+      .addEventListener(
+        'input',
+        this.debounce(this.performSearch.bind(this), 300)
+      );
+    document
+      .getElementById('roleFilter')
+      .addEventListener('change', this.performSearch.bind(this));
+    document
+      .getElementById('locationFilter')
+      .addEventListener(
+        'input',
+        this.debounce(this.performSearch.bind(this), 300)
+      );
+    document
+      .getElementById('positionFilter')
+      .addEventListener('change', this.performSearch.bind(this));
+    document
+      .getElementById('skillFilter')
+      .addEventListener('change', this.performSearch.bind(this));
   }
 
   async buildSearchIndex() {
     // Build search index from Firebase data
     try {
       const collections = ['players', 'coaches', 'scouts', 'teams'];
-      
+
       for (const collection of collections) {
         const snapshot = await this.db.collection(collection).get();
         snapshot.forEach(doc => {
@@ -89,7 +105,7 @@ class SearchEngine {
           this.indexDocument(data);
         });
       }
-      
+
       console.log('Search index built successfully');
     } catch (error) {
       console.error('Error building search index:', error);
@@ -97,15 +113,22 @@ class SearchEngine {
   }
 
   indexDocument(doc) {
-    const searchableFields = ['name', 'position', 'school', 'city', 'state', 'skills'];
+    const searchableFields = [
+      'name',
+      'position',
+      'school',
+      'city',
+      'state',
+      'skills',
+    ];
     const tokens = [];
-    
+
     searchableFields.forEach(field => {
       if (doc[field]) {
         tokens.push(...this.tokenize(doc[field].toString()));
       }
     });
-    
+
     tokens.forEach(token => {
       if (!this.searchIndex.has(token)) {
         this.searchIndex.set(token, new Set());
@@ -115,7 +138,8 @@ class SearchEngine {
   }
 
   tokenize(text) {
-    return text.toLowerCase()
+    return text
+      .toLowerCase()
       .replace(/[^\w\s]/g, '')
       .split(/\s+/)
       .filter(token => token.length > 2);
@@ -124,7 +148,9 @@ class SearchEngine {
   async performSearch() {
     const query = document.getElementById('searchInput').value.trim();
     const roleFilter = document.getElementById('roleFilter').value;
-    const locationFilter = document.getElementById('locationFilter').value.trim();
+    const locationFilter = document
+      .getElementById('locationFilter')
+      .value.trim();
     const positionFilter = document.getElementById('positionFilter').value;
     const skillFilter = document.getElementById('skillFilter').value;
 
@@ -141,7 +167,7 @@ class SearchEngine {
       role: roleFilter,
       location: locationFilter,
       position: positionFilter,
-      skill: skillFilter
+      skill: skillFilter,
     });
 
     this.displayResults(results);
@@ -150,7 +176,7 @@ class SearchEngine {
   textSearch(query) {
     const tokens = this.tokenize(query);
     const matchingDocs = new Set();
-    
+
     tokens.forEach(token => {
       if (this.searchIndex.has(token)) {
         this.searchIndex.get(token).forEach(docId => {
@@ -158,7 +184,7 @@ class SearchEngine {
         });
       }
     });
-    
+
     return Array.from(matchingDocs);
   }
 
@@ -166,21 +192,22 @@ class SearchEngine {
     // Return all documents if no search query
     const results = [];
     const collections = ['players', 'coaches', 'scouts'];
-    
+
     for (const collection of collections) {
       const snapshot = await this.db.collection(collection).limit(20).get();
       snapshot.forEach(doc => {
         results.push({ id: doc.id, ...doc.data(), collection });
       });
     }
-    
+
     return results;
   }
 
   applyFilters(results, filters) {
     return results.filter(doc => {
       if (filters.role && doc.collection !== filters.role + 's') return false;
-      if (filters.location && !this.matchesLocation(doc, filters.location)) return false;
+      if (filters.location && !this.matchesLocation(doc, filters.location))
+        return false;
       if (filters.position && doc.position !== filters.position) return false;
       if (filters.skill && doc.skillLevel !== filters.skill) return false;
       return true;
@@ -194,9 +221,10 @@ class SearchEngine {
 
   displayResults(results) {
     const resultsContainer = document.getElementById('searchResults');
-    
+
     if (results.length === 0) {
-      resultsContainer.innerHTML = '<p class="no-results">No results found. Try adjusting your search criteria.</p>';
+      resultsContainer.innerHTML =
+        '<p class="no-results">No results found. Try adjusting your search criteria.</p>';
       return;
     }
 
@@ -223,7 +251,7 @@ class SearchEngine {
       players: '🏀',
       coaches: '👔',
       scouts: '🔍',
-      teams: '🏆'
+      teams: '🏆',
     };
 
     return `

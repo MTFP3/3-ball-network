@@ -1,11 +1,7 @@
 {
   "hosting": {
     "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "/admin",
@@ -30,6 +26,30 @@
       {
         "source": "/demo-scout",
         "destination": "/demo-scout.html"
+      },
+      {
+        "source": "/analytics-dashboard",
+        "destination": "/analytics-dashboard.html"
+      },
+      {
+        "source": "/recruiting-hub",
+        "destination": "/recruiting-hub.html"
+      },
+      {
+        "source": "/smart-input",
+        "destination": "/smart-input.html"
+      },
+      {
+        "source": "/ai-coach",
+        "destination": "/ai-coach.html"
+      },
+      {
+        "source": "/demo-enhanced",
+        "destination": "/demo-enhanced.html"
+      },
+      {
+        "source": "/social-hub",
+        "destination": "/social-hub.html"
       },
       {
         "source": "**",
@@ -60,6 +80,36 @@
       {
         "source": "/demo-scout.html",
         "destination": "https://3ballnetwork.com/demo-scout",
+        "type": 301
+      },
+      {
+        "source": "/analytics-dashboard.html",
+        "destination": "https://3ballnetwork.com/analytics-dashboard",
+        "type": 301
+      },
+      {
+        "source": "/recruiting-hub.html",
+        "destination": "https://3ballnetwork.com/recruiting-hub",
+        "type": 301
+      },
+      {
+        "source": "/smart-input.html",
+        "destination": "https://3ballnetwork.com/smart-input",
+        "type": 301
+      },
+      {
+        "source": "/ai-coach.html",
+        "destination": "https://3ballnetwork.com/ai-coach",
+        "type": 301
+      },
+      {
+        "source": "/social-hub.html",
+        "destination": "https://3ballnetwork.com/social-hub",
+        "type": 301
+      },
+      {
+        "source": "/demo-enhanced.html",
+        "destination": "https://3ballnetwork.com/demo-enhanced",
         "type": 301
       }
     ],

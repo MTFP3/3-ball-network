@@ -1,6 +1,6 @@
-import { isDemoMode } from "./demoMode.js";
+import { isDemoMode } from './demoMode.js';
 
-const container = document.getElementById("coachSummary");
+const container = document.getElementById('coachSummary');
 
 if (isDemoMode()) {
   container.innerHTML = `

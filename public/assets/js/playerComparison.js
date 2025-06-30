@@ -4,32 +4,32 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebas
 import {
   getFirestore,
   doc,
-  getDoc
+  getDoc,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-  authDomain: "ball-network-web.firebaseapp.com",
-  projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com",
-  messagingSenderId: "740915998465",
-  appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+  authDomain: 'ball-network-web.firebaseapp.com',
+  projectId: 'ball-network-web',
+  storageBucket: 'ball-network-web.appspot.com',
+  messagingSenderId: '740915998465',
+  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.comparePlayers = async function () {
-  const p1 = document.getElementById("compareP1").value.trim();
-  const p2 = document.getElementById("compareP2").value.trim();
-  const output = document.getElementById("comparisonResults");
-  output.innerHTML = "<h3>🧠 Comparison Result</h3>";
+  const p1 = document.getElementById('compareP1').value.trim();
+  const p2 = document.getElementById('compareP2').value.trim();
+  const output = document.getElementById('comparisonResults');
+  output.innerHTML = '<h3>🧠 Comparison Result</h3>';
 
   const reports = await Promise.all([
-    getDoc(doc(db, "playerProfiles", p1)),
-    getDoc(doc(db, "playerProfiles", p2)),
-    getDoc(doc(db, "scoutingReports", `latest_${p1}`)),
-    getDoc(doc(db, "scoutingReports", `latest_${p2}`))
+    getDoc(doc(db, 'playerProfiles', p1)),
+    getDoc(doc(db, 'playerProfiles', p2)),
+    getDoc(doc(db, 'scoutingReports', `latest_${p1}`)),
+    getDoc(doc(db, 'scoutingReports', `latest_${p2}`)),
   ]);
 
   const profile1 = reports[0].data() || {};

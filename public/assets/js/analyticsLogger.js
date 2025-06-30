@@ -5,16 +5,16 @@ import {
   getFirestore,
   collection,
   addDoc,
-  serverTimestamp
+  serverTimestamp,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-  authDomain: "ball-network-web.firebaseapp.com",
-  projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com",
-  messagingSenderId: "740915998465",
-  appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+  authDomain: 'ball-network-web.firebaseapp.com',
+  projectId: 'ball-network-web',
+  storageBucket: 'ball-network-web.appspot.com',
+  messagingSenderId: '740915998465',
+  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
 };
 
 const app = initializeApp(firebaseConfig);
@@ -26,7 +26,7 @@ export async function logAnalyticsEvent(type, userId, role) {
       type,
       userId,
       role,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
     });
     console.log(`📊 Logged: ${type} from ${role} (${userId})`);
   } catch (err) {

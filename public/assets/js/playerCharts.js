@@ -1,22 +1,27 @@
 require('dotenv').config(); // 👈 loads your .env file
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-import { getFirestore, collection, query, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+import {
+  getFirestore,
+  collection,
+  query,
+  getDocs,
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 import Chart from 'https://cdn.jsdelivr.net/npm/chart.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-  authDomain: "ball-network-web.firebaseapp.com",
-  projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com",
-  messagingSenderId: "740915998465",
-  appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+  authDomain: 'ball-network-web.firebaseapp.com',
+  projectId: 'ball-network-web',
+  storageBucket: 'ball-network-web.appspot.com',
+  messagingSenderId: '740915998465',
+  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const playerId = localStorage.getItem("playerId") || "demoPlayer";
+const playerId = localStorage.getItem('playerId') || 'demoPlayer';
 const gameRef = collection(db, `players/${playerId}/games`);
 const q = query(gameRef);
 const snap = await getDocs(q);
@@ -44,24 +49,24 @@ new Chart(ctx, {
         label: 'Points',
         data: points,
         borderColor: 'blue',
-        fill: false
+        fill: false,
       },
       {
         label: 'Assists',
         data: assists,
         borderColor: 'green',
-        fill: false
+        fill: false,
       },
       {
         label: 'Rebounds',
         data: rebounds,
         borderColor: 'orange',
-        fill: false
-      }
-    ]
+        fill: false,
+      },
+    ],
   },
   options: {
     responsive: true,
-    plugins: { legend: { position: 'bottom' } }
-  }
+    plugins: { legend: { position: 'bottom' } },
+  },
 });

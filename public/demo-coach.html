@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="/assets/css/demo-enhancements.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="/assets/js/smartGameInput.js"></script>
+  <script type="module" src="/assets/js/playerAnalytics.js"></script>
+  <script type="module" src="/assets/js/platformManager.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #2a3650 100%);
@@ -290,6 +293,202 @@
       border: 1px solid #ff453a;
       color: #ff453a;
     }
+
+    /* Advanced Coach Analytics Styles */
+    .coach-analytics-dashboard {
+      display: grid;
+      gap: 2em;
+    }
+
+    .analytics-section {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .analytics-section h3 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      border-bottom: 2px solid rgba(0,180,216,0.3);
+      padding-bottom: 0.5em;
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+    }
+
+    .analytics-card {
+      background: rgba(0,180,216,0.1);
+      border-radius: 12px;
+      padding: 1.5em;
+      text-align: center;
+      border: 1px solid rgba(0,180,216,0.2);
+    }
+
+    .analytics-value {
+      font-size: 2.5em;
+      font-weight: 900;
+      color: #00b4d8;
+      margin-bottom: 0.5em;
+    }
+
+    .analytics-label {
+      color: #e8e8e8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9em;
+    }
+
+    .ai-insight {
+      background: rgba(0,180,216,0.05);
+      border-radius: 12px;
+      padding: 1.5em;
+      border-left: 4px solid #00b4d8;
+    }
+
+    .ai-insight p {
+      margin: 0.5em 0;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .development-list {
+      display: grid;
+      gap: 0.8em;
+    }
+
+    .development-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1em;
+      color: #ffffff;
+      border-left: 3px solid #00b4d8;
+    }
+
+    /* Smart Game Input Styles */
+    .smart-input-dashboard {
+      display: grid;
+      gap: 2em;
+    }
+
+    .input-section {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .input-section h3 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      border-bottom: 2px solid rgba(0,180,216,0.3);
+      padding-bottom: 0.5em;
+    }
+
+    .input-methods {
+      display: grid;
+      gap: 1.5em;
+    }
+
+    .input-method {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5em;
+    }
+
+    .input-method h4 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-size: 1.1em;
+    }
+
+    .voice-controls {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+
+    .voice-btn {
+      background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      padding: 0.8em 1.5em;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9em;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+
+    .voice-btn.active {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); }
+      50% { box-shadow: 0 4px 20px rgba(220, 38, 38, 0.6); }
+    }
+
+    .voice-status {
+      color: #d0d0d0;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+
+    .quick-tap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.8em;
+    }
+
+    .quick-tap-btn {
+      background: rgba(0,180,216,0.1);
+      border: 1px solid rgba(0,180,216,0.3);
+      border-radius: 8px;
+      color: #ffffff;
+      padding: 0.8em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9em;
+    }
+
+    .quick-tap-btn:hover {
+      background: rgba(0,180,216,0.2);
+      transform: translateY(-1px);
+    }
+
+    .live-stats {
+      display: grid;
+      gap: 0.8em;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8em;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      color: #ffffff;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #00b4d8;
+    }
+
+    .analytics-loading, .smart-input-loading {
+      text-align: center;
+      padding: 3em;
+      color: #d0d0d0;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -306,6 +505,8 @@
 
     <div class="demo-nav">
       <div class="nav-tab active" onclick="switchTab('overview')">Team Overview</div>
+      <div class="nav-tab" onclick="switchTab('analytics')">Advanced Analytics</div>
+      <div class="nav-tab" onclick="switchTab('smart-input')">Smart Game Input</div>
       <div class="nav-tab" onclick="switchTab('players')">Player Management</div>
       <div class="nav-tab" onclick="switchTab('live')">Live Game Tools</div>
       <div class="nav-tab" onclick="switchTab('scouts')">Scout Requests</div>
@@ -350,6 +551,26 @@
       <div class="chart-container">
         <h3>Player Development Progress</h3>
         <canvas id="playerProgressChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Advanced Analytics Section -->
+    <div id="analytics" class="demo-section">
+      <h2>Advanced Team Analytics</h2>
+      <div id="coachAnalyticsContainer">
+        <div class="analytics-loading">
+          <p>Loading advanced team analytics...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smart Game Input Section -->
+    <div id="smart-input" class="demo-section">
+      <h2>Smart Game Input System</h2>
+      <div id="smartInputContainer">
+        <div class="smart-input-loading">
+          <p>Loading smart game input tools...</p>
+        </div>
       </div>
     </div>
 
@@ -679,7 +900,117 @@
     // Initialize charts on page load
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(initOverviewCharts, 500);
+      initAdvancedCoachFeatures();
     });
+
+    // Initialize advanced coaching features
+    async function initAdvancedCoachFeatures() {
+      try {
+        // Initialize Coach Analytics
+        const analyticsContainer = document.getElementById('coachAnalyticsContainer');
+        if (analyticsContainer) {
+          analyticsContainer.innerHTML = `
+            <div class="coach-analytics-dashboard">
+              <div class="analytics-section">
+                <h3>Team Performance Metrics</h3>
+                <div class="analytics-grid">
+                  <div class="analytics-card">
+                    <div class="analytics-value">92.3%</div>
+                    <div class="analytics-label">Team Chemistry</div>
+                  </div>
+                  <div class="analytics-card">
+                    <div class="analytics-value">+18.5</div>
+                    <div class="analytics-label">Avg Point Differential</div>
+                  </div>
+                  <div class="analytics-card">
+                    <div class="analytics-value">85%</div>
+                    <div class="analytics-label">Play Success Rate</div>
+                  </div>
+                </div>
+              </div>
+              <div class="analytics-section">
+                <h3>AI Coaching Insights</h3>
+                <div class="ai-insight">
+                  <p><strong>🎯 Strategic Focus:</strong> Team excels in transition offense (top 10% in league)</p>
+                  <p><strong>⚠️ Attention Area:</strong> Defensive rebounds need improvement (bottom 25%)</p>
+                  <p><strong>📊 Lineup Optimization:</strong> Johnson-Williams combo has +28 net rating</p>
+                  <p><strong>🏀 Next Game Strategy:</strong> Press defense recommended vs. slow-paced opponents</p>
+                </div>
+              </div>
+              <div class="analytics-section">
+                <h3>Player Development Tracking</h3>
+                <div class="development-list">
+                  <div class="development-item">
+                    <strong>Alex Johnson:</strong> Free throw improvement (+12% this month)
+                  </div>
+                  <div class="development-item">
+                    <strong>Marcus Williams:</strong> Defensive positioning significantly better
+                  </div>
+                  <div class="development-item">
+                    <strong>Jordan Smith:</strong> Court vision and passing accuracy up 18%
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Initialize Smart Game Input
+        const smartInputContainer = document.getElementById('smartInputContainer');
+        if (smartInputContainer) {
+          smartInputContainer.innerHTML = `
+            <div class="smart-input-dashboard">
+              <div class="input-section">
+                <h3>Live Game Input Tools</h3>
+                <div class="input-methods">
+                  <div class="input-method">
+                    <h4>🎤 Voice Commands</h4>
+                    <div class="voice-controls">
+                      <button class="voice-btn active">🔴 Recording</button>
+                      <p class="voice-status">Say "Smith assist to Johnson" or "Timeout home team"</p>
+                    </div>
+                  </div>
+                  <div class="input-method">
+                    <h4>⚡ Quick-Tap Interface</h4>
+                    <div class="quick-tap-grid">
+                      <button class="quick-tap-btn">2PT Made</button>
+                      <button class="quick-tap-btn">3PT Made</button>
+                      <button class="quick-tap-btn">Assist</button>
+                      <button class="quick-tap-btn">Rebound</button>
+                      <button class="quick-tap-btn">Steal</button>
+                      <button class="quick-tap-btn">Timeout</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="input-section">
+                <h3>Real-Time Game Stats</h3>
+                <div class="live-stats">
+                  <div class="stat-row">
+                    <span>Score:</span>
+                    <span class="stat-value">Lions 78 - Eagles 72</span>
+                  </div>
+                  <div class="stat-row">
+                    <span>Quarter:</span>
+                    <span class="stat-value">4th - 3:47 remaining</span>
+                  </div>
+                  <div class="stat-row">
+                    <span>Timeouts:</span>
+                    <span class="stat-value">Lions: 2 left</span>
+                  </div>
+                  <div class="stat-row">
+                    <span>Fouls:</span>
+                    <span class="stat-value">Lions: 6, Eagles: 8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Error initializing advanced coach features:', error);
+      }
+    }
   </script>
 </body>
 </html>

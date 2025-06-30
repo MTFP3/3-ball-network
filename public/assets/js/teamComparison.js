@@ -6,26 +6,26 @@ import {
   collection,
   getDocs,
   query,
-  where
+  where,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-  authDomain: "ball-network-web.firebaseapp.com",
-  projectId: "ball-network-web",
-  storageBucket: "ball-network-web.appspot.com",
-  messagingSenderId: "740915998465",
-  appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
+  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+  authDomain: 'ball-network-web.firebaseapp.com',
+  projectId: 'ball-network-web',
+  storageBucket: 'ball-network-web.appspot.com',
+  messagingSenderId: '740915998465',
+  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.compareTeams = async function () {
-  const t1 = document.getElementById("teamOne").value.trim();
-  const t2 = document.getElementById("teamTwo").value.trim();
-  const out = document.getElementById("teamComparisonResults");
-  out.innerHTML = "<h3>🏆 Team Comparison</h3>";
+  const t1 = document.getElementById('teamOne').value.trim();
+  const t2 = document.getElementById('teamTwo').value.trim();
+  const out = document.getElementById('teamComparisonResults');
+  out.innerHTML = '<h3>🏆 Team Comparison</h3>';
 
   const data1 = await fetchTeamStats(t1);
   const data2 = await fetchTeamStats(t2);
@@ -45,9 +45,13 @@ window.compareTeams = async function () {
 };
 
 async function fetchTeamStats(team) {
-  const q = query(collection(db, "games"), where("teamName", "==", team));
+  const q = query(collection(db, 'games'), where('teamName', '==', team));
   const snap = await getDocs(q);
-  let points = 0, assists = 0, rebounds = 0, gradeTotal = 0, wins = 0;
+  let points = 0,
+    assists = 0,
+    rebounds = 0,
+    gradeTotal = 0,
+    wins = 0;
 
   for (const doc of snap.docs) {
     const g = doc.data();
@@ -55,7 +59,7 @@ async function fetchTeamStats(team) {
     assists += g.stats?.assists || 0;
     rebounds += g.stats?.rebounds || 0;
     gradeTotal += g.gradeValue || 0;
-    if (g.result === "win") wins++;
+    if (g.result === 'win') wins++;
   }
 
   const count = snap.docs.length || 1;
@@ -65,6 +69,6 @@ async function fetchTeamStats(team) {
     points: (points / count).toFixed(1),
     rebounds: (rebounds / count).toFixed(1),
     assists: (assists / count).toFixed(1),
-    grade: (gradeTotal / count).toFixed(1)
+    grade: (gradeTotal / count).toFixed(1),
   };
 }

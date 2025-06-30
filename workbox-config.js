@@ -1,9 +1,7 @@
 module.exports = {
   mode: 'generateSW',
   globDirectory: 'public/',
-  globPatterns: [
-    '**/*.{html,js,css,png,jpg,jpeg,svg,ico}',
-  ],
+  globPatterns: ['**/*.{html,js,css,png,jpg,jpeg,svg,ico}'],
   swDest: 'public/sw.js',
   runtimeCaching: [
     {

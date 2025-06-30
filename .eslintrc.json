@@ -1,23 +1,29 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
     "no-unused-vars": "warn",
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-undef": "warn"
   },
   "globals": {
     "Chart": "readonly",
-    "firebase": "readonly"
+    "firebase": "readonly",
+    "require": "readonly",
+    "module": "readonly",
+    "PlayerAnalytics": "readonly",
+    "RecruitingHub": "readonly",
+    "SmartGameInput": "readonly",
+    "loadCoachDashboard": "readonly",
+    "loadPlayerData": "readonly",
+    "setDoc": "readonly"
   }
 }

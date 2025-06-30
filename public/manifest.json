@@ -24,24 +24,24 @@
   ],
   "shortcuts": [
     {
-      "name": "Player Portal",
+      "name": "Player Demo",
       "short_name": "Player",
-      "description": "Access player dashboard",
-      "url": "/portals/player/dashboard.html",
+      "description": "Try the player demo with advanced features",
+      "url": "/demo-player",
       "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
     },
     {
-      "name": "Coach Portal",
+      "name": "Coach Demo",
       "short_name": "Coach",
-      "description": "Access coach dashboard",
-      "url": "/portals/coach/dashboard.html",
+      "description": "Try the coach demo with analytics",
+      "url": "/demo-coach",
       "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
     },
     {
-      "name": "Scout Portal",
-      "short_name": "Scout",
-      "description": "Access scout dashboard",
-      "url": "/portals/scout/dashboard.html",
+      "name": "Enhanced Demo",
+      "short_name": "Enhanced",
+      "description": "Experience all advanced features",
+      "url": "/demo-enhanced",
       "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
     }
   ]

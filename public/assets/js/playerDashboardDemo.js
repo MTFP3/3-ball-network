@@ -1,6 +1,6 @@
-import { isDemoMode, demoPlayerData } from "./demoMode.js";
+import { isDemoMode, demoPlayerData } from './demoMode.js';
 
-const container = document.getElementById("playerSummary");
+const container = document.getElementById('playerSummary');
 
 if (isDemoMode()) {
   const player = demoPlayerData;

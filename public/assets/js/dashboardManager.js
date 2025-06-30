@@ -64,7 +64,7 @@ class DashboardManager {
         <a href="/teams" class="nav-link"><i class="icon-trophy"></i> Teams</a>
         <a href="/games" class="nav-link"><i class="icon-play"></i> Games</a>
         <a href="/news" class="nav-link"><i class="icon-news"></i> News</a>
-      `
+      `,
     };
     return roleSpecificLinks[this.userRole] || '';
   }
@@ -89,7 +89,8 @@ class DashboardManager {
     const badge = document.getElementById('notificationCount');
     if (badge) {
       badge.textContent = this.notificationQueue.length;
-      badge.style.display = this.notificationQueue.length > 0 ? 'block' : 'none';
+      badge.style.display =
+        this.notificationQueue.length > 0 ? 'block' : 'none';
     }
   }
 }

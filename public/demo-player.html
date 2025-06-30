@@ -16,6 +16,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="/assets/js/game-grade.js"></script>
+  <script type="module" src="/assets/js/playerAnalytics.js"></script>
+  <script type="module" src="/assets/js/recruitingHub.js"></script>
+  <script type="module" src="/assets/js/smartGameInput.js"></script>
+  <script type="module" src="/assets/js/platformManager.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #2a3650 100%);
@@ -268,7 +272,8 @@
       color: #90e0ef;
       font-weight: 600;
     }
-    // Add more grade styling
+    
+    /* Add more grade styling */
     .grade-a-plus { 
       background: rgba(52, 199, 89, 0.4); 
       color: #34c759; 
@@ -443,6 +448,157 @@
         justify-content: space-between;
       }
     }
+
+    /* Advanced Analytics Styles */
+    .analytics-dashboard {
+      display: grid;
+      gap: 2em;
+    }
+
+    .analytics-section {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .analytics-section h3 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      border-bottom: 2px solid rgba(0,180,216,0.3);
+      padding-bottom: 0.5em;
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+    }
+
+    .analytics-card {
+      background: rgba(0,180,216,0.1);
+      border-radius: 12px;
+      padding: 1.5em;
+      text-align: center;
+      border: 1px solid rgba(0,180,216,0.2);
+    }
+
+    .analytics-value {
+      font-size: 2.5em;
+      font-weight: 900;
+      color: #00b4d8;
+      margin-bottom: 0.5em;
+    }
+
+    .analytics-label {
+      color: #e8e8e8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9em;
+    }
+
+    .ai-insight {
+      background: rgba(0,180,216,0.05);
+      border-radius: 12px;
+      padding: 1.5em;
+      border-left: 4px solid #00b4d8;
+    }
+
+    .ai-insight p {
+      margin: 0.5em 0;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* Recruiting Hub Styles */
+    .recruiting-dashboard {
+      display: grid;
+      gap: 2em;
+    }
+
+    .recruiting-section {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .recruiting-section h3 {
+      color: #ffffff;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      border-bottom: 2px solid rgba(0,180,216,0.3);
+      padding-bottom: 0.5em;
+    }
+
+    .match-list {
+      display: grid;
+      gap: 1em;
+    }
+
+    .match-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .match-item:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    .match-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5em;
+    }
+
+    .match-score {
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: white;
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 700;
+    }
+
+    .high-match .match-score {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    }
+
+    .medium-match .match-score {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    }
+
+    .match-details {
+      color: #d0d0d0;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    .communication-summary, .scholarship-info {
+      background: rgba(0,180,216,0.05);
+      border-radius: 12px;
+      padding: 1.5em;
+      border-left: 4px solid #00b4d8;
+    }
+
+    .communication-summary p, .scholarship-info p {
+      margin: 0.5em 0;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .analytics-loading, .recruiting-loading {
+      text-align: center;
+      padding: 3em;
+      color: #d0d0d0;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -459,6 +615,8 @@
 
     <div class="demo-nav">
       <div class="nav-tab active" onclick="switchTab('overview')">Overview</div>
+      <div class="nav-tab" onclick="switchTab('analytics')">Advanced Analytics</div>
+      <div class="nav-tab" onclick="switchTab('recruiting')">Recruiting Hub</div>
       <div class="nav-tab" onclick="switchTab('games')">Game History</div>
       <div class="nav-tab" onclick="switchTab('highlights')">Highlights</div>
       <div class="nav-tab" onclick="switchTab('profile')">Profile</div>
@@ -503,6 +661,26 @@
       <div class="chart-container">
         <h3>Position Analysis</h3>
         <canvas id="positionChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Advanced Analytics Section -->
+    <div id="analytics" class="demo-section">
+      <h2>Advanced Analytics Dashboard</h2>
+      <div id="playerAnalyticsContainer">
+        <div class="analytics-loading">
+          <p>Loading advanced analytics...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recruiting Hub Section -->
+    <div id="recruiting" class="demo-section">
+      <h2>Recruiting Hub</h2>
+      <div id="recruitingHubContainer">
+        <div class="recruiting-loading">
+          <p>Loading recruiting tools...</p>
+        </div>
       </div>
     </div>
 
@@ -951,7 +1129,119 @@
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(initCharts, 500);
       populateGamesList();
+      initAdvancedFeatures();
     });
+
+    // Initialize advanced features
+    async function initAdvancedFeatures() {
+      try {
+        // Import and initialize Player Analytics
+        try {
+          const { PlayerAnalytics } = await import('/assets/js/playerAnalytics.js');
+          if (PlayerAnalytics) {
+            initPlayerAnalytics();
+          }
+        } catch (error) {
+          console.log('PlayerAnalytics module not available, using demo content');
+          initPlayerAnalytics();
+        }
+
+        // Import and initialize Recruiting Hub
+        try {
+          const { RecruitingHub } = await import('/assets/js/recruitingHub.js');
+          if (RecruitingHub) {
+            initRecruitingHub();
+          }
+        } catch (error) {
+          console.log('RecruitingHub module not available, using demo content');
+          initRecruitingHub();
+        }
+      } catch (error) {
+        console.error('Error initializing advanced features:', error);
+      }
+    }
+
+    // Initialize Player Analytics UI
+    function initPlayerAnalytics() {
+          const analyticsContainer = document.getElementById('playerAnalyticsContainer');
+          if (analyticsContainer) {
+            // Create a simplified analytics view for the demo
+            analyticsContainer.innerHTML = `
+              <div class="analytics-dashboard">
+                <div class="analytics-section">
+                  <h3>Real-Time Performance Tracking</h3>
+                  <div class="analytics-grid">
+                    <div class="analytics-card">
+                      <div class="analytics-value">87.3%</div>
+                      <div class="analytics-label">Efficiency Rating</div>
+                    </div>
+                    <div class="analytics-card">
+                      <div class="analytics-value">+12.5</div>
+                      <div class="analytics-label">Plus/Minus Trend</div>
+                    </div>
+                    <div class="analytics-card">
+                      <div class="analytics-value">Top 5%</div>
+                      <div class="analytics-label">League Ranking</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="analytics-section">
+                  <h3>AI Insights & Recommendations</h3>
+                  <div class="ai-insight">
+                    <p><strong>🎯 Focus Area:</strong> Improve free throw consistency (currently 73%, target 80%)</p>
+                    <p><strong>💪 Strength:</strong> Exceptional court vision and assist-to-turnover ratio</p>
+                    <p><strong>📈 Growth Trend:</strong> 15% improvement in defensive rating over last 10 games</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+    }
+
+    // Initialize Recruiting Hub UI  
+    function initRecruitingHub() {
+          const recruitingContainer = document.getElementById('recruitingHubContainer');
+          if (recruitingContainer) {
+            // Create a simplified recruiting view for the demo
+            recruitingContainer.innerHTML = `
+              <div class="recruiting-dashboard">
+                <div class="recruiting-section">
+                  <h3>College Matches</h3>
+                  <div class="match-list">
+                    <div class="match-item high-match">
+                      <div class="match-info">
+                        <strong>Stanford University</strong>
+                        <span class="match-score">96% Match</span>
+                      </div>
+                      <div class="match-details">Academic excellence + Basketball program fit</div>
+                    </div>
+                    <div class="match-item medium-match">
+                      <strong>University of North Carolina</strong>
+                      <span class="match-score">88% Match</span>
+                      <div class="match-details">Strong basketball tradition, good academic fit</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="recruiting-section">
+                  <h3>Communication Center</h3>
+                  <div class="communication-summary">
+                    <p><strong>3 active conversations</strong> with college coaches</p>
+                    <p><strong>2 camp invitations</strong> pending response</p>
+                    <p><strong>1 official visit</strong> scheduled for next month</p>
+                  </div>
+                </div>
+                <div class="recruiting-section">
+                  <h3>Scholarship Calculator</h3>
+                  <div class="scholarship-info">
+                    <p><strong>Estimated Value Range:</strong> $15,000 - $45,000 per year</p>
+                    <p><strong>Academic Scholarships:</strong> Eligible for merit-based aid</p>
+                    <p><strong>Athletic Scholarships:</strong> High potential based on performance</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+    }
   </script>
 </body>
 </html>

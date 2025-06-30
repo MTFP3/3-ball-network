@@ -133,6 +133,71 @@
     nav a:hover::after {
       width: 100%;
     }
+    
+    .advanced-features {
+      background: rgba(255,255,255,0.95);
+      padding: 2em 1em;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      border-radius: 22px;
+      margin: 0 auto 2em auto;
+      max-width: 1200px;
+    }
+    
+    .advanced-features h2 {
+      color: #007cba;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.8em;
+      font-weight: 900;
+      margin-bottom: 1.5em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      margin: 2em 0;
+    }
+    
+    .feature-card {
+      background: rgba(0,180,216,0.05);
+      border-radius: 16px;
+      padding: 1.5em;
+      border: 2px solid rgba(0,180,216,0.15);
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0,180,216,0.2);
+      border-color: rgba(0,180,216,0.4);
+      background: rgba(0,180,216,0.1);
+    }
+    
+    .feature-icon {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+    
+    .feature-title {
+      color: #007cba;
+      font-weight: 900;
+      font-size: 1.1em;
+      margin-bottom: 0.5em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .feature-description {
+      color: #555;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+    
     .hero {
       max-width: 750px;
       margin: 2.5em auto 2em auto;
@@ -454,6 +519,87 @@
     <a href="/register.html">Register</a>
     <a href="/login.html">Login</a>
   </nav>
+  
+  <!-- Enhanced Demo Spotlight -->
+  <section class="enhanced-demo-spotlight" style="background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%); margin: 0; border-radius: 0; color: white; text-align: center; padding: 3em 2em; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <h2 style="font-size: 2.5em; font-weight: 900; margin-bottom: 0.5em; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        🚀 Experience the Future of Basketball Technology
+      </h2>
+      <p style="font-size: 1.3em; margin-bottom: 2em; opacity: 0.95; max-width: 800px; margin-left: auto; margin-right: auto;">
+        See all our advanced features working together in one comprehensive demo
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5em; margin: 2em 0;">
+        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5em; backdrop-filter: blur(10px);">
+          <div style="font-size: 2em; margin-bottom: 0.5em;">📊</div>
+          <div style="font-weight: 700;">Advanced Analytics</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5em; backdrop-filter: blur(10px);">
+          <div style="font-size: 2em; margin-bottom: 0.5em;">🎯</div>
+          <div style="font-weight: 700;">Smart Recruiting</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5em; backdrop-filter: blur(10px);">
+          <div style="font-size: 2em; margin-bottom: 0.5em;">⚡</div>
+          <div style="font-weight: 700;">Smart Game Input</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5em; backdrop-filter: blur(10px);">
+          <div style="font-size: 2em; margin-bottom: 0.5em;">🧠</div>
+          <div style="font-weight: 700;">AI Coach</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5em; backdrop-filter: blur(10px);">
+          <div style="font-size: 2em; margin-bottom: 0.5em;">🌐</div>
+          <div style="font-weight: 700;">Social Ecosystem</div>
+        </div>
+      </div>
+      <a href="/demo-enhanced" style="display: inline-block; background: rgba(255,255,255,0.95); color: #007cba; padding: 1em 2em; border-radius: 25px; text-decoration: none; font-weight: 900; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); transition: all 0.3s ease; margin-top: 1em;" 
+         onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.2)'"
+         onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.1)'">
+        🔥 Try Enhanced Demo
+      </a>
+    </div>
+  </section>
+  
+  <!-- Advanced Features Section -->
+  <section class="advanced-features">
+    <h2>🚀 Advanced Basketball Technology</h2>
+    <div class="feature-grid">
+      <a href="/analytics-dashboard" class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Advanced Analytics</div>
+        <div class="feature-description">AI-powered performance tracking with real-time insights, trend analysis, and league comparisons</div>
+      </a>
+      
+      <a href="/recruiting-hub" class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <div class="feature-title">Smart Recruiting</div>
+        <div class="feature-description">College matching algorithm, communication center, and scholarship calculator</div>
+      </a>
+      
+      <a href="/smart-input" class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-title">Smart Game Input</div>
+        <div class="feature-description">Voice commands and quick-tap interface for real-time game stat tracking</div>
+      </a>
+      
+      <a href="/ai-coach" class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Coaching Assistant</div>
+        <div class="feature-description">Personalized training plans, opponent scouting, and mental game coaching</div>
+      </a>
+      
+      <a href="/social-hub" class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Basketball Social Hub</div>
+        <div class="feature-description">Team chemistry analysis, achievements system, and community features</div>
+      </a>
+      
+      <a href="/demo-player" class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Enhanced Demo Portals</div>
+        <div class="feature-description">Now featuring advanced analytics, smart recruiting, and AI coaching - try our enhanced player and coach demos</div>
+      </a>
+    </div>
+  </section>
   <main>
     <!-- Hero Section with Background Video -->
     <section id="hero" style="position:relative; overflow:hidden; min-height:340px;">
