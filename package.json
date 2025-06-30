@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:css",
     "build:css": "postcss public/assets/css/style.css -o public/assets/css/style.min.css",
-    "build:js": "rollup -c",
+    "build:js": "echo 'JavaScript build skipped - using individual modules'",
     "test": "jest",
     "test:watch": "jest --watch",
     "start": "node server.js",

@@ -503,6 +503,58 @@
       .site-title { font-size: 2em; }
       .logo { width: 90px; }
     }
+    
+    .demo-section {
+      background: rgba(0,124,186,0.95);
+      padding: 2em 1em;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      border-radius: 22px;
+      margin: 0 auto 2em auto;
+      max-width: 1200px;
+      color: white;
+    }
+    
+    .demo-section h2 {
+      color: white;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.8em;
+      font-weight: 900;
+      margin-bottom: 0.5em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .demo-section p {
+      color: rgba(255,255,255,0.9);
+    }
+    
+    .demo-section .feature-card {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .demo-section .feature-card:hover {
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .demo-section .feature-title {
+      color: white;
+    }
+    
+    .demo-section .feature-description {
+      color: rgba(255,255,255,0.9);
+    }
+    footer {
+      padding: 40px 20px;
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+      margin-top: 3em;
+    }
   </style>
 </head>
 <body>
@@ -559,6 +611,31 @@
     </div>
   </section>
   
+  <!-- Demo Portals Section -->
+  <section class="demo-section">
+    <h2>🎮 Try Our Live Portals</h2>
+    <p style="color: #555; font-size: 1.1em; text-align: center; margin-bottom: 2em;">Experience the future of basketball technology with our interactive demo portals</p>
+    <div class="feature-grid">
+      <a href="/demo-player" class="feature-card" style="background: rgba(0,180,216,0.1);">
+        <div class="feature-icon">🏀</div>
+        <div class="feature-title">Player Portal</div>
+        <div class="feature-description">Complete player dashboard with profile pictures, follower counts, 2K-style ratings, letter grades, and player analysis</div>
+      </a>
+      
+      <a href="/demo-coach" class="feature-card" style="background: rgba(0,180,216,0.1);">
+        <div class="feature-icon">👨‍🏫</div>
+        <div class="feature-title">Coach Portal</div>
+        <div class="feature-description">Team management with roster uploads, player acceptance system, letter grades, and live game tools</div>
+      </a>
+      
+      <a href="/demo-enhanced" class="feature-card" style="background: rgba(0,180,216,0.1);">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Enhanced Features Demo</div>
+        <div class="feature-description">Showcase of all advanced features including AI analytics, smart recruiting, and live game tools</div>
+      </a>
+    </div>
+  </section>
+  
   <!-- Advanced Features Section -->
   <section class="advanced-features">
     <h2>🚀 Advanced Basketball Technology</h2>
@@ -591,12 +668,6 @@
         <div class="feature-icon">🌐</div>
         <div class="feature-title">Basketball Social Hub</div>
         <div class="feature-description">Team chemistry analysis, achievements system, and community features</div>
-      </a>
-      
-      <a href="/demo-player" class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-title">Enhanced Demo Portals</div>
-        <div class="feature-description">Now featuring advanced analytics, smart recruiting, and AI coaching - try our enhanced player and coach demos</div>
       </a>
     </div>
   </section>
@@ -676,7 +747,8 @@
     
   </main>
   <footer>
-    &copy; 2025 3 Ball Network. All rights reserved. | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+    Built by hoopers. Built for hoopers. Built for what's next.<br>
+    © 2025 The 3 Ball Network
   </footer>
 
   <!-- PWA Installation Banner -->
