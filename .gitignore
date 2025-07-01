@@ -4,6 +4,7 @@
 .env.production
 .env.staging
 sendgrid.env
+*.env
 
 # System files
 .DS_Store
@@ -36,6 +37,19 @@ firebase-debug.log
 *.swo
 *~
 
+# Build tools and dependencies
+.gradle/
+gradle/
+build/
+dist/
+.cache/
+
 # Temporary files
 *.tmp
 *.temp
+
+# Documentation drafts and development notes
+DEPLOYMENT_*.md
+ERROR_FIXES.md
+INTEGRATION_*.md
+PORTAL_*.md
