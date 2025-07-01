@@ -72,7 +72,46 @@ async function loadPlayerData() {
       .join('');
   }
 
-  const grades = data.recentGrades || [70, 65, 62, 80, 50];
+  // Convert grades to letter grades if they're numeric
+  const grades = data.recentGrades || ['B', 'C+', 'C', 'B+', 'C-'];
+  let gradeData, gradeLabels;
+
+  if (typeof grades[0] === 'number') {
+    // Convert numeric grades to letters for display
+    gradeLabels = grades.map(grade => {
+      if (grade >= 85) return 'A';
+      else if (grade >= 70) return 'B';
+      else if (grade >= 50) return 'C';
+      else if (grade >= 40) return 'D';
+      else return 'F';
+    });
+
+    // Map to chart values
+    gradeData = gradeLabels.map(grade => {
+      const gradeMap = {
+        A: 5,
+        B: 4,
+        C: 3,
+        D: 2,
+        F: 1,
+      };
+      return gradeMap[grade] || 1;
+    });
+  } else {
+    // Already letter grades
+    gradeLabels = grades;
+    gradeData = grades.map(grade => {
+      const gradeMap = {
+        A: 5,
+        B: 4,
+        C: 3,
+        D: 2,
+        F: 1,
+      };
+      return gradeMap[grade] || 1;
+    });
+  }
+
   const labels = ['G1', 'G2', 'G3', 'G4', 'G5'];
   if (document.getElementById('gradeChart')) {
     new Chart(document.getElementById('gradeChart'), {
@@ -82,11 +121,55 @@ async function loadPlayerData() {
         datasets: [
           {
             label: 'Game Grades',
-            data: grades,
+            data: gradeData,
             borderWidth: 2,
             fill: false,
+            borderColor: '#00b4d8',
+            backgroundColor: 'rgba(0, 180, 216, 0.1)',
           },
         ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `Game Grade: ${gradeLabels[context.dataIndex]}`;
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function (value) {
+                const gradeLabelsMap = {
+                  5: 'A',
+                  4: 'B',
+                  3: 'C',
+                  2: 'D',
+                  1: 'F',
+                };
+                return gradeLabelsMap[value] || '';
+              },
+              stepSize: 1,
+              includeBounds: false,
+            },
+            min: 1,
+            max: 5,
+            // Only display ticks at grade positions
+            afterBuildTicks: function (axis) {
+              axis.ticks = [
+                { value: 1, label: 'F' },
+                { value: 2, label: 'D' },
+                { value: 3, label: 'C' },
+                { value: 4, label: 'B' },
+                { value: 5, label: 'A' },
+              ];
+            },
+          },
+        },
       },
     });
   }

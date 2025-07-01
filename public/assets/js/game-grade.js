@@ -1,106 +1,166 @@
 // Game Grade Calculator
 // Advanced basketball performance grading system
 
-export function calculateGameGrade(stats, minutesPlayed, gameLength = 32) {
+export function calculateGameGrade(stats, minutesPlayed = null) {
   const pts = stats.points || 0;
   const reb = stats.rebounds || 0;
   const ast = stats.assists || 0;
-  const fgm = stats.fgm || 0;
-  const ftm = stats.ftm || 0;
   const stl = stats.steals || 0;
   const blk = stats.blocks || 0;
   const chg = stats.charges || 0;
   const dfl = stats.deflections || 0;
+  const fgMade = stats.fgm || 0;
+  const ftMade = stats.ftm || 0;
   const to = stats.turnovers || 0;
   const fouls = stats.fouls || 0;
-  const fgmiss = stats.fgmiss || 0;
-  const ftmiss = stats.ftmiss || 0;
+  const fgMiss = stats.fgmiss || 0;
+  const ftMiss = stats.ftmiss || 0;
   const attitude = stats.attitude || 0;
-  const hustle = stats.hustle || 0;
-  const bodyLang = stats.body_language || 0;
 
-  const possible =
-    (pts + reb + ast + fgm + ftm) * 2 +
-    (stl + blk + chg + dfl) * 5 +
-    (to + fouls + fgmiss + ftmiss);
-  let actual =
-    (pts + reb + ast + fgm + ftm) * 2 +
-    (stl + blk + chg + dfl) * 5 -
-    (to + fouls + fgmiss + ftmiss);
-  actual += attitude + hustle + bodyLang;
+  // Your exact formula: 150 + ((basic stats)*2) + ((premium stats)*5) - ((negative stats) + fouls*10)
+  const basicStats = pts + reb + ast + fgMade + ftMade;
+  const premiumStats = stl + blk + chg + dfl + attitude;
+  const negativeStats = to + fgMiss + ftMiss;
 
-  if (possible === 0) return 'F';
+  const totalScore =
+    150 + basicStats * 2 + premiumStats * 5 - negativeStats - fouls * 10;
 
-  let rawScore = (actual / possible) * 100;
-  let ratio = minutesPlayed / gameLength;
-  let scaledScore = rawScore * ratio;
-
-  // Limit grades based on playing time
-  if (minutesPlayed <= 4) scaledScore = Math.min(scaledScore, 75);
-  else if (minutesPlayed <= 10) scaledScore = Math.min(scaledScore, 85);
-
-  // Determine letter grade
-  if (scaledScore >= 70) return 'A';
-  else if (scaledScore >= 60) return 'B';
-  else if (scaledScore >= 50) return 'C';
+  // Convert total score to letter grade (simplified A, B, C, D, F)
+  if (totalScore >= 180) return 'A';
+  else if (totalScore >= 150) return 'B';
+  else if (totalScore >= 120) return 'C';
+  else if (totalScore >= 100) return 'D';
   else return 'F';
 }
 
-// Helper function to get numeric grade for averaging
+// Helper function to get the raw numeric score
+export function calculateRawScore(stats) {
+  const pts = stats.points || 0;
+  const reb = stats.rebounds || 0;
+  const ast = stats.assists || 0;
+  const stl = stats.steals || 0;
+  const blk = stats.blocks || 0;
+  const chg = stats.charges || 0;
+  const dfl = stats.deflections || 0;
+  const fgMade = stats.fgm || 0;
+  const ftMade = stats.ftm || 0;
+  const to = stats.turnovers || 0;
+  const fouls = stats.fouls || 0;
+  const fgMiss = stats.fgmiss || 0;
+  const ftMiss = stats.ftmiss || 0;
+  const attitude = stats.attitude || 0;
+
+  const basicStats = pts + reb + ast + fgMade + ftMade;
+  const premiumStats = stl + blk + chg + dfl + attitude;
+  const negativeStats = to + fgMiss + ftMiss;
+
+  return 150 + basicStats * 2 + premiumStats * 5 - negativeStats - fouls * 10;
+}
+
+// Helper function to get numeric grade for averaging and charts
 export function getNumericGrade(letterGrade) {
   switch (letterGrade) {
-    case 'A+':
-      return 4.0;
     case 'A':
-      return 4.0;
-    case 'A-':
-      return 3.7;
-    case 'B+':
-      return 3.3;
+      return 5;
     case 'B':
-      return 3.0;
-    case 'B-':
-      return 2.7;
-    case 'C+':
-      return 2.3;
+      return 4;
     case 'C':
-      return 2.0;
-    case 'C-':
-      return 1.7;
-    case 'D+':
-      return 1.3;
+      return 3;
     case 'D':
-      return 1.0;
+      return 2;
     case 'F':
-      return 0.0;
+      return 1;
     default:
-      return 0.0;
+      return 1;
   }
 }
 
-// Sample game data with comprehensive stats
+// Helper function to convert numeric grade back to letter
+export function getLetterGrade(numericGrade) {
+  const gradeMap = {
+    5: 'A',
+    4: 'B',
+    3: 'C',
+    2: 'D',
+    1: 'F',
+  };
+  return gradeMap[Math.round(numericGrade)] || 'F';
+}
+
+// 3Ball Network Basketball Game Grade Calculator
+// Based on percentage system with minutes played factor
+export function calculate3BallGrade(stats) {
+  const {
+    points = 0,
+    rebounds = 0,
+    assists = 0,
+    fieldGoalsMade = 0,
+    freeThrowsMade = 0,
+    steals = 0,
+    blocks = 0,
+    charges = 0,
+    deflections = 0,
+    turnovers = 0,
+    fouls = 0,
+    missedFieldGoals = 0,
+    missedFreeThrows = 0,
+    minutesPlayed = 0,
+    gameLength = 32,
+  } = stats;
+
+  // Step 1: Calculate Good Credits
+  const basicStats =
+    points + rebounds + assists + fieldGoalsMade + freeThrowsMade;
+  const premiumStats = steals + blocks + charges + deflections;
+  const goodCredits = basicStats * 2 + premiumStats * 5;
+
+  // Step 2: Calculate Bad Credits
+  const badCredits = turnovers + fouls + missedFieldGoals + missedFreeThrows;
+
+  // Step 3: Calculate Possible Credits
+  const possibleCredits = goodCredits + badCredits + gameLength;
+
+  // Step 4: Calculate Actual Credits
+  const actualCredits = minutesPlayed + goodCredits - badCredits;
+
+  // Step 5: Calculate Game Grade Percentage
+  const gameGradePercentage =
+    possibleCredits > 0 ? (actualCredits / possibleCredits) * 100 : 0;
+
+  // Step 6: Convert to Letter Grade
+  let letterGrade;
+  if (gameGradePercentage >= 70) letterGrade = 'A';
+  else if (gameGradePercentage >= 60) letterGrade = 'B';
+  else if (gameGradePercentage >= 50) letterGrade = 'C';
+  else if (gameGradePercentage >= 40) letterGrade = 'D';
+  else letterGrade = 'F';
+
+  return {
+    letterGrade,
+  };
+}
+
+// Sample game data matching your spreadsheet structure
 export const sampleGameData = [
   {
     opponent: 'Lakers Academy',
     date: 'March 15, 2025',
     minutes: 28,
     stats: {
-      points: 22,
-      rebounds: 8,
-      assists: 5,
-      fgm: 9,
-      fgmiss: 6,
-      ftm: 4,
-      ftmiss: 1,
-      steals: 3,
-      blocks: 1,
-      charges: 1,
-      deflections: 4,
-      turnovers: 2,
-      fouls: 3,
-      attitude: 8,
-      hustle: 9,
-      body_language: 8,
+      points: 12, // Points
+      rebounds: 5, // Reb
+      assists: 1, // Ast
+      steals: 4, // Stl
+      blocks: 3, // Blk
+      charges: 0, // Charge
+      deflections: 9, // Def
+      fgm: 5, // FG✓
+      ftm: 2, // FT✓
+      turnovers: 0, // TO
+      fouls: 1, // Foul
+      fgmiss: 5, // FG✗
+      ftmiss: 0, // FT✗
+      attitude: 0, // Attitude
     },
   },
   {
@@ -108,22 +168,20 @@ export const sampleGameData = [
     date: 'March 12, 2025',
     minutes: 24,
     stats: {
-      points: 15,
-      rebounds: 6,
-      assists: 7,
-      fgm: 6,
-      fgmiss: 8,
-      ftm: 3,
-      ftmiss: 2,
-      steals: 2,
+      points: 5,
+      rebounds: 2,
+      assists: 2,
+      steals: 0,
       blocks: 0,
       charges: 0,
       deflections: 3,
-      turnovers: 4,
-      fouls: 2,
-      attitude: 7,
-      hustle: 8,
-      body_language: 7,
+      fgm: 2,
+      ftm: 1,
+      turnovers: 0,
+      fouls: 0,
+      fgmiss: 1,
+      ftmiss: 3,
+      attitude: 0,
     },
   },
   {
@@ -131,22 +189,20 @@ export const sampleGameData = [
     date: 'March 8, 2025',
     minutes: 30,
     stats: {
-      points: 28,
-      rebounds: 12,
-      assists: 7,
-      fgm: 11,
-      fgmiss: 4,
-      ftm: 6,
-      ftmiss: 0,
-      steals: 4,
-      blocks: 2,
-      charges: 2,
-      deflections: 5,
+      points: 4,
+      rebounds: 4,
+      assists: 1,
+      steals: 0,
+      blocks: 1,
+      charges: 1,
+      deflections: 3,
+      fgm: 2,
+      ftm: 0,
       turnovers: 1,
-      fouls: 2,
-      attitude: 9,
-      hustle: 10,
-      body_language: 9,
+      fouls: 0,
+      fgmiss: 0,
+      ftmiss: 0,
+      attitude: 0,
     },
   },
   {
@@ -154,22 +210,20 @@ export const sampleGameData = [
     date: 'March 5, 2025',
     minutes: 18,
     stats: {
-      points: 12,
-      rebounds: 4,
-      assists: 2,
-      fgm: 5,
-      fgmiss: 9,
-      ftm: 2,
-      ftmiss: 3,
-      steals: 1,
-      blocks: 0,
+      points: 18,
+      rebounds: 3,
+      assists: 4,
+      steals: 2,
+      blocks: 1,
       charges: 0,
-      deflections: 1,
-      turnovers: 5,
-      fouls: 4,
-      attitude: 5,
-      hustle: 6,
-      body_language: 5,
+      deflections: 3,
+      fgm: 7,
+      ftm: 0,
+      turnovers: 3,
+      fouls: 2,
+      fgmiss: 2,
+      ftmiss: 0,
+      attitude: 0,
     },
   },
   {
@@ -177,22 +231,20 @@ export const sampleGameData = [
     date: 'March 1, 2025',
     minutes: 26,
     stats: {
-      points: 19,
-      rebounds: 9,
-      assists: 6,
-      fgm: 7,
-      fgmiss: 6,
-      ftm: 5,
-      ftmiss: 1,
-      steals: 2,
-      blocks: 1,
-      charges: 1,
-      deflections: 3,
-      turnovers: 3,
-      fouls: 3,
-      attitude: 7,
-      hustle: 7,
-      body_language: 7,
+      points: 4,
+      rebounds: 4,
+      assists: 4,
+      steals: 3,
+      blocks: 0,
+      charges: 0,
+      deflections: 5,
+      fgm: 2,
+      ftm: 0,
+      turnovers: 0,
+      fouls: 2,
+      fgmiss: 2,
+      ftmiss: 2,
+      attitude: 0,
     },
   },
   {
@@ -201,21 +253,19 @@ export const sampleGameData = [
     minutes: 8,
     stats: {
       points: 6,
-      rebounds: 2,
+      rebounds: 4,
       assists: 1,
-      fgm: 2,
-      fgmiss: 3,
-      ftm: 2,
-      ftmiss: 1,
       steals: 0,
-      blocks: 0,
+      blocks: 1,
       charges: 0,
-      deflections: 1,
+      deflections: 2,
+      fgm: 3,
+      ftm: 0,
       turnovers: 2,
-      fouls: 2,
-      attitude: 6,
-      hustle: 7,
-      body_language: 6,
+      fouls: 0,
+      fgmiss: 0,
+      ftmiss: 0,
+      attitude: 0,
     },
   },
   {
@@ -223,22 +273,20 @@ export const sampleGameData = [
     date: 'February 22, 2025',
     minutes: 32,
     stats: {
-      points: 8,
-      rebounds: 3,
-      assists: 2,
-      fgm: 3,
-      fgmiss: 12,
-      ftm: 2,
-      ftmiss: 4,
-      steals: 1,
-      blocks: 0,
+      points: 10,
+      rebounds: 4,
+      assists: 1,
+      steals: 0,
+      blocks: 1,
       charges: 0,
       deflections: 2,
-      turnovers: 6,
-      fouls: 5,
-      attitude: 4,
-      hustle: 5,
-      body_language: 3,
+      fgm: 4,
+      ftm: 1,
+      turnovers: 0,
+      fouls: 2,
+      fgmiss: 1,
+      ftmiss: 3,
+      attitude: 0,
     },
   },
 ];

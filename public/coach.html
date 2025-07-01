@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-widt    async function getCoachResponse(question, playerData) {
+      // TEMP MOCK — replace with AI function call or Firebase Function
+      const avgGrade = playerData.avgGrade || 'F';
+      const isGoodGrade = avgGrade === 'A' || avgGrade === 'B';
+      const advice = isGoodGrade ? "Keep up the great work and focus on consistency!" : "Let's work on defense and shot selection this week.";
+      return `Your average grade is ${avgGrade}. ${advice}`;
+    }tial-scale=1.0">
   <title>Coach Dashboard</title>
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
