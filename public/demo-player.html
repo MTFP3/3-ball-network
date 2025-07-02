@@ -1116,12 +1116,14 @@
         } = stats;
 
         // Step 1: Calculate Good Credits
-        const basicStats = points + rebounds + assists + fieldGoalsMade + freeThrowsMade;
+        const basicStats =
+          points + rebounds + assists + fieldGoalsMade + freeThrowsMade;
         const premiumStats = steals + blocks + charges + deflections;
         const goodCredits = basicStats * 2 + premiumStats * 5;
 
         // Step 2: Calculate Bad Credits
-        const badCredits = turnovers + fouls + missedFieldGoals + missedFreeThrows;
+        const badCredits =
+          turnovers + fouls + missedFieldGoals + missedFreeThrows;
 
         // Step 3: Calculate Possible Credits
         const possibleCredits = goodCredits + badCredits + gameLength;
@@ -1130,7 +1132,8 @@
         const actualCredits = minutesPlayed + goodCredits - badCredits;
 
         // Step 5: Calculate Game Grade Percentage
-        const gameGradePercentage = possibleCredits > 0 ? (actualCredits / possibleCredits) * 100 : 0;
+        const gameGradePercentage =
+          possibleCredits > 0 ? (actualCredits / possibleCredits) * 100 : 0;
 
         // Step 6: Convert to Letter Grade
         let letterGrade;
@@ -1142,7 +1145,7 @@
 
         return {
           letterGrade,
-          percentage: Math.round(gameGradePercentage)
+          percentage: Math.round(gameGradePercentage),
         };
       }
 
@@ -1326,7 +1329,7 @@
             missedFieldGoals: (game.stats.fga || 0) - (game.stats.fgm || 0),
             missedFreeThrows: (game.stats.fta || 0) - (game.stats.ftm || 0),
             minutesPlayed: game.minutes || 0,
-            gameLength: 32
+            gameLength: 32,
           };
 
           const gradeResult = calculate3BallGrade(convertedStats);
@@ -1373,23 +1376,35 @@
       function updatePlayerRatings() {
         // Calculate averages from game data
         const totalGames = gameData.length;
-        const avgStats = gameData.reduce((acc, game) => {
-          acc.points += game.stats.points || 0;
-          acc.rebounds += game.stats.rebounds || 0;
-          acc.assists += game.stats.assists || 0;
-          acc.steals += game.stats.steals || 0;
-          acc.blocks += game.stats.blocks || 0;
-          acc.fgm += game.stats.fgm || 0;
-          acc.fga += game.stats.fga || 0;
-          acc.ftm += game.stats.ftm || 0;
-          acc.fta += game.stats.fta || 0;
-          acc.turnovers += game.stats.turnovers || 0;
-          acc.fouls += game.stats.fouls || 0;
-          return acc;
-        }, {
-          points: 0, rebounds: 0, assists: 0, steals: 0, blocks: 0,
-          fgm: 0, fga: 0, ftm: 0, fta: 0, turnovers: 0, fouls: 0
-        });
+        const avgStats = gameData.reduce(
+          (acc, game) => {
+            acc.points += game.stats.points || 0;
+            acc.rebounds += game.stats.rebounds || 0;
+            acc.assists += game.stats.assists || 0;
+            acc.steals += game.stats.steals || 0;
+            acc.blocks += game.stats.blocks || 0;
+            acc.fgm += game.stats.fgm || 0;
+            acc.fga += game.stats.fga || 0;
+            acc.ftm += game.stats.ftm || 0;
+            acc.fta += game.stats.fta || 0;
+            acc.turnovers += game.stats.turnovers || 0;
+            acc.fouls += game.stats.fouls || 0;
+            return acc;
+          },
+          {
+            points: 0,
+            rebounds: 0,
+            assists: 0,
+            steals: 0,
+            blocks: 0,
+            fgm: 0,
+            fga: 0,
+            ftm: 0,
+            fta: 0,
+            turnovers: 0,
+            fouls: 0,
+          }
+        );
 
         // Calculate per-game averages
         Object.keys(avgStats).forEach(key => {
@@ -1397,38 +1412,50 @@
         });
 
         // Calculate shooting percentages
-        const fgPct = avgStats.fga > 0 ? (avgStats.fgm / avgStats.fga) : 0;
-        const ftPct = avgStats.fta > 0 ? (avgStats.ftm / avgStats.fta) : 0;
+        const fgPct = avgStats.fga > 0 ? avgStats.fgm / avgStats.fga : 0;
+        const ftPct = avgStats.fta > 0 ? avgStats.ftm / avgStats.fta : 0;
 
         // Calculate 2K-style ratings (0-100 scale)
         const ratings = {
           // Offense ratings
-          shooting: Math.min(100, Math.max(40, (fgPct * 150) + (avgStats.points * 2))),
-          finishing: Math.min(100, Math.max(40, (fgPct * 100) + (avgStats.points * 3))),
-          playmaking: Math.min(100, Math.max(40, (avgStats.assists * 8) + 50)),
+          shooting: Math.min(
+            100,
+            Math.max(40, fgPct * 150 + avgStats.points * 2)
+          ),
+          finishing: Math.min(
+            100,
+            Math.max(40, fgPct * 100 + avgStats.points * 3)
+          ),
+          playmaking: Math.min(100, Math.max(40, avgStats.assists * 8 + 50)),
 
           // Defense ratings
-          perimeterD: Math.min(100, Math.max(40, (avgStats.steals * 10) + (5 - avgStats.fouls) * 5 + 50)),
-          steal: Math.min(100, Math.max(40, (avgStats.steals * 15) + 40)),
-          block: Math.min(100, Math.max(40, (avgStats.blocks * 20) + 45)),
+          perimeterD: Math.min(
+            100,
+            Math.max(40, avgStats.steals * 10 + (5 - avgStats.fouls) * 5 + 50)
+          ),
+          steal: Math.min(100, Math.max(40, avgStats.steals * 15 + 40)),
+          block: Math.min(100, Math.max(40, avgStats.blocks * 20 + 45)),
 
           // Physical ratings
-          speed: Math.min(100, Math.max(60, 85 + (avgStats.steals * 2))), // Base speed with steal bonus
-          athleticism: Math.min(100, Math.max(60, 80 + (avgStats.blocks * 3) + (avgStats.rebounds * 1))),
-          stamina: Math.min(100, Math.max(60, 85 - (avgStats.fouls * 2))) // Fouls suggest tiredness
+          speed: Math.min(100, Math.max(60, 85 + avgStats.steals * 2)), // Base speed with steal bonus
+          athleticism: Math.min(
+            100,
+            Math.max(60, 80 + avgStats.blocks * 3 + avgStats.rebounds * 1)
+          ),
+          stamina: Math.min(100, Math.max(60, 85 - avgStats.fouls * 2)), // Fouls suggest tiredness
         };
 
         // Calculate overall rating (weighted average)
         const overall = Math.round(
-          (ratings.shooting * 0.15) +
-          (ratings.finishing * 0.12) +
-          (ratings.playmaking * 0.18) +
-          (ratings.perimeterD * 0.15) +
-          (ratings.steal * 0.10) +
-          (ratings.block * 0.08) +
-          (ratings.speed * 0.10) +
-          (ratings.athleticism * 0.07) +
-          (ratings.stamina * 0.05)
+          ratings.shooting * 0.15 +
+            ratings.finishing * 0.12 +
+            ratings.playmaking * 0.18 +
+            ratings.perimeterD * 0.15 +
+            ratings.steal * 0.1 +
+            ratings.block * 0.08 +
+            ratings.speed * 0.1 +
+            ratings.athleticism * 0.07 +
+            ratings.stamina * 0.05
         );
 
         // Update the display elements
@@ -1454,7 +1481,7 @@
             missedFieldGoals: game.stats.fga - game.stats.fgm,
             missedFreeThrows: game.stats.fta - game.stats.ftm,
             minutesPlayed: game.minutes,
-            gameLength: 32
+            gameLength: 32,
           };
 
           const result = calculate3BallGrade(convertedStats);
@@ -1463,17 +1490,24 @@
 
         // Calculate average letter grade (convert to numbers, average, convert back)
         const gradeValues = letterGrades.map(grade => {
-          switch(grade) {
-            case 'A': return 4.0;
-            case 'B': return 3.0;
-            case 'C': return 2.0;
-            case 'D': return 1.0;
-            case 'F': return 0.0;
-            default: return 0.0;
+          switch (grade) {
+            case 'A':
+              return 4.0;
+            case 'B':
+              return 3.0;
+            case 'C':
+              return 2.0;
+            case 'D':
+              return 1.0;
+            case 'F':
+              return 0.0;
+            default:
+              return 0.0;
           }
         });
 
-        const avgValue = gradeValues.reduce((sum, val) => sum + val, 0) / gradeValues.length;
+        const avgValue =
+          gradeValues.reduce((sum, val) => sum + val, 0) / gradeValues.length;
 
         // Convert back to letter grade
         let avgLetterGrade;
@@ -1539,7 +1573,7 @@
               missedFieldGoals: (game.stats.fga || 0) - (game.stats.fgm || 0),
               missedFreeThrows: (game.stats.fta || 0) - (game.stats.ftm || 0),
               minutesPlayed: game.minutes || 0,
-              gameLength: 32
+              gameLength: 32,
             };
 
             // Use the new 3Ball Network grading function
@@ -1620,7 +1654,8 @@
                   },
                 },
               },
-            });
+            },
+          });
         }
 
         // Position analysis chart
@@ -1800,7 +1835,7 @@
       }
 
       // Initialize average grade and player ratings on page load
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         updateAverageGrade();
         updatePlayerRatings();
       });
