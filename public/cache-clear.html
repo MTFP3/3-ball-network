@@ -1,65 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>3 Ball Network - Cache Clear</title>
-    <meta charset="UTF-8">
-</head>
-<body style="font-family: Arial, sans-serif; text-align: center; padding: 50px;">
+    <meta charset="UTF-8" />
+  </head>
+  <body
+    style="font-family: Arial, sans-serif; text-align: center; padding: 50px"
+  >
     <h1>🚀 Cache Clearing Tool</h1>
     <p>This page will force clear all caches and reload the homepage.</p>
-    
-    <button onclick="clearAllCaches()" style="background: #00b4d8; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
-        🔄 Clear All Caches & Reload
+
+    <button
+      onclick="clearAllCaches()"
+      style="
+        background: #00b4d8;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+      "
+    >
+      🔄 Clear All Caches & Reload
     </button>
-    
-    <div id="status" style="margin-top: 20px; padding: 10px;"></div>
+
+    <div id="status" style="margin-top: 20px; padding: 10px"></div>
 
     <script>
-        async function clearAllCaches() {
-            const status = document.getElementById('status');
-            status.innerHTML = '<p style="color: blue;">🔄 Clearing caches...</p>';
-            
-            try {
-                // 1. Unregister all service workers
-                if ('serviceWorker' in navigator) {
-                    const registrations = await navigator.serviceWorker.getRegistrations();
-                    for (let registration of registrations) {
-                        await registration.unregister();
-                    }
-                    status.innerHTML += '<p style="color: green;">✅ Service workers cleared</p>';
-                }
-                
-                // 2. Clear all caches
-                if ('caches' in window) {
-                    const cacheNames = await caches.keys();
-                    for (let cacheName of cacheNames) {
-                        await caches.delete(cacheName);
-                    }
-                    status.innerHTML += '<p style="color: green;">✅ Browser caches cleared</p>';
-                }
-                
-                // 3. Clear local storage
-                localStorage.clear();
-                sessionStorage.clear();
-                status.innerHTML += '<p style="color: green;">✅ Local storage cleared</p>';
-                
-                // 4. Wait and redirect to homepage with cache-busting parameter
-                status.innerHTML += '<p style="color: blue;">🔄 Redirecting to homepage...</p>';
-                setTimeout(() => {
-                    window.location.href = '/?cachebust=' + Date.now();
-                }, 2000);
-                
-            } catch (error) {
-                status.innerHTML += '<p style="color: red;">❌ Error: ' + error.message + '</p>';
+      async function clearAllCaches() {
+        const status = document.getElementById('status');
+        status.innerHTML = '<p style="color: blue;">🔄 Clearing caches...</p>';
+
+        try {
+          // 1. Unregister all service workers
+          if ('serviceWorker' in navigator) {
+            const registrations =
+              await navigator.serviceWorker.getRegistrations();
+            for (let registration of registrations) {
+              await registration.unregister();
             }
+            status.innerHTML +=
+              '<p style="color: green;">✅ Service workers cleared</p>';
+          }
+
+          // 2. Clear all caches
+          if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            for (let cacheName of cacheNames) {
+              await caches.delete(cacheName);
+            }
+            status.innerHTML +=
+              '<p style="color: green;">✅ Browser caches cleared</p>';
+          }
+
+          // 3. Clear local storage
+          localStorage.clear();
+          sessionStorage.clear();
+          status.innerHTML +=
+            '<p style="color: green;">✅ Local storage cleared</p>';
+
+          // 4. Wait and redirect to homepage with cache-busting parameter
+          status.innerHTML +=
+            '<p style="color: blue;">🔄 Redirecting to homepage...</p>';
+          setTimeout(() => {
+            window.location.href = '/?cachebust=' + Date.now();
+          }, 2000);
+        } catch (error) {
+          status.innerHTML +=
+            '<p style="color: red;">❌ Error: ' + error.message + '</p>';
         }
-        
-        // Auto-run on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.querySelector('button').click();
-            }, 1000);
-        });
+      }
+
+      // Auto-run on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+          document.querySelector('button').click();
+        }, 1000);
+      });
     </script>
-</body>
+  </body>
 </html>
