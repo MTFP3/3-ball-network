@@ -3,22 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3 Ball Network | Live Basketball Technology Demo</title>
+    <title>3 Ball Network | Platform Overview</title>
     <meta
       name="description"
-      content="Experience the future of basketball technology - live demo of analytics, recruiting, AI coaching, and social features all integrated."
+      content="Learn about 3 Ball Network - connecting basketball players, coaches, scouts, and fans through performance grading, analytics, and education."
     />
     <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="/assets/css/demo-enhancements.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="/assets/js/playerAnalytics.js"></script>
-    <script type="module" src="/assets/js/recruitingHub.js"></script>
-    <script type="module" src="/assets/js/smartGameInput.js"></script>
-    <script type="module" src="/assets/js/platformManager.js"></script>
     <style>
       body {
         background: linear-gradient(
@@ -61,63 +55,6 @@
         background-clip: text;
       }
 
-      .feature-showcase {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 2em;
-        margin-bottom: 3em;
-      }
-
-      .feature-card {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 2em;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      }
-
-      .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px rgba(0, 180, 216, 0.2);
-        border-color: rgba(0, 180, 216, 0.3);
-      }
-
-      .feature-card h3 {
-        color: #00b4d8;
-        font-size: 1.5em;
-        margin-bottom: 1em;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-      }
-
-      .feature-demo {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px;
-        padding: 1.5em;
-        margin: 1em 0;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .demo-metric {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5em 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .demo-metric:last-child {
-        border-bottom: none;
-      }
-
-      .metric-value {
-        font-weight: 700;
-        color: #00b4d8;
-      }
-
       .back-link {
         display: inline-block;
         margin-bottom: 2em;
@@ -131,94 +68,6 @@
       .back-link:hover {
         color: #93c5fd;
         transform: translateX(-5px);
-      }
-
-      .integration-showcase {
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        padding: 2em;
-        margin-top: 3em;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-      }
-
-      .integration-showcase h2 {
-        color: #ffffff;
-        font-size: 2em;
-        text-align: center;
-        margin-bottom: 1.5em;
-      }
-
-      .integration-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5em;
-      }
-
-      .integration-item {
-        background: rgba(0, 180, 216, 0.1);
-        border-radius: 12px;
-        padding: 1.5em;
-        border: 1px solid rgba(0, 180, 216, 0.2);
-      }
-
-      .integration-item h4 {
-        color: #00b4d8;
-        margin-bottom: 1em;
-      }
-
-      .demo-btn {
-        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-        border: none;
-        border-radius: 10px;
-        color: #ffffff;
-        padding: 0.8em 1.5em;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin: 0.5em 0.5em 0.5em 0;
-        box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
-        font-size: 0.95em;
-      }
-
-      .demo-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
-        background: linear-gradient(135deg, #00b4d8 0%, #007cba 100%);
-      }
-
-      .live-demo {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 2em;
-        margin-top: 2em;
-        border: 2px dashed rgba(0, 180, 216, 0.3);
-      }
-
-      .live-demo h3 {
-        text-align: center;
-        color: #00b4d8;
-        margin-bottom: 1.5em;
-      }
-
-      .demo-controls {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1em;
-        margin-bottom: 2em;
-      }
-
-      .control-group {
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 1em;
-      }
-
-      .control-group h4 {
-        color: #ffffff;
-        margin-bottom: 0.8em;
-        font-size: 1em;
       }
 
       @media (max-width: 768px) {
@@ -281,7 +130,7 @@
               border-radius: 8px;
               background: rgba(0, 180, 216, 0.1);
             "
-            >Live Demo</a
+            >Overview</a
           >
           <a
             href="/"
@@ -324,7 +173,7 @@
     </nav>
 
     <div class="enhanced-container">
-      <a href="/" class="back-link">← View Full Homepage</a>
+      <a href="/" class="back-link">← Back to Homepage</a>
 
       <div class="enhanced-header">
         <img
@@ -340,155 +189,15 @@
               font-size: 0.4em;
               margin-left: 0.5em;
             "
-            >LIVE DEMO</span
+            >OVERVIEW</span
           >
         </h1>
         <p style="color: #b0b0b0; margin-top: 1em; font-size: 1.2em">
-          Experience the complete basketball technology ecosystem with all
-          advanced features integrated
+          Learn about our basketball community platform and how we're
+          revolutionizing player development
         </p>
-        <div style="margin-top: 1.5em">
-          <a
-            href="/"
-            style="
-              display: inline-block;
-              background: rgba(255, 255, 255, 0.1);
-              color: #ffffff;
-              padding: 0.8em 1.5em;
-              border-radius: 12px;
-              text-decoration: none;
-              font-weight: 600;
-              margin: 0 0.5em;
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              transition: all 0.3s ease;
-            "
-            onmouseover="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.4)'"
-            onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.2)'"
-          >
-            📋 View Full Homepage Features
-          </a>
-          <a
-            href="/demo-player"
-            style="
-              display: inline-block;
-              background: rgba(255, 255, 255, 0.1);
-              color: #ffffff;
-              padding: 0.8em 1.5em;
-              border-radius: 12px;
-              text-decoration: none;
-              font-weight: 600;
-              margin: 0 0.5em;
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              transition: all 0.3s ease;
-            "
-            onmouseover="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.4)'"
-            onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.2)'"
-          >
-            🏀 Try Player Portal
-          </a>
-        </div>
       </div>
-
-      <!-- Live Demo Section -->
-      <div class="live-demo">
-        <h3>🔴 Live Integration Demo</h3>
-        <p style="text-align: center; color: #d0d0d0; margin-bottom: 2em">
-          Watch how all features work together in real-time
-        </p>
-
-        <div class="demo-controls">
-          <div class="control-group">
-            <h4>Simulate Game Event</h4>
-            <button class="demo-btn" onclick="simulateGameEvent('shot_made')">
-              Shot Made
-            </button>
-            <button class="demo-btn" onclick="simulateGameEvent('assist')">
-              Assist
-            </button>
-          </div>
-
-          <div class="control-group">
-            <h4>Analytics Update</h4>
-            <div id="analytics-update" style="color: #00b4d8; font-weight: 600">
-              Ready...
-            </div>
-          </div>
-
-          <div class="control-group">
-            <h4>Social Feed</h4>
-            <div id="social-update" style="color: #00b4d8; font-weight: 600">
-              Waiting for events...
-            </div>
-          </div>
-
-          <div class="control-group">
-            <h4>AI Coach Response</h4>
-            <div id="coach-update" style="color: #00b4d8; font-weight: 600">
-              Standing by...
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 3em"></div>
     </div>
-
-    <script>
-      // Live demo simulation
-      function simulateGameEvent(eventType) {
-        const analyticsUpdate = document.getElementById('analytics-update');
-        const socialUpdate = document.getElementById('social-update');
-        const coachUpdate = document.getElementById('coach-update');
-
-        // Simulate analytics update
-        if (eventType === 'shot_made') {
-          analyticsUpdate.innerHTML =
-            '📈 FG% increased to 45.2%<br>⚡ Shooting streak: 3 in a row';
-          socialUpdate.innerHTML =
-            '🎉 "Great shooting!"<br>👏 +15 team chemistry';
-          coachUpdate.innerHTML =
-            '🎯 "Keep attacking the rim"<br>💡 Suggested: Pick & Roll';
-        } else if (eventType === 'assist') {
-          analyticsUpdate.innerHTML =
-            '🎯 Court vision +2%<br>📊 Assist/TO ratio: 3.2';
-          socialUpdate.innerHTML =
-            '🤝 Team play highlight<br>⭐ +5 leadership points';
-          coachUpdate.innerHTML =
-            '🧠 "Excellent vision"<br>💭 Focus: Ball movement';
-        }
-
-        // Reset after 5 seconds
-        setTimeout(() => {
-          analyticsUpdate.innerHTML = 'Ready...';
-          socialUpdate.innerHTML = 'Waiting for events...';
-          coachUpdate.innerHTML = 'Standing by...';
-        }, 5000);
-      }
-
-      function showIntegrationDemo() {
-        alert(
-          'Integration Demo: This would show how data flows seamlessly between all features in real-time, creating a unified basketball technology ecosystem.'
-        );
-      }
-
-      // Add some interactive elements on page load
-      document.addEventListener('DOMContentLoaded', function () {
-        // Simulate periodic updates
-        setInterval(() => {
-          const cards = document.querySelectorAll('.feature-card');
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.style.transform = 'translateY(-2px)';
-              card.style.boxShadow = '0 12px 40px rgba(0,180,216,0.15)';
-              setTimeout(() => {
-                card.style.transform = '';
-                card.style.boxShadow = '';
-              }, 200);
-            }, index * 100);
-          });
-        }, 10000);
-      });
-    </script>
 
     <!-- Platform Overview Sections -->
     <main style="max-width: 1200px; margin: 3em auto; padding: 0 2em">
