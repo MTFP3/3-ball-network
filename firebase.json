@@ -48,6 +48,10 @@
         "destination": "/demo-enhanced.html"
       },
       {
+        "source": "/cache-clear",
+        "destination": "/cache-clear.html"
+      },
+      {
         "source": "/social-hub",
         "destination": "/social-hub.html"
       },
