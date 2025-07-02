@@ -73,9 +73,9 @@ if [ -f "package.json" ]; then
     print_status "Installing/updating dependencies..."
     npm install
     
-    # Run build process
-    print_status "Building optimized assets..."
-    npm run build || print_warning "Build script failed - continuing with existing assets"
+    # Run build process with file hashing
+    print_status "Building optimized assets with file hashing..."
+    npm run build:hash || print_warning "Build script failed - continuing with existing assets"
     
     # Generate service worker
     print_status "Generating PWA service worker..."
@@ -115,8 +115,8 @@ git push origin main
 # Firebase deployment
 print_status "Deploying to Firebase Hosting..."
 
-# Deploy with specific targets
-firebase deploy --only hosting
+# Deploy with production config and hashed assets
+firebase deploy --only hosting --config firebase.prod.json
 
 if [ $? -eq 0 ]; then
     print_success "🎉 Deployment completed successfully!"

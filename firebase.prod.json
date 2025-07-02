@@ -1,0 +1,180 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/admin",
+        "destination": "/admin.html"
+      },
+      {
+        "source": "/admin/**",
+        "destination": "/admin.html"
+      },
+      {
+        "source": "/demo-player",
+        "destination": "/demo-player.html"
+      },
+      {
+        "source": "/demo-coach",
+        "destination": "/demo-coach.html"
+      },
+      {
+        "source": "/demo-fan",
+        "destination": "/demo-fan.html"
+      },
+      {
+        "source": "/demo-scout",
+        "destination": "/demo-scout.html"
+      },
+      {
+        "source": "/analytics-dashboard",
+        "destination": "/analytics-dashboard.html"
+      },
+      {
+        "source": "/recruiting-hub",
+        "destination": "/recruiting-hub.html"
+      },
+      {
+        "source": "/smart-input",
+        "destination": "/smart-input.html"
+      },
+      {
+        "source": "/ai-coach",
+        "destination": "/ai-coach.html"
+      },
+      {
+        "source": "/demo-enhanced",
+        "destination": "/demo-enhanced.html"
+      },
+      {
+        "source": "/social-hub",
+        "destination": "/social-hub.html"
+      },
+      {
+        "source": "/live",
+        "destination": "/live.html"
+      },
+      {
+        "source": "/player/**",
+        "destination": "/player.html"
+      },
+      {
+        "source": "/coach/**",
+        "destination": "/coach.html"
+      },
+      {
+        "source": "/fan/**",
+        "destination": "/fan.html"
+      },
+      {
+        "source": "/scout/**",
+        "destination": "/scout.html"
+      },
+      {
+        "source": "/team/**",
+        "destination": "/team.html"
+      },
+      {
+        "source": "/search",
+        "destination": "/search.html"
+      },
+      {
+        "source": "/login",
+        "destination": "/login.html"
+      },
+      {
+        "source": "/register",
+        "destination": "/register.html"
+      },
+      {
+        "source": "/about",
+        "destination": "/about.html"
+      },
+      {
+        "source": "/privacy",
+        "destination": "/privacy.html"
+      },
+      {
+        "source": "/terms",
+        "destination": "/terms.html"
+      },
+      {
+        "source": "/playerProfile",
+        "destination": "/playerProfile.html"
+      },
+      {
+        "source": "/teamArchive",
+        "destination": "/teamArchive.html"
+      },
+      {
+        "source": "/claim-profile",
+        "destination": "/claim-profile.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/assets/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "/manifest.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
