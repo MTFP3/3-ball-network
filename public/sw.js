@@ -1,5 +1,5 @@
 // Service Worker for 3 Ball Network PWA
-const CACHE_NAME = '3ball-network-v2.1-force-refresh';
+const CACHE_NAME = '3ball-network-v3.0-final-cleanup';
 const urlsToCache = [
   '/',
   '/assets/css/style.css',
