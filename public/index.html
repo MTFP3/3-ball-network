@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>3 Ball Network | Basketball Community Platform</title>
+    <!-- NUCLEAR CACHE BUST: 2025-07-01-20:40 -->
     <!-- Cache-busting comment: Homepage swap deployed 2025-07-01 -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
@@ -34,6 +35,22 @@
       rel="stylesheet"
     />
     <script type="module" src="/assets/js/firebaseConfig.js"></script>
+    <script>
+      // NUCLEAR CACHE BUST - Force service worker update
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then(function (registrations) {
+            for (let registration of registrations) {
+              registration.unregister();
+            }
+            // Force reload service worker
+            navigator.serviceWorker.register('/sw.js', {
+              updateViaCache: 'none',
+            });
+          });
+      }
+    </script>
     <style>
       body {
         font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;

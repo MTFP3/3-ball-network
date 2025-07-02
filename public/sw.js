@@ -1,5 +1,5 @@
-// Service Worker for 3 Ball Network PWA
-const CACHE_NAME = '3ball-network-v3.0-final-cleanup';
+// Service Worker for 3 Ball Network PWA - NUCLEAR CACHE BUST
+const CACHE_NAME = '3ball-network-v4.0-NUCLEAR-' + Date.now();
 const urlsToCache = [
   '/',
   '/assets/css/style.css',
