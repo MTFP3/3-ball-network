@@ -1,152 +1,218 @@
-const CACHE_VERSION = 'v73d79185';
+const CACHE_VERSION = 'vd9d98fff';
 const CACHE_FILES = [
-  '/test-integration.html?v=e8e05b0e',
-  '/terms.html?v=d249e69e',
-  '/teamArchive.html?v=e6528d9e',
-  '/team.html?v=fddaf3b8',
-  '/social-hub.html?v=293ef62a',
-  '/smart-input.html?v=5f26a9af',
-  '/search.html?v=e15b3861',
-  '/scout.html?v=c61cf001',
-  '/register.html?v=d3084553',
-  '/recruiting-hub.html?v=d29123ed',
-  '/privacy.html?v=a8cff955',
-  '/playerProfile.html?v=2d72f8e3',
-  '/player.html?v=e9cbf8e2',
-  '/overview.html?v=9d654024',
-  '/login.html?v=8f2e01fc',
-  '/live.html?v=81aaf003',
-  '/live-demo.html?v=7329af13',
-  '/index.html?v=6d997e96',
-  '/fan.html?v=b5059d23',
-  '/demo-scout.html?v=0c9cbc19',
-  '/demo-player.html?v=b2fb5286',
-  '/demo-fan.html?v=5790e2ea',
-  '/demo-enhanced.html?v=5389ddb4',
-  '/demo-coach.html?v=2e55bad3',
-  '/demo-coach-final.html?v=6c1042c1',
-  '/coach.html?v=8ac43625',
-  '/claim-profile.html?v=eb0f4558',
+  '/test-integration.html?v=c02aa5ca',
+  '/terms.html?v=024b3d40',
+  '/teamArchive.html?v=ed15f92d',
+  '/team.html?v=da51b44c',
+  '/social-hub.html?v=3ede8e39',
+  '/smart-input.html?v=4d2e6448',
+  '/search.html?v=59029d51',
+  '/scout.html?v=59f2b19c',
+  '/register.html?v=0bcd3a5f',
+  '/recruiting-hub.html?v=5c3ac633',
+  '/privacy.html?v=2efcf846',
+  '/playerProfile.html?v=54be7df2',
+  '/player.html?v=e1d73b68',
+  '/overview.html?v=91bfe04f',
+  '/login.html?v=0bb8cf6b',
+  '/live.html?v=39a6e824',
+  '/live-demo.html?v=ecbf96ad',
+  '/index.html?v=4e6e57a1',
+  '/fan.html?v=a1d061b5',
+  '/demo-scout.html?v=72c6f33b',
+  '/demo-player.html?v=669dd012',
+  '/demo-fan.html?v=18c59dd4',
+  '/demo-enhanced.html?v=2f2c09c6',
+  '/demo-coach.html?v=9e76bd05',
+  '/demo-coach-final.html?v=3e1e13db',
+  '/coach.html?v=348b90e6',
+  '/claim-profile.html?v=ddea6540',
   '/cache-clear.html?v=d41d8cd9',
   '/backup_overview.html?v=d41d8cd9',
-  '/analytics.html?v=43cb6e09',
-  '/analytics-dashboard.html?v=febb0757',
-  '/ai-coach.html?v=fcc132fe',
-  '/admin.html?v=09ad776c',
-  '/about.html?v=0ab066a5',
-  '/assets/png/logo-C3J1yCbD-C3J1yCbD.png?v=283ae8cd',
-  '/assets/json/manifest-RduZY6E_-RduZY6E_.json?v=eabaf9e7',
-  '/assets/js/test-integration-AXl24t5G.js.map?v=4175c926',
-  '/assets/js/test-integration-AXl24t5G.js?v=08f00d53',
-  '/assets/js/terms-CW5ct3-k.js.map?v=1e5048e4',
-  '/assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js.map?v=54eecd60',
-  '/assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js?v=86b85e3d',
-  '/assets/js/teamArchive-D9Frtfyw.js.map?v=ae5f7eb0',
-  '/assets/js/teamArchive-D9Frtfyw.js?v=b436aa0d',
-  '/assets/js/team-DeWy7ccS.js.map?v=d1f3302f',
-  '/assets/js/team-DeWy7ccS.js?v=0227e95e',
-  '/assets/js/social-hub-C8z6d9un.js.map?v=c13c2cd1',
-  '/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js.map?v=2031ffb6',
-  '/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js?v=49d13957',
-  '/assets/js/smart-input-DcMyZfo1.js.map?v=c998301e',
-  '/assets/js/search-CYlnP4F4.js.map?v=8c4b6f92',
-  '/assets/js/search-CYlnP4F4.js?v=1cee8436',
-  '/assets/js/scout-C14X4RzO.js.map?v=2606a942',
-  '/assets/js/scout-C14X4RzO.js?v=2ccdaf24',
-  '/assets/js/register-CW5ct3-k.js.map?v=9e4a4201',
-  '/assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js.map?v=18a4ef0c',
-  '/assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js?v=89cb6db8',
-  '/assets/js/recruiting-hub-BKhXC20p.js.map?v=7db9cf8a',
-  '/assets/js/privacy-CW5ct3-k.js.map?v=4c85a8a2',
-  '/assets/js/playerProfile-C4lJoiEi.js.map?v=404f4713',
-  '/assets/js/playerProfile-C4lJoiEi.js?v=cb09756c',
-  '/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js.map?v=e79bb739',
-  '/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js?v=ab3e7078',
-  '/assets/js/player-CAASW5Xp.js.map?v=2a1ec59d',
-  '/assets/js/player-CAASW5Xp.js?v=1abeb4a2',
-  '/assets/js/platformManager-CMGNxMqx-BgtAjZPx.js.map?v=db34d8df',
-  '/assets/js/platformManager-CMGNxMqx-BgtAjZPx.js?v=bc913a8e',
-  '/assets/js/overview-aKgriaNG.js.map?v=56ce0f0b',
-  '/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js.map?v=12130e8e',
-  '/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js?v=26557a7a',
-  '/assets/js/login-CdKU8PU6.js.map?v=e8db1634',
-  '/assets/js/login-CdKU8PU6.js?v=85bdeb30',
-  '/assets/js/live-demo-CG4fJf9y.js.map?v=f2f86677',
-  '/assets/js/live-CW5ct3-k.js.map?v=c9da5550',
-  '/assets/js/index-Bm09jQhz.js.map?v=9184ca3b',
-  '/assets/js/index-Bm09jQhz.js?v=756651df',
-  '/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js.map?v=e6db9ee8',
-  '/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js?v=32558c7a',
-  '/assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL.js?v=0303239c',
-  '/assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js.map?v=0e2dd47c',
-  '/assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js?v=d4177df7',
-  '/assets/js/fan-Cavv95E5.js.map?v=8432b1ba',
-  '/assets/js/fan-Cavv95E5.js?v=6b12d99d',
-  '/assets/js/demo-scout-C8z6d9un.js.map?v=89a95fa4',
-  '/assets/js/demo-player-CG4fJf9y.js.map?v=605c9fc5',
-  '/assets/js/demo-fan-C8z6d9un.js.map?v=57bd9e07',
-  '/assets/js/demo-enhanced-CG4fJf9y.js.map?v=540ed842',
-  '/assets/js/demo-coach-final-C_tPLY5n.js.map?v=700c39c5',
-  '/assets/js/demo-coach-CWdNuE-V.js.map?v=36227436',
-  '/assets/js/coach-B607SaUB.js.map?v=3fa4dc97',
-  '/assets/js/coach-B607SaUB.js?v=294d9ed1',
-  '/assets/js/claim-profile-Dyblg7Cy.js.map?v=aaa79da0',
-  '/assets/js/claim-profile-Dyblg7Cy.js?v=e21e2a7c',
+  '/analytics.html?v=7bbe7be6',
+  '/analytics-dashboard.html?v=a871c72d',
+  '/ai-coach.html?v=c5d5916d',
+  '/admin.html?v=55435648',
+  '/about.html?v=a6e06eaa',
+  '/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD.png?v=283ae8cd',
+  '/assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_.json?v=eabaf9e7',
+  '/assets/js/test-integration-CuuLF-Qg.js.map?v=4b88fffb',
+  '/assets/js/test-integration-CuuLF-Qg.js?v=334e1319',
+  '/assets/js/terms-i_X2zzPV.js.map?v=aa4c067d',
+  '/assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K.js.map?v=d9fd5681',
+  '/assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K.js?v=82f801d6',
+  '/assets/js/teamArchive-CQEqX9CX.js.map?v=56dacd4a',
+  '/assets/js/teamArchive-CQEqX9CX.js?v=dd62aff7',
+  '/assets/js/team-Daj8G-x5.js.map?v=ea7fa701',
+  '/assets/js/team-Daj8G-x5.js?v=430e6ee6',
+  '/assets/js/sw-manager--CjsvoUl.js.map?v=5052a91b',
+  '/assets/js/sw-manager--CjsvoUl.js?v=a83a6ec5',
+  '/assets/js/social-hub-Dk_fPaly.js.map?v=cbf3c29d',
+  '/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map?v=b59d8d3e',
+  '/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js?v=b59ce06b',
+  '/assets/js/smart-input-CF0PLGU0.js.map?v=d30fe694',
+  '/assets/js/search-D2qrMaX6.js.map?v=9fbc81a4',
+  '/assets/js/search-D2qrMaX6.js?v=2a349cc0',
+  '/assets/js/scout-BYmsCeuo.js.map?v=e6c8ef98',
+  '/assets/js/scout-BYmsCeuo.js?v=6eb50175',
+  '/assets/js/register-CBsuiAmX.js.map?v=95629fd8',
+  '/assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm.js.map?v=aaa06e3e',
+  '/assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm.js?v=22d2ccc1',
+  '/assets/js/recruiting-hub-DggufzSl.js.map?v=e88a75d5',
+  '/assets/js/privacy-i_X2zzPV.js.map?v=af13f490',
+  '/assets/js/playerProfile-CyGiqRi0.js.map?v=d0cd09ce',
+  '/assets/js/playerProfile-CyGiqRi0.js?v=c6155687',
+  '/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W.js.map?v=938787b0',
+  '/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W.js?v=2ff82e56',
+  '/assets/js/player-DZn68FfT.js.map?v=4d27d611',
+  '/assets/js/player-DZn68FfT.js?v=d34bfd31',
+  '/assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx.js.map?v=89b08d88',
+  '/assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx.js?v=df48eb0a',
+  '/assets/js/overview-DPlul7c4.js.map?v=1b9d9f3a',
+  '/assets/js/modulepreload-polyfill-B5Qt9EMX.js.map?v=9c443851',
+  '/assets/js/modulepreload-polyfill-B5Qt9EMX.js?v=9ef11379',
+  '/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js.map?v=d5dd8154',
+  '/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js?v=f23f4f85',
+  '/assets/js/login-DKUnYUWV.js.map?v=123b5016',
+  '/assets/js/login-DKUnYUWV.js?v=06a7f93d',
+  '/assets/js/live-i_X2zzPV.js.map?v=387969de',
+  '/assets/js/live-demo-CsR1hzNv.js.map?v=4fa48f19',
+  '/assets/js/index-CruUIKno.js.map?v=6f1c1c3f',
+  '/assets/js/index-CruUIKno.js?v=0a807204',
+  '/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy.js.map?v=64156abb',
+  '/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy.js?v=120f41b9',
+  '/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U.js?v=32558c7a',
+  '/assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL.js?v=0303239c',
+  '/assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW.js.map?v=5272d058',
+  '/assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW.js?v=1e020acd',
+  '/assets/js/fan--bDFohDB.js.map?v=ae57ac4a',
+  '/assets/js/fan--bDFohDB.js?v=93fd41e1',
+  '/assets/js/demo-scout-Dk_fPaly.js.map?v=0029622c',
+  '/assets/js/demo-player-CsR1hzNv.js.map?v=dcd61051',
+  '/assets/js/demo-fan-Dk_fPaly.js.map?v=cca9746a',
+  '/assets/js/demo-enhanced-CsR1hzNv.js.map?v=9a53056e',
+  '/assets/js/demo-coach-final-4C-_bKyH.js.map?v=8da8de4f',
+  '/assets/js/demo-coach-DH-UuzP6.js.map?v=9e679a73',
+  '/assets/js/coach-CQmmuChx.js.map?v=e2600a6f',
+  '/assets/js/coach-CQmmuChx.js?v=e224aff2',
+  '/assets/js/claim-profile-2e4TpLJq.js.map?v=fdfc2086',
+  '/assets/js/claim-profile-2e4TpLJq.js?v=e5281969',
   '/assets/js/cache-clear-l0sNRNKZ.js.map?v=4fd7acd0',
   '/assets/js/backup_overview-l0sNRNKZ.js.map?v=c3ff31a6',
-  '/assets/js/analytics-dashboard-BWOI8U5F.js.map?v=4f744e5b',
-  '/assets/js/analytics-CMDWarcw.js.map?v=728280fe',
-  '/assets/js/analytics-CMDWarcw.js?v=44fa63a1',
-  '/assets/js/ai-coach-C8z6d9un.js.map?v=84c587bd',
-  '/assets/js/admin-DFLivpyi.js.map?v=9963a0e2',
-  '/assets/js/admin-DFLivpyi.js?v=7bc27162',
-  '/assets/js/about-C_tPLY5n.js.map?v=5bde3f8e',
-  '/assets/css/style-atMpp5Bc-atMpp5Bc.css?v=c4a4d731',
-  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css?v=e553b98b'
+  '/assets/js/analytics-dashboard-BL4qz4A-.js.map?v=182e1549',
+  '/assets/js/analytics-BQ0ICsrz.js.map?v=e463482f',
+  '/assets/js/analytics-BQ0ICsrz.js?v=922a6460',
+  '/assets/js/ai-coach-Dk_fPaly.js.map?v=13a75272',
+  '/assets/js/admin-D_c-tV7p.js.map?v=2a833592',
+  '/assets/js/admin-D_c-tV7p.js?v=7e7486ff',
+  '/assets/js/about-DJ1oLCLo.js.map?v=2304c0fe',
+  '/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc.css?v=c4a4d731',
+  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b'
 ];
 
-// Service Worker for 3 Ball Network PWA - NUCLEAR CACHE BUST
-const CACHE_NAME = '3ball-network-v4.0-NUCLEAR-' + Date.now();
-const urlsToCache = [
-  '/',
-  '/assets/css/style.css',
-  '/assets/js/firebaseConfig.js',
-  '/assets/js/firebaseAuth.js',
-  '/logo.png',
-  '/about.html',
-  '/register.html',
-  '/login.html',
-  '/manifest.json',
-];
+// Service Worker for 3 Ball Network PWA - ADVANCED CACHE BUSTING
 
+// Install event - cache versioned files
 self.addEventListener('install', event => {
+  console.log('Service Worker installing, version:', CACHE_VERSION);
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('Opened cache');
-      return cache.addAll(urlsToCache);
-    })
+    caches
+      .open(CACHE_VERSION)
+      .then(cache => {
+        console.log('Opened cache version:', CACHE_VERSION);
+        return cache.addAll(CACHE_FILES);
+      })
+      .then(() => {
+        // Force immediate activation
+        return self.skipWaiting();
+      })
   );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      // Return cached version or fetch from network
-      return response || fetch(event.request);
-    })
-  );
-});
-
+// Activate event - clean up old caches
 self.addEventListener('activate', event => {
+  console.log('Service Worker activating, version:', CACHE_VERSION);
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches
+      .keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheName !== CACHE_VERSION) {
+              console.log('Deleting old cache:', cacheName);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+      .then(() => {
+        // Take control of all clients immediately
+        return self.clients.claim();
+      })
   );
+});
+
+// Fetch event - network-first for HTML, cache-first for assets
+self.addEventListener('fetch', event => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // For HTML pages, always try network first to get latest content
+  if (
+    request.destination === 'document' ||
+    request.headers.get('accept')?.includes('text/html') ||
+    url.pathname.endsWith('.html') ||
+    url.pathname === '/'
+  ) {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          // Clone the response to cache it
+          const responseClone = response.clone();
+          caches.open(CACHE_VERSION).then(cache => {
+            cache.put(request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => {
+          // Fallback to cache if network fails
+          return caches.match(request);
+        })
+    );
+  }
+  // For assets, use cache-first with version checking
+  else {
+    event.respondWith(
+      caches.match(request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        // If not in cache, fetch from network and cache
+        return fetch(request).then(response => {
+          if (response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_VERSION).then(cache => {
+              cache.put(request, responseClone);
+            });
+          }
+          return response;
+        });
+      })
+    );
+  }
+});
+
+// Listen for messages from the client to force refresh
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+  if (event.data && event.data.type === 'CLEAR_CACHE') {
+    event.waitUntil(
+      caches.keys().then(cacheNames => {
+        return Promise.all(cacheNames.map(name => caches.delete(name)));
+      })
+    );
+  }
 });

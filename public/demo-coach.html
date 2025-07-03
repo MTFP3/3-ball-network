@@ -1,916 +1,1590 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coach Portal Demo | 3 Ball Network</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #2a3650 100%);
-      color: #ffffff;
-      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    .demo-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2em;
-    }
-
-    .demo-header {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 2em;
-      margin-bottom: 2em;
-      border: 1px solid rgba(255,255,255,0.2);
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .demo-header h1 {
-      color: #ffffff;
-      font-size: 2.5em;
-      margin: 0.5em 0;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    .demo-header p {
-      color: #e8e8e8 !important;
-      font-size: 1.1em;
-      line-height: 1.6;
-    }
-
-    .demo-nav {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1em;
-      margin-bottom: 2em;
-    }
-
-    .nav-tab {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 1.2em;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      text-align: center;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .nav-tab:hover {
-      background: rgba(0,180,216,0.1);
-      border-color: rgba(0,180,216,0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
-    }
-
-    .nav-tab.active {
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      border-color: #00b4d8;
-      color: white;
-      box-shadow: 0 8px 24px rgba(0,180,216,0.3);
-    }
-
-    .demo-section {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2em;
-      margin-bottom: 2em;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: none;
-    }
-
-    .demo-section.active {
-      display: block;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5em;
-      margin-bottom: 2em;
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 1.5em;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
-    }
-
-    .stat-value {
-      font-size: 2.5em;
-      font-weight: 900;
-      background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.9em;
-      color: #b0b0b0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 0.5em;
-    }
-
-    .player-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 1.5em;
-      margin-bottom: 1em;
-      transition: all 0.3s ease;
-    }
-
-    .player-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
-    }
-
-    .player-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1em;
-    }
-
-    .player-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 1em;
-      margin-top: 1em;
-    }
-
-    .live-game {
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      border-radius: 16px;
-      padding: 2em;
-      margin-bottom: 2em;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .live-badge {
-      background: #ff453a;
-      color: white;
-      padding: 0.5em 1em;
-      border-radius: 20px;
-      font-size: 0.8em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      animation: pulse 2s infinite;
-      margin-bottom: 1em;
-      display: inline-block;
-    }
-
-    .game-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1em;
-      margin-top: 1.5em;
-    }
-
-    .btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 10px;
-      color: white;
-      padding: 0.8em 1.5em;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .btn.primary {
-      background: rgba(255,255,255,0.2);
-      border-color: rgba(255,255,255,0.5);
-    }
-
-    .chart-container {
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 1.5em;
-      margin-bottom: 1.5em;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .demo-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
-      color: white;
-      padding: 0.5em 1em;
-      border-radius: 20px;
-      font-size: 0.8em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-left: 1em;
-      animation: pulse 2s infinite;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2em;
-      color: #00b4d8;
-      text-decoration: none;
-      font-weight: 700;
-      transition: all 0.3s ease;
-    }
-
-    .back-link:hover {
-      color: #90e0ef;
-      transform: translateX(-5px);
-    }
-
-    .grade {
-      padding: 0.3em 0.8em;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.8em;
-    }
-
-    .grade-a { background: rgba(52, 199, 89, 0.2); color: #34c759; }
-    .grade-b { background: rgba(50, 173, 230, 0.2); color: #32ade6; }
-    .grade-c { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
-    .grade-d { background: rgba(255, 69, 58, 0.2); color: #ff453a; }
-
-    .scout-request {
-      background: rgba(255, 149, 0, 0.1);
-      border: 1px solid rgba(255, 149, 0, 0.3);
-      border-radius: 10px;
-      padding: 1em;
-      margin-bottom: 1em;
-    }
-
-    .request-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5em;
-    }
-
-    .approve-btn {
-      background: rgba(52, 199, 89, 0.2);
-      border: 1px solid #34c759;
-      color: #34c759;
-    }
-
-    .deny-btn {
-      background: rgba(255, 69, 58, 0.2);
-      border: 1px solid #ff453a;
-      color: #ff453a;
-    }
-
-    /* Advanced Coach Analytics Styles */
-    .coach-analytics-dashboard {
-      display: grid;
-      gap: 2em;
-    }
-
-    .analytics-section {
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 1.5em;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .analytics-section h3 {
-      color: #ffffff;
-      margin-bottom: 1em;
-      font-size: 1.3em;
-      border-bottom: 2px solid rgba(0,180,216,0.3);
-      padding-bottom: 0.5em;
-    }
-
-    .analytics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1em;
-    }
-
-    .analytics-card {
-      background: rgba(0,180,216,0.1);
-      border-radius: 12px;
-      padding: 1.5em;
-      text-align: center;
-      border: 1px solid rgba(0,180,216,0.2);
-    }
-
-    .analytics-value {
-      font-size: 2.5em;
-      font-weight: 900;
-      color: #00b4d8;
-      margin-bottom: 0.5em;
-    }
-
-    .analytics-label {
-      color: #e8e8e8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.9em;
-    }
-
-    .ai-insight {
-      background: rgba(0,180,216,0.05);
-      border-radius: 12px;
-      padding: 1.5em;
-      border-left: 4px solid #00b4d8;
-    }
-
-    .ai-insight p {
-      margin: 0.5em 0;
-      color: #ffffff;
-      line-height: 1.6;
-    }
-
-    .development-list {
-      display: grid;
-      gap: 0.8em;
-    }
-
-    .development-item {
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 1em;
-      color: #ffffff;
-      border-left: 3px solid #00b4d8;
-    }
-
-    /* Smart Game Input Styles */
-    .smart-input-dashboard {
-      display: grid;
-      gap: 2em;
-    }
-
-    .input-section {
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 1.5em;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .input-section h3 {
-      color: #ffffff;
-      margin-bottom: 1em;
-      font-size: 1.3em;
-      border-bottom: 2px solid rgba(0,180,216,0.3);
-      padding-bottom: 0.5em;
-    }
-
-    .input-methods {
-      display: grid;
-      gap: 1.5em;
-    }
-
-    .input-method {
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 1.5em;
-    }
-
-    .input-method h4 {
-      color: #ffffff;
-      margin-bottom: 1em;
-      font-size: 1.1em;
-    }
-
-    .voice-controls {
-      display: flex;
-      align-items: center;
-      gap: 1em;
-    }
-
-    .voice-btn {
-      background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-      border: none;
-      border-radius: 25px;
-      color: white;
-      padding: 0.8em 1.5em;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.9em;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-    }
-
-    .voice-btn.active {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); }
-      50% { box-shadow: 0 4px 20px rgba(220, 38, 38, 0.6); }
-    }
-
-    .voice-status {
-      color: #d0d0d0;
-      font-size: 0.9em;
-      font-style: italic;
-    }
-
-    .quick-tap-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 0.8em;
-    }
-
-    .quick-tap-btn {
-      background: rgba(0,180,216,0.1);
-      border: 1px solid rgba(0,180,216,0.3);
-      border-radius: 8px;
-      color: #ffffff;
-      padding: 0.8em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9em;
-    }
-
-    .quick-tap-btn:hover {
-      background: rgba(0,180,216,0.2);
-      transform: translateY(-1px);
-    }
-
-    .live-stats {
-      display: grid;
-      gap: 0.8em;
-    }
-
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8em;
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      color: #ffffff;
-    }
-
-    .stat-value {
-      font-weight: 700;
-      color: #00b4d8;
-    }
-
-    .analytics-loading, .smart-input-loading {
-      text-align: center;
-      padding: 3em;
-      color: #d0d0d0;
-      font-style: italic;
-    }
-  </style>
-  <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js"></script>
-  <script type="module" crossorigin src="/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js"></script>
-  <script type="module" crossorigin src="/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js"></script>
-  <script type="module" crossorigin src="/assets/js/platformManager-CMGNxMqx-BgtAjZPx.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc.css">
-  <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css">
-</head>
-<body>
-  <div class="demo-container">
-    <a href="/" class="back-link">← Back to Homepage</a>
-    
-    <div class="demo-header">
-      <img src="/assets/png/logo-C3J1yCbD-C3J1yCbD.png" alt="3 Ball Network" style="height: 60px; margin-bottom: 1em;">
-      <h1>Coach Portal Demo<span class="demo-badge">DEMO MODE</span></h1>
-      <p style="color: #b0b0b0; margin-top: 1em;">
-        Experience the Coach Dashboard - Manage your team, track player development, and conduct live game analysis
-      </p>
-    </div>
-
-    <div class="demo-nav">
-      <div class="nav-tab active" onclick="switchTab('overview')">Team Overview</div>
-      <div class="nav-tab" onclick="switchTab('analytics')">Advanced Analytics</div>
-      <div class="nav-tab" onclick="switchTab('smart-input')">Smart Game Input</div>
-      <div class="nav-tab" onclick="switchTab('players')">Player Management</div>
-      <div class="nav-tab" onclick="switchTab('live')">Live Game Tools</div>
-      <div class="nav-tab" onclick="switchTab('scouts')">Scout Requests</div>
-    </div>
-
-    <!-- Overview Section -->
-    <div id="overview" class="demo-section active">
-      <h2>Lincoln Lions - Team Overview</h2>
-      
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">18</div>
-          <div class="stat-label">Team Wins</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">6</div>
-          <div class="stat-label">Team Losses</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">15</div>
-          <div class="stat-label">Active Players</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">3.2</div>
-          <div class="stat-label">Avg Team Grade</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">78.5</div>
-          <div class="stat-label">Avg PPG</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">12</div>
-          <div class="stat-label">Scout Interests</div>
-        </div>
-      </div>
-
-      <div class="chart-container">
-        <h3>Team Performance Trend</h3>
-        <canvas id="teamPerformanceChart" width="400" height="200"></canvas>
-      </div>
-
-      <div class="chart-container">
-        <h3>Player Development Progress</h3>
-        <canvas id="playerProgressChart" width="400" height="200"></canvas>
-      </div>
-    </div>
-
-    <!-- Advanced Analytics Section -->
-    <div id="analytics" class="demo-section">
-      <h2>Advanced Team Analytics</h2>
-      <div id="coachAnalyticsContainer">
-        <div class="analytics-loading">
-          <p>Loading advanced team analytics...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Smart Game Input Section -->
-    <div id="smart-input" class="demo-section">
-      <h2>Smart Game Input System</h2>
-      <div id="smartInputContainer">
-        <div class="smart-input-loading">
-          <p>Loading smart game input tools...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Players Section -->
-    <div id="players" class="demo-section">
-      <h2>Player Management</h2>
-      
-      <div class="player-card">
-        <div class="player-header">
-          <div>
-            <h3>Alex Johnson</h3>
-            <p style="color: #888;">Point Guard • #23 • Senior</p>
-          </div>
-          <div>
-            <span class="grade grade-a">A-</span>
-          </div>
-        </div>
-        <div class="player-stats">
-          <div style="text-align: center;">
-            <strong>18.5</strong><br>
-            <small style="color: #888;">PPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>7.2</strong><br>
-            <small style="color: #888;">RPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>4.8</strong><br>
-            <small style="color: #888;">APG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>3.8</strong><br>
-            <small style="color: #888;">GPA</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-header">
-          <div>
-            <h3>Marcus Williams</h3>
-            <p style="color: #888;">Center • #15 • Junior</p>
-          </div>
-          <div>
-            <span class="grade grade-b">B+</span>
-          </div>
-        </div>
-        <div class="player-stats">
-          <div style="text-align: center;">
-            <strong>14.2</strong><br>
-            <small style="color: #888;">PPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>11.8</strong><br>
-            <small style="color: #888;">RPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>2.1</strong><br>
-            <small style="color: #888;">APG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>3.5</strong><br>
-            <small style="color: #888;">GPA</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="player-header">
-          <div>
-            <h3>Jordan Smith</h3>
-            <p style="color: #888;">Shooting Guard • #8 • Sophomore</p>
-          </div>
-          <div>
-            <span class="grade grade-b">B</span>
-          </div>
-        </div>
-        <div class="player-stats">
-          <div style="text-align: center;">
-            <strong>12.7</strong><br>
-            <small style="color: #888;">PPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>4.3</strong><br>
-            <small style="color: #888;">RPG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>3.9</strong><br>
-            <small style="color: #888;">APG</small>
-          </div>
-          <div style="text-align: center;">
-            <strong>3.9</strong><br>
-            <small style="color: #888;">GPA</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live Game Tools Section -->
-    <div id="live" class="demo-section">
-      <div class="live-game">
-        <div class="live-badge">LIVE GAME</div>
-        <h2>Lincoln Lions vs. Warriors Elite</h2>
-        <h3 style="margin: 0.5em 0;">Quarter 3 • 6:42 remaining</h3>
-        <div style="font-size: 3em; font-weight: 900; margin: 0.5em 0;">
-          Lions 68 - 72 Warriors
-        </div>
-        
-        <div class="game-controls">
-          <button class="btn primary">Record Play</button>
-          <button class="btn">Timeout</button>
-          <button class="btn">Substitution</button>
-          <button class="btn">Grade Player</button>
-          <button class="btn">Technical Foul</button>
-          <button class="btn">Injury Report</button>
-        </div>
-      </div>
-
-      <div class="chart-container">
-        <h3>Live Game Analytics</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-          <div>
-            <h4>Team Stats (Current Game)</h4>
-            <div style="color: #e0e0e0;">
-              <p><strong>Field Goal %:</strong> 48.5%</p>
-              <p><strong>3-Point %:</strong> 35.7%</p>
-              <p><strong>Free Throw %:</strong> 82.1%</p>
-              <p><strong>Rebounds:</strong> 28</p>
-              <p><strong>Assists:</strong> 15</p>
-              <p><strong>Turnovers:</strong> 8</p>
-            </div>
-          </div>
-          <div>
-            <h4>Player Performance</h4>
-            <div style="color: #e0e0e0;">
-              <p><strong>Alex Johnson:</strong> 22 PTS, 6 AST</p>
-              <p><strong>Marcus Williams:</strong> 16 PTS, 9 REB</p>
-              <p><strong>Jordan Smith:</strong> 12 PTS, 3 REB</p>
-              <p><strong>Team Grade:</strong> <span class="grade grade-b">B+</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scout Requests Section -->
-    <div id="scouts" class="demo-section">
-      <h2>Scout Contact Requests</h2>
-      
-      <div class="scout-request">
-        <div class="request-header">
-          <div>
-            <strong>University of California - Basketball Program</strong><br>
-            <span style="color: #888;">Interested in: Alex Johnson</span>
-          </div>
-          <div>
-            <button class="btn approve-btn" style="margin-right: 0.5em;">Approve</button>
-            <button class="btn deny-btn">Deny</button>
-          </div>
-        </div>
-        <p style="margin: 0; color: #e0e0e0;">
-          Request to view Alex Johnson's full profile and game footage. Scout: Michael Rodriguez
-        </p>
-      </div>
-
-      <div class="scout-request">
-        <div class="request-header">
-          <div>
-            <strong>Duke University - Recruiting Department</strong><br>
-            <span style="color: #888;">Interested in: Marcus Williams</span>
-          </div>
-          <div>
-            <button class="btn approve-btn" style="margin-right: 0.5em;">Approve</button>
-            <button class="btn deny-btn">Deny</button>
-          </div>
-        </div>
-        <p style="margin: 0; color: #e0e0e0;">
-          Request for Marcus Williams' academic records and highlight reel. Scout: Sarah Chen
-        </p>
-      </div>
-
-      <div class="scout-request">
-        <div class="request-header">
-          <div>
-            <strong>Arizona State - Basketball Scouts</strong><br>
-            <span style="color: #888;">Interested in: Alex Johnson</span>
-          </div>
-          <div>
-            <button class="btn approve-btn" style="margin-right: 0.5em;">Approve</button>
-            <button class="btn deny-btn">Deny</button>
-          </div>
-        </div>
-        <p style="margin: 0; color: #e0e0e0;">
-          Follow-up request after initial contact. Want to schedule in-person evaluation.
-        </p>
-      </div>
-
-      <div class="chart-container">
-        <h3>Scout Interest Analytics</h3>
-        <canvas id="scoutInterestChart" width="400" height="200"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Tab switching functionality
-    function switchTab(tabName) {
-      // Update nav tabs
-      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      // Update sections
-      document.querySelectorAll('.demo-section').forEach(section => section.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
-      
-      // Initialize charts if needed
-      if (tabName === 'overview') {
-        setTimeout(initOverviewCharts, 100);
-      } else if (tabName === 'scouts') {
-        setTimeout(initScoutChart, 100);
-      }
-    }
-
-    // Initialize overview charts
-    function initOverviewCharts() {
-      // Team performance chart
-      const teamCtx = document.getElementById('teamPerformanceChart');
-      if (teamCtx) {
-        new Chart(teamCtx, {
-          type: 'line',
-          data: {
-            labels: ['Game 1', 'Game 2', 'Game 3', 'Game 4', 'Game 5', 'Game 6', 'Game 7', 'Game 8'],
-            datasets: [{
-              label: 'Team Grade',
-              data: [2.8, 3.2, 3.8, 3.1, 3.5, 3.9, 3.3, 3.6],
-              borderColor: '#00b4d8',
-              backgroundColor: 'rgba(0, 180, 216, 0.1)',
-              tension: 0.4,
-              fill: true
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                labels: { color: '#e0e0e0' }
-              }
-            },
-            scales: {
-              x: { ticks: { color: '#b0b0b0' } },
-              y: { 
-                ticks: { color: '#b0b0b0' },
-                min: 0,
-                max: 4
-              }
-            }
-          }
-        });
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coach Portal Demo | 3 Ball Network</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #f8fafc 0%,
+          #e2e8f0 50%,
+          #cbd5e1 100%
+        );
+        color: #1e293b;
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
       }
 
-      // Player progress chart
-      const progressCtx = document.getElementById('playerProgressChart');
-      if (progressCtx) {
-        new Chart(progressCtx, {
-          type: 'bar',
-          data: {
-            labels: ['Alex Johnson', 'Marcus Williams', 'Jordan Smith', 'David Brown', 'Chris Lee'],
-            datasets: [{
-              label: 'Season Average Grade',
-              data: [3.8, 3.2, 3.0, 2.8, 3.1],
-              backgroundColor: [
-                'rgba(0, 180, 216, 0.8)',
-                'rgba(144, 224, 239, 0.8)',
-                'rgba(202, 240, 248, 0.8)',
-                'rgba(0, 124, 186, 0.8)',
-                'rgba(0, 180, 216, 0.6)'
+      .demo-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2em;
+      }
+
+      .demo-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 180, 216, 0.15);
+      }
+
+      .demo-header h1 {
+        color: #1e293b;
+        font-size: 2.5em;
+        margin: 0.5em 0;
+        text-shadow: none;
+      }
+
+      .demo-header p {
+        color: #64748b !important;
+        font-size: 1.1em;
+        line-height: 1.6;
+      }
+
+      .demo-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1em;
+        margin-bottom: 2em;
+      }
+
+      .nav-tab {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 16px;
+        padding: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #1e293b;
+      }
+
+      .nav-tab:hover {
+        background: rgba(0, 180, 216, 0.1);
+        border-color: rgba(0, 180, 216, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
+      }
+
+      .nav-tab.active {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-color: #00b4d8;
+        color: white;
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.3);
+      }
+
+      .demo-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        display: none;
+        color: #1e293b;
+      }
+
+      .demo-section.active {
+        display: block;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5em;
+        margin-bottom: 2em;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 16px;
+        padding: 1.5em;
+        text-align: center;
+        transition: all 0.3s ease;
+        color: #1e293b;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
+      }
+
+      .stat-value {
+        font-size: 2.5em;
+        font-weight: 900;
+        background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-label {
+        font-size: 0.9em;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.5em;
+      }
+
+      .player-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 16px;
+        padding: 1.5em;
+        margin-bottom: 1em;
+        transition: all 0.3s ease;
+        color: #1e293b;
+      }
+
+      .player-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
+      }
+
+      .player-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1em;
+      }
+
+      .player-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1em;
+        margin-top: 1em;
+      }
+
+      .live-game {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-radius: 16px;
+        padding: 2em;
+        margin-bottom: 2em;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .live-badge {
+        background: #ff453a;
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        animation: pulse 2s infinite;
+        margin-bottom: 1em;
+        display: inline-block;
+      }
+
+      .game-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1em;
+        margin-top: 1.5em;
+      }
+
+      .btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        color: white;
+        padding: 0.8em 1.5em;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .btn.primary {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .chart-container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 1.5em;
+        margin-bottom: 1.5em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
+      }
+
+      .demo-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 1em;
+        animation: pulse 2s infinite;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2em;
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+      }
+
+      .back-link:hover {
+        color: #00b4d8;
+        transform: translateX(-5px);
+      }
+
+      .grade {
+        padding: 0.3em 0.8em;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.8em;
+      }
+
+      .grade-a {
+        background: rgba(52, 199, 89, 0.2);
+        color: #34c759;
+      }
+      .grade-b {
+        background: rgba(50, 173, 230, 0.2);
+        color: #32ade6;
+      }
+      .grade-c {
+        background: rgba(255, 149, 0, 0.2);
+        color: #ff9500;
+      }
+      .grade-d {
+        background: rgba(255, 69, 58, 0.2);
+        color: #ff453a;
+      }
+
+      .scout-request {
+        background: rgba(255, 149, 0, 0.1);
+        border: 1px solid rgba(255, 149, 0, 0.3);
+        border-radius: 10px;
+        padding: 1em;
+        margin-bottom: 1em;
+      }
+
+      .request-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5em;
+      }
+
+      .approve-btn {
+        background: rgba(52, 199, 89, 0.2);
+        border: 1px solid #34c759;
+        color: #34c759;
+      }
+
+      .deny-btn {
+        background: rgba(255, 69, 58, 0.2);
+        border: 1px solid #ff453a;
+        color: #ff453a;
+      }
+
+      /* Advanced Coach Analytics Styles */
+      .coach-analytics-dashboard {
+        display: grid;
+        gap: 2em;
+      }
+
+      .analytics-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
+      }
+
+      .analytics-section h3 {
+        color: #1e293b;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+        padding-bottom: 0.5em;
+      }
+
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1em;
+      }
+
+      .analytics-card {
+        background: rgba(0, 180, 216, 0.1);
+        border-radius: 12px;
+        padding: 1.5em;
+        text-align: center;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .analytics-value {
+        font-size: 2.5em;
+        font-weight: 900;
+        color: #00b4d8;
+        margin-bottom: 0.5em;
+      }
+
+      .analytics-label {
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.9em;
+      }
+
+      .ai-insight {
+        background: rgba(0, 180, 216, 0.1);
+        border-radius: 12px;
+        padding: 1.5em;
+        border-left: 4px solid #00b4d8;
+      }
+
+      .ai-insight p {
+        margin: 0.5em 0;
+        color: #1e293b;
+        line-height: 1.6;
+      }
+
+      .development-list {
+        display: grid;
+        gap: 0.8em;
+      }
+
+      .development-item {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        padding: 1em;
+        color: #1e293b;
+        border-left: 3px solid #00b4d8;
+      }
+
+      /* Smart Game Input Styles */
+      .smart-input-dashboard {
+        display: grid;
+        gap: 2em;
+      }
+
+      .input-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
+      }
+
+      .input-section h3 {
+        color: #1e293b;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+        padding-bottom: 0.5em;
+      }
+
+      .input-methods {
+        display: grid;
+        gap: 1.5em;
+      }
+
+      .input-method {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 1.5em;
+        border: 1px solid rgba(0, 180, 216, 0.1);
+      }
+
+      .input-method h4 {
+        color: #1e293b;
+        margin-bottom: 1em;
+        font-size: 1.1em;
+      }
+
+      .voice-controls {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+
+      .voice-btn {
+        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        padding: 0.8em 1.5em;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 0.9em;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+      }
+
+      .voice-btn.active {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+        50% {
+          box-shadow: 0 4px 20px rgba(220, 38, 38, 0.6);
+        }
+      }
+
+      .voice-status {
+        color: #64748b;
+        font-size: 0.9em;
+        font-style: italic;
+      }
+
+      .quick-tap-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.8em;
+      }
+
+      .quick-tap-btn {
+        background: rgba(0, 180, 216, 0.1);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 8px;
+        color: #1e293b;
+        padding: 0.8em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+      }
+
+      .quick-tap-btn:hover {
+        background: rgba(0, 180, 216, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .live-stats {
+        display: grid;
+        gap: 0.8em;
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8em;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        color: #1e293b;
+      }
+
+      .stat-value {
+        font-weight: 700;
+        color: #00b4d8;
+      }
+
+      .analytics-loading,
+      .smart-input-loading {
+        text-align: center;
+        padding: 3em;
+        color: #64748b;
+        font-style: italic;
+      }
+
+      /* Call to Action Section */
+      .cta-section {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3em 2em;
+        border-radius: 22px;
+        margin: 2em auto;
+        max-width: 1200px;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        color: #000;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 2.2em;
+        font-weight: 900;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+      }
+
+      .cta-section p {
+        color: #555;
+        font-size: 1.3em;
+        margin-bottom: 2em;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5em;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.2em 2.5em;
+        border-radius: 16px;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 1.18em;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button.info {
+        background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+      }
+
+      .cta-button.info:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.3);
+      }
+
+      .cta-button.start {
+        background: rgba(0, 180, 216, 0.1);
+        color: #007cba;
+        border: 2px solid #007cba;
+      }
+
+      .cta-button.start:hover {
+        background: #007cba;
+        color: #fff;
+      }
+
+      /* Roster Management Styles */
+      .pending-requests {
+        background: rgba(255, 149, 0, 0.1);
+        border: 1px solid rgba(255, 149, 0, 0.3);
+        border-radius: 16px;
+        padding: 1.5em;
+        margin-bottom: 2em;
+      }
+
+      .request-item {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        padding: 1em;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        margin-bottom: 1em;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .player-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        color: white;
+        font-size: 1.1em;
+      }
+
+      .player-info {
+        flex: 1;
+      }
+
+      .player-info h4 {
+        color: #1e293b;
+        margin: 0 0 0.2em 0;
+        font-size: 1.1em;
+      }
+
+      .player-info p {
+        color: #64748b;
+        margin: 0;
+        font-size: 0.9em;
+      }
+
+      .grade-display {
+        background: rgba(0, 180, 216, 0.1);
+        color: #007cba;
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        font-weight: 900;
+        font-size: 1.1em;
+      }
+
+      .roster-grid {
+        display: grid;
+        gap: 1em;
+      }
+
+      .roster-upload {
+        background: rgba(0, 180, 216, 0.1);
+        border: 2px dashed rgba(0, 180, 216, 0.3);
+        border-radius: 12px;
+        padding: 2em;
+        text-align: center;
+        margin-bottom: 2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .roster-upload:hover {
+        background: rgba(0, 180, 216, 0.15);
+        border-color: rgba(0, 180, 216, 0.5);
+      }
+
+      .upload-icon {
+        font-size: 3em;
+        color: #00b4d8;
+        margin-bottom: 0.5em;
+      }
+    </style>
+    <script
+      type="module"
+      crossorigin
+      src="/assets/js/modulepreload-polyfill-B5Qt9EMX.js"
+    ></script>
+    <script
+      type="module"
+      crossorigin
+      src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js"
+    ></script>
+    <script
+      type="module"
+      crossorigin
+      src="/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js"
+    ></script>
+    <script
+      type="module"
+      crossorigin
+      src="/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W.js"
+    ></script>
+    <script
+      type="module"
+      crossorigin
+      src="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc.css"
+    />
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j.css"
+    />
+  </head>
+  <body>
+    <div class="demo-container">
+      <a href="/" class="back-link">← Back to Homepage</a>
+
+      <div class="demo-header">
+        <img
+          src="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+          alt="3 Ball Network"
+          style="height: 60px; margin-bottom: 1em"
+        />
+        <h1>Coach Portal Demo<span class="demo-badge">DEMO MODE</span></h1>
+        <p style="color: #b0b0b0; margin-top: 1em">
+          Experience the Coach Dashboard - Manage your team, track player
+          development, and conduct live game analysis
+        </p>
+      </div>
+
+      <div class="demo-nav">
+        <div class="nav-tab active" onclick="switchTab('overview')">
+          Team Overview
+        </div>
+        <div class="nav-tab" onclick="switchTab('analytics')">
+          Advanced Analytics
+        </div>
+        <div class="nav-tab" onclick="switchTab('smart-input')">
+          Smart Game Input
+        </div>
+        <div class="nav-tab" onclick="switchTab('players')">
+          Player Management
+        </div>
+        <div class="nav-tab" onclick="switchTab('roster')">
+          Roster Management
+        </div>
+        <div class="nav-tab" onclick="switchTab('live')">Live Game Tools</div>
+        <div class="nav-tab" onclick="switchTab('scouts')">Scout Requests</div>
+      </div>
+
+      <!-- Overview Section -->
+      <div id="overview" class="demo-section active">
+        <h2>Lincoln Lions - Team Overview</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">18</div>
+            <div class="stat-label">Team Wins</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Team Losses</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">15</div>
+            <div class="stat-label">Active Players</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">3.2</div>
+            <div class="stat-label">Avg Team Grade</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">78.5</div>
+            <div class="stat-label">Avg PPG</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Scout Interests</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>Team Performance Trend</h3>
+          <canvas id="teamPerformanceChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Player Development Progress</h3>
+          <canvas id="playerProgressChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Advanced Analytics Section -->
+      <div id="analytics" class="demo-section">
+        <h2>Advanced Team Analytics</h2>
+        <div id="coachAnalyticsContainer">
+          <div class="analytics-loading">
+            <p>Loading advanced team analytics...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Game Input Section -->
+      <div id="smart-input" class="demo-section">
+        <h2>Smart Game Input System</h2>
+        <div id="smartInputContainer">
+          <div class="smart-input-loading">
+            <p>Loading smart game input tools...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Players Section -->
+      <div id="players" class="demo-section">
+        <h2>Player Management</h2>
+
+        <div class="player-card">
+          <div class="player-header">
+            <div>
+              <h3>Alex Johnson</h3>
+              <p style="color: #888">Point Guard • #23 • Senior</p>
+            </div>
+            <div>
+              <span class="grade grade-a">A-</span>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div style="text-align: center">
+              <strong>18.5</strong><br />
+              <small style="color: #888">PPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>7.2</strong><br />
+              <small style="color: #888">RPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>4.8</strong><br />
+              <small style="color: #888">APG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>3.8</strong><br />
+              <small style="color: #888">GPA</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card">
+          <div class="player-header">
+            <div>
+              <h3>Marcus Williams</h3>
+              <p style="color: #888">Center • #15 • Junior</p>
+            </div>
+            <div>
+              <span class="grade grade-b">B+</span>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div style="text-align: center">
+              <strong>14.2</strong><br />
+              <small style="color: #888">PPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>11.8</strong><br />
+              <small style="color: #888">RPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>2.1</strong><br />
+              <small style="color: #888">APG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>3.5</strong><br />
+              <small style="color: #888">GPA</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card">
+          <div class="player-header">
+            <div>
+              <h3>Jordan Smith</h3>
+              <p style="color: #888">Shooting Guard • #8 • Sophomore</p>
+            </div>
+            <div>
+              <span class="grade grade-b">B</span>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div style="text-align: center">
+              <strong>12.7</strong><br />
+              <small style="color: #888">PPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>4.3</strong><br />
+              <small style="color: #888">RPG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>3.9</strong><br />
+              <small style="color: #888">APG</small>
+            </div>
+            <div style="text-align: center">
+              <strong>3.9</strong><br />
+              <small style="color: #888">GPA</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Game Tools Section -->
+      <div id="live" class="demo-section">
+        <div class="live-game">
+          <div class="live-badge">LIVE GAME</div>
+          <h2>Lincoln Lions vs. Warriors Elite</h2>
+          <h3 style="margin: 0.5em 0">Quarter 3 • 6:42 remaining</h3>
+          <div style="font-size: 3em; font-weight: 900; margin: 0.5em 0">
+            Lions 68 - 72 Warriors
+          </div>
+
+          <div class="game-controls">
+            <button class="btn primary">Record Play</button>
+            <button class="btn">Timeout</button>
+            <button class="btn">Substitution</button>
+            <button class="btn">Grade Player</button>
+            <button class="btn">Technical Foul</button>
+            <button class="btn">Injury Report</button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>Live Game Analytics</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em">
+            <div>
+              <h4>Team Stats (Current Game)</h4>
+              <div style="color: #64748b">
+                <p><strong>Field Goal %:</strong> 48.5%</p>
+                <p><strong>3-Point %:</strong> 35.7%</p>
+                <p><strong>Free Throw %:</strong> 82.1%</p>
+                <p><strong>Rebounds:</strong> 28</p>
+                <p><strong>Assists:</strong> 15</p>
+                <p><strong>Turnovers:</strong> 8</p>
+              </div>
+            </div>
+            <div>
+              <h4>Player Performance</h4>
+              <div style="color: #64748b">
+                <p><strong>Alex Johnson:</strong> 22 PTS, 6 AST</p>
+                <p><strong>Marcus Williams:</strong> 16 PTS, 9 REB</p>
+                <p><strong>Jordan Smith:</strong> 12 PTS, 3 REB</p>
+                <p>
+                  <strong>Team Grade:</strong>
+                  <span class="grade grade-b">B+</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="live-game-tools"
+          style="
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 2em;
+            margin: 2em 0;
+          "
+        >
+          <h3 style="color: #1e293b; margin-bottom: 1em">
+            🛠️ Available Game Tools
+          </h3>
+          <p style="color: #64748b; margin-bottom: 2em">
+            Comprehensive suite of tools for live game management and real-time
+            analysis.
+          </p>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1em;
+            "
+          >
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">📊</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">
+                Smart Game Input
+              </h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Voice commands and quick-tap interface for real-time stat
+                tracking
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                Launch Tool
+              </button>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">🎥</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">
+                Live Stream Control
+              </h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Control game streaming, highlights, and replay capture
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                Start Stream
+              </button>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">📋</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">
+                Substitution Manager
+              </h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Track playing time, manage rotations, and plan substitutions
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                Open Manager
+              </button>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">🎯</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">Shot Chart</h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Real-time shot tracking and heat map generation
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                View Chart
+              </button>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">⏱️</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">
+                Timeout Manager
+              </h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Track timeouts, fouls, and game situation management
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                Manage Game
+              </button>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.8);
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.5em;
+                text-align: center;
+              "
+            >
+              <div style="font-size: 2.5em; margin-bottom: 0.5em">👥</div>
+              <h4 style="color: #1e293b; margin-bottom: 0.5em">
+                Scout Requests
+              </h4>
+              <p style="color: #64748b; margin-bottom: 1em; font-size: 0.9em">
+                Manage scout access requests and viewing permissions
+              </p>
+              <button class="btn" style="background: #007cba; color: white">
+                View Requests
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 16px;
+            padding: 1.5em;
+            margin-top: 2em;
+          "
+        >
+          <h3 style="color: #007cba; margin-bottom: 1em">
+            🚀 Scout Request Management
+          </h3>
+          <p style="color: #64748b; margin-bottom: 1em">
+            Control which scouts can view your games and player data:
+          </p>
+          <ul style="color: #64748b; margin: 0; padding-left: 1.5em">
+            <li>Approve/deny scout viewing requests</li>
+            <li>Set automatic approval criteria</li>
+            <li>View scout credentials and affiliations</li>
+            <li>Track which scouts are watching your players</li>
+            <li>Generate scout interest reports</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Scout Requests Section -->
+      <div id="scouts" class="demo-section">
+        <h2>Scout Contact Requests</h2>
+
+        <div class="scout-request">
+          <div class="request-header">
+            <div>
+              <strong>University of California - Basketball Program</strong
+              ><br />
+              <span style="color: #888">Interested in: Alex Johnson</span>
+            </div>
+            <div>
+              <button class="btn approve-btn" style="margin-right: 0.5em">
+                Approve
+              </button>
+              <button class="btn deny-btn">Deny</button>
+            </div>
+          </div>
+          <p style="margin: 0; color: #64748b">
+            Request to view Alex Johnson's full profile and game footage. Scout:
+            Michael Rodriguez
+          </p>
+        </div>
+
+        <div class="scout-request">
+          <div class="request-header">
+            <div>
+              <strong>Duke University - Recruiting Department</strong><br />
+              <span style="color: #888">Interested in: Marcus Williams</span>
+            </div>
+            <div>
+              <button class="btn approve-btn" style="margin-right: 0.5em">
+                Approve
+              </button>
+              <button class="btn deny-btn">Deny</button>
+            </div>
+          </div>
+          <p style="margin: 0; color: #64748b">
+            Request for Marcus Williams' academic records and highlight reel.
+            Scout: Sarah Chen
+          </p>
+        </div>
+
+        <div class="scout-request">
+          <div class="request-header">
+            <div>
+              <strong>Arizona State - Basketball Scouts</strong><br />
+              <span style="color: #888">Interested in: Alex Johnson</span>
+            </div>
+            <div>
+              <button class="btn approve-btn" style="margin-right: 0.5em">
+                Approve
+              </button>
+              <button class="btn deny-btn">Deny</button>
+            </div>
+          </div>
+          <p style="margin: 0; color: #64748b">
+            Follow-up request after initial contact. Want to schedule in-person
+            evaluation.
+          </p>
+        </div>
+
+        <div class="chart-container">
+          <h3>Scout Interest Analytics</h3>
+          <canvas id="scoutInterestChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Roster Management Section -->
+      <div id="roster" class="demo-section">
+        <h2>Roster Management</h2>
+
+        <div class="pending-requests">
+          <h3 style="color: #f59e0b; margin-bottom: 1em">📋 Player Requests</h3>
+          <div class="request-item">
+            <div class="player-avatar">MJ</div>
+            <div class="player-info">
+              <h4>Marcus Johnson</h4>
+              <p>Point Guard | Lincoln High | 6'2" | 3.7 GPA</p>
+            </div>
+            <button
+              class="btn"
+              style="
+                background: rgba(52, 199, 89, 0.2);
+                color: #34c759;
+                border: 1px solid #34c759;
+                margin-right: 0.5em;
+              "
+            >
+              Accept
+            </button>
+            <button
+              class="btn"
+              style="
+                background: rgba(255, 69, 58, 0.2);
+                color: #ff453a;
+                border: 1px solid #ff453a;
+              "
+            >
+              Decline
+            </button>
+          </div>
+          <div class="request-item">
+            <div class="player-avatar">DW</div>
+            <div class="player-info">
+              <h4>David Williams</h4>
+              <p>Shooting Guard | Roosevelt Prep | 6'4" | 3.5 GPA</p>
+            </div>
+            <button
+              class="btn"
+              style="
+                background: rgba(52, 199, 89, 0.2);
+                color: #34c759;
+                border: 1px solid #34c759;
+                margin-right: 0.5em;
+              "
+            >
+              Accept
+            </button>
+            <button
+              class="btn"
+              style="
+                background: rgba(255, 69, 58, 0.2);
+                color: #ff453a;
+                border: 1px solid #ff453a;
+              "
+            >
+              Decline
+            </button>
+          </div>
+          <div class="request-item">
+            <div class="player-avatar">KT</div>
+            <div class="player-info">
+              <h4>Kevin Thompson</h4>
+              <p>Power Forward | Central High | 6'8" | 3.2 GPA</p>
+            </div>
+            <button
+              class="btn"
+              style="
+                background: rgba(52, 199, 89, 0.2);
+                color: #34c759;
+                border: 1px solid #34c759;
+                margin-right: 0.5em;
+              "
+            >
+              Accept
+            </button>
+            <button
+              class="btn"
+              style="
+                background: rgba(255, 69, 58, 0.2);
+                color: #ff453a;
+                border: 1px solid #ff453a;
+              "
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+
+        <div class="roster-upload">
+          <div class="upload-icon">📁</div>
+          <h3 style="color: #007cba; margin: 0.5em 0">Upload Team Roster</h3>
+          <p style="color: #64748b; margin-bottom: 1em">
+            Drag and drop your team roster file or click to browse
+          </p>
+          <input
+            type="file"
+            id="rosterUpload"
+            style="display: none"
+            accept=".csv,.xlsx,.xls"
+          />
+          <button
+            class="btn"
+            onclick="document.getElementById('rosterUpload').click()"
+            style="background: #007cba; color: white"
+          >
+            Choose File
+          </button>
+        </div>
+
+        <h3>🏀 Current Roster (15 Players)</h3>
+        <div class="roster-grid">
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-avatar">AJ</div>
+              <div class="player-info">
+                <h4>Alex Johnson</h4>
+                <p>Point Guard | #23 | Senior</p>
+              </div>
+              <div class="grade-display">A-</div>
+            </div>
+            <p style="color: #64748b; margin: 0.5em 0 0 0">
+              Season: 18.5 PPG, 7.2 RPG, 4.8 APG | Last Game: 22 pts, 6 ast
+            </p>
+          </div>
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-avatar">MW</div>
+              <div class="player-info">
+                <h4>Marcus Williams</h4>
+                <p>Center | #15 | Junior</p>
+              </div>
+              <div class="grade-display">B+</div>
+            </div>
+            <p style="color: #64748b; margin: 0.5em 0 0 0">
+              Season: 14.2 PPG, 11.8 RPG, 2.1 APG | Last Game: 16 pts, 9 reb
+            </p>
+          </div>
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-avatar">JS</div>
+              <div class="player-info">
+                <h4>Jordan Smith</h4>
+                <p>Shooting Guard | #8 | Sophomore</p>
+              </div>
+              <div class="grade-display">B</div>
+            </div>
+            <p style="color: #64748b; margin: 0.5em 0 0 0">
+              Season: 12.7 PPG, 4.3 RPG, 3.9 APG | Last Game: 12 pts, 3 reb
+            </p>
+          </div>
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-avatar">TH</div>
+              <div class="player-info">
+                <h4>Tyler Harris</h4>
+                <p>Small Forward | #12 | Senior</p>
+              </div>
+              <div class="grade-display">B+</div>
+            </div>
+            <p style="color: #64748b; margin: 0.5em 0 0 0">
+              Season: 11.3 PPG, 6.1 RPG, 2.8 APG | Last Game: 15 pts, 7 reb
+            </p>
+          </div>
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-avatar">JM</div>
+              <div class="player-info">
+                <h4>James Mitchell</h4>
+                <p>Power Forward | #21 | Junior</p>
+              </div>
+              <div class="grade-display">B</div>
+            </div>
+            <p style="color: #64748b; margin: 0.5em 0 0 0">
+              Season: 9.8 PPG, 8.4 RPG, 1.2 APG | Last Game: 8 pts, 11 reb
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2em">
+          <button
+            class="btn"
+            style="background: #007cba; color: white; margin: 0.5em"
+          >
+            📊 Generate Team Report
+          </button>
+          <button
+            class="btn"
+            style="
+              background: rgba(0, 180, 216, 0.1);
+              color: #007cba;
+              border: 1px solid #007cba;
+              margin: 0.5em;
+            "
+          >
+            📤 Export Roster
+          </button>
+          <button
+            class="btn"
+            style="
+              background: rgba(0, 180, 216, 0.1);
+              color: #007cba;
+              border: 1px solid #007cba;
+              margin: 0.5em;
+            "
+          >
+            ✉️ Send to Scouts
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Tab switching functionality
+      function switchTab(tabName) {
+        // Update nav tabs
+        document
+          .querySelectorAll('.nav-tab')
+          .forEach(tab => tab.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Update sections
+        document
+          .querySelectorAll('.demo-section')
+          .forEach(section => section.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+
+        // Initialize charts if needed
+        if (tabName === 'overview') {
+          setTimeout(initOverviewCharts, 100);
+        } else if (tabName === 'scouts') {
+          setTimeout(initScoutChart, 100);
+        }
+      }
+
+      // Initialize overview charts
+      function initOverviewCharts() {
+        // Team performance chart
+        const teamCtx = document.getElementById('teamPerformanceChart');
+        if (teamCtx) {
+          new Chart(teamCtx, {
+            type: 'line',
+            data: {
+              labels: [
+                'Game 1',
+                'Game 2',
+                'Game 3',
+                'Game 4',
+                'Game 5',
+                'Game 6',
+                'Game 7',
+                'Game 8',
               ],
-              borderColor: '#00b4d8',
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                labels: { color: '#e0e0e0' }
-              }
+              datasets: [
+                {
+                  label: 'Team Grade',
+                  data: [2.8, 3.2, 3.8, 3.1, 3.5, 3.9, 3.3, 3.6],
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.1)',
+                  tension: 0.4,
+                  fill: true,
+                },
+              ],
             },
-            scales: {
-              x: { ticks: { color: '#b0b0b0' } },
-              y: { 
-                ticks: { color: '#b0b0b0' },
-                min: 0,
-                max: 4
-              }
-            }
-          }
-        });
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: '#1e293b' },
+                },
+              },
+              scales: {
+                x: {
+                  ticks: { color: '#64748b' },
+                  grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                },
+                y: {
+                  ticks: { color: '#64748b' },
+                  grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                  min: 0,
+                  max: 4,
+                },
+              },
+            },
+          });
+        }
+
+        // Player progress chart
+        const progressCtx = document.getElementById('playerProgressChart');
+        if (progressCtx) {
+          new Chart(progressCtx, {
+            type: 'bar',
+            data: {
+              labels: [
+                'Alex Johnson',
+                'Marcus Williams',
+                'Jordan Smith',
+                'David Brown',
+                'Chris Lee',
+              ],
+              datasets: [
+                {
+                  label: 'Season Average Grade',
+                  data: [3.8, 3.2, 3.0, 2.8, 3.1],
+                  backgroundColor: [
+                    'rgba(0, 180, 216, 0.8)',
+                    'rgba(144, 224, 239, 0.8)',
+                    'rgba(202, 240, 248, 0.8)',
+                    'rgba(0, 124, 186, 0.8)',
+                    'rgba(0, 180, 216, 0.6)',
+                  ],
+                  borderColor: '#00b4d8',
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: '#1e293b' },
+                },
+              },
+              scales: {
+                x: {
+                  ticks: { color: '#64748b' },
+                  grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                },
+                y: {
+                  ticks: { color: '#64748b' },
+                  grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                  min: 0,
+                  max: 4,
+                },
+              },
+            },
+          });
+        }
       }
-    }
 
-    // Initialize scout interest chart
-    function initScoutChart() {
-      const scoutCtx = document.getElementById('scoutInterestChart');
-      if (scoutCtx) {
-        new Chart(scoutCtx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Alex Johnson', 'Marcus Williams', 'Jordan Smith', 'Other Players'],
-            datasets: [{
-              data: [45, 25, 15, 15],
-              backgroundColor: ['#00b4d8', '#90e0ef', '#caf0f8', '#007cba']
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                labels: { color: '#e0e0e0' }
-              }
-            }
-          }
-        });
+      // Initialize scout interest chart
+      function initScoutChart() {
+        const scoutCtx = document.getElementById('scoutInterestChart');
+        if (scoutCtx) {
+          new Chart(scoutCtx, {
+            type: 'doughnut',
+            data: {
+              labels: [
+                'Alex Johnson',
+                'Marcus Williams',
+                'Jordan Smith',
+                'Other Players',
+              ],
+              datasets: [
+                {
+                  data: [45, 25, 15, 15],
+                  backgroundColor: ['#00b4d8', '#90e0ef', '#caf0f8', '#007cba'],
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: '#1e293b' },
+                },
+              },
+            },
+          });
+        }
       }
-    }
 
-    // Initialize charts on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(initOverviewCharts, 500);
-      initAdvancedCoachFeatures();
-    });
+      // Initialize charts on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(initOverviewCharts, 500);
+        initAdvancedCoachFeatures();
+      });
 
-    // Initialize advanced coaching features
-    async function initAdvancedCoachFeatures() {
-      try {
-        // Initialize Coach Analytics
-        const analyticsContainer = document.getElementById('coachAnalyticsContainer');
-        if (analyticsContainer) {
-          analyticsContainer.innerHTML = `
+      // Initialize advanced coaching features
+      async function initAdvancedCoachFeatures() {
+        try {
+          // Initialize Coach Analytics
+          const analyticsContainer = document.getElementById(
+            'coachAnalyticsContainer'
+          );
+          if (analyticsContainer) {
+            analyticsContainer.innerHTML = `
             <div class="coach-analytics-dashboard">
               <div class="analytics-section">
                 <h3>Team Performance Metrics</h3>
@@ -954,12 +1628,14 @@
               </div>
             </div>
           `;
-        }
+          }
 
-        // Initialize Smart Game Input
-        const smartInputContainer = document.getElementById('smartInputContainer');
-        if (smartInputContainer) {
-          smartInputContainer.innerHTML = `
+          // Initialize Smart Game Input
+          const smartInputContainer = document.getElementById(
+            'smartInputContainer'
+          );
+          if (smartInputContainer) {
+            smartInputContainer.innerHTML = `
             <div class="smart-input-dashboard">
               <div class="input-section">
                 <h3>Live Game Input Tools</h3>
@@ -1007,11 +1683,95 @@
               </div>
             </div>
           `;
+          }
+        } catch (error) {
+          console.error('Error initializing advanced coach features:', error);
         }
-      } catch (error) {
-        console.error('Error initializing advanced coach features:', error);
       }
-    }
-  </script>
-</body>
+    </script>
+
+    <!-- Call to Action Section -->
+    <section
+      style="
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3em 2em;
+        border-radius: 22px;
+        margin: 2em auto;
+        max-width: 1200px;
+        text-align: center;
+      "
+    >
+      <h2
+        style="
+          color: #000;
+          font-family: 'Montserrat', Arial, sans-serif;
+          font-size: 2.2em;
+          font-weight: 900;
+          margin-bottom: 1em;
+          text-transform: uppercase;
+        "
+      >
+        Ready to Experience the Future?
+      </h2>
+      <p
+        style="
+          color: #555;
+          font-size: 1.3em;
+          margin-bottom: 2em;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        Join thousands of players, coaches, scouts, and fans already using 3
+        Ball Network to revolutionize their basketball experience.
+      </p>
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5em;
+        "
+      >
+        <a
+          href="/overview.html"
+          style="
+            background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
+            color: #fff;
+            padding: 1.2em 2.5em;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.18em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,180,216,0.3)'"
+          onmouseout="this.style.transform=''; this.style.boxShadow=''"
+        >
+          📋 Platform Info
+        </a>
+        <a
+          href="/register.html"
+          style="
+            background: rgba(0, 180, 216, 0.1);
+            color: #007cba;
+            padding: 1.2em 2.5em;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.18em;
+            text-transform: uppercase;
+            border: 2px solid #007cba;
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.background='#007cba'; this.style.color='#fff'"
+          onmouseout="this.style.background='rgba(0,180,216,0.1)'; this.style.color='#007cba'"
+        >
+          🚀 Get Started
+        </a>
+      </div>
+    </section>
+  </body>
 </html>
