@@ -1,642 +1,816 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Register | 3 Ball Network</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Join 3 Ball Network - Connect with players, coaches, scouts, and fans">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      color: #222;
-      min-height: 100vh;
-      overflow-x: hidden;
-      letter-spacing: 0.02em;
-    }
-    
-    .banner-logo {
-      width: 100vw;
-      background: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5em 0 1em 0;
-      margin: 0;
-    }
-    
-    .banner-logo-img {
-      max-width: 320px;
-      width: 90vw;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));
-      border-radius: 24px;
-      background: none;
-      padding: 0.5em 1.5em;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
-      border: none;
-    }
-    
-    header {
-      background: transparent;
-      text-align: center;
-      padding: 3em 1em 1.5em 1em;
-      position: relative;
-    }
-    
-    .site-title {
-      font-family: 'Montserrat', 'Urbanist', Arial, sans-serif;
-      font-size: 3em;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: #fff;
-      margin: 0.2em 0 0.1em 0;
-      text-shadow: 0 6px 24px rgba(0,0,0,0.18);
-      text-transform: uppercase;
-      background: linear-gradient(45deg, #fff 0%, #e0fbfc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: neonGlow 3s ease-in-out infinite alternate;
-    }
-    
-    @keyframes neonGlow {
-      0% { filter: drop-shadow(0 0 5px rgba(224,251,252,0.4)); }
-      100% { filter: drop-shadow(0 0 20px rgba(224,251,252,0.8)) drop-shadow(0 0 30px rgba(224,251,252,0.6)); }
-    }
-    
-    .site-tagline {
-      font-family: 'Urbanist', Arial, sans-serif;
-      color: #e0fbfc;
-      font-size: 1.35em;
-      margin-bottom: 0.7em;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    }
-    
-    nav {
-      background: rgba(255,255,255,0.98);
-      padding: 1.1em 0;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      text-align: center;
-      border-radius: 0 0 22px 22px;
-      margin: 0 auto 2em auto;
-      max-width: 720px;
-      font-size: 1.18em;
-      font-family: 'Montserrat', Arial, sans-serif;
-    }
-    
-    nav a {
-      margin: 0 1.5em;
-      color: #007cba;
-      text-decoration: none;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-      position: relative;
-      text-transform: uppercase;
-    }
-    
-    nav a::after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 2.5px;
-      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
-      transition: width 0.3s;
-      margin: 0 auto;
-      border-radius: 2px;
-    }
-    
-    nav a:hover {
-      color: #00b4d8;
-    }
-    
-    nav a:hover::after {
-      width: 100%;
-    }
-    
-    .register-container {
-      max-width: 600px;
-      margin: 2em auto;
-      background: rgba(255,255,255,0.98);
-      border-radius: 28px;
-      box-shadow: 0 8px 36px rgba(0,0,0,0.16);
-      padding: 3em 2.5em;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-    
-    .register-container::before {
-      content: "";
-      position: absolute;
-      top: -50px; right: -50px;
-      width: 150px; height: 150px;
-      background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
-      opacity: 0.1;
-      z-index: 0;
-    }
-    
-    .register-hero h2 {
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 2.2em;
-      font-weight: 900;
-      text-align: center;
-      color: #007cba;
-      margin-bottom: 0.5em;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .register-hero p {
-      text-align: center;
-      color: #666;
-      font-size: 1.1em;
-      margin-bottom: 2em;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .role-selection {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1em;
-      margin: 2em 0;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .role-option {
-      position: relative;
-    }
-    
-    .role-option input[type="radio"] {
-      display: none;
-    }
-    
-    .role-label {
-      display: block;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      padding: 1.2em 0.8em;
-      border-radius: 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      border: 2px solid transparent;
-      font-weight: 700;
-      font-size: 0.95em;
-    }
-    
-    .role-option input[type="radio"]:checked + .role-label {
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,124,186,0.3);
-    }
-    
-    .role-label:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-    
-    .form-section {
-      display: none;
-      animation: fadeInUp 0.5s ease-out;
-    }
-    
-    .form-section.active {
-      display: block;
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .form-section h3 {
-      color: #007cba;
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-weight: 900;
-      font-size: 1.4em;
-      margin: 2em 0 1em 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5em;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5em;
-      font-weight: 700;
-      color: #444;
-      font-size: 0.95em;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 0.8em 1em;
-      border: 2px solid #e9ecef;
-      border-radius: 12px;
-      font-size: 1em;
-      font-family: 'Urbanist', Arial, sans-serif;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      background: #fff;
-      box-sizing: border-box;
-    }
-    
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #00b4d8;
-      box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
-    }
-    
-    .password-container {
-      position: relative;
-    }
-    
-    .password-toggle {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #007cba;
-      cursor: pointer;
-      font-size: 0.85em;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    
-    .submit-btn {
-      width: 100%;
-      background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
-      color: white;
-      padding: 1em 2em;
-      border: none;
-      border-radius: 16px;
-      font-size: 1.1em;
-      font-weight: 900;
-      font-family: 'Montserrat', Arial, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      margin-top: 1em;
-    }
-    
-    .submit-btn:hover {
-      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,124,186,0.3);
-    }
-    
-    .login-link {
-      text-align: center;
-      margin-top: 2em;
-      padding-top: 2em;
-      border-top: 1px solid #e9ecef;
-      color: #666;
-    }
-    
-    .login-link a {
-      color: #007cba;
-      text-decoration: none;
-      font-weight: 700;
-    }
-    
-    .login-link a:hover {
-      color: #00b4d8;
-      text-decoration: underline;
-    }
-    
-    footer {
-      text-align: center;
-      padding: 2em 1em;
-      color: #e0fbfc;
-      font-size: 0.9em;
-      margin-top: 2em;
-    }
-    
-    footer a {
-      color: #e0fbfc;
-      text-decoration: none;
-    }
-    
-    footer a:hover {
-      text-decoration: underline;
-    }
-    
-    @media (max-width: 700px) {
-      .register-container {
-        margin: 1em;
-        padding: 2em 1.5em;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register | 3 Ball Network</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Join 3 Ball Network - Connect with players, coaches, scouts, and fans"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #222;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: 0.02em;
       }
+
+      .banner-logo {
+        width: 100vw;
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5em 0 1em 0;
+        margin: 0;
+      }
+
+      .banner-logo-img {
+        max-width: 320px;
+        width: 90vw;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
+        border-radius: 24px;
+        background: none;
+        padding: 0.5em 1.5em;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+        border: none;
+      }
+
+      header {
+        background: transparent;
+        text-align: center;
+        padding: 3em 1em 1.5em 1em;
+        position: relative;
+      }
+
       .site-title {
-        font-size: 2em;
+        font-family: 'Montserrat', 'Urbanist', Arial, sans-serif;
+        font-size: 3em;
+        font-weight: 900;
+        letter-spacing: 3px;
+        color: #fff;
+        margin: 0.2em 0 0.1em 0;
+        text-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        text-transform: uppercase;
+        background: linear-gradient(45deg, #fff 0%, #e0fbfc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: neonGlow 3s ease-in-out infinite alternate;
       }
+
+      @keyframes neonGlow {
+        0% {
+          filter: drop-shadow(0 0 5px rgba(224, 251, 252, 0.4));
+        }
+        100% {
+          filter: drop-shadow(0 0 20px rgba(224, 251, 252, 0.8))
+            drop-shadow(0 0 30px rgba(224, 251, 252, 0.6));
+        }
+      }
+
+      .site-tagline {
+        font-family: 'Urbanist', Arial, sans-serif;
+        color: #e0fbfc;
+        font-size: 1.35em;
+        margin-bottom: 0.7em;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      nav {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 1.1em 0;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        border-radius: 0 0 22px 22px;
+        margin: 0 auto 2em auto;
+        max-width: 720px;
+        font-size: 1.18em;
+        font-family: 'Montserrat', Arial, sans-serif;
+      }
+
+      nav a {
+        margin: 0 1.5em;
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+        position: relative;
+        text-transform: uppercase;
+      }
+
+      nav a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2.5px;
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        transition: width 0.3s;
+        margin: 0 auto;
+        border-radius: 2px;
+      }
+
+      nav a:hover {
+        color: #00b4d8;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .register-container {
+        max-width: 600px;
+        margin: 2em auto;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 28px;
+        box-shadow: 0 8px 36px rgba(0, 0, 0, 0.16);
+        padding: 3em 2.5em;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .register-container::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .register-hero h2 {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 2.2em;
+        font-weight: 900;
+        text-align: center;
+        color: #007cba;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .register-hero p {
+        text-align: center;
+        color: #666;
+        font-size: 1.1em;
+        margin-bottom: 2em;
+        position: relative;
+        z-index: 1;
+      }
+
       .role-selection {
-        grid-template-columns: 1fr 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1em;
+        margin: 2em 0;
+        position: relative;
+        z-index: 1;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="banner-logo">
-    <img src="/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
-  </div>
-  
-  <header>
-    <div class="site-title">3 Ball Network</div>
-    <div class="site-tagline">Join Our Basketball Community</div>
-  </header>
-  
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about.html">About Us</a>
-    <a href="/register.html">Register</a>
-    <a href="/login.html">Login</a>
-  </nav>
 
-  <main>
-    <div class="register-container">
-      <div class="register-hero">
-        <h2>Create Your Account</h2>
-        <p>Choose your role and start your basketball journey with us</p>
-        
-        <!-- Role Selection -->
-        <div class="role-selection">
-          <div class="role-option">
-            <input type="radio" name="role" value="player" id="role-player" checked>
-            <label for="role-player" class="role-label">
-              🏀<br><strong>Player</strong><br>Showcase Skills
-            </label>
+      .role-option {
+        position: relative;
+      }
+
+      .role-option input[type='radio'] {
+        display: none;
+      }
+
+      .role-label {
+        display: block;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 1.2em 0.8em;
+        border-radius: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid transparent;
+        font-weight: 700;
+        font-size: 0.95em;
+      }
+
+      .role-option input[type='radio']:checked + .role-label {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 124, 186, 0.3);
+      }
+
+      .role-label:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-section {
+        display: none;
+        animation: fadeInUp 0.5s ease-out;
+      }
+
+      .form-section.active {
+        display: block;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-section h3 {
+        color: #007cba;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 900;
+        font-size: 1.4em;
+        margin: 2em 0 1em 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .form-group {
+        margin-bottom: 1.5em;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5em;
+        font-weight: 700;
+        color: #444;
+        font-size: 0.95em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 0.8em 1em;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 1em;
+        font-family: 'Urbanist', Arial, sans-serif;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        background: #fff;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #00b4d8;
+        box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+      }
+
+      .password-container {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #007cba;
+        cursor: pointer;
+        font-size: 0.85em;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .submit-btn {
+        width: 100%;
+        background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
+        color: white;
+        padding: 1em 2em;
+        border: none;
+        border-radius: 16px;
+        font-size: 1.1em;
+        font-weight: 900;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 1em;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 124, 186, 0.3);
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 2em;
+        padding-top: 2em;
+        border-top: 1px solid #e9ecef;
+        color: #666;
+      }
+
+      .login-link a {
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .login-link a:hover {
+        color: #00b4d8;
+        text-decoration: underline;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2em 1em;
+        color: #e0fbfc;
+        font-size: 0.9em;
+        margin-top: 2em;
+      }
+
+      footer a {
+        color: #e0fbfc;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 700px) {
+        .register-container {
+          margin: 1em;
+          padding: 2em 1.5em;
+        }
+        .site-title {
+          font-size: 2em;
+        }
+        .role-selection {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner-logo">
+      <img src="/logo.png" alt="3 Ball Network Logo" class="banner-logo-img" />
+    </div>
+
+    <header>
+      <div class="site-title">3 Ball Network</div>
+      <div class="site-tagline">Join Our Basketball Community</div>
+    </header>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/overview.html">Overview</a>
+      <a href="/live-demo.html">Demo</a>
+      <a href="/register.html">Register</a>
+      <a href="/login.html">Log In</a>
+    </nav>
+
+    <main>
+      <div class="register-container">
+        <div class="register-hero">
+          <h2>Create Your Account</h2>
+          <p>Choose your role and start your basketball journey with us</p>
+
+          <!-- Role Selection -->
+          <div class="role-selection">
+            <div class="role-option">
+              <input
+                type="radio"
+                name="role"
+                value="player"
+                id="role-player"
+                checked
+              />
+              <label for="role-player" class="role-label">
+                🏀<br /><strong>Player</strong><br />Showcase Skills
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" name="role" value="coach" id="role-coach" />
+              <label for="role-coach" class="role-label">
+                🧑‍🏫<br /><strong>Coach</strong><br />Develop Talent
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" name="role" value="scout" id="role-scout" />
+              <label for="role-scout" class="role-label">
+                👀<br /><strong>Scout</strong><br />Discover Prospects
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" name="role" value="fan" id="role-fan" />
+              <label for="role-fan" class="role-label">
+                🙌<br /><strong>Fan</strong><br />Follow Action
+              </label>
+            </div>
           </div>
-          <div class="role-option">
-            <input type="radio" name="role" value="coach" id="role-coach">
-            <label for="role-coach" class="role-label">
-              🧑‍🏫<br><strong>Coach</strong><br>Develop Talent
-            </label>
+
+          <!-- Player Registration Form -->
+          <div id="playerFormSection" class="form-section active">
+            <h3>Player Information</h3>
+            <form id="playerForm">
+              <div class="form-group">
+                <label for="playerName">Full Name</label>
+                <input
+                  type="text"
+                  id="playerName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerEmail">Email</label>
+                <input
+                  type="email"
+                  id="playerEmail"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerPassword">Password</label>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    id="playerPassword"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('playerPassword')"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="playerGender">Gender</label>
+                <select id="playerGender" required>
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="playerHeight">Height</label>
+                <input
+                  type="text"
+                  id="playerHeight"
+                  placeholder="e.g., 6'1&quot;"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerWeight">Weight (lbs)</label>
+                <input
+                  type="number"
+                  id="playerWeight"
+                  placeholder="Enter weight"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerSchool">School</label>
+                <input
+                  type="text"
+                  id="playerSchool"
+                  placeholder="School name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerCity">City</label>
+                <input
+                  type="text"
+                  id="playerCity"
+                  placeholder="Your city"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="playerState">State</label>
+                <input
+                  type="text"
+                  id="playerState"
+                  placeholder="Your state"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="submit-btn">
+                Register as Player
+              </button>
+            </form>
           </div>
-          <div class="role-option">
-            <input type="radio" name="role" value="scout" id="role-scout">
-            <label for="role-scout" class="role-label">
-              👀<br><strong>Scout</strong><br>Discover Prospects
-            </label>
+
+          <!-- Coach Registration Form -->
+          <div id="coachFormSection" class="form-section">
+            <h3>Coach Information</h3>
+            <form id="coachForm">
+              <div class="form-group">
+                <label for="coachName">Full Name</label>
+                <input
+                  type="text"
+                  id="coachName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="coachEmail">Email</label>
+                <input
+                  type="email"
+                  id="coachEmail"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="coachPassword">Password</label>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    id="coachPassword"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('coachPassword')"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="coachSchool">School/Organization</label>
+                <input
+                  type="text"
+                  id="coachSchool"
+                  placeholder="Where do you coach?"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="coachExperience">Years of Experience</label>
+                <input
+                  type="number"
+                  id="coachExperience"
+                  placeholder="Years coaching"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="submit-btn">
+                Register as Coach
+              </button>
+            </form>
           </div>
-          <div class="role-option">
-            <input type="radio" name="role" value="fan" id="role-fan">
-            <label for="role-fan" class="role-label">
-              🙌<br><strong>Fan</strong><br>Follow Action
-            </label>
+
+          <!-- Scout Registration Form -->
+          <div id="scoutFormSection" class="form-section">
+            <h3>Scout Information</h3>
+            <form id="scoutForm">
+              <div class="form-group">
+                <label for="scoutName">Full Name</label>
+                <input
+                  type="text"
+                  id="scoutName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="scoutEmail">Email</label>
+                <input
+                  type="email"
+                  id="scoutEmail"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="scoutPassword">Password</label>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    id="scoutPassword"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('scoutPassword')"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="scoutOrganization">Organization</label>
+                <input
+                  type="text"
+                  id="scoutOrganization"
+                  placeholder="College, pro team, etc."
+                  required
+                />
+              </div>
+
+              <button type="submit" class="submit-btn">
+                Register as Scout
+              </button>
+            </form>
           </div>
-        </div>
 
-        <!-- Player Registration Form -->
-        <div id="playerFormSection" class="form-section active">
-          <h3>Player Information</h3>
-          <form id="playerForm">
-            <div class="form-group">
-              <label for="playerName">Full Name</label>
-              <input type="text" id="playerName" placeholder="Enter your full name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerEmail">Email</label>
-              <input type="email" id="playerEmail" placeholder="Enter your email" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerPassword">Password</label>
-              <div class="password-container">
-                <input type="password" id="playerPassword" placeholder="Create a password" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('playerPassword')">Show</button>
+          <!-- Fan Registration Form -->
+          <div id="fanFormSection" class="form-section">
+            <h3>Fan Information</h3>
+            <form id="fanForm">
+              <div class="form-group">
+                <label for="fanName">Full Name</label>
+                <input
+                  type="text"
+                  id="fanName"
+                  placeholder="Enter your full name"
+                  required
+                />
               </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="playerGender">Gender</label>
-              <select id="playerGender" required>
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="playerHeight">Height</label>
-              <input type="text" id="playerHeight" placeholder="e.g., 6'1&quot;" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerWeight">Weight (lbs)</label>
-              <input type="number" id="playerWeight" placeholder="Enter weight" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerSchool">School</label>
-              <input type="text" id="playerSchool" placeholder="School name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerCity">City</label>
-              <input type="text" id="playerCity" placeholder="Your city" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="playerState">State</label>
-              <input type="text" id="playerState" placeholder="Your state" required />
-            </div>
-            
-            <button type="submit" class="submit-btn">Register as Player</button>
-          </form>
-        </div>
 
-        <!-- Coach Registration Form -->
-        <div id="coachFormSection" class="form-section">
-          <h3>Coach Information</h3>
-          <form id="coachForm">
-            <div class="form-group">
-              <label for="coachName">Full Name</label>
-              <input type="text" id="coachName" placeholder="Enter your full name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="coachEmail">Email</label>
-              <input type="email" id="coachEmail" placeholder="Enter your email" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="coachPassword">Password</label>
-              <div class="password-container">
-                <input type="password" id="coachPassword" placeholder="Create a password" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('coachPassword')">Show</button>
+              <div class="form-group">
+                <label for="fanEmail">Email</label>
+                <input
+                  type="email"
+                  id="fanEmail"
+                  placeholder="Enter your email"
+                  required
+                />
               </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="coachSchool">School/Organization</label>
-              <input type="text" id="coachSchool" placeholder="Where do you coach?" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="coachExperience">Years of Experience</label>
-              <input type="number" id="coachExperience" placeholder="Years coaching" required />
-            </div>
-            
-            <button type="submit" class="submit-btn">Register as Coach</button>
-          </form>
-        </div>
 
-        <!-- Scout Registration Form -->
-        <div id="scoutFormSection" class="form-section">
-          <h3>Scout Information</h3>
-          <form id="scoutForm">
-            <div class="form-group">
-              <label for="scoutName">Full Name</label>
-              <input type="text" id="scoutName" placeholder="Enter your full name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="scoutEmail">Email</label>
-              <input type="email" id="scoutEmail" placeholder="Enter your email" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="scoutPassword">Password</label>
-              <div class="password-container">
-                <input type="password" id="scoutPassword" placeholder="Create a password" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('scoutPassword')">Show</button>
+              <div class="form-group">
+                <label for="fanPassword">Password</label>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    id="fanPassword"
+                    placeholder="Create a password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword('fanPassword')"
+                  >
+                    Show
+                  </button>
+                </div>
               </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="scoutOrganization">Organization</label>
-              <input type="text" id="scoutOrganization" placeholder="College, pro team, etc." required />
-            </div>
-            
-            <button type="submit" class="submit-btn">Register as Scout</button>
-          </form>
-        </div>
 
-        <!-- Fan Registration Form -->
-        <div id="fanFormSection" class="form-section">
-          <h3>Fan Information</h3>
-          <form id="fanForm">
-            <div class="form-group">
-              <label for="fanName">Full Name</label>
-              <input type="text" id="fanName" placeholder="Enter your full name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="fanEmail">Email</label>
-              <input type="email" id="fanEmail" placeholder="Enter your email" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="fanPassword">Password</label>
-              <div class="password-container">
-                <input type="password" id="fanPassword" placeholder="Create a password" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('fanPassword')">Show</button>
+              <div class="form-group">
+                <label for="fanLocation">Location</label>
+                <input
+                  type="text"
+                  id="fanLocation"
+                  placeholder="City, State"
+                  required
+                />
               </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="fanLocation">Location</label>
-              <input type="text" id="fanLocation" placeholder="City, State" required />
-            </div>
-            
-            <button type="submit" class="submit-btn">Register as Fan</button>
-          </form>
-        </div>
 
-        <div class="login-link">
-          Already have an account? <a href="/login.html">Sign in here</a>
+              <button type="submit" class="submit-btn">Register as Fan</button>
+            </form>
+          </div>
+
+          <div class="login-link">
+            Already have an account? <a href="/login.html">Sign in here</a>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    &copy; 2025 3 Ball Network. All rights reserved. | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
-  </footer>
+    <footer>
+      &copy; 2025 3 Ball Network. All rights reserved. |
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms of Service</a>
+    </footer>
 
-  <script>
-    // Role switching functionality
-    document.querySelectorAll('input[name="role"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        // Hide all forms
-        document.querySelectorAll('.form-section').forEach(section => {
-          section.classList.remove('active');
+    <script>
+      // Role switching functionality
+      document.querySelectorAll('input[name="role"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+          // Hide all forms
+          document.querySelectorAll('.form-section').forEach(section => {
+            section.classList.remove('active');
+          });
+
+          // Show selected form
+          const selectedRole = this.value;
+          document
+            .getElementById(selectedRole + 'FormSection')
+            .classList.add('active');
         });
-        
-        // Show selected form
-        const selectedRole = this.value;
-        document.getElementById(selectedRole + 'FormSection').classList.add('active');
       });
-    });
 
-    // Password toggle functionality
-    function togglePassword(fieldId) {
-      const field = document.getElementById(fieldId);
-      const button = field.nextElementSibling;
-      
-      if (field.type === 'password') {
-        field.type = 'text';
-        button.textContent = 'Hide';
-      } else {
-        field.type = 'password';
-        button.textContent = 'Show';
+      // Password toggle functionality
+      function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const button = field.nextElementSibling;
+
+        if (field.type === 'password') {
+          field.type = 'text';
+          button.textContent = 'Hide';
+        } else {
+          field.type = 'password';
+          button.textContent = 'Show';
+        }
       }
-    }
 
-    // Form submission handlers
-    document.getElementById('playerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Add your player registration logic here
-      console.log('Player registration submitted');
-    });
+      // Form submission handlers
+      document
+        .getElementById('playerForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          // Add your player registration logic here
+          console.log('Player registration submitted');
+        });
 
-    document.getElementById('coachForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Add your coach registration logic here
-      console.log('Coach registration submitted');
-    });
+      document
+        .getElementById('coachForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          // Add your coach registration logic here
+          console.log('Coach registration submitted');
+        });
 
-    document.getElementById('scoutForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Add your scout registration logic here
-      console.log('Scout registration submitted');
-    });
+      document
+        .getElementById('scoutForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          // Add your scout registration logic here
+          console.log('Scout registration submitted');
+        });
 
-    document.getElementById('fanForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Add your fan registration logic here
-      console.log('Fan registration submitted');
-    });
-  </script>
+      document
+        .getElementById('fanForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          // Add your fan registration logic here
+          console.log('Fan registration submitted');
+        });
+    </script>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
-  <script src="/assets/js/firebaseConfig.js"></script>
-</body>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+    <script src="/assets/js/firebaseConfig.js"></script>
+  </body>
 </html>
-
-

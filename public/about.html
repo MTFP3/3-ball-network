@@ -1,309 +1,396 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About Us | 3 Ball Network</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Learn about the mission, story, and vision behind 3 Ball Network.">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      color: #222;
-      min-height: 100vh;
-      overflow-x: hidden;
-      letter-spacing: 0.02em;
-    }
-    nav {
-      background: rgba(255,255,255,0.98);
-      padding: 1.1em 0;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      text-align: center;
-      border-radius: 0 0 22px 22px;
-      margin: 0 auto 2em auto;
-      max-width: 720px;
-      font-size: 1.18em;
-      font-family: 'Montserrat', Arial, sans-serif;
-    }
-    nav a {
-      margin: 0 1.5em;
-      color: #007cba;
-      text-decoration: none;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-      position: relative;
-      text-transform: uppercase;
-    }
-    nav a::after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 2.5px;
-      background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
-      transition: width 0.3s;
-      margin: 0 auto;
-      border-radius: 2px;
-    }
-    nav a:hover {
-      color: #00b4d8;
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-    h1, h2 {
-      font-family: 'Bebas Neue', 'Montserrat', Arial, sans-serif;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 0.3em;
-    }
-    h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #ffffff !important;
-      background: none !important;
-      -webkit-text-fill-color: #ffffff !important;
-      text-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.8),
-        0 0 25px rgba(0, 180, 216, 0.6),
-        0 0 35px rgba(0, 180, 216, 0.4);
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-    }
-    h2 {
-      font-size: 2rem;
-      margin-top: 0;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    
-    /* Neon glow effect for all headings */
-    h1, h2, h3 {
-      background: linear-gradient(90deg, #00b4d8 0%, #007cba 50%, #00e5ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 
-        0 0 10px rgba(0, 180, 216, 0.6),
-        0 0 20px rgba(0, 180, 216, 0.4),
-        0 0 30px rgba(0, 180, 216, 0.3);
-      filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.5));
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes glow {
-      from {
-        text-shadow: 
+  <head>
+    <meta charset="UTF-8" />
+    <title>About Us | 3 Ball Network</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Learn about the mission, story, and vision behind 3 Ball Network."
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #222;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: 0.02em;
+      }
+      nav {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 1.1em 0;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        border-radius: 0 0 22px 22px;
+        margin: 0 auto 2em auto;
+        max-width: 720px;
+        font-size: 1.18em;
+        font-family: 'Montserrat', Arial, sans-serif;
+      }
+      nav a {
+        margin: 0 1.5em;
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+        position: relative;
+        text-transform: uppercase;
+      }
+      nav a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2.5px;
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        transition: width 0.3s;
+        margin: 0 auto;
+        border-radius: 2px;
+      }
+      nav a:hover {
+        color: #00b4d8;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+      h1,
+      h2 {
+        font-family: 'Bebas Neue', 'Montserrat', Arial, sans-serif;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 0.3em;
+      }
+      h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #ffffff !important;
+        background: none !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-shadow:
+          0 0 15px rgba(255, 255, 255, 0.8),
+          0 0 25px rgba(0, 180, 216, 0.6),
+          0 0 35px rgba(0, 180, 216, 0.4);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 0;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Neon glow effect for all headings */
+      h1,
+      h2,
+      h3 {
+        background: linear-gradient(
+          90deg,
+          #00b4d8 0%,
+          #007cba 50%,
+          #00e5ff 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow:
           0 0 10px rgba(0, 180, 216, 0.6),
           0 0 20px rgba(0, 180, 216, 0.4),
           0 0 30px rgba(0, 180, 216, 0.3);
+        filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.5));
+        animation: glow 2s ease-in-out infinite alternate;
       }
-      to {
-        text-shadow: 
-          0 0 15px rgba(0, 180, 216, 0.8),
-          0 0 25px rgba(0, 180, 216, 0.6),
-          0 0 35px rgba(0, 180, 216, 0.4);
+
+      @keyframes glow {
+        from {
+          text-shadow:
+            0 0 10px rgba(0, 180, 216, 0.6),
+            0 0 20px rgba(0, 180, 216, 0.4),
+            0 0 30px rgba(0, 180, 216, 0.3);
+        }
+        to {
+          text-shadow:
+            0 0 15px rgba(0, 180, 216, 0.8),
+            0 0 25px rgba(0, 180, 216, 0.6),
+            0 0 35px rgba(0, 180, 216, 0.4);
+        }
       }
-    }
-    
-    /* White background sections - enhanced styling */
-    section[style*="background-color: #f8f8f8"] {
-      background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%) !important;
-      border: 1px solid rgba(0, 180, 216, 0.2);
-      box-shadow: 0 4px 20px rgba(0, 180, 216, 0.1);
-    }
-    
-    section[style*="background-color: #f8f8f8"] h2 {
-      background: linear-gradient(90deg, #007cba 0%, #00b4d8 50%, #0099cc 100%) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      background-clip: text !important;
-      text-shadow: 
-        0 0 8px rgba(0, 124, 186, 0.4),
-        0 0 15px rgba(0, 124, 186, 0.3) !important;
-    }
-    
-    section[style*="background-color: #f8f8f8"] p,
-    section[style*="background-color: #f8f8f8"] li {
-      color: #333 !important;
-    }
-    
-    /* Blue/gradient background sections - glowing effects */
-    section:not([style*="background-color: #f8f8f8"]) {
-      background: linear-gradient(135deg, rgba(0, 124, 186, 0.9) 0%, rgba(0, 180, 216, 0.8) 100%) !important;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    
-    section:not([style*="background-color: #f8f8f8"]) h2 {
-      color: #ffffff !important;
-      background: none !important;
-      -webkit-text-fill-color: #ffffff !important;
-      text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(0, 180, 216, 0.6),
-        0 0 30px rgba(0, 180, 216, 0.4) !important;
-      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
-    }
-    
-    section:not([style*="background-color: #f8f8f8"]) p,
-    section:not([style*="background-color: #f8f8f8"]) li {
-      color: #ffffff !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-    
-    section {
-      width: 100vw;
-      max-width: 100%;
-      box-sizing: border-box;
-      padding: 60px 20px;
-      margin: 0;
-      text-align: center;
-    }
-    section[style*="background-color"] {
-      border-radius: 0;
-    }
-    section ul, section ol {
-      text-align: left;
-      max-width: 700px;
-      margin: 20px auto 0 auto;
-      font-size: 1.13em;
-      line-height: 1.7;
-      padding-left: 24px;
-    }
-    section ul {
-      list-style: disc;
-    }
-    section ul li {
-      margin-bottom: 0.7em;
-    }
-    section p {
-      max-width: 700px;
-      margin: 18px auto;
-      font-size: 1.13em;
-      color: #333;
-      line-height: 1.7;
-    }
-    em {
-      color: #007cba;
-      font-style: italic;
-    }
-    strong {
-      color: #00b4d8;
-      font-weight: 900;
-    }
-    footer {
-      padding: 40px 20px;
-      background-color: #111;
-      color: #fff;
-      text-align: center;
-      font-size: 1.1em;
-      letter-spacing: 1px;
-      margin-top: 3em;
-    }
-    /* Make blue text white in blue/colored sections */
-    section[style*="background-color: #f8f8f8"] strong,
-    section[style*="background-color: #f8f8f8"] em,
-    section[style*="background-color: #f8f8f8"] h2 {
-      color: #007cba !important;
-    }
-    section[style*="background-color"] strong,
-    section[style*="background-color"] em,
-    section[style*="background-color"] h2 {
-      color: #fff !important;
-    }
-    @media (max-width: 700px) {
-      h1 { font-size: 2em; }
-      h2 { font-size: 1.3em; }
-      section { padding: 36px 8vw; }
-      section ul, section ol, section p { font-size: 1em; }
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about.html">About Us</a>
-    <a href="/register.html">Register</a>
-    <a href="/login.html">Login</a>
-  </nav>
 
-  <section>
-    <h1>About Us</h1>
-    <p style="font-size: 1.2rem; margin-top: 10px; color: #666;">The Game Changed, So We Changed the Game.</p>
-  </section>
+      /* White background sections - enhanced styling */
+      section[style*='background-color: #f8f8f8'] {
+        background: linear-gradient(
+          135deg,
+          #f8f8f8 0%,
+          #ffffff 100%
+        ) !important;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 180, 216, 0.1);
+      }
 
-  <section style="max-width: 900px; margin: auto; padding: 40px 20px;">
-    <h2>Our Story</h2>
-    <p>
-      Basketball has always been more than a sport — it's identity, discipline, and opportunity. But for too long, players with real talent have been overlooked. Politics, favoritism, and lack of exposure created a broken system. We've lived it. We've coached through it. We've watched countless athletes fall through the cracks because they didn't have the <em style="color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">right</em> platform.
-    </p>
-    <p>
-      That's why <strong style="color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">The 3 Ball Network</strong> was born — not in a boardroom, but on the sidelines, in the gym, and in the quiet moments when we knew something had to change.
-    </p>
-  </section>
+      section[style*='background-color: #f8f8f8'] h2 {
+        background: linear-gradient(
+          90deg,
+          #007cba 0%,
+          #00b4d8 50%,
+          #0099cc 100%
+        ) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        text-shadow:
+          0 0 8px rgba(0, 124, 186, 0.4),
+          0 0 15px rgba(0, 124, 186, 0.3) !important;
+      }
 
-  <section style="max-width: 900px; margin: auto; padding: 40px 20px; background-color: #f8f8f8;">
-    <h2>💡 Where It Started</h2>
-    <p>
-      Founded by former NBA players, coaches on all levels, and military veterans who knows what it's like to grind without a spotlight, 3 Ball started as a simple idea: <strong>What if every player had a fair shot?</strong>
-    </p>
-    <ul style="margin-top: 20px;">
-      <li>Not just the ones with clout.</li>
-      <li>Not just the ones with followers.</li>
-      <li><strong>Every player. Every game. Every possession.</strong></li>
-    </ul>
-    <p>
-      We started small — grading film, writing scouting reports, helping kids understand their worth both on and off the court. But as the demand grew, so did our vision.
-    </p>
-  </section>
+      section[style*='background-color: #f8f8f8'] p,
+      section[style*='background-color: #f8f8f8'] li {
+        color: #333 !important;
+      }
 
-  <section style="max-width: 900px; margin: auto; padding: 40px 20px;">
-    <h2>🚀 Where We're Going</h2>
-    <p>
-      This isn't just a scouting platform — it's a movement.
-    </p>
-    <p>
-      We're building a full ecosystem where <strong style="color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">real coaches</strong> grade games, break down film, and deliver honest feedback to help players grow.
-    </p>
-    <p>Our current and upcoming features include:</p>
-    <ul>
-      <li>Game Grades (A–F based on performance)</li>
-      <li>Player Analysis</li>
-      <li>Scouting Reports</li>
-      <li>Live Game Streams & Playback (Coming Soon)</li>
-      <li>Education: NIL, Leadership, Etiquette, Social Media Training</li>
-      <li>ESPN-style Stat Overlays & Heatmaps</li>
-      <li>2K-style Player Ratings</li>
-      <li>Weekly Player Resumes</li>
-      <li>Coach & Scout Dashboards</li>
-      <li>Fan Access to Watchlists & Favorites</li>
-    </ul>
-  </section>
+      /* Blue/gradient background sections - glowing effects */
+      section:not([style*='background-color: #f8f8f8']) {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 124, 186, 0.9) 0%,
+          rgba(0, 180, 216, 0.8) 100%
+        ) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
 
-  <section style="max-width: 900px; margin: auto; padding: 40px 20px; background-color: #f8f8f8;">
-    <h2>🎯 Why "3 Ball"?</h2>
-    <p>
-      In basketball, the 3-ball is a game-changer — it stretches the floor, shifts momentum, and opens up opportunities.
-    </p>
-    <p>
-      That's what we do for athletes. <br>
-      <strong>We create space. We shift power. We open doors.</strong>
-    </p>
-    <p>
-      3 Ball is your shot to be seen. <br>
-      Not someday — <strong>now.</strong>
-    </p>
-  </section>
+      section:not([style*='background-color: #f8f8f8']) h2 {
+        color: #ffffff !important;
+        background: none !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-shadow:
+          0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(0, 180, 216, 0.6),
+          0 0 30px rgba(0, 180, 216, 0.4) !important;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+      }
 
-  <footer>
-    Built by hoopers. Built for hoopers. Built for what's next.<br>
-    © 2025 The 3 Ball Network
-  </footer>
-</body>
+      section:not([style*='background-color: #f8f8f8']) p,
+      section:not([style*='background-color: #f8f8f8']) li {
+        color: #ffffff !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      section {
+        width: 100vw;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 60px 20px;
+        margin: 0;
+        text-align: center;
+      }
+      section[style*='background-color'] {
+        border-radius: 0;
+      }
+      section ul,
+      section ol {
+        text-align: left;
+        max-width: 700px;
+        margin: 20px auto 0 auto;
+        font-size: 1.13em;
+        line-height: 1.7;
+        padding-left: 24px;
+      }
+      section ul {
+        list-style: disc;
+      }
+      section ul li {
+        margin-bottom: 0.7em;
+      }
+      section p {
+        max-width: 700px;
+        margin: 18px auto;
+        font-size: 1.13em;
+        color: #333;
+        line-height: 1.7;
+      }
+      em {
+        color: #007cba;
+        font-style: italic;
+      }
+      strong {
+        color: #00b4d8;
+        font-weight: 900;
+      }
+      footer {
+        padding: 40px 20px;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+        margin-top: 3em;
+      }
+      /* Make blue text white in blue/colored sections */
+      section[style*='background-color: #f8f8f8'] strong,
+      section[style*='background-color: #f8f8f8'] em,
+      section[style*='background-color: #f8f8f8'] h2 {
+        color: #007cba !important;
+      }
+      section[style*='background-color'] strong,
+      section[style*='background-color'] em,
+      section[style*='background-color'] h2 {
+        color: #fff !important;
+      }
+      @media (max-width: 700px) {
+        h1 {
+          font-size: 2em;
+        }
+        h2 {
+          font-size: 1.3em;
+        }
+        section {
+          padding: 36px 8vw;
+        }
+        section ul,
+        section ol,
+        section p {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/overview.html">Overview</a>
+      <a href="/live-demo.html">Demo</a>
+      <a href="/register.html">Register</a>
+      <a href="/login.html">Log In</a>
+    </nav>
+
+    <section>
+      <h1>About Us</h1>
+      <p style="font-size: 1.2rem; margin-top: 10px; color: #666">
+        The Game Changed, So We Changed the Game.
+      </p>
+    </section>
+
+    <section style="max-width: 900px; margin: auto; padding: 40px 20px">
+      <h2>Our Story</h2>
+      <p>
+        Basketball has always been more than a sport — it's identity,
+        discipline, and opportunity. But for too long, players with real talent
+        have been overlooked. Politics, favoritism, and lack of exposure created
+        a broken system. We've lived it. We've coached through it. We've watched
+        countless athletes fall through the cracks because they didn't have the
+        <em
+          style="
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+          "
+          >right</em
+        >
+        platform.
+      </p>
+      <p>
+        That's why
+        <strong
+          style="
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+          "
+          >The 3 Ball Network</strong
+        >
+        was born — not in a boardroom, but on the sidelines, in the gym, and in
+        the quiet moments when we knew something had to change.
+      </p>
+    </section>
+
+    <section
+      style="
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 20px;
+        background-color: #f8f8f8;
+      "
+    >
+      <h2>💡 Where It Started</h2>
+      <p>
+        Founded by former NBA players, coaches on all levels, and military
+        veterans who knows what it's like to grind without a spotlight, 3 Ball
+        started as a simple idea:
+        <strong>What if every player had a fair shot?</strong>
+      </p>
+      <ul style="margin-top: 20px">
+        <li>Not just the ones with clout.</li>
+        <li>Not just the ones with followers.</li>
+        <li><strong>Every player. Every game. Every possession.</strong></li>
+      </ul>
+      <p>
+        We started small — grading film, writing scouting reports, helping kids
+        understand their worth both on and off the court. But as the demand
+        grew, so did our vision.
+      </p>
+    </section>
+
+    <section style="max-width: 900px; margin: auto; padding: 40px 20px">
+      <h2>🚀 Where We're Going</h2>
+      <p>This isn't just a scouting platform — it's a movement.</p>
+      <p>
+        We're building a full ecosystem where
+        <strong
+          style="
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+          "
+          >real coaches</strong
+        >
+        grade games, break down film, and deliver honest feedback to help
+        players grow.
+      </p>
+      <p>Our current and upcoming features include:</p>
+      <ul>
+        <li>Game Grades (A–F based on performance)</li>
+        <li>Player Analysis</li>
+        <li>Scouting Reports</li>
+        <li>Live Game Streams & Playback (Coming Soon)</li>
+        <li>Education: NIL, Leadership, Etiquette, Social Media Training</li>
+        <li>ESPN-style Stat Overlays & Heatmaps</li>
+        <li>2K-style Player Ratings</li>
+        <li>Weekly Player Resumes</li>
+        <li>Coach & Scout Dashboards</li>
+        <li>Fan Access to Watchlists & Favorites</li>
+      </ul>
+    </section>
+
+    <section
+      style="
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 20px;
+        background-color: #f8f8f8;
+      "
+    >
+      <h2>🎯 Why "3 Ball"?</h2>
+      <p>
+        In basketball, the 3-ball is a game-changer — it stretches the floor,
+        shifts momentum, and opens up opportunities.
+      </p>
+      <p>
+        That's what we do for athletes. <br />
+        <strong>We create space. We shift power. We open doors.</strong>
+      </p>
+      <p>
+        3 Ball is your shot to be seen. <br />
+        Not someday — <strong>now.</strong>
+      </p>
+    </section>
+
+    <footer>
+      Built by hoopers. Built for hoopers. Built for what's next.<br />
+      © 2025 The 3 Ball Network
+    </footer>
+  </body>
 </html>
-
-
-
