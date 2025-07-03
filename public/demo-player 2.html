@@ -1,0 +1,1844 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Player Portal Demo | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Experience the Player Dashboard - Track your performance, view game grades, and showcase your highlights on 3 Ball Network."
+    />
+    <meta property="og:title" content="Player Portal Demo | 3 Ball Network" />
+    <meta
+      property="og:description"
+      content="Experience the Player Dashboard - Track your performance, view game grades, and showcase your highlights."
+    />
+    <meta property="og:url" content="https://3ballnetwork.com/demo-player" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://3ballnetwork.com/demo-player" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0e1a 0%,
+          #1a1f35 50%,
+          #2a3650 100%
+        );
+        color: #ffffff;
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .demo-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2em;
+      }
+
+      .demo-header {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .demo-header h1 {
+        color: #ffffff;
+        font-size: 2.5em;
+        margin: 0.5em 0;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .demo-header p {
+        color: #e8e8e8 !important;
+        font-size: 1.1em;
+        line-height: 1.6;
+      }
+
+      .demo-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1em;
+        margin-bottom: 2em;
+      }
+
+      .nav-tab {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 16px;
+        padding: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-tab:hover {
+        background: rgba(0, 180, 216, 0.25);
+        border-color: rgba(0, 180, 216, 0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
+        color: #ffffff;
+      }
+
+      .nav-tab.active {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-color: #00b4d8;
+        color: #ffffff;
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+      }
+
+      .demo-section {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: none;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .demo-section.active {
+        display: block;
+      }
+
+      .demo-section h2 {
+        color: #ffffff;
+        font-size: 2em;
+        margin-bottom: 1.5em;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .demo-section h3 {
+        color: #ffffff;
+        font-size: 1.4em;
+        margin-bottom: 1em;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5em;
+        margin-bottom: 2em;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 16px;
+        padding: 1.5em;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .stat-value {
+        font-size: 2.5em;
+        font-weight: 900;
+        background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-label {
+        font-size: 0.9em;
+        color: #e8e8e8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.5em;
+        font-weight: 600;
+      }
+
+      .chart-container {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 1.5em;
+        margin-bottom: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .chart-container h3 {
+        color: #ffffff;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+      }
+
+      .games-list {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .games-list h3 {
+        color: #ffffff;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+      }
+
+      .game-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        margin-bottom: 0.5em;
+      }
+
+      .game-item:hover {
+        background: rgba(0, 180, 216, 0.15);
+        border-radius: 10px;
+        transform: translateX(5px);
+      }
+
+      .game-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .game-item strong {
+        color: #ffffff;
+        font-size: 1.1em;
+      }
+
+      .game-item span[style*='color: #888'] {
+        color: #d0d0d0 !important;
+        font-size: 0.95em;
+      }
+
+      .grade {
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9em;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .grade-a {
+        background: rgba(52, 199, 89, 0.3);
+        color: #4ade80;
+        border: 1px solid rgba(52, 199, 89, 0.5);
+      }
+      .grade-b {
+        background: rgba(50, 173, 230, 0.3);
+        color: #60a5fa;
+        border: 1px solid rgba(50, 173, 230, 0.5);
+      }
+      .grade-c {
+        background: rgba(255, 149, 0, 0.3);
+        color: #fbbf24;
+        border: 1px solid rgba(255, 149, 0, 0.5);
+      }
+      .grade-d {
+        background: rgba(255, 69, 58, 0.3);
+        color: #f87171;
+        border: 1px solid rgba(255, 69, 58, 0.5);
+      }
+      .grade-f {
+        background: rgba(139, 69, 19, 0.3);
+        color: #cd853f;
+        border: 1px solid rgba(139, 69, 19, 0.5);
+      }
+
+      .game-details {
+        font-size: 0.85em;
+        color: #b0b0b0;
+        margin-top: 0.3em;
+        line-height: 1.4;
+      }
+
+      .minutes-played {
+        color: #90e0ef;
+        font-weight: 600;
+      }
+
+      /* Add more grade styling */
+      .grade-a-plus {
+        background: rgba(52, 199, 89, 0.4);
+        color: #34c759;
+        border: 1px solid rgba(52, 199, 89, 0.6);
+      }
+      .grade-a-minus {
+        background: rgba(52, 199, 89, 0.25);
+        color: #4ade80;
+        border: 1px solid rgba(52, 199, 89, 0.4);
+      }
+      .grade-b-plus {
+        background: rgba(50, 173, 230, 0.35);
+        color: #3b82f6;
+        border: 1px solid rgba(50, 173, 230, 0.5);
+      }
+      .grade-b-minus {
+        background: rgba(50, 173, 230, 0.25);
+        color: #60a5fa;
+        border: 1px solid rgba(50, 173, 230, 0.4);
+      }
+      .grade-c-plus {
+        background: rgba(255, 149, 0, 0.35);
+        color: #f59e0b;
+        border: 1px solid rgba(255, 149, 0, 0.5);
+      }
+      .grade-c-minus {
+        background: rgba(255, 149, 0, 0.25);
+        color: #fbbf24;
+        border: 1px solid rgba(255, 149, 0, 0.4);
+      }
+      .grade-d-plus {
+        background: rgba(255, 69, 58, 0.35);
+        color: #ef4444;
+        border: 1px solid rgba(255, 69, 58, 0.5);
+      }
+
+      .game-result {
+        font-size: 0.8em;
+        margin-top: 0.2em;
+        font-weight: 600;
+      }
+      .game-result.win {
+        color: #4ade80;
+      }
+      .game-result.loss {
+        color: #f87171;
+      }
+
+      .demo-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-left: 1em;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .highlight-video {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 1.5em;
+        margin-bottom: 1em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .highlight-video h3 {
+        color: #ffffff;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+      }
+
+      .video-placeholder {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #d0d0d0;
+        margin-bottom: 1em;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        font-size: 1.1em;
+      }
+
+      .video-placeholder small {
+        color: #b0b0b0;
+        margin-top: 0.5em;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border: none;
+        border-radius: 10px;
+        color: #ffffff;
+        padding: 0.8em 1.5em;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0.5em;
+        box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+        font-size: 0.95em;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+        background: linear-gradient(135deg, #00b4d8 0%, #007cba 100%);
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2em;
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        font-size: 1.1em;
+      }
+
+      .back-link:hover {
+        color: #93c5fd;
+        transform: translateX(-5px);
+      }
+
+      /* Profile section specific styling */
+      .stat-card div[style*='color: #e0e0e0'] {
+        color: #ffffff !important;
+        line-height: 1.6;
+      }
+
+      .stat-card strong {
+        color: #ffffff;
+      }
+
+      /* 2K-Style Player Card */
+      .player-card-2k {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 180, 216, 0.15) 0%,
+          rgba(144, 224, 239, 0.15) 100%
+        );
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 2px solid rgba(0, 180, 216, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .player-card-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5em;
+      }
+
+      .player-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid rgba(0, 180, 216, 0.5);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .player-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .player-info {
+        flex: 1;
+      }
+
+      .player-name {
+        font-size: 2.2em;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        background: linear-gradient(45deg, #ffffff 0%, #90e0ef 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .player-details {
+        display: flex;
+        gap: 1em;
+        margin-bottom: 0.5em;
+      }
+
+      .player-position {
+        background: rgba(0, 180, 216, 0.3);
+        color: #ffffff;
+        padding: 0.3em 0.8em;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 600;
+        border: 1px solid rgba(0, 180, 216, 0.5);
+      }
+
+      .player-school {
+        color: #e8e8e8;
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+
+      .player-specs {
+        color: #b0b0b0;
+        font-size: 0.95em;
+      }
+
+      .overall-rating {
+        text-align: center;
+        background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+        border-radius: 20px;
+        padding: 1.5em 1em;
+        min-width: 100px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .ovr-number {
+        font-size: 3em;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        line-height: 1;
+      }
+
+      .ovr-label {
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 0.2em;
+      }
+
+      @media (max-width: 768px) {
+        .demo-container {
+          padding: 1em;
+        }
+
+        .demo-header h1 {
+          font-size: 2em;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1em;
+        }
+
+        .game-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5em;
+        }
+
+        .game-item > div:last-child {
+          display: flex;
+          align-items: center;
+          gap: 1em;
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .player-card-2k {
+          padding: 1.5em;
+        }
+
+        .player-avatar {
+          width: 60px;
+          height: 60px;
+        }
+
+        .player-name {
+          font-size: 1.8em;
+        }
+
+        .player-details {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.3em;
+        }
+
+        .player-position,
+        .player-school {
+          font-size: 0.8em;
+        }
+
+        .player-specs {
+          font-size: 0.75em;
+        }
+
+        .overall-rating {
+          padding: 1.2em 0.8em;
+        }
+
+        .ovr-number {
+          font-size: 2.5em;
+        }
+
+        .ovr-label {
+          font-size: 0.8em;
+        }
+      }
+
+      /* Advanced Analytics Styles */
+      .analytics-dashboard {
+        display: grid;
+        gap: 2em;
+      }
+
+      .analytics-section {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .analytics-section h3 {
+        color: #ffffff;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+        padding-bottom: 0.5em;
+      }
+
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1em;
+      }
+
+      .analytics-card {
+        background: rgba(0, 180, 216, 0.1);
+        border-radius: 12px;
+        padding: 1.5em;
+        text-align: center;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .analytics-value {
+        font-size: 2.5em;
+        font-weight: 900;
+        color: #00b4d8;
+        margin-bottom: 0.5em;
+      }
+
+      .analytics-label {
+        color: #e8e8e8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.9em;
+      }
+
+      .ai-insight {
+        background: rgba(0, 180, 216, 0.05);
+        border-radius: 12px;
+        padding: 1.5em;
+        border-left: 4px solid #00b4d8;
+      }
+
+      .ai-insight p {
+        margin: 0.5em 0;
+        color: #ffffff;
+        line-height: 1.6;
+      }
+
+      /* Recruiting Hub Styles */
+      .recruiting-dashboard {
+        display: grid;
+        gap: 2em;
+      }
+
+      .recruiting-section {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .recruiting-section h3 {
+        color: #ffffff;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+        padding-bottom: 0.5em;
+      }
+
+      .match-list {
+        display: grid;
+        gap: 1em;
+      }
+
+      .match-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .match-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .match-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5em;
+      }
+
+      .match-score {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: white;
+        padding: 0.3em 0.8em;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 700;
+      }
+
+      .high-match .match-score {
+        background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      }
+
+      .medium-match .match-score {
+        background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      }
+
+      .match-details {
+        color: #d0d0d0;
+        font-size: 0.95em;
+        line-height: 1.4;
+      }
+
+      .communication-summary,
+      .scholarship-info {
+        background: rgba(0, 180, 216, 0.05);
+        border-radius: 12px;
+        padding: 1.5em;
+        border-left: 4px solid #00b4d8;
+      }
+
+      .communication-summary p,
+      .scholarship-info p {
+        margin: 0.5em 0;
+        color: #ffffff;
+        line-height: 1.6;
+      }
+
+      .analytics-loading,
+      .recruiting-loading {
+        text-align: center;
+        padding: 3em;
+        color: #d0d0d0;
+        font-style: italic;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX.js"></script>
+    <script type="module" crossorigin src="/assets/js/playerAnalytics-BQgY2Ufz.js"></script>
+    <script type="module" crossorigin src="/assets/js/recruitingHub-B00FkBgR.js"></script>
+    <script type="module" crossorigin src="/assets/js/smartGameInput-Cr1WrlJs.js"></script>
+    <script type="module" crossorigin src="/assets/js/platformManager-CMGNxMqx.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc.css">
+    <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j.css">
+  </head>
+  <body>
+    <div class="demo-container">
+      <a href="/" class="back-link">← Back to Homepage</a>
+
+      <div class="demo-header">
+        <img
+          src="/assets/png/logo-C3J1yCbD.png"
+          alt="3 Ball Network"
+          style="height: 60px; margin-bottom: 1em"
+        />
+        <h1>Player Portal Demo<span class="demo-badge">DEMO MODE</span></h1>
+        <p style="color: #b0b0b0; margin-top: 1em">
+          Experience the Player Dashboard - Track your performance, view game
+          grades, and showcase your highlights
+        </p>
+      </div>
+
+      <div class="demo-nav">
+        <div class="nav-tab active" onclick="switchTab('overview')">
+          Overview
+        </div>
+        <div class="nav-tab" onclick="switchTab('analytics')">
+          Advanced Analytics
+        </div>
+        <div class="nav-tab" onclick="switchTab('recruiting')">
+          Recruiting Hub
+        </div>
+        <div class="nav-tab" onclick="switchTab('games')">Game History</div>
+        <div class="nav-tab" onclick="switchTab('highlights')">Highlights</div>
+        <div class="nav-tab" onclick="switchTab('profile')">Profile</div>
+      </div>
+
+      <!-- Overview Section -->
+      <div id="overview" class="demo-section active">
+        <h2>Player Profile</h2>
+
+        <!-- 2K-Style Player Card -->
+        <div class="player-card-2k">
+          <div class="player-card-header">
+            <div class="player-avatar">
+              <img
+                src="/assets/images/default-avatar.png"
+                alt="Player"
+                id="playerAvatar"
+              />
+            </div>
+            <div class="player-info">
+              <h3 class="player-name" id="playerName">Marcus Johnson</h3>
+              <div class="player-details">
+                <span class="player-position" id="playerPosition"
+                  >Point Guard</span
+                >
+                <span class="player-school" id="playerSchool"
+                  >Central High School</span
+                >
+              </div>
+              <div class="player-specs">
+                <span id="playerHeight">6'2"</span> •
+                <span id="playerWeight">180 lbs</span> •
+                <span id="playerClass">Class of 2025</span>
+              </div>
+            </div>
+            <div class="overall-rating">
+              <div class="ovr-number" id="overallRating">87</div>
+              <div class="ovr-label">OVR</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Season Overview</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">24</div>
+            <div class="stat-label">Games Played</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="avgGradeDisplay">B+</div>
+            <div class="stat-label">Avg Grade</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">15.8</div>
+            <div class="stat-label">PPG</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">4.1</div>
+            <div class="stat-label">RPG</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">7.3</div>
+            <div class="stat-label">APG</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">43%</div>
+            <div class="stat-label">FG%</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>Performance Trend</h3>
+          <canvas id="performanceChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Position Analysis</h3>
+          <canvas id="positionChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Advanced Analytics Section -->
+      <div id="analytics" class="demo-section">
+        <h2>Advanced Analytics Dashboard</h2>
+        <div id="playerAnalyticsContainer">
+          <div class="analytics-loading">
+            <p>Loading advanced analytics...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recruiting Hub Section -->
+      <div id="recruiting" class="demo-section">
+        <h2>Recruiting Hub</h2>
+        <div id="recruitingHubContainer">
+          <div class="recruiting-loading">
+            <p>Loading recruiting tools...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Games Section -->
+      <div id="games" class="demo-section">
+        <h2>Game History & Grades</h2>
+
+        <div class="games-list" id="gamesList">
+          <!-- Games will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Highlights Section -->
+      <div id="highlights" class="demo-section">
+        <h2>Player Highlights</h2>
+
+        <div class="highlight-video">
+          <h3>Season Highlight Reel</h3>
+          <div class="video-placeholder">
+            🎥 Video Content<br />
+            <small>Demo highlights would appear here</small>
+          </div>
+          <button class="btn">Upload New Highlight</button>
+          <button class="btn">Share Reel</button>
+        </div>
+
+        <div class="highlight-video">
+          <h3>Best Plays - March 2025</h3>
+          <div class="video-placeholder">
+            🎬 Monthly Compilation<br />
+            <small>Auto-generated from game footage</small>
+          </div>
+          <button class="btn">Download</button>
+          <button class="btn">Share</button>
+        </div>
+
+        <div class="highlight-video">
+          <h3>Skill Development Progress</h3>
+          <div class="video-placeholder">
+            📊 Progress Analytics<br />
+            <small>Side-by-side improvement videos</small>
+          </div>
+          <button class="btn">View Analysis</button>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div id="profile" class="demo-section">
+        <h2>Player Profile</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #60a5fa">Name:</strong> Alex Johnson<br />
+              <strong style="color: #60a5fa">Position:</strong> Point Guard<br />
+              <strong style="color: #60a5fa">Height:</strong> 6'2"<br />
+              <strong style="color: #60a5fa">Weight:</strong> 185 lbs<br />
+              <strong style="color: #60a5fa">School:</strong> Lincoln High
+              School
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #60a5fa">Team:</strong> Lincoln Lions<br />
+              <strong style="color: #60a5fa">Jersey #:</strong> 23<br />
+              <strong style="color: #60a5fa">Class:</strong> 2026<br />
+              <strong style="color: #60a5fa">GPA:</strong> 3.8<br />
+              <strong style="color: #60a5fa">Coach:</strong> Mike Thompson
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #60a5fa">Achievements:</strong><br />
+              • All-District Team 2024<br />
+              • Team Captain<br />
+              • Honor Roll Student<br />
+              • Community Service 100+ hrs
+            </div>
+          </div>
+        </div>
+
+        <div class="games-list">
+          <h3>College Interest</h3>
+          <div class="game-item">
+            <div>
+              <strong>University of California</strong><br />
+              <span style="color: #d0d0d0">Recruiting Interest - High</span>
+            </div>
+            <div>
+              <span class="grade grade-a">Interested</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div>
+              <strong>Duke University</strong><br />
+              <span style="color: #d0d0d0">Recruiting Interest - Medium</span>
+            </div>
+            <div>
+              <span class="grade grade-b">Watching</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div>
+              <strong>Arizona State</strong><br />
+              <span style="color: #d0d0d0">Recruiting Interest - High</span>
+            </div>
+            <div>
+              <span class="grade grade-a">Offer Extended</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Import the game grading system (for demo purposes, we'll include it inline)
+
+      // Basketball Game Grade Calculator - Realistic Coach/Scout Perspective
+      function calculateGameGrade(stats, minutesPlayed, gameLength = 32) {
+        const pts = stats.points || 0;
+        const reb = stats.rebounds || 0;
+        const ast = stats.assists || 0;
+        const stl = stats.steals || 0;
+        const blk = stats.blocks || 0;
+        const to = stats.turnovers || 0;
+        const fouls = stats.fouls || 0;
+        const fgm = stats.fgm || 0;
+        const fga = stats.fga || 0;
+        const ftm = stats.ftm || 0;
+        const fta = stats.fta || 0;
+
+        // Calculate efficiency metrics
+        const fgPct = fga > 0 ? fgm / fga : 0;
+        const ftPct = fta > 0 ? ftm / fta : 1;
+        const turnoverRatio = ast + pts > 0 ? to / (ast + pts / 2) : 0;
+
+        // Base production score (40% of grade)
+        let productionScore =
+          pts * 1.0 + reb * 1.2 + ast * 1.5 + stl * 2.0 + blk * 2.0;
+
+        // Efficiency bonuses/penalties (30% of grade)
+        let efficiencyScore = 50; // Start neutral
+        if (fgPct >= 0.5) efficiencyScore += 25;
+        else if (fgPct >= 0.4) efficiencyScore += 10;
+        else if (fgPct < 0.3 && fga >= 5) efficiencyScore -= 20;
+
+        if (ftPct >= 0.8) efficiencyScore += 10;
+        else if (ftPct < 0.6 && fta >= 3) efficiencyScore -= 10;
+
+        // Turnovers hurt badly
+        efficiencyScore -= to * 8;
+
+        // Foul trouble
+        if (fouls >= 4) efficiencyScore -= 15;
+        else if (fouls >= 3) efficiencyScore -= 5;
+
+        // Playing time context (30% of grade)
+        let impactScore = 50; // Start neutral
+        const minuteRatio = minutesPlayed / gameLength;
+
+        // Reward consistent production relative to minutes
+        if (minuteRatio >= 0.75) {
+          // Starter minutes
+          if (pts >= 15 || reb >= 8 || ast >= 6) impactScore += 20;
+          else if (pts >= 10 || reb >= 5 || ast >= 4) impactScore += 10;
+          else impactScore -= 10; // Expected more from starter
+        } else if (minuteRatio >= 0.4) {
+          // Role player minutes
+          if (pts >= 8 || reb >= 4 || ast >= 3) impactScore += 15;
+          else if (pts >= 5 || reb >= 3 || ast >= 2) impactScore += 5;
+        } else {
+          // Limited minutes
+          if (pts >= 6 || reb >= 3 || ast >= 2) impactScore += 20; // Great per-minute impact
+          impactScore = Math.min(impactScore, 75); // Cap for limited minutes
+        }
+
+        // Final calculation
+        const finalScore =
+          productionScore * 0.4 + efficiencyScore * 0.3 + impactScore * 0.3;
+
+        // Convert to letter grade (realistic basketball standards)
+        if (finalScore >= 85) return 'A+';
+        else if (finalScore >= 75) return 'A';
+        else if (finalScore >= 70) return 'A-';
+        else if (finalScore >= 65) return 'B+';
+        else if (finalScore >= 60) return 'B';
+        else if (finalScore >= 55) return 'B-';
+        else if (finalScore >= 50) return 'C+';
+        else if (finalScore >= 45) return 'C';
+        else if (finalScore >= 40) return 'C-';
+        else if (finalScore >= 35) return 'D+';
+        else if (finalScore >= 30) return 'D';
+        else return 'F';
+      }
+
+      // 3Ball Network Basketball Game Grade Calculator
+      // Based on percentage system with minutes played factor
+      function calculate3BallGrade(stats) {
+        const {
+          points = 0,
+          rebounds = 0,
+          assists = 0,
+          fieldGoalsMade = 0,
+          freeThrowsMade = 0,
+          steals = 0,
+          blocks = 0,
+          charges = 0,
+          deflections = 0,
+          turnovers = 0,
+          fouls = 0,
+          missedFieldGoals = 0,
+          missedFreeThrows = 0,
+          minutesPlayed = 0,
+          gameLength = 32,
+        } = stats;
+
+        // Step 1: Calculate Good Credits
+        const basicStats =
+          points + rebounds + assists + fieldGoalsMade + freeThrowsMade;
+        const premiumStats = steals + blocks + charges + deflections;
+        const goodCredits = basicStats * 2 + premiumStats * 5;
+
+        // Step 2: Calculate Bad Credits
+        const badCredits =
+          turnovers + fouls + missedFieldGoals + missedFreeThrows;
+
+        // Step 3: Calculate Possible Credits
+        const possibleCredits = goodCredits + badCredits + gameLength;
+
+        // Step 4: Calculate Actual Credits
+        const actualCredits = minutesPlayed + goodCredits - badCredits;
+
+        // Step 5: Calculate Game Grade Percentage
+        const gameGradePercentage =
+          possibleCredits > 0 ? (actualCredits / possibleCredits) * 100 : 0;
+
+        // Step 6: Convert to Letter Grade
+        let letterGrade;
+        if (gameGradePercentage >= 70) letterGrade = 'A';
+        else if (gameGradePercentage >= 60) letterGrade = 'B';
+        else if (gameGradePercentage >= 50) letterGrade = 'C';
+        else if (gameGradePercentage >= 40) letterGrade = 'D';
+        else letterGrade = 'F';
+
+        return {
+          letterGrade,
+          percentage: Math.round(gameGradePercentage),
+        };
+      }
+
+      // Realistic game data - Point Guard perspective
+      const gameData = [
+        {
+          opponent: 'Lakers Academy',
+          date: 'March 15, 2025',
+          minutes: 28,
+          result: 'W 78-72',
+          stats: {
+            points: 18,
+            rebounds: 4,
+            assists: 9,
+            fgm: 7,
+            fga: 13,
+            ftm: 4,
+            fta: 5,
+            steals: 3,
+            blocks: 0,
+            turnovers: 2,
+            fouls: 2,
+          },
+        },
+        {
+          opponent: 'Warriors Elite',
+          date: 'March 12, 2025',
+          minutes: 32,
+          result: 'L 65-68',
+          stats: {
+            points: 22,
+            rebounds: 5,
+            assists: 7,
+            fgm: 8,
+            fga: 18,
+            ftm: 6,
+            fta: 8,
+            steals: 2,
+            blocks: 0,
+            turnovers: 5,
+            fouls: 3,
+          },
+        },
+        {
+          opponent: 'Celtics Youth',
+          date: 'March 8, 2025',
+          minutes: 30,
+          result: 'W 88-76',
+          stats: {
+            points: 25,
+            rebounds: 6,
+            assists: 11,
+            fgm: 10,
+            fga: 16,
+            ftm: 5,
+            fta: 6,
+            steals: 4,
+            blocks: 1,
+            turnovers: 1,
+            fouls: 1,
+          },
+        },
+        {
+          opponent: 'Bulls Academy',
+          date: 'March 5, 2025',
+          minutes: 25,
+          result: 'L 58-62',
+          stats: {
+            points: 12,
+            rebounds: 3,
+            assists: 6,
+            fgm: 4,
+            fga: 12,
+            ftm: 4,
+            fta: 6,
+            steals: 1,
+            blocks: 0,
+            turnovers: 4,
+            fouls: 3,
+          },
+        },
+        {
+          opponent: 'Heat Select',
+          date: 'March 1, 2025',
+          minutes: 29,
+          result: 'W 73-69',
+          stats: {
+            points: 16,
+            rebounds: 5,
+            assists: 8,
+            fgm: 6,
+            fga: 11,
+            ftm: 4,
+            fta: 4,
+            steals: 2,
+            blocks: 0,
+            turnovers: 3,
+            fouls: 2,
+          },
+        },
+        {
+          opponent: 'Spurs Academy',
+          date: 'February 25, 2025',
+          minutes: 12,
+          result: 'W 84-79',
+          stats: {
+            points: 8,
+            rebounds: 2,
+            assists: 4,
+            fgm: 3,
+            fga: 5,
+            ftm: 2,
+            fta: 2,
+            steals: 1,
+            blocks: 0,
+            turnovers: 1,
+            fouls: 1,
+          },
+        },
+        {
+          opponent: 'Rockets Elite',
+          date: 'February 22, 2025',
+          minutes: 27,
+          result: 'L 59-82',
+          stats: {
+            points: 9,
+            rebounds: 2,
+            assists: 3,
+            fgm: 3,
+            fga: 14,
+            ftm: 3,
+            fta: 4,
+            steals: 1,
+            blocks: 0,
+            turnovers: 6,
+            fouls: 4,
+          },
+        },
+        {
+          opponent: 'Nets Academy',
+          date: 'February 18, 2025',
+          minutes: 31,
+          result: 'W 71-64',
+          stats: {
+            points: 14,
+            rebounds: 6,
+            assists: 10,
+            fgm: 5,
+            fga: 9,
+            ftm: 4,
+            fta: 5,
+            steals: 3,
+            blocks: 0,
+            turnovers: 2,
+            fouls: 2,
+          },
+        },
+      ];
+
+      // Populate games list with realistic basketball stats
+      function populateGamesList() {
+        const gamesList = document.getElementById('gamesList');
+        if (!gamesList) return;
+
+        gamesList.innerHTML = '';
+
+        gameData.forEach(game => {
+          // Convert to new format and get grade using 3Ball Network system
+          const convertedStats = {
+            points: game.stats.points || 0,
+            rebounds: game.stats.rebounds || 0,
+            assists: game.stats.assists || 0,
+            fieldGoalsMade: game.stats.fgm || 0,
+            freeThrowsMade: game.stats.ftm || 0,
+            steals: game.stats.steals || 0,
+            blocks: game.stats.blocks || 0,
+            charges: game.stats.charges || 0,
+            deflections: game.stats.deflections || 0,
+            turnovers: game.stats.turnovers || 0,
+            fouls: game.stats.fouls || 0,
+            missedFieldGoals: (game.stats.fga || 0) - (game.stats.fgm || 0),
+            missedFreeThrows: (game.stats.fta || 0) - (game.stats.ftm || 0),
+            minutesPlayed: game.minutes || 0,
+            gameLength: 32,
+          };
+
+          const gradeResult = calculate3BallGrade(convertedStats);
+          const grade = gradeResult.letterGrade;
+          const gradeClass = `grade-${grade.toLowerCase().replace('+', '-plus').replace('-', '-minus')}`;
+
+          const fgPct = ((game.stats.fgm / game.stats.fga) * 100).toFixed(1);
+          const ftPct =
+            game.stats.fta > 0
+              ? ((game.stats.ftm / game.stats.fta) * 100).toFixed(1)
+              : '100.0';
+          const resultClass = game.result.startsWith('W') ? 'win' : 'loss';
+
+          const gameItem = document.createElement('div');
+          gameItem.className = 'game-item';
+          gameItem.innerHTML = `
+          <div>
+            <strong>vs. ${game.opponent}</strong>
+            <div class="game-result ${resultClass}">${game.result}</div>
+            <span style="color: #d0d0d0; font-size: 0.9em;">${game.date}</span>
+            <div class="game-details">
+              FG: ${game.stats.fgm}/${game.stats.fga} (${fgPct}%) •
+              FT: ${game.stats.ftm}/${game.stats.fta} (${ftPct}%) •
+              TO: ${game.stats.turnovers} • PF: ${game.stats.fouls}
+            </div>
+          </div>
+          <div>
+            <div style="text-align: right;">
+              <div style="margin-bottom: 0.3em;">
+                <span style="margin-right: 1em;">${game.stats.points}/${game.stats.rebounds}/${game.stats.assists}</span>
+              </div>
+              <div style="font-size: 0.85em; color: #90e0ef; margin-bottom: 0.5em;">
+                <span class="minutes-played">${game.minutes} MIN</span>
+              </div>
+              <span class="grade ${gradeClass}">${grade}</span>
+            </div>
+          </div>
+        `;
+          gamesList.appendChild(gameItem);
+        });
+      }
+
+      // Calculate and update 2K-style player ratings
+      function updatePlayerRatings() {
+        // Calculate averages from game data
+        const totalGames = gameData.length;
+        const avgStats = gameData.reduce(
+          (acc, game) => {
+            acc.points += game.stats.points || 0;
+            acc.rebounds += game.stats.rebounds || 0;
+            acc.assists += game.stats.assists || 0;
+            acc.steals += game.stats.steals || 0;
+            acc.blocks += game.stats.blocks || 0;
+            acc.fgm += game.stats.fgm || 0;
+            acc.fga += game.stats.fga || 0;
+            acc.ftm += game.stats.ftm || 0;
+            acc.fta += game.stats.fta || 0;
+            acc.turnovers += game.stats.turnovers || 0;
+            acc.fouls += game.stats.fouls || 0;
+            return acc;
+          },
+          {
+            points: 0,
+            rebounds: 0,
+            assists: 0,
+            steals: 0,
+            blocks: 0,
+            fgm: 0,
+            fga: 0,
+            ftm: 0,
+            fta: 0,
+            turnovers: 0,
+            fouls: 0,
+          }
+        );
+
+        // Calculate per-game averages
+        Object.keys(avgStats).forEach(key => {
+          avgStats[key] = avgStats[key] / totalGames;
+        });
+
+        // Calculate shooting percentages
+        const fgPct = avgStats.fga > 0 ? avgStats.fgm / avgStats.fga : 0;
+        const ftPct = avgStats.fta > 0 ? avgStats.ftm / avgStats.fta : 0;
+
+        // Calculate 2K-style ratings (0-100 scale)
+        const ratings = {
+          // Offense ratings
+          shooting: Math.min(
+            100,
+            Math.max(40, fgPct * 150 + avgStats.points * 2)
+          ),
+          finishing: Math.min(
+            100,
+            Math.max(40, fgPct * 100 + avgStats.points * 3)
+          ),
+          playmaking: Math.min(100, Math.max(40, avgStats.assists * 8 + 50)),
+
+          // Defense ratings
+          perimeterD: Math.min(
+            100,
+            Math.max(40, avgStats.steals * 10 + (5 - avgStats.fouls) * 5 + 50)
+          ),
+          steal: Math.min(100, Math.max(40, avgStats.steals * 15 + 40)),
+          block: Math.min(100, Math.max(40, avgStats.blocks * 20 + 45)),
+
+          // Physical ratings
+          speed: Math.min(100, Math.max(60, 85 + avgStats.steals * 2)), // Base speed with steal bonus
+          athleticism: Math.min(
+            100,
+            Math.max(60, 80 + avgStats.blocks * 3 + avgStats.rebounds * 1)
+          ),
+          stamina: Math.min(100, Math.max(60, 85 - avgStats.fouls * 2)), // Fouls suggest tiredness
+        };
+
+        // Calculate overall rating (weighted average)
+        const overall = Math.round(
+          ratings.shooting * 0.15 +
+            ratings.finishing * 0.12 +
+            ratings.playmaking * 0.18 +
+            ratings.perimeterD * 0.15 +
+            ratings.steal * 0.1 +
+            ratings.block * 0.08 +
+            ratings.speed * 0.1 +
+            ratings.athleticism * 0.07 +
+            ratings.stamina * 0.05
+        );
+
+        // Update the display elements
+        document.getElementById('overallRating').textContent = overall;
+      }
+
+      // Calculate and display average letter grade
+      function updateAverageGrade() {
+        const letterGrades = gameData.map(game => {
+          // Convert old format to new format for the new grading function
+          const convertedStats = {
+            points: game.stats.points,
+            rebounds: game.stats.rebounds,
+            assists: game.stats.assists,
+            fieldGoalsMade: game.stats.fgm,
+            freeThrowsMade: game.stats.ftm,
+            steals: game.stats.steals,
+            blocks: game.stats.blocks,
+            charges: game.stats.charges || 0,
+            deflections: game.stats.deflections || 0,
+            turnovers: game.stats.turnovers,
+            fouls: game.stats.fouls,
+            missedFieldGoals: game.stats.fga - game.stats.fgm,
+            missedFreeThrows: game.stats.fta - game.stats.ftm,
+            minutesPlayed: game.minutes,
+            gameLength: 32,
+          };
+
+          const result = calculate3BallGrade(convertedStats);
+          return result.letterGrade;
+        });
+
+        // Calculate average letter grade (convert to numbers, average, convert back)
+        const gradeValues = letterGrades.map(grade => {
+          switch (grade) {
+            case 'A':
+              return 4.0;
+            case 'B':
+              return 3.0;
+            case 'C':
+              return 2.0;
+            case 'D':
+              return 1.0;
+            case 'F':
+              return 0.0;
+            default:
+              return 0.0;
+          }
+        });
+
+        const avgValue =
+          gradeValues.reduce((sum, val) => sum + val, 0) / gradeValues.length;
+
+        // Convert back to letter grade
+        let avgLetterGrade;
+        if (avgValue >= 3.5) avgLetterGrade = 'A';
+        else if (avgValue >= 2.5) avgLetterGrade = 'B';
+        else if (avgValue >= 1.5) avgLetterGrade = 'C';
+        else if (avgValue >= 0.5) avgLetterGrade = 'D';
+        else avgLetterGrade = 'F';
+
+        // Update the display
+        const avgGradeElement = document.getElementById('avgGradeDisplay');
+        if (avgGradeElement) {
+          avgGradeElement.textContent = avgLetterGrade;
+        }
+      }
+
+      // Tab switching functionality
+      function switchTab(tabName) {
+        // Update nav tabs
+        document
+          .querySelectorAll('.nav-tab')
+          .forEach(tab => tab.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Update sections
+        document
+          .querySelectorAll('.demo-section')
+          .forEach(section => section.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+
+        // Initialize charts if needed
+        if (tabName === 'overview') {
+          setTimeout(() => {
+            initCharts();
+            updateAverageGrade();
+            updatePlayerRatings();
+          }, 100);
+        } else if (tabName === 'games') {
+          populateGamesList();
+        }
+      }
+
+      // Initialize charts
+      function initCharts() {
+        // Performance trend chart with realistic grades
+        const perfCtx = document.getElementById('performanceChart');
+        if (perfCtx) {
+          // Calculate letter grades using the new 3Ball Network system
+          const letterGrades = gameData.map(game => {
+            // Convert old format to new format for the new grading function
+            const convertedStats = {
+              points: game.stats.points || 0,
+              rebounds: game.stats.rebounds || 0,
+              assists: game.stats.assists || 0,
+              fieldGoalsMade: game.stats.fgm || 0,
+              freeThrowsMade: game.stats.ftm || 0,
+              steals: game.stats.steals || 0,
+              blocks: game.stats.blocks || 0,
+              charges: game.stats.charges || 0,
+              deflections: game.stats.deflections || 0,
+              turnovers: game.stats.turnovers || 0,
+              fouls: game.stats.fouls || 0,
+              missedFieldGoals: (game.stats.fga || 0) - (game.stats.fgm || 0),
+              missedFreeThrows: (game.stats.fta || 0) - (game.stats.ftm || 0),
+              minutesPlayed: game.minutes || 0,
+              gameLength: 32,
+            };
+
+            // Use the new 3Ball Network grading function
+            const result = calculate3BallGrade(convertedStats);
+            return result.letterGrade;
+          });
+
+          // Map letter grades to numeric values for chart positioning
+          const gradeValues = letterGrades.map(grade => {
+            const gradeMap = {
+              A: 5,
+              B: 4,
+              C: 3,
+              D: 2,
+              F: 1,
+            };
+            return gradeMap[grade] || 1;
+          });
+
+          new Chart(perfCtx, {
+            type: 'line',
+            data: {
+              labels: gameData.map((_, i) => `Game ${i + 1}`),
+              datasets: [
+                {
+                  label: 'Game Grade',
+                  data: gradeValues,
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.1)',
+                  tension: 0.4,
+                  fill: true,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: '#e0e0e0' },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      return `Game Grade: ${letterGrades[context.dataIndex]}`;
+                    },
+                  },
+                },
+              },
+              scales: {
+                x: { ticks: { color: '#b0b0b0' } },
+                y: {
+                  ticks: {
+                    color: '#b0b0b0',
+                    callback: function (value) {
+                      const gradeLabels = {
+                        5: 'A',
+                        4: 'B',
+                        3: 'C',
+                        2: 'D',
+                        1: 'F',
+                      };
+                      return gradeLabels[value] || '';
+                    },
+                    stepSize: 1,
+                    includeBounds: false,
+                  },
+                  min: 1,
+                  max: 5,
+                  // Only display ticks at grade positions
+                  afterBuildTicks: function (axis) {
+                    axis.ticks = [
+                      { value: 1, label: 'F' },
+                      { value: 2, label: 'D' },
+                      { value: 3, label: 'C' },
+                      { value: 4, label: 'B' },
+                      { value: 5, label: 'A' },
+                    ];
+                  },
+                },
+              },
+            },
+          });
+        }
+
+        // Position analysis chart
+        const posCtx = document.getElementById('positionChart');
+        if (posCtx) {
+          new Chart(posCtx, {
+            type: 'radar',
+            data: {
+              labels: [
+                'Shooting',
+                'Defense',
+                'Passing',
+                'Rebounding',
+                'Speed',
+                'Court Vision',
+              ],
+              datasets: [
+                {
+                  label: 'Current Level',
+                  data: [75, 82, 88, 78, 85, 87],
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.2)',
+                  borderWidth: 2,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  labels: { color: '#e0e0e0' },
+                },
+              },
+              scales: {
+                r: {
+                  beginAtZero: true,
+                  max: 100,
+                  ticks: { color: '#b0b0b0' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                  angleLines: { color: 'rgba(255,255,255,0.1)' },
+                  pointLabels: { color: '#e0e0e0' },
+                },
+              },
+            },
+          });
+        }
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(initCharts, 500);
+        populateGamesList();
+        initAdvancedFeatures();
+      });
+
+      // Initialize advanced features
+      async function initAdvancedFeatures() {
+        try {
+          // Import and initialize Player Analytics
+          try {
+            const { PlayerAnalytics } = await import(
+              '/assets/js/playerAnalytics.js'
+            );
+            if (PlayerAnalytics) {
+              initPlayerAnalytics();
+            }
+          } catch (error) {
+            console.log(
+              'PlayerAnalytics module not available, using demo content'
+            );
+            initPlayerAnalytics();
+          }
+
+          // Import and initialize Recruiting Hub
+          try {
+            const { RecruitingHub } = await import(
+              '/assets/js/recruitingHub.js'
+            );
+            if (RecruitingHub) {
+              initRecruitingHub();
+            }
+          } catch (error) {
+            console.log(
+              'RecruitingHub module not available, using demo content'
+            );
+            initRecruitingHub();
+          }
+        } catch (error) {
+          console.error('Error initializing advanced features:', error);
+        }
+      }
+
+      // Initialize Player Analytics UI
+      function initPlayerAnalytics() {
+        const analyticsContainer = document.getElementById(
+          'playerAnalyticsContainer'
+        );
+        if (analyticsContainer) {
+          // Create a simplified analytics view for the demo
+          analyticsContainer.innerHTML = `
+              <div class="analytics-dashboard">
+                <div class="analytics-section">
+                  <h3>Real-Time Performance Tracking</h3>
+                  <div class="analytics-grid">
+                    <div class="analytics-card">
+                      <div class="analytics-value">87.3%</div>
+                      <div class="analytics-label">Efficiency Rating</div>
+                    </div>
+                    <div class="analytics-card">
+                      <div class="analytics-value">+12.5</div>
+                      <div class="analytics-label">Plus/Minus Trend</div>
+                    </div>
+                    <div class="analytics-card">
+                      <div class="analytics-value">Top 5%</div>
+                      <div class="analytics-label">League Ranking</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="analytics-section">
+                  <h3>AI Insights & Recommendations</h3>
+                  <div class="ai-insight">
+                    <p><strong>🎯 Focus Area:</strong> Improve free throw consistency (currently 73%, target 80%)</p>
+                    <p><strong>💪 Strength:</strong> Exceptional court vision and assist-to-turnover ratio</p>
+                    <p><strong>📈 Growth Trend:</strong> 15% improvement in defensive rating over last 10 games</p>
+                  </div>
+                </div>
+              </div>
+            `;
+        }
+      }
+
+      // Initialize Recruiting Hub UI
+      function initRecruitingHub() {
+        const recruitingContainer = document.getElementById(
+          'recruitingHubContainer'
+        );
+        if (recruitingContainer) {
+          // Create a simplified recruiting view for the demo
+          recruitingContainer.innerHTML = `
+              <div class="recruiting-dashboard">
+                <div class="recruiting-section">
+                  <h3>College Matches</h3>
+                  <div class="match-list">
+                    <div class="match-item high-match">
+                      <div class="match-info">
+                        <strong>Stanford University</strong>
+                        <span class="match-score">96% Match</span>
+                      </div>
+                      <div class="match-details">Academic excellence + Basketball program fit</div>
+                    </div>
+                    <div class="match-item medium-match">
+                      <strong>University of North Carolina</strong>
+                      <span class="match-score">88% Match</span>
+                      <div class="match-details">Strong basketball tradition, good academic fit</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="recruiting-section">
+                  <h3>Communication Center</h3>
+                  <div class="communication-summary">
+                    <p><strong>3 active conversations</strong> with college coaches</p>
+                    <p><strong>2 camp invitations</strong> pending response</p>
+                    <p><strong>1 official visit</strong> scheduled for next month</p>
+                  </div>
+                </div>
+                <div class="recruiting-section">
+                  <h3>Scholarship Calculator</h3>
+                  <div class="scholarship-info">
+                    <p><strong>Estimated Value Range:</strong> $15,000 - $45,000 per year</p>
+                    <p><strong>Academic Scholarships:</strong> Eligible for merit-based aid</p>
+                    <p><strong>Athletic Scholarships:</strong> High potential based on performance</p>
+                  </div>
+                </div>
+              </div>
+            `;
+        }
+      }
+
+      // Initialize average grade and player ratings on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        updateAverageGrade();
+        updatePlayerRatings();
+      });
+    </script>
+  </body>
+</html>
