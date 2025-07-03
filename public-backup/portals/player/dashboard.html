@@ -1,0 +1,61 @@
+<!-- player/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header><h1>Welcome to Your Dashboard</h1></header>
+  <main>
+    <section>
+      <h3>Game Tools</h3>
+      <button onclick="triggerGameAnalysis()">🧠 Analyze Game</button>
+      <div id="analysisOutput"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.triggerGameAnalysis = async () => {
+      const gameId = prompt("Enter Game ID (must match Firestore ID)");
+      const videoUrl = prompt("Enter Video URL for analysis");
+
+      if (!gameId || !videoUrl) {
+        alert("Missing Game ID or video URL.");
+        return;
+      }
+
+      await setDoc(doc(db, "games", gameId), {
+        videoUrl,
+        uploadedAt: new Date().toISOString(),
+        status: "pending",
+      });
+
+      alert(`🧠 Game Analyzer triggered for: ${gameId}`);
+    };
+  </script>
+</body>
+</html>

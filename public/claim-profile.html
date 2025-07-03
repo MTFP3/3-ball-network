@@ -5,7 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claim My Profile</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlpKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZpKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBzKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gaShlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9cyhlKTtmZXRjaChlLmhyZWYscil9fSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bW9kdWxlcHJlbG9hZC1wb2x5ZmlsbC1CNVF0OUVNWC5qcy5tYXAK">
+  <script type="module" crossorigin src="/assets/js/claim-profile-Dyblg7Cy.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js">
+  <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc.css">
 </head>
 <body>
   <main>
@@ -19,54 +22,5 @@
     <div id="result"></div>
   </main>
 
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-    import { getFirestore, collection, getDocs, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
-
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_APP.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_APP.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    document.getElementById("claimForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim().toLowerCase();
-      const school = document.getElementById("school").value.trim().toLowerCase();
-      const email = document.getElementById("email").value.trim();
-
-      const snapshot = await getDocs(collection(db, "players"));
-      let matched = null;
-
-      snapshot.forEach(docSnap => {
-        const data = docSnap.data();
-        if (
-          data.name?.toLowerCase() === name &&
-          data.school?.toLowerCase() === school &&
-          data.placeholder === true
-        ) {
-          matched = { id: docSnap.id, ...data };
-        }
-      });
-
-      const resultDiv = document.getElementById("result");
-      if (matched) {
-        await updateDoc(doc(db, "players", matched.id), {
-          placeholder: false,
-          email: email,
-          claimedAt: new Date().toISOString()
-        });
-        resultDiv.innerHTML = `<p style='color:green'>✅ Profile found and linked. You are now registered as <strong>${matched.name}</strong>.</p>`;
-      } else {
-        resultDiv.innerHTML = `<p style='color:red'>❌ No matching profile found. Please double-check your name and school.</p>`;
-      }
-    });
-  </script>
 </body>
 </html>

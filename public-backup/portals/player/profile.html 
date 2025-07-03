@@ -1,0 +1,35 @@
+<!-- player/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Profile</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <main>
+    <section class="profile-header">
+      <img src="/assets/images/player-profile.jpg" alt="Player Photo" />
+      <h1>[Player Name] #23</h1>
+      <p>Position: Guard | School: PCHS | Height: 6'1" | Weight: 175 lbs</p>
+      <p>Rating: 89 | Game Grade Avg: A-</p>
+    </section>
+
+    <section class="public-highlights">
+      <h2>Highlights</h2>
+      <video controls src="/assets/videos/player-highlight.mp4"></video>
+    </section>
+
+    <section class="public-heatmaps">
+      <h2>Heatmap</h2>
+      <img src="/assets/images/heatmap.png" alt="Shot Map" />
+    </section>
+  </main>
+</body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<script src="/assets/js/firebaseConfig.js"></script>

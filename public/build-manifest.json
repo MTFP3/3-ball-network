@@ -1,0 +1,846 @@
+{
+  "buildTime": "2025-07-03T04:55:42.864Z",
+  "version": "3.0.0",
+  "gitCommit": "818c854ebcd53de735de025b543b915936fd4c22",
+  "gitBranch": "main",
+  "environment": "development",
+  "nodeVersion": "v20.19.3",
+  "buildHash": "73d79185",
+  "files": {
+    "test-integration.html": {
+      "size": 4239,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "e8e05b0e",
+      "type": "html"
+    },
+    "terms.html": {
+      "size": 7922,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "d249e69e",
+      "type": "html"
+    },
+    "teamArchive.html": {
+      "size": 1648,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "e6528d9e",
+      "type": "html"
+    },
+    "team.html": {
+      "size": 4038,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "fddaf3b8",
+      "type": "html"
+    },
+    "social-hub.html": {
+      "size": 32886,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "293ef62a",
+      "type": "html"
+    },
+    "smart-input.html": {
+      "size": 29792,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "5f26a9af",
+      "type": "html"
+    },
+    "search.html": {
+      "size": 5423,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "e15b3861",
+      "type": "html"
+    },
+    "scout.html": {
+      "size": 7643,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "c61cf001",
+      "type": "html"
+    },
+    "register.html": {
+      "size": 23800,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "d3084553",
+      "type": "html"
+    },
+    "recruiting-hub.html": {
+      "size": 33447,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "d29123ed",
+      "type": "html"
+    },
+    "privacy.html": {
+      "size": 7170,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "a8cff955",
+      "type": "html"
+    },
+    "playerProfile.html": {
+      "size": 3627,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "2d72f8e3",
+      "type": "html"
+    },
+    "player.html": {
+      "size": 2171,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "e9cbf8e2",
+      "type": "html"
+    },
+    "overview.html": {
+      "size": 14651,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "9d654024",
+      "type": "html"
+    },
+    "login.html": {
+      "size": 5683,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "8f2e01fc",
+      "type": "html"
+    },
+    "live.html": {
+      "size": 1318,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "81aaf003",
+      "type": "html"
+    },
+    "live-demo.html": {
+      "size": 25745,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "7329af13",
+      "type": "html"
+    },
+    "index.html": {
+      "size": 37627,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "6d997e96",
+      "type": "html"
+    },
+    "fan.html": {
+      "size": 2484,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "b5059d23",
+      "type": "html"
+    },
+    "demo-scout.html": {
+      "size": 28197,
+      "mtime": "2025-07-03T04:58:48.107Z",
+      "hash": "0c9cbc19",
+      "type": "html"
+    },
+    "demo-player.html": {
+      "size": 56499,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "b2fb5286",
+      "type": "html"
+    },
+    "demo-fan.html": {
+      "size": 20519,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "5790e2ea",
+      "type": "html"
+    },
+    "demo-enhanced.html": {
+      "size": 18967,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "5389ddb4",
+      "type": "html"
+    },
+    "demo-coach.html": {
+      "size": 30728,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "2e55bad3",
+      "type": "html"
+    },
+    "demo-coach-final.html": {
+      "size": 18052,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "6c1042c1",
+      "type": "html"
+    },
+    "coach.html": {
+      "size": 8428,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "8ac43625",
+      "type": "html"
+    },
+    "claim-profile.html": {
+      "size": 2037,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "eb0f4558",
+      "type": "html"
+    },
+    "cache-clear.html": {
+      "size": 0,
+      "mtime": "2025-07-03T04:58:48.065Z",
+      "hash": "d41d8cd9",
+      "type": "html"
+    },
+    "backup_overview.html": {
+      "size": 0,
+      "mtime": "2025-07-03T04:58:48.054Z",
+      "hash": "d41d8cd9",
+      "type": "html"
+    },
+    "analytics.html": {
+      "size": 2377,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "43cb6e09",
+      "type": "html"
+    },
+    "analytics-dashboard.html": {
+      "size": 28801,
+      "mtime": "2025-07-03T04:58:48.104Z",
+      "hash": "febb0757",
+      "type": "html"
+    },
+    "ai-coach.html": {
+      "size": 29670,
+      "mtime": "2025-07-03T04:58:48.104Z",
+      "hash": "fcc132fe",
+      "type": "html"
+    },
+    "admin.html": {
+      "size": 15402,
+      "mtime": "2025-07-03T04:58:48.105Z",
+      "hash": "09ad776c",
+      "type": "html"
+    },
+    "about.html": {
+      "size": 13587,
+      "mtime": "2025-07-03T04:58:48.106Z",
+      "hash": "0ab066a5",
+      "type": "html"
+    },
+    "assets/png/logo-C3J1yCbD-C3J1yCbD.png": {
+      "size": 1165969,
+      "mtime": "2025-07-03T04:58:48.202Z",
+      "hash": "283ae8cd",
+      "type": "image"
+    },
+    "assets/json/manifest-RduZY6E_-RduZY6E_.json": {
+      "size": 1300,
+      "mtime": "2025-07-03T04:58:48.175Z",
+      "hash": "eabaf9e7",
+      "type": "data"
+    },
+    "assets/js/test-integration-AXl24t5G.js.map": {
+      "size": 6393,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "4175c926",
+      "type": "other"
+    },
+    "assets/js/test-integration-AXl24t5G.js": {
+      "size": 4336,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "08f00d53",
+      "type": "script"
+    },
+    "assets/js/terms-CW5ct3-k.js.map": {
+      "size": 98,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "1e5048e4",
+      "type": "other"
+    },
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js.map": {
+      "size": 6806,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "54eecd60",
+      "type": "other"
+    },
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js": {
+      "size": 3738,
+      "mtime": "2025-07-03T04:58:48.197Z",
+      "hash": "86b85e3d",
+      "type": "script"
+    },
+    "assets/js/teamArchive-D9Frtfyw.js.map": {
+      "size": 2484,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "ae5f7eb0",
+      "type": "other"
+    },
+    "assets/js/teamArchive-D9Frtfyw.js": {
+      "size": 1465,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "b436aa0d",
+      "type": "script"
+    },
+    "assets/js/team-DeWy7ccS.js.map": {
+      "size": 3777,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "d1f3302f",
+      "type": "other"
+    },
+    "assets/js/team-DeWy7ccS.js": {
+      "size": 2026,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "0227e95e",
+      "type": "script"
+    },
+    "assets/js/social-hub-C8z6d9un.js.map": {
+      "size": 103,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "c13c2cd1",
+      "type": "other"
+    },
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js.map": {
+      "size": 16050,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "2031ffb6",
+      "type": "other"
+    },
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js": {
+      "size": 8723,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "49d13957",
+      "type": "script"
+    },
+    "assets/js/smart-input-DcMyZfo1.js.map": {
+      "size": 104,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "c998301e",
+      "type": "other"
+    },
+    "assets/js/search-CYlnP4F4.js.map": {
+      "size": 10783,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "8c4b6f92",
+      "type": "other"
+    },
+    "assets/js/search-CYlnP4F4.js": {
+      "size": 6530,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "1cee8436",
+      "type": "script"
+    },
+    "assets/js/scout-C14X4RzO.js.map": {
+      "size": 8183,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "2606a942",
+      "type": "other"
+    },
+    "assets/js/scout-C14X4RzO.js": {
+      "size": 4560,
+      "mtime": "2025-07-03T04:58:48.197Z",
+      "hash": "2ccdaf24",
+      "type": "script"
+    },
+    "assets/js/register-CW5ct3-k.js.map": {
+      "size": 101,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "9e4a4201",
+      "type": "other"
+    },
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js.map": {
+      "size": 16034,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "18a4ef0c",
+      "type": "other"
+    },
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js": {
+      "size": 8121,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "89cb6db8",
+      "type": "script"
+    },
+    "assets/js/recruiting-hub-BKhXC20p.js.map": {
+      "size": 107,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "7db9cf8a",
+      "type": "other"
+    },
+    "assets/js/privacy-CW5ct3-k.js.map": {
+      "size": 100,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "4c85a8a2",
+      "type": "other"
+    },
+    "assets/js/playerProfile-C4lJoiEi.js.map": {
+      "size": 2077,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "404f4713",
+      "type": "other"
+    },
+    "assets/js/playerProfile-C4lJoiEi.js": {
+      "size": 1248,
+      "mtime": "2025-07-03T04:58:48.197Z",
+      "hash": "cb09756c",
+      "type": "script"
+    },
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js.map": {
+      "size": 10211,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "e79bb739",
+      "type": "other"
+    },
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js": {
+      "size": 4940,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "ab3e7078",
+      "type": "script"
+    },
+    "assets/js/player-CAASW5Xp.js.map": {
+      "size": 6689,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "2a1ec59d",
+      "type": "other"
+    },
+    "assets/js/player-CAASW5Xp.js": {
+      "size": 3554,
+      "mtime": "2025-07-03T04:58:48.197Z",
+      "hash": "1abeb4a2",
+      "type": "script"
+    },
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js.map": {
+      "size": 14387,
+      "mtime": "2025-07-03T04:58:48.202Z",
+      "hash": "db34d8df",
+      "type": "other"
+    },
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js": {
+      "size": 8115,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "bc913a8e",
+      "type": "script"
+    },
+    "assets/js/overview-aKgriaNG.js.map": {
+      "size": 101,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "56ce0f0b",
+      "type": "other"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js.map": {
+      "size": 1682,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "12130e8e",
+      "type": "other"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js": {
+      "size": 1490,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "26557a7a",
+      "type": "script"
+    },
+    "assets/js/login-CdKU8PU6.js.map": {
+      "size": 2464,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "e8db1634",
+      "type": "other"
+    },
+    "assets/js/login-CdKU8PU6.js": {
+      "size": 1386,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "85bdeb30",
+      "type": "script"
+    },
+    "assets/js/live-demo-CG4fJf9y.js.map": {
+      "size": 102,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "f2f86677",
+      "type": "other"
+    },
+    "assets/js/live-CW5ct3-k.js.map": {
+      "size": 97,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "c9da5550",
+      "type": "other"
+    },
+    "assets/js/index-Bm09jQhz.js.map": {
+      "size": 4634,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "9184ca3b",
+      "type": "other"
+    },
+    "assets/js/index-Bm09jQhz.js": {
+      "size": 2801,
+      "mtime": "2025-07-03T04:58:48.196Z",
+      "hash": "756651df",
+      "type": "script"
+    },
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js.map": {
+      "size": 493413,
+      "mtime": "2025-07-03T04:58:48.202Z",
+      "hash": "e6db9ee8",
+      "type": "other"
+    },
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js": {
+      "size": 261851,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "32558c7a",
+      "type": "script"
+    },
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL.js": {
+      "size": 263982,
+      "mtime": "2025-07-03T04:58:48.170Z",
+      "hash": "0303239c",
+      "type": "script"
+    },
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js.map": {
+      "size": 1531,
+      "mtime": "2025-07-03T04:58:48.201Z",
+      "hash": "0e2dd47c",
+      "type": "other"
+    },
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js": {
+      "size": 848,
+      "mtime": "2025-07-03T04:58:48.198Z",
+      "hash": "d4177df7",
+      "type": "script"
+    },
+    "assets/js/fan-Cavv95E5.js.map": {
+      "size": 3770,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "8432b1ba",
+      "type": "other"
+    },
+    "assets/js/fan-Cavv95E5.js": {
+      "size": 1928,
+      "mtime": "2025-07-03T04:58:48.196Z",
+      "hash": "6b12d99d",
+      "type": "script"
+    },
+    "assets/js/demo-scout-C8z6d9un.js.map": {
+      "size": 103,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "89a95fa4",
+      "type": "other"
+    },
+    "assets/js/demo-player-CG4fJf9y.js.map": {
+      "size": 104,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "605c9fc5",
+      "type": "other"
+    },
+    "assets/js/demo-fan-C8z6d9un.js.map": {
+      "size": 101,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "57bd9e07",
+      "type": "other"
+    },
+    "assets/js/demo-enhanced-CG4fJf9y.js.map": {
+      "size": 106,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "540ed842",
+      "type": "other"
+    },
+    "assets/js/demo-coach-final-C_tPLY5n.js.map": {
+      "size": 109,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "700c39c5",
+      "type": "other"
+    },
+    "assets/js/demo-coach-CWdNuE-V.js.map": {
+      "size": 103,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "36227436",
+      "type": "other"
+    },
+    "assets/js/coach-B607SaUB.js.map": {
+      "size": 16267,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "3fa4dc97",
+      "type": "other"
+    },
+    "assets/js/coach-B607SaUB.js": {
+      "size": 8705,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "294d9ed1",
+      "type": "script"
+    },
+    "assets/js/claim-profile-Dyblg7Cy.js.map": {
+      "size": 2402,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "aaa79da0",
+      "type": "other"
+    },
+    "assets/js/claim-profile-Dyblg7Cy.js": {
+      "size": 1402,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "e21e2a7c",
+      "type": "script"
+    },
+    "assets/js/cache-clear-l0sNRNKZ.js.map": {
+      "size": 104,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "4fd7acd0",
+      "type": "other"
+    },
+    "assets/js/backup_overview-l0sNRNKZ.js.map": {
+      "size": 108,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "c3ff31a6",
+      "type": "other"
+    },
+    "assets/js/analytics-dashboard-BWOI8U5F.js.map": {
+      "size": 112,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "4f744e5b",
+      "type": "other"
+    },
+    "assets/js/analytics-CMDWarcw.js.map": {
+      "size": 1824,
+      "mtime": "2025-07-03T04:58:48.200Z",
+      "hash": "728280fe",
+      "type": "other"
+    },
+    "assets/js/analytics-CMDWarcw.js": {
+      "size": 1166,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "44fa63a1",
+      "type": "script"
+    },
+    "assets/js/ai-coach-C8z6d9un.js.map": {
+      "size": 101,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "84c587bd",
+      "type": "other"
+    },
+    "assets/js/admin-DFLivpyi.js.map": {
+      "size": 15562,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "9963a0e2",
+      "type": "other"
+    },
+    "assets/js/admin-DFLivpyi.js": {
+      "size": 9807,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "7bc27162",
+      "type": "script"
+    },
+    "assets/js/about-C_tPLY5n.js.map": {
+      "size": 98,
+      "mtime": "2025-07-03T04:58:48.199Z",
+      "hash": "5bde3f8e",
+      "type": "other"
+    },
+    "assets/css/style-atMpp5Bc-atMpp5Bc.css": {
+      "size": 12413,
+      "mtime": "2025-07-03T04:58:48.195Z",
+      "hash": "c4a4d731",
+      "type": "stylesheet"
+    },
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css": {
+      "size": 2833,
+      "mtime": "2025-07-03T04:58:48.177Z",
+      "hash": "e553b98b",
+      "type": "stylesheet"
+    }
+  },
+  "hashes": {
+    "test-integration.html": "e8e05b0e",
+    "terms.html": "d249e69e",
+    "teamArchive.html": "e6528d9e",
+    "team.html": "fddaf3b8",
+    "social-hub.html": "293ef62a",
+    "smart-input.html": "5f26a9af",
+    "search.html": "e15b3861",
+    "scout.html": "c61cf001",
+    "register.html": "d3084553",
+    "recruiting-hub.html": "d29123ed",
+    "privacy.html": "a8cff955",
+    "playerProfile.html": "2d72f8e3",
+    "player.html": "e9cbf8e2",
+    "overview.html": "9d654024",
+    "login.html": "8f2e01fc",
+    "live.html": "81aaf003",
+    "live-demo.html": "7329af13",
+    "index.html": "6d997e96",
+    "fan.html": "b5059d23",
+    "demo-scout.html": "0c9cbc19",
+    "demo-player.html": "b2fb5286",
+    "demo-fan.html": "5790e2ea",
+    "demo-enhanced.html": "5389ddb4",
+    "demo-coach.html": "2e55bad3",
+    "demo-coach-final.html": "6c1042c1",
+    "coach.html": "8ac43625",
+    "claim-profile.html": "eb0f4558",
+    "cache-clear.html": "d41d8cd9",
+    "backup_overview.html": "d41d8cd9",
+    "analytics.html": "43cb6e09",
+    "analytics-dashboard.html": "febb0757",
+    "ai-coach.html": "fcc132fe",
+    "admin.html": "09ad776c",
+    "about.html": "0ab066a5",
+    "assets/png/logo-C3J1yCbD-C3J1yCbD.png": "283ae8cd",
+    "assets/json/manifest-RduZY6E_-RduZY6E_.json": "eabaf9e7",
+    "assets/js/test-integration-AXl24t5G.js.map": "4175c926",
+    "assets/js/test-integration-AXl24t5G.js": "08f00d53",
+    "assets/js/terms-CW5ct3-k.js.map": "1e5048e4",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js.map": "54eecd60",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js": "86b85e3d",
+    "assets/js/teamArchive-D9Frtfyw.js.map": "ae5f7eb0",
+    "assets/js/teamArchive-D9Frtfyw.js": "b436aa0d",
+    "assets/js/team-DeWy7ccS.js.map": "d1f3302f",
+    "assets/js/team-DeWy7ccS.js": "0227e95e",
+    "assets/js/social-hub-C8z6d9un.js.map": "c13c2cd1",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js.map": "2031ffb6",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js": "49d13957",
+    "assets/js/smart-input-DcMyZfo1.js.map": "c998301e",
+    "assets/js/search-CYlnP4F4.js.map": "8c4b6f92",
+    "assets/js/search-CYlnP4F4.js": "1cee8436",
+    "assets/js/scout-C14X4RzO.js.map": "2606a942",
+    "assets/js/scout-C14X4RzO.js": "2ccdaf24",
+    "assets/js/register-CW5ct3-k.js.map": "9e4a4201",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js.map": "18a4ef0c",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js": "89cb6db8",
+    "assets/js/recruiting-hub-BKhXC20p.js.map": "7db9cf8a",
+    "assets/js/privacy-CW5ct3-k.js.map": "4c85a8a2",
+    "assets/js/playerProfile-C4lJoiEi.js.map": "404f4713",
+    "assets/js/playerProfile-C4lJoiEi.js": "cb09756c",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js.map": "e79bb739",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js": "ab3e7078",
+    "assets/js/player-CAASW5Xp.js.map": "2a1ec59d",
+    "assets/js/player-CAASW5Xp.js": "1abeb4a2",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js.map": "db34d8df",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js": "bc913a8e",
+    "assets/js/overview-aKgriaNG.js.map": "56ce0f0b",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js.map": "12130e8e",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js": "26557a7a",
+    "assets/js/login-CdKU8PU6.js.map": "e8db1634",
+    "assets/js/login-CdKU8PU6.js": "85bdeb30",
+    "assets/js/live-demo-CG4fJf9y.js.map": "f2f86677",
+    "assets/js/live-CW5ct3-k.js.map": "c9da5550",
+    "assets/js/index-Bm09jQhz.js.map": "9184ca3b",
+    "assets/js/index-Bm09jQhz.js": "756651df",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js.map": "e6db9ee8",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js": "32558c7a",
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL.js": "0303239c",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js.map": "0e2dd47c",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js": "d4177df7",
+    "assets/js/fan-Cavv95E5.js.map": "8432b1ba",
+    "assets/js/fan-Cavv95E5.js": "6b12d99d",
+    "assets/js/demo-scout-C8z6d9un.js.map": "89a95fa4",
+    "assets/js/demo-player-CG4fJf9y.js.map": "605c9fc5",
+    "assets/js/demo-fan-C8z6d9un.js.map": "57bd9e07",
+    "assets/js/demo-enhanced-CG4fJf9y.js.map": "540ed842",
+    "assets/js/demo-coach-final-C_tPLY5n.js.map": "700c39c5",
+    "assets/js/demo-coach-CWdNuE-V.js.map": "36227436",
+    "assets/js/coach-B607SaUB.js.map": "3fa4dc97",
+    "assets/js/coach-B607SaUB.js": "294d9ed1",
+    "assets/js/claim-profile-Dyblg7Cy.js.map": "aaa79da0",
+    "assets/js/claim-profile-Dyblg7Cy.js": "e21e2a7c",
+    "assets/js/cache-clear-l0sNRNKZ.js.map": "4fd7acd0",
+    "assets/js/backup_overview-l0sNRNKZ.js.map": "c3ff31a6",
+    "assets/js/analytics-dashboard-BWOI8U5F.js.map": "4f744e5b",
+    "assets/js/analytics-CMDWarcw.js.map": "728280fe",
+    "assets/js/analytics-CMDWarcw.js": "44fa63a1",
+    "assets/js/ai-coach-C8z6d9un.js.map": "84c587bd",
+    "assets/js/admin-DFLivpyi.js.map": "9963a0e2",
+    "assets/js/admin-DFLivpyi.js": "7bc27162",
+    "assets/js/about-C_tPLY5n.js.map": "5bde3f8e",
+    "assets/css/style-atMpp5Bc-atMpp5Bc.css": "c4a4d731",
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css": "e553b98b"
+  },
+  "sizes": {
+    "test-integration.html": 4239,
+    "terms.html": 7922,
+    "teamArchive.html": 1648,
+    "team.html": 4038,
+    "social-hub.html": 32886,
+    "smart-input.html": 29792,
+    "search.html": 5423,
+    "scout.html": 7643,
+    "register.html": 23800,
+    "recruiting-hub.html": 33447,
+    "privacy.html": 7170,
+    "playerProfile.html": 3627,
+    "player.html": 2171,
+    "overview.html": 14651,
+    "login.html": 5683,
+    "live.html": 1318,
+    "live-demo.html": 25745,
+    "index.html": 37627,
+    "fan.html": 2484,
+    "demo-scout.html": 28197,
+    "demo-player.html": 56499,
+    "demo-fan.html": 20519,
+    "demo-enhanced.html": 18967,
+    "demo-coach.html": 30728,
+    "demo-coach-final.html": 18052,
+    "coach.html": 8428,
+    "claim-profile.html": 2037,
+    "cache-clear.html": 0,
+    "backup_overview.html": 0,
+    "analytics.html": 2377,
+    "analytics-dashboard.html": 28801,
+    "ai-coach.html": 29670,
+    "admin.html": 15402,
+    "about.html": 13587,
+    "assets/png/logo-C3J1yCbD-C3J1yCbD.png": 1165969,
+    "assets/json/manifest-RduZY6E_-RduZY6E_.json": 1300,
+    "assets/js/test-integration-AXl24t5G.js.map": 6393,
+    "assets/js/test-integration-AXl24t5G.js": 4336,
+    "assets/js/terms-CW5ct3-k.js.map": 98,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js.map": 6806,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3.js": 3738,
+    "assets/js/teamArchive-D9Frtfyw.js.map": 2484,
+    "assets/js/teamArchive-D9Frtfyw.js": 1465,
+    "assets/js/team-DeWy7ccS.js.map": 3777,
+    "assets/js/team-DeWy7ccS.js": 2026,
+    "assets/js/social-hub-C8z6d9un.js.map": 103,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js.map": 16050,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs.js": 8723,
+    "assets/js/smart-input-DcMyZfo1.js.map": 104,
+    "assets/js/search-CYlnP4F4.js.map": 10783,
+    "assets/js/search-CYlnP4F4.js": 6530,
+    "assets/js/scout-C14X4RzO.js.map": 8183,
+    "assets/js/scout-C14X4RzO.js": 4560,
+    "assets/js/register-CW5ct3-k.js.map": 101,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js.map": 16034,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s.js": 8121,
+    "assets/js/recruiting-hub-BKhXC20p.js.map": 107,
+    "assets/js/privacy-CW5ct3-k.js.map": 100,
+    "assets/js/playerProfile-C4lJoiEi.js.map": 2077,
+    "assets/js/playerProfile-C4lJoiEi.js": 1248,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js.map": 10211,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js": 4940,
+    "assets/js/player-CAASW5Xp.js.map": 6689,
+    "assets/js/player-CAASW5Xp.js": 3554,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js.map": 14387,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx.js": 8115,
+    "assets/js/overview-aKgriaNG.js.map": 101,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js.map": 1682,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js": 1490,
+    "assets/js/login-CdKU8PU6.js.map": 2464,
+    "assets/js/login-CdKU8PU6.js": 1386,
+    "assets/js/live-demo-CG4fJf9y.js.map": 102,
+    "assets/js/live-CW5ct3-k.js.map": 97,
+    "assets/js/index-Bm09jQhz.js.map": 4634,
+    "assets/js/index-Bm09jQhz.js": 2801,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js.map": 493413,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9.js": 261851,
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL.js": 263982,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js.map": 1531,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js": 848,
+    "assets/js/fan-Cavv95E5.js.map": 3770,
+    "assets/js/fan-Cavv95E5.js": 1928,
+    "assets/js/demo-scout-C8z6d9un.js.map": 103,
+    "assets/js/demo-player-CG4fJf9y.js.map": 104,
+    "assets/js/demo-fan-C8z6d9un.js.map": 101,
+    "assets/js/demo-enhanced-CG4fJf9y.js.map": 106,
+    "assets/js/demo-coach-final-C_tPLY5n.js.map": 109,
+    "assets/js/demo-coach-CWdNuE-V.js.map": 103,
+    "assets/js/coach-B607SaUB.js.map": 16267,
+    "assets/js/coach-B607SaUB.js": 8705,
+    "assets/js/claim-profile-Dyblg7Cy.js.map": 2402,
+    "assets/js/claim-profile-Dyblg7Cy.js": 1402,
+    "assets/js/cache-clear-l0sNRNKZ.js.map": 104,
+    "assets/js/backup_overview-l0sNRNKZ.js.map": 108,
+    "assets/js/analytics-dashboard-BWOI8U5F.js.map": 112,
+    "assets/js/analytics-CMDWarcw.js.map": 1824,
+    "assets/js/analytics-CMDWarcw.js": 1166,
+    "assets/js/ai-coach-C8z6d9un.js.map": 101,
+    "assets/js/admin-DFLivpyi.js.map": 15562,
+    "assets/js/admin-DFLivpyi.js": 9807,
+    "assets/js/about-C_tPLY5n.js.map": 98,
+    "assets/css/style-atMpp5Bc-atMpp5Bc.css": 12413,
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css": 2833
+  },
+  "performance": {
+    "totalFiles": 103,
+    "totalSize": 2969300,
+    "totalSizeFormatted": "2.83 MB",
+    "buildDuration": 185472,
+    "avgFileSize": 28828
+  }
+}

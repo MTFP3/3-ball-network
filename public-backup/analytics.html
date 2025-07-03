@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    .chart-container {
+      margin: 40px auto;
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/js/analytics-S0zcAm8n.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+<body>
+  <h1>📊 3Ball Usage Analytics</h1>
+  <div class="chart-container">
+    <canvas id="loginChart"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="visitChart"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="uploadChart"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="contactChart"></canvas>
+  </div>
+</body>
+</html>

@@ -1,769 +1,867 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Analytics Dashboard | 3 Ball Network</title>
-  <meta name="description" content="Advanced basketball analytics with AI insights, performance tracking, and trend analysis.">
-  <meta property="og:title" content="Advanced Analytics Dashboard | 3 Ball Network">
-  <meta property="og:description" content="Advanced basketball analytics with AI insights, performance tracking, and trend analysis.">
-  <meta property="og:url" content="https://3ballnetwork.com/analytics-dashboard">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://3ballnetwork.com/analytics-dashboard">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="stylesheet" href="/assets/css/demo-enhancements.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <style>
-    body {
-      background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #2a3650 100%);
-      color: #ffffff;
-      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
-      min-height: 100vh;
-      margin: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Analytics Dashboard | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Advanced basketball analytics with AI insights, performance tracking, and trend analysis."
+    />
+    <meta
+      property="og:title"
+      content="Advanced Analytics Dashboard | 3 Ball Network"
+    />
+    <meta
+      property="og:description"
+      content="Advanced basketball analytics with AI insights, performance tracking, and trend analysis."
+    />
+    <meta
+      property="og:url"
+      content="https://3ballnetwork.com/analytics-dashboard"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://3ballnetwork.com/analytics-dashboard" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0e1a 0%,
+          #1a1f35 50%,
+          #2a3650 100%
+        );
+        color: #ffffff;
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+      }
 
-    .analytics-container {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 2em;
-    }
-
-    .analytics-header {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 2em;
-      margin-bottom: 2em;
-      border: 1px solid rgba(255,255,255,0.2);
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .analytics-header h1 {
-      color: #ffffff;
-      font-size: 2.8em;
-      margin: 0.5em 0;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      background: linear-gradient(135deg, #00b4d8, #90e0ef);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .analytics-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1em;
-      margin-bottom: 2em;
-      justify-content: center;
-    }
-
-    .tab-btn {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 16px;
-      padding: 1em 2em;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #ffffff;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    }
-
-    .tab-btn:hover {
-      background: rgba(0,180,216,0.25);
-      border-color: rgba(0,180,216,0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,180,216,0.3);
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
-      border-color: #00b4d8;
-      box-shadow: 0 8px 24px rgba(0,180,216,0.4);
-    }
-
-    .analytics-section {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 2em;
-      margin-bottom: 2em;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      display: none;
-    }
-
-    .analytics-section.active {
-      display: block;
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5em;
-      margin-bottom: 2em;
-    }
-
-    .metric-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 1.5em;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 32px rgba(0,180,216,0.2);
-      border-color: rgba(0,180,216,0.3);
-    }
-
-    .metric-card h3 {
-      color: #00b4d8;
-      font-size: 1.1em;
-      margin: 0 0 1em 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .metric-value {
-      font-size: 2.5em;
-      font-weight: 900;
-      color: #ffffff;
-      margin: 0.2em 0;
-    }
-
-    .metric-trend {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      font-size: 0.9em;
-      font-weight: 700;
-    }
-
-    .trend-up {
-      color: #28a745;
-    }
-
-    .trend-down {
-      color: #dc3545;
-    }
-
-    .chart-container {
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 2em;
-      margin: 1.5em 0;
-      height: 400px;
-      position: relative;
-    }
-
-    .insights-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 1.5em;
-      margin-top: 2em;
-    }
-
-    .insight-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 1.5em;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    }
-
-    .insight-card.warning {
-      border-color: rgba(255, 193, 7, 0.5);
-      background: rgba(255, 193, 7, 0.1);
-    }
-
-    .insight-card.success {
-      border-color: rgba(40, 167, 69, 0.5);
-      background: rgba(40, 167, 69, 0.1);
-    }
-
-    .insight-card.info {
-      border-color: rgba(0, 180, 216, 0.5);
-      background: rgba(0, 180, 216, 0.1);
-    }
-
-    .insight-header {
-      display: flex;
-      align-items: center;
-      gap: 1em;
-      margin-bottom: 1em;
-    }
-
-    .insight-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2em;
-    }
-
-    .insight-icon.warning {
-      background: rgba(255, 193, 7, 0.2);
-      color: #ffc107;
-    }
-
-    .insight-icon.success {
-      background: rgba(40, 167, 69, 0.2);
-      color: #28a745;
-    }
-
-    .insight-icon.info {
-      background: rgba(0, 180, 216, 0.2);
-      color: #00b4d8;
-    }
-
-    .realtime-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5em;
-      background: rgba(40, 167, 69, 0.2);
-      color: #28a745;
-      padding: 0.5em 1em;
-      border-radius: 20px;
-      font-size: 0.9em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .realtime-dot {
-      width: 8px;
-      height: 8px;
-      background: #28a745;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1em;
-      margin: 2em 0;
-    }
-
-    .comparison-card {
-      background: rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 1.5em;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .comparison-title {
-      color: #00b4d8;
-      font-size: 0.9em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 1em;
-    }
-
-    .comparison-value {
-      font-size: 1.8em;
-      font-weight: 900;
-      color: #ffffff;
-      margin: 0.3em 0;
-    }
-
-    .comparison-vs {
-      font-size: 0.9em;
-      color: #a8a8a8;
-    }
-
-    @media (max-width: 768px) {
       .analytics-container {
-        padding: 1em;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 2em;
       }
-      
-      .analytics-tabs {
-        flex-direction: column;
-      }
-      
-      .tab-btn {
+
+      .analytics-header {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       }
-      
+
+      .analytics-header h1 {
+        color: #ffffff;
+        font-size: 2.8em;
+        margin: 0.5em 0;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #00b4d8, #90e0ef);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .analytics-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        margin-bottom: 2em;
+        justify-content: center;
+      }
+
+      .tab-btn {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 16px;
+        padding: 1em 2em;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .tab-btn:hover {
+        background: rgba(0, 180, 216, 0.25);
+        border-color: rgba(0, 180, 216, 0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
+      }
+
+      .tab-btn.active {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-color: #00b4d8;
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+      }
+
+      .analytics-section {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        display: none;
+      }
+
+      .analytics-section.active {
+        display: block;
+      }
+
       .metrics-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5em;
+        margin-bottom: 2em;
       }
-      
+
+      .metric-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.2);
+        border-color: rgba(0, 180, 216, 0.3);
+      }
+
+      .metric-card h3 {
+        color: #00b4d8;
+        font-size: 1.1em;
+        margin: 0 0 1em 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .metric-value {
+        font-size: 2.5em;
+        font-weight: 900;
+        color: #ffffff;
+        margin: 0.2em 0;
+      }
+
+      .metric-trend {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        font-size: 0.9em;
+        font-weight: 700;
+      }
+
+      .trend-up {
+        color: #28a745;
+      }
+
+      .trend-down {
+        color: #dc3545;
+      }
+
+      .chart-container {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 2em;
+        margin: 1.5em 0;
+        height: 400px;
+        position: relative;
+      }
+
       .insights-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="analytics-container">
-    <div class="analytics-header">
-      <h1>🏀 Advanced Analytics Dashboard</h1>
-      <p>AI-powered insights and real-time performance tracking</p>
-      <div class="realtime-indicator">
-        <div class="realtime-dot"></div>
-        Live Analytics
-      </div>
-    </div>
-
-    <div class="analytics-tabs">
-      <div class="tab-btn active" data-tab="performance">Performance</div>
-      <div class="tab-btn" data-tab="insights">AI Insights</div>
-      <div class="tab-btn" data-tab="trends">Trends</div>
-      <div class="tab-btn" data-tab="comparisons">League Compare</div>
-      <div class="tab-btn" data-tab="recommendations">Recommendations</div>
-    </div>
-
-    <!-- Performance Analytics -->
-    <div class="analytics-section active" id="performance">
-      <h2>📊 Performance Metrics</h2>
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <h3>Player Efficiency Rating</h3>
-          <div class="metric-value" id="per-value">24.8</div>
-          <div class="metric-trend trend-up">
-            ▲ +2.3 from last game
-          </div>
-        </div>
-        <div class="metric-card">
-          <h3>True Shooting %</h3>
-          <div class="metric-value" id="ts-value">62.4%</div>
-          <div class="metric-trend trend-up">
-            ▲ +4.1% this season
-          </div>
-        </div>
-        <div class="metric-card">
-          <h3>Usage Rate</h3>
-          <div class="metric-value" id="usage-value">28.7%</div>
-          <div class="metric-trend trend-down">
-            ▼ -1.2% from season avg
-          </div>
-        </div>
-        <div class="metric-card">
-          <h3>Defensive Rating</h3>
-          <div class="metric-value" id="def-rating">108.2</div>
-          <div class="metric-trend trend-up">
-            ▲ 5.8 points better
-          </div>
-        </div>
-      </div>
-
-      <div class="chart-container">
-        <canvas id="performance-chart"></canvas>
-      </div>
-
-      <h3>🎯 Shot Chart Analysis</h3>
-      <div class="chart-container">
-        <canvas id="shot-chart"></canvas>
-      </div>
-    </div>
-
-    <!-- AI Insights -->
-    <div class="analytics-section" id="insights">
-      <h2>🤖 AI-Powered Insights</h2>
-      <div class="insights-container" id="insights-container">
-        <!-- Dynamically populated -->
-      </div>
-    </div>
-
-    <!-- Trends -->
-    <div class="analytics-section" id="trends">
-      <h2>📈 Performance Trends</h2>
-      <div class="chart-container">
-        <canvas id="trends-chart"></canvas>
-      </div>
-      
-      <h3>🔄 Situational Performance</h3>
-      <div class="comparison-grid">
-        <div class="comparison-card">
-          <div class="comparison-title">Clutch Time</div>
-          <div class="comparison-value">18.2 PPG</div>
-          <div class="comparison-vs">vs 15.8 season avg</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">4th Quarter</div>
-          <div class="comparison-value">68.5%</div>
-          <div class="comparison-vs">TS% in final period</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">Back-to-Back</div>
-          <div class="comparison-value">-2.4 PPG</div>
-          <div class="comparison-vs">performance drop</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">Home vs Away</div>
-          <div class="comparison-value">+3.1 PPG</div>
-          <div class="comparison-vs">home advantage</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- League Comparisons -->
-    <div class="analytics-section" id="comparisons">
-      <h2>🏆 League Comparisons</h2>
-      <div class="chart-container">
-        <canvas id="comparison-chart"></canvas>
-      </div>
-      
-      <div class="comparison-grid">
-        <div class="comparison-card">
-          <div class="comparison-title">Position Rank</div>
-          <div class="comparison-value">#8</div>
-          <div class="comparison-vs">among PGs</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">Age Group Rank</div>
-          <div class="comparison-value">#3</div>
-          <div class="comparison-vs">in 18-20 age group</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">Conference Rank</div>
-          <div class="comparison-value">#12</div>
-          <div class="comparison-vs">in conference</div>
-        </div>
-        <div class="comparison-card">
-          <div class="comparison-title">Similar Players</div>
-          <div class="comparison-value">89%</div>
-          <div class="comparison-vs">match with Ja Morant</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Recommendations -->
-    <div class="analytics-section" id="recommendations">
-      <h2>💡 Performance Recommendations</h2>
-      <div class="insights-container" id="recommendations-container">
-        <!-- Dynamically populated -->
-      </div>
-    </div>
-  </div>
-
-  <script src="/assets/js/playerAnalytics.js"></script>
-  <script>
-    // Initialize Analytics Dashboard
-    class AnalyticsDashboard {
-      constructor() {
-        this.playerAnalytics = new PlayerAnalytics();
-        this.charts = {};
-        this.initializeTabs();
-        this.loadSampleData();
-        this.initializeCharts();
-        this.generateInsights();
-        this.generateRecommendations();
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5em;
+        margin-top: 2em;
       }
 
-      initializeTabs() {
-        const tabs = document.querySelectorAll('.tab-btn');
-        tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            // Remove active class from all tabs and sections
-            tabs.forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.analytics-section').forEach(s => s.classList.remove('active'));
-            
-            // Add active class to clicked tab and corresponding section
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.tab).classList.add('active');
+      .insight-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .insight-card.warning {
+        border-color: rgba(255, 193, 7, 0.5);
+        background: rgba(255, 193, 7, 0.1);
+      }
+
+      .insight-card.success {
+        border-color: rgba(40, 167, 69, 0.5);
+        background: rgba(40, 167, 69, 0.1);
+      }
+
+      .insight-card.info {
+        border-color: rgba(0, 180, 216, 0.5);
+        background: rgba(0, 180, 216, 0.1);
+      }
+
+      .insight-header {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        margin-bottom: 1em;
+      }
+
+      .insight-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+      }
+
+      .insight-icon.warning {
+        background: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+      }
+
+      .insight-icon.success {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+      }
+
+      .insight-icon.info {
+        background: rgba(0, 180, 216, 0.2);
+        color: #00b4d8;
+      }
+
+      .realtime-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+        padding: 0.5em 1em;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .realtime-dot {
+        width: 8px;
+        height: 8px;
+        background: #28a745;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1em;
+        margin: 2em 0;
+      }
+
+      .comparison-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.5em;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .comparison-title {
+        color: #00b4d8;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1em;
+      }
+
+      .comparison-value {
+        font-size: 1.8em;
+        font-weight: 900;
+        color: #ffffff;
+        margin: 0.3em 0;
+      }
+
+      .comparison-vs {
+        font-size: 0.9em;
+        color: #a8a8a8;
+      }
+
+      @media (max-width: 768px) {
+        .analytics-container {
+          padding: 1em;
+        }
+
+        .analytics-tabs {
+          flex-direction: column;
+        }
+
+        .tab-btn {
+          text-align: center;
+        }
+
+        .metrics-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .insights-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js"></script>
+    <script type="module" crossorigin src="/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc.css">
+    <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j.css">
+  </head>
+  <body>
+    <div class="analytics-container">
+      <div class="analytics-header">
+        <h1>🏀 Advanced Analytics Dashboard</h1>
+        <p>AI-powered insights and real-time performance tracking</p>
+        <div class="realtime-indicator">
+          <div class="realtime-dot"></div>
+          Live Analytics
+        </div>
+      </div>
+
+      <div class="analytics-tabs">
+        <div class="tab-btn active" data-tab="performance">Performance</div>
+        <div class="tab-btn" data-tab="insights">AI Insights</div>
+        <div class="tab-btn" data-tab="trends">Trends</div>
+        <div class="tab-btn" data-tab="comparisons">League Compare</div>
+        <div class="tab-btn" data-tab="recommendations">Recommendations</div>
+      </div>
+
+      <!-- Performance Analytics -->
+      <div class="analytics-section active" id="performance">
+        <h2>📊 Performance Metrics</h2>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <h3>Player Efficiency Rating</h3>
+            <div class="metric-value" id="per-value">24.8</div>
+            <div class="metric-trend trend-up">▲ +2.3 from last game</div>
+          </div>
+          <div class="metric-card">
+            <h3>True Shooting %</h3>
+            <div class="metric-value" id="ts-value">62.4%</div>
+            <div class="metric-trend trend-up">▲ +4.1% this season</div>
+          </div>
+          <div class="metric-card">
+            <h3>Usage Rate</h3>
+            <div class="metric-value" id="usage-value">28.7%</div>
+            <div class="metric-trend trend-down">▼ -1.2% from season avg</div>
+          </div>
+          <div class="metric-card">
+            <h3>Defensive Rating</h3>
+            <div class="metric-value" id="def-rating">108.2</div>
+            <div class="metric-trend trend-up">▲ 5.8 points better</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="performance-chart"></canvas>
+        </div>
+
+        <h3>🎯 Shot Chart Analysis</h3>
+        <div class="chart-container">
+          <canvas id="shot-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- AI Insights -->
+      <div class="analytics-section" id="insights">
+        <h2>🤖 AI-Powered Insights</h2>
+        <div class="insights-container" id="insights-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Trends -->
+      <div class="analytics-section" id="trends">
+        <h2>📈 Performance Trends</h2>
+        <div class="chart-container">
+          <canvas id="trends-chart"></canvas>
+        </div>
+
+        <h3>🔄 Situational Performance</h3>
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <div class="comparison-title">Clutch Time</div>
+            <div class="comparison-value">18.2 PPG</div>
+            <div class="comparison-vs">vs 15.8 season avg</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">4th Quarter</div>
+            <div class="comparison-value">68.5%</div>
+            <div class="comparison-vs">TS% in final period</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">Back-to-Back</div>
+            <div class="comparison-value">-2.4 PPG</div>
+            <div class="comparison-vs">performance drop</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">Home vs Away</div>
+            <div class="comparison-value">+3.1 PPG</div>
+            <div class="comparison-vs">home advantage</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- League Comparisons -->
+      <div class="analytics-section" id="comparisons">
+        <h2>🏆 League Comparisons</h2>
+        <div class="chart-container">
+          <canvas id="comparison-chart"></canvas>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <div class="comparison-title">Position Rank</div>
+            <div class="comparison-value">#8</div>
+            <div class="comparison-vs">among PGs</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">Age Group Rank</div>
+            <div class="comparison-value">#3</div>
+            <div class="comparison-vs">in 18-20 age group</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">Conference Rank</div>
+            <div class="comparison-value">#12</div>
+            <div class="comparison-vs">in conference</div>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title">Similar Players</div>
+            <div class="comparison-value">89%</div>
+            <div class="comparison-vs">match with Ja Morant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="analytics-section" id="recommendations">
+        <h2>💡 Performance Recommendations</h2>
+        <div class="insights-container" id="recommendations-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize Analytics Dashboard
+      class AnalyticsDashboard {
+        constructor() {
+          this.playerAnalytics = new PlayerAnalytics();
+          this.charts = {};
+          this.initializeTabs();
+          this.loadSampleData();
+          this.initializeCharts();
+          this.generateInsights();
+          this.generateRecommendations();
+        }
+
+        initializeTabs() {
+          const tabs = document.querySelectorAll('.tab-btn');
+          tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+              // Remove active class from all tabs and sections
+              tabs.forEach(t => t.classList.remove('active'));
+              document
+                .querySelectorAll('.analytics-section')
+                .forEach(s => s.classList.remove('active'));
+
+              // Add active class to clicked tab and corresponding section
+              tab.classList.add('active');
+              document.getElementById(tab.dataset.tab).classList.add('active');
+            });
           });
-        });
-      }
+        }
 
-      loadSampleData() {
-        // Load sample performance data
-        const sampleGames = [
-          {
-            id: 'game1',
-            date: '2024-01-15',
-            opponent: 'Lakers',
-            minutes: 38,
-            stats: {
-              points: 28, rebounds: 7, assists: 11, steals: 2, blocks: 1,
-              turnovers: 3, fouls: 2, fgm: 11, fga: 20, ftm: 4, fta: 5,
-              tpm: 2, tpa: 6
-            }
-          },
-          {
-            id: 'game2',
-            date: '2024-01-17',
-            opponent: 'Warriors',
-            minutes: 35,
-            stats: {
-              points: 22, rebounds: 5, assists: 8, steals: 1, blocks: 0,
-              turnovers: 4, fouls: 3, fgm: 8, fga: 18, ftm: 4, fta: 4,
-              tpm: 2, tpa: 7
-            }
-          },
-          {
-            id: 'game3',
-            date: '2024-01-19',
-            opponent: 'Celtics',
-            minutes: 42,
-            stats: {
-              points: 31, rebounds: 6, assists: 9, steals: 3, blocks: 1,
-              turnovers: 2, fouls: 1, fgm: 12, fga: 22, ftm: 5, fta: 6,
-              tpm: 2, tpa: 5
-            }
-          }
-        ];
-
-        sampleGames.forEach(game => {
-          this.playerAnalytics.trackPerformance(game);
-        });
-      }
-
-      initializeCharts() {
-        this.initializePerformanceChart();
-        this.initializeShotChart();
-        this.initializeTrendsChart();
-        this.initializeComparisonChart();
-      }
-
-      initializePerformanceChart() {
-        const ctx = document.getElementById('performance-chart').getContext('2d');
-        this.charts.performance = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: ['Game 1', 'Game 2', 'Game 3', 'Game 4', 'Game 5'],
-            datasets: [{
-              label: 'Points',
-              data: [28, 22, 31, 25, 29],
-              borderColor: '#00b4d8',
-              backgroundColor: 'rgba(0, 180, 216, 0.1)',
-              tension: 0.4
-            }, {
-              label: 'Assists',
-              data: [11, 8, 9, 7, 10],
-              borderColor: '#90e0ef',
-              backgroundColor: 'rgba(144, 224, 239, 0.1)',
-              tension: 0.4
-            }, {
-              label: 'Rebounds',
-              data: [7, 5, 6, 8, 9],
-              borderColor: '#caf0f8',
-              backgroundColor: 'rgba(202, 240, 248, 0.1)',
-              tension: 0.4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#ffffff'
-                }
-              }
-            },
-            scales: {
-              x: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' }
+        loadSampleData() {
+          // Load sample performance data
+          const sampleGames = [
+            {
+              id: 'game1',
+              date: '2024-01-15',
+              opponent: 'Lakers',
+              minutes: 38,
+              stats: {
+                points: 28,
+                rebounds: 7,
+                assists: 11,
+                steals: 2,
+                blocks: 1,
+                turnovers: 3,
+                fouls: 2,
+                fgm: 11,
+                fga: 20,
+                ftm: 4,
+                fta: 5,
+                tpm: 2,
+                tpa: 6,
               },
-              y: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' }
-              }
-            }
-          }
-        });
-      }
+            },
+            {
+              id: 'game2',
+              date: '2024-01-17',
+              opponent: 'Warriors',
+              minutes: 35,
+              stats: {
+                points: 22,
+                rebounds: 5,
+                assists: 8,
+                steals: 1,
+                blocks: 0,
+                turnovers: 4,
+                fouls: 3,
+                fgm: 8,
+                fga: 18,
+                ftm: 4,
+                fta: 4,
+                tpm: 2,
+                tpa: 7,
+              },
+            },
+            {
+              id: 'game3',
+              date: '2024-01-19',
+              opponent: 'Celtics',
+              minutes: 42,
+              stats: {
+                points: 31,
+                rebounds: 6,
+                assists: 9,
+                steals: 3,
+                blocks: 1,
+                turnovers: 2,
+                fouls: 1,
+                fgm: 12,
+                fga: 22,
+                ftm: 5,
+                fta: 6,
+                tpm: 2,
+                tpa: 5,
+              },
+            },
+          ];
 
-      initializeShotChart() {
-        const ctx = document.getElementById('shot-chart').getContext('2d');
-        this.charts.shotChart = new Chart(ctx, {
-          type: 'scatter',
-          data: {
-            datasets: [{
-              label: 'Made Shots',
-              data: [
-                {x: 10, y: 15}, {x: 20, y: 10}, {x: 5, y: 20},
-                {x: 15, y: 5}, {x: 25, y: 18}, {x: 8, y: 12}
+          sampleGames.forEach(game => {
+            this.playerAnalytics.trackPerformance(game);
+          });
+        }
+
+        initializeCharts() {
+          this.initializePerformanceChart();
+          this.initializeShotChart();
+          this.initializeTrendsChart();
+          this.initializeComparisonChart();
+        }
+
+        initializePerformanceChart() {
+          const ctx = document
+            .getElementById('performance-chart')
+            .getContext('2d');
+          this.charts.performance = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Game 1', 'Game 2', 'Game 3', 'Game 4', 'Game 5'],
+              datasets: [
+                {
+                  label: 'Points',
+                  data: [28, 22, 31, 25, 29],
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.1)',
+                  tension: 0.4,
+                },
+                {
+                  label: 'Assists',
+                  data: [11, 8, 9, 7, 10],
+                  borderColor: '#90e0ef',
+                  backgroundColor: 'rgba(144, 224, 239, 0.1)',
+                  tension: 0.4,
+                },
+                {
+                  label: 'Rebounds',
+                  data: [7, 5, 6, 8, 9],
+                  borderColor: '#caf0f8',
+                  backgroundColor: 'rgba(202, 240, 248, 0.1)',
+                  tension: 0.4,
+                },
               ],
-              backgroundColor: '#28a745',
-              borderColor: '#28a745'
-            }, {
-              label: 'Missed Shots',
-              data: [
-                {x: 12, y: 8}, {x: 22, y: 15}, {x: 18, y: 22},
-                {x: 6, y: 6}, {x: 24, y: 12}
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: '#ffffff',
+                  },
+                },
+              },
+              scales: {
+                x: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                },
+                y: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                },
+              },
+            },
+          });
+        }
+
+        initializeShotChart() {
+          const ctx = document.getElementById('shot-chart').getContext('2d');
+          this.charts.shotChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+              datasets: [
+                {
+                  label: 'Made Shots',
+                  data: [
+                    { x: 10, y: 15 },
+                    { x: 20, y: 10 },
+                    { x: 5, y: 20 },
+                    { x: 15, y: 5 },
+                    { x: 25, y: 18 },
+                    { x: 8, y: 12 },
+                  ],
+                  backgroundColor: '#28a745',
+                  borderColor: '#28a745',
+                },
+                {
+                  label: 'Missed Shots',
+                  data: [
+                    { x: 12, y: 8 },
+                    { x: 22, y: 15 },
+                    { x: 18, y: 22 },
+                    { x: 6, y: 6 },
+                    { x: 24, y: 12 },
+                  ],
+                  backgroundColor: '#dc3545',
+                  borderColor: '#dc3545',
+                },
               ],
-              backgroundColor: '#dc3545',
-              borderColor: '#dc3545'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#ffffff'
-                }
-              }
             },
-            scales: {
-              x: {
-                type: 'linear',
-                position: 'bottom',
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' },
-                title: {
-                  display: true,
-                  text: 'Court X Position',
-                  color: '#ffffff'
-                }
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: '#ffffff',
+                  },
+                },
               },
-              y: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' },
-                title: {
-                  display: true,
-                  text: 'Court Y Position',
-                  color: '#ffffff'
-                }
-              }
-            }
-          }
-        });
-      }
-
-      initializeTrendsChart() {
-        const ctx = document.getElementById('trends-chart').getContext('2d');
-        this.charts.trends = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-            datasets: [{
-              label: 'Player Efficiency Rating',
-              data: [22.1, 23.5, 24.2, 23.8, 24.8, 25.2],
-              borderColor: '#00b4d8',
-              backgroundColor: 'rgba(0, 180, 216, 0.1)',
-              tension: 0.4
-            }, {
-              label: 'True Shooting %',
-              data: [58.2, 59.1, 61.5, 60.8, 62.4, 63.1],
-              borderColor: '#90e0ef',
-              backgroundColor: 'rgba(144, 224, 239, 0.1)',
-              tension: 0.4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#ffffff'
-                }
-              }
-            },
-            scales: {
-              x: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' }
+              scales: {
+                x: {
+                  type: 'linear',
+                  position: 'bottom',
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                  title: {
+                    display: true,
+                    text: 'Court X Position',
+                    color: '#ffffff',
+                  },
+                },
+                y: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                  title: {
+                    display: true,
+                    text: 'Court Y Position',
+                    color: '#ffffff',
+                  },
+                },
               },
-              y: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.1)' }
-              }
-            }
-          }
-        });
-      }
-
-      initializeComparisonChart() {
-        const ctx = document.getElementById('comparison-chart').getContext('2d');
-        this.charts.comparison = new Chart(ctx, {
-          type: 'radar',
-          data: {
-            labels: ['Scoring', 'Playmaking', 'Rebounding', 'Defense', 'Efficiency', 'Clutch'],
-            datasets: [{
-              label: 'Player',
-              data: [88, 92, 65, 78, 85, 90],
-              borderColor: '#00b4d8',
-              backgroundColor: 'rgba(0, 180, 216, 0.2)'
-            }, {
-              label: 'League Average',
-              data: [70, 70, 70, 70, 70, 70],
-              borderColor: '#90e0ef',
-              backgroundColor: 'rgba(144, 224, 239, 0.1)'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                labels: {
-                  color: '#ffffff'
-                }
-              }
             },
-            scales: {
-              r: {
-                ticks: { color: '#ffffff' },
-                grid: { color: 'rgba(255,255,255,0.2)' },
-                pointLabels: { color: '#ffffff' }
-              }
-            }
-          }
-        });
-      }
+          });
+        }
 
-      generateInsights() {
-        const container = document.getElementById('insights-container');
-        const insights = [
-          {
-            type: 'success',
-            icon: '✅',
-            title: 'Excellent Fourth Quarter Performance',
-            message: 'Your scoring efficiency increases by 15% in the fourth quarter, showing great clutch performance.',
-            recommendation: 'Continue aggressive play in late-game situations.'
-          },
-          {
-            type: 'warning',
-            icon: '⚠️',
-            title: 'Turnover Rate Above Average',
-            message: 'Current turnover rate of 18.5% is above league average of 15.2%.',
-            recommendation: 'Focus on ball security drills and decision-making in practice.'
-          },
-          {
-            type: 'info',
-            icon: 'ℹ️',
-            title: 'Three-Point Opportunity',
-            message: 'Your catch-and-shoot 3PT% is 42%, but you only attempt 4.2 per game.',
-            recommendation: 'Look for more open three-point opportunities.'
-          },
-          {
-            type: 'success',
-            icon: '🎯',
-            title: 'Defensive Impact Growing',
-            message: 'Your defensive rating has improved 8.5 points over the last 10 games.',
-            recommendation: 'Maintain aggressive defensive stance and communication.'
-          }
-        ];
+        initializeTrendsChart() {
+          const ctx = document.getElementById('trends-chart').getContext('2d');
+          this.charts.trends = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: [
+                'Week 1',
+                'Week 2',
+                'Week 3',
+                'Week 4',
+                'Week 5',
+                'Week 6',
+              ],
+              datasets: [
+                {
+                  label: 'Player Efficiency Rating',
+                  data: [22.1, 23.5, 24.2, 23.8, 24.8, 25.2],
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.1)',
+                  tension: 0.4,
+                },
+                {
+                  label: 'True Shooting %',
+                  data: [58.2, 59.1, 61.5, 60.8, 62.4, 63.1],
+                  borderColor: '#90e0ef',
+                  backgroundColor: 'rgba(144, 224, 239, 0.1)',
+                  tension: 0.4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: '#ffffff',
+                  },
+                },
+              },
+              scales: {
+                x: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                },
+                y: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.1)' },
+                },
+              },
+            },
+          });
+        }
 
-        container.innerHTML = insights.map(insight => `
+        initializeComparisonChart() {
+          const ctx = document
+            .getElementById('comparison-chart')
+            .getContext('2d');
+          this.charts.comparison = new Chart(ctx, {
+            type: 'radar',
+            data: {
+              labels: [
+                'Scoring',
+                'Playmaking',
+                'Rebounding',
+                'Defense',
+                'Efficiency',
+                'Clutch',
+              ],
+              datasets: [
+                {
+                  label: 'Player',
+                  data: [88, 92, 65, 78, 85, 90],
+                  borderColor: '#00b4d8',
+                  backgroundColor: 'rgba(0, 180, 216, 0.2)',
+                },
+                {
+                  label: 'League Average',
+                  data: [70, 70, 70, 70, 70, 70],
+                  borderColor: '#90e0ef',
+                  backgroundColor: 'rgba(144, 224, 239, 0.1)',
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  labels: {
+                    color: '#ffffff',
+                  },
+                },
+              },
+              scales: {
+                r: {
+                  ticks: { color: '#ffffff' },
+                  grid: { color: 'rgba(255,255,255,0.2)' },
+                  pointLabels: { color: '#ffffff' },
+                },
+              },
+            },
+          });
+        }
+
+        generateInsights() {
+          const container = document.getElementById('insights-container');
+          const insights = [
+            {
+              type: 'success',
+              icon: '✅',
+              title: 'Excellent Fourth Quarter Performance',
+              message:
+                'Your scoring efficiency increases by 15% in the fourth quarter, showing great clutch performance.',
+              recommendation:
+                'Continue aggressive play in late-game situations.',
+            },
+            {
+              type: 'warning',
+              icon: '⚠️',
+              title: 'Turnover Rate Above Average',
+              message:
+                'Current turnover rate of 18.5% is above league average of 15.2%.',
+              recommendation:
+                'Focus on ball security drills and decision-making in practice.',
+            },
+            {
+              type: 'info',
+              icon: 'ℹ️',
+              title: 'Three-Point Opportunity',
+              message:
+                'Your catch-and-shoot 3PT% is 42%, but you only attempt 4.2 per game.',
+              recommendation: 'Look for more open three-point opportunities.',
+            },
+            {
+              type: 'success',
+              icon: '🎯',
+              title: 'Defensive Impact Growing',
+              message:
+                'Your defensive rating has improved 8.5 points over the last 10 games.',
+              recommendation:
+                'Maintain aggressive defensive stance and communication.',
+            },
+          ];
+
+          container.innerHTML = insights
+            .map(
+              insight => `
           <div class="insight-card ${insight.type}">
             <div class="insight-header">
               <div class="insight-icon ${insight.type}">${insight.icon}</div>
@@ -772,43 +870,56 @@
             <p><strong>Analysis:</strong> ${insight.message}</p>
             <p><strong>Recommendation:</strong> ${insight.recommendation}</p>
           </div>
-        `).join('');
-      }
+        `
+            )
+            .join('');
+        }
 
-      generateRecommendations() {
-        const container = document.getElementById('recommendations-container');
-        const recommendations = [
-          {
-            type: 'info',
-            icon: '🏋️',
-            title: 'Strength Training Focus',
-            message: 'Your shot attempts decrease by 12% in the fourth quarter.',
-            recommendation: 'Increase lower body strength training to maintain shooting form when fatigued.'
-          },
-          {
-            type: 'success',
-            icon: '📚',
-            title: 'Film Study Suggestion',
-            message: 'Similar players with your skillset average 2.3 more assists per game.',
-            recommendation: 'Study playmaking patterns of Chris Paul and Luka Dončić.'
-          },
-          {
-            type: 'warning',
-            icon: '⏱️',
-            title: 'Rest and Recovery',
-            message: 'Performance drops 8% on back-to-back games.',
-            recommendation: 'Implement better sleep and recovery protocols on travel days.'
-          },
-          {
-            type: 'info',
-            icon: '🎯',
-            title: 'Shot Selection Optimization',
-            message: 'Your mid-range efficiency is 52%, above league average.',
-            recommendation: 'Increase mid-range attempts when three-point line is contested.'
-          }
-        ];
+        generateRecommendations() {
+          const container = document.getElementById(
+            'recommendations-container'
+          );
+          const recommendations = [
+            {
+              type: 'info',
+              icon: '🏋️',
+              title: 'Strength Training Focus',
+              message:
+                'Your shot attempts decrease by 12% in the fourth quarter.',
+              recommendation:
+                'Increase lower body strength training to maintain shooting form when fatigued.',
+            },
+            {
+              type: 'success',
+              icon: '📚',
+              title: 'Film Study Suggestion',
+              message:
+                'Similar players with your skillset average 2.3 more assists per game.',
+              recommendation:
+                'Study playmaking patterns of Chris Paul and Luka Dončić.',
+            },
+            {
+              type: 'warning',
+              icon: '⏱️',
+              title: 'Rest and Recovery',
+              message: 'Performance drops 8% on back-to-back games.',
+              recommendation:
+                'Implement better sleep and recovery protocols on travel days.',
+            },
+            {
+              type: 'info',
+              icon: '🎯',
+              title: 'Shot Selection Optimization',
+              message:
+                'Your mid-range efficiency is 52%, above league average.',
+              recommendation:
+                'Increase mid-range attempts when three-point line is contested.',
+            },
+          ];
 
-        container.innerHTML = recommendations.map(rec => `
+          container.innerHTML = recommendations
+            .map(
+              rec => `
           <div class="insight-card ${rec.type}">
             <div class="insight-header">
               <div class="insight-icon ${rec.type}">${rec.icon}</div>
@@ -817,14 +928,16 @@
             <p><strong>Observation:</strong> ${rec.message}</p>
             <p><strong>Action Plan:</strong> ${rec.recommendation}</p>
           </div>
-        `).join('');
+        `
+            )
+            .join('');
+        }
       }
-    }
 
-    // Initialize dashboard when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      new AnalyticsDashboard();
-    });
-  </script>
-</body>
+      // Initialize dashboard when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        new AnalyticsDashboard();
+      });
+    </script>
+  </body>
 </html>

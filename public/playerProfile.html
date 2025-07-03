@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Player Profile</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; color: #111; }
     h1, h3 { border-bottom: 2px solid #ccc; padding-bottom: 4px; margin-bottom: 10px; }
     section { background: white; border-radius: 8px; padding: 15px; margin: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     button.follow { margin-top: 10px; background: #0071ce; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
   </style>
+  <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlpKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZpKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBzKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gaShlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9cyhlKTtmZXRjaChlLmhyZWYscil9fSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bW9kdWxlcHJlbG9hZC1wb2x5ZmlsbC1CNVF0OUVNWC5qcy5tYXAK">
+  <link rel="modulepreload" crossorigin href="data:text/javascript;base64,aW1wb3J0e2luaXRpYWxpemVBcHAgYXMgbn1mcm9tImh0dHBzOi8vd3d3LmdzdGF0aWMuY29tL2ZpcmViYXNlanMvOS4yMi4yL2ZpcmViYXNlLWFwcC5qcyI7aW1wb3J0e2dldEZpcmVzdG9yZSBhcyByLGRvYyBhcyBsLHVwZGF0ZURvYyBhcyBjLGFycmF5VW5pb24gYXMgaX1mcm9tImh0dHBzOi8vd3d3LmdzdGF0aWMuY29tL2ZpcmViYXNlanMvOS4yMi4yL2ZpcmViYXNlLWZpcmVzdG9yZS5qcyI7cmVxdWlyZSgiZG90ZW52IikuY29uZmlnKCk7Y29uc3QgZj17YXBpS2V5OiJBSXphU3lENFhKTGMzX0NMR3ZPaE15c1FUeDJmYWJnWlF0M3k1ZzAiLGF1dGhEb21haW46ImJhbGwtbmV0d29yay13ZWIuZmlyZWJhc2VhcHAuY29tIixwcm9qZWN0SWQ6ImJhbGwtbmV0d29yay13ZWIiLHN0b3JhZ2VCdWNrZXQ6ImJhbGwtbmV0d29yay13ZWIuYXBwc3BvdC5jb20iLG1lc3NhZ2luZ1NlbmRlcklkOiI3NDA5MTU5OTg0NjUiLGFwcElkOiIxOjc0MDkxNTk5ODQ2NTp3ZWI6NTlhYzAyNmYzZjRjMmVjNWRhMzUwMCJ9LHM9bihmKSxwPXIocyksdz1sb2NhbFN0b3JhZ2UuZ2V0SXRlbSgiZmFuSWQiKXx8ImRlbW9GYW4iLGc9bChwLCJmYW5zIix3KTthc3luYyBmdW5jdGlvbiBiKG8sZSl7Y29uc3QgYT1vPT09InRlYW0iPyJ0ZWFtc0ZvbGxvd2luZyI6InBsYXllcnNGb2xsb3dpbmciO3RyeXthd2FpdCBjKGcse1thXTppKGUpfSksYWxlcnQoYOKchSBOb3cgZm9sbG93aW5nICR7b306ICR7ZX1gKX1jYXRjaCh0KXtjb25zb2xlLmVycm9yKCLinYwgRm9sbG93IGZhaWxlZDoiLHQpfX1leHBvcnR7YiBhcyBmfTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9ZmFuRm9sbG93LUJoN2RUWHFhLmpzLm1hcAo=">
+  <script type="module" crossorigin src="/assets/js/playerProfile-C4lJoiEi.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js">
+  <link rel="modulepreload" crossorigin href="/assets/js/fanFollow-Bh7dTXqa-BOIUMshn.js">
+  <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc.css">
 </head>
 <body>
   <h1 id="playerName">Player Profile</h1>
@@ -26,34 +31,5 @@
     <div id="playerHighlights"></div>
   </section>
 
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
-    import { follow } from '/assets/js/fanFollow.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0",
-      authDomain: "ball-network-web.firebaseapp.com",
-      projectId: "ball-network-web",
-      storageBucket: "ball-network-web.appspot.com",
-      messagingSenderId: "740915998465",
-      appId: "1:740915998465:web:59ac026f3f4c2ec5da3500"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const params = new URLSearchParams(window.location.search);
-    const playerId = params.get("id") || "demoPlayer";
-
-    const ref = doc(db, "players", playerId);
-    const snap = await getDoc(ref);
-    const d = snap.data() || {};
-
-    document.getElementById("playerName").innerText = d.name || "Unnamed Player";
-    document.getElementById("playerStats").innerText = `Avg Grade: ${d.avgGrade || 'N/A'} | GPA: ${d.gpa || 'N/A'} | Height: ${d.height || 'N/A'} | Weight: ${d.weight || 'N/A'}`;
-    document.getElementById("playerHighlights").innerHTML = (d.highlights || []).map(h => `<a href="${h}" target="_blank">🎬 Highlight</a><br>`).join('');
-    document.getElementById("followPlayer").onclick = () => follow("player", playerId);
-  </script>
 </body>
 </html>

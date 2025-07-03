@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | 3 Ball Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2em;
+    }
+
+    .admin-header {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .admin-header h1 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2.5em;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 50%, #caf0f8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: neonGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(0,180,216,0.4)); }
+      100% { filter: drop-shadow(0 0 20px rgba(0,180,216,0.8)) drop-shadow(0 0 30px rgba(0,180,216,0.6)); }
+    }
+
+    .admin-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+
+    .nav-tab {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-tab:hover {
+      background: rgba(0,180,216,0.1);
+      border-color: rgba(0,180,216,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,180,216,0.2);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      border-color: #00b4d8;
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,180,216,0.3);
+    }
+
+    .admin-section {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .admin-section h2 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.8em;
+      font-weight: 900;
+      margin-bottom: 1em;
+      color: #caf0f8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      margin-bottom: 2em;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5em;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .stat-value {
+      font-size: 2.5em;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2em;
+    }
+
+    .stat-label {
+      color: #b0b0b0;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 0.9em;
+    }
+
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      color: #caf0f8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8em 1em;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      color: #e0e0e0;
+      font-size: 1em;
+      font-family: 'Urbanist', Arial, sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00b4d8;
+      box-shadow: 0 0 0 3px rgba(0,180,216,0.2);
+    }
+
+    .admin-btn {
+      background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+      color: white;
+      padding: 0.8em 1.5em;
+      border: none;
+      border-radius: 12px;
+      font-weight: 900;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      margin-right: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    .admin-btn:hover {
+      background: linear-gradient(135deg, #00b4d8 0%, #007cba 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,180,216,0.3);
+    }
+
+    .admin-btn.danger {
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    }
+
+    .admin-btn.danger:hover {
+      background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+      box-shadow: 0 8px 24px rgba(220,53,69,0.3);
+    }
+
+    .user-list {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .user-item {
+      padding: 1em;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-item:last-child {
+      border-bottom: none;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 700;
+      color: #caf0f8;
+      margin-bottom: 0.2em;
+    }
+
+    .user-details {
+      font-size: 0.9em;
+      color: #b0b0b0;
+    }
+
+    .chart-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 1.5em;
+      margin-bottom: 2em;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .alert {
+      padding: 1em;
+      border-radius: 12px;
+      margin-bottom: 1em;
+      font-weight: 700;
+    }
+
+    .alert.success {
+      background: rgba(40,167,69,0.2);
+      border: 1px solid rgba(40,167,69,0.5);
+      color: #90ee90;
+    }
+
+    .alert.error {
+      background: rgba(220,53,69,0.2);
+      border: 1px solid rgba(220,53,69,0.5);
+      color: #ffb3b3;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2em;
+      color: #b0b0b0;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0,180,216,0.3);
+      border-radius: 50%;
+      border-top-color: #00b4d8;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .admin-container {
+        padding: 1em;
+      }
+      
+      .admin-nav {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/js/admin-Duv7o1x0.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc.css">
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>🛡️ Admin Portal</h1>
+      <p>3 Ball Network Administrative Dashboard</p>
+    </div>
+
+    <div class="admin-nav">
+      <div class="nav-tab active" onclick="switchTab('dashboard')">
+        📊 Dashboard
+      </div>
+      <div class="nav-tab" onclick="switchTab('users')">
+        👥 User Management
+      </div>
+      <div class="nav-tab" onclick="switchTab('content')">
+        📝 Content Moderation
+      </div>
+      <div class="nav-tab" onclick="switchTab('analytics')">
+        📈 Analytics
+      </div>
+      <div class="nav-tab" onclick="switchTab('system')">
+        ⚙️ System Settings
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="admin-section active">
+      <h2>📊 Dashboard Overview</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalUsers">-</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="activeUsers">-</div>
+          <div class="stat-label">Active Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalGames">-</div>
+          <div class="stat-label">Games Analyzed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="pendingReports">-</div>
+          <div class="stat-label">Pending Reports</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <h3>User Registration Trends</h3>
+        <canvas id="registrationChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <h3>User Activity by Role</h3>
+        <canvas id="roleChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- User Management Section -->
+    <div id="users" class="admin-section">
+      <h2>👥 User Management</h2>
+      
+      <div class="form-group">
+        <label>Search Users</label>
+        <input type="text" id="userSearch" placeholder="Search by name, email, or ID">
+      </div>
+
+      <div class="form-group">
+        <label>Filter by Role</label>
+        <select id="roleFilter">
+          <option value="">All Roles</option>
+          <option value="player">Players</option>
+          <option value="coach">Coaches</option>
+          <option value="scout">Scouts</option>
+          <option value="fan">Fans</option>
+        </select>
+      </div>
+
+      <div class="user-list" id="userList">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading users...</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2em;">
+        <h3>Quick Actions</h3>
+        <div class="form-group">
+          <label>User ID to Ban</label>
+          <input type="text" id="banUserId" placeholder="Enter user ID">
+        </div>
+        <button class="admin-btn danger" onclick="banUser()">Ban User</button>
+        <button class="admin-btn" onclick="exportUsers()">Export User Data</button>
+      </div>
+    </div>
+
+    <!-- Content Moderation Section -->
+    <div id="content" class="admin-section">
+      <h2>📝 Content Moderation</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="flaggedContent">-</div>
+          <div class="stat-label">Flagged Items</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="autoModerated">-</div>
+          <div class="stat-label">Auto-Moderated</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Add Content Filter</label>
+        <input type="text" id="newFilter" placeholder="Enter keyword or phrase">
+        <button class="admin-btn" onclick="addContentFilter()">Add Filter</button>
+      </div>
+
+      <div id="flaggedList">
+        <h3>Flagged Content</h3>
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading flagged content...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics" class="admin-section">
+      <h2>📈 Advanced Analytics</h2>
+      
+      <div class="chart-container">
+        <h3>Daily Active Users</h3>
+        <canvas id="dailyActiveChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <h3>Platform Usage</h3>
+        <canvas id="platformChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="form-group">
+        <label>Analytics Date Range</label>
+        <input type="date" id="analyticsStartDate">
+        <input type="date" id="analyticsEndDate">
+        <button class="admin-btn" onclick="refreshAnalytics()">Refresh Data</button>
+      </div>
+    </div>
+
+    <!-- System Settings Section -->
+    <div id="system" class="admin-section">
+      <h2>⚙️ System Settings</h2>
+      
+      <div class="form-group">
+        <label>Site Maintenance Mode</label>
+        <select id="maintenanceMode">
+          <option value="false">Disabled</option>
+          <option value="true">Enabled</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Registration Status</label>
+        <select id="registrationStatus">
+          <option value="open">Open</option>
+          <option value="restricted">Restricted</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>System Announcement</label>
+        <textarea id="systemAnnouncement" rows="4" placeholder="Enter system-wide announcement"></textarea>
+      </div>
+
+      <button class="admin-btn" onclick="saveSystemSettings()">Save Settings</button>
+      <button class="admin-btn" onclick="clearCache()">Clear Cache</button>
+      <button class="admin-btn danger" onclick="backupDatabase()">Backup Database</button>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer"></div>
+  </div>
+
+</body>
+</html>
