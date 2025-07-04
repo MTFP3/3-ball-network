@@ -1,0 +1,70 @@
+require('dotenv').config(); // 👈 loads your .env file
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  Timestamp,
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+import Chart from 'https://cdn.jsdelivr.net/npm/chart.js';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
+  authDomain: 'ball-network-web.firebaseapp.com',
+  projectId: 'ball-network-web',
+  storageBucket: 'ball-network-web.appspot.com',
+  messagingSenderId: '740915998465',
+  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ctx = document.getElementById('uploadTrendChart').getContext('2d');
+
+const logRef = collection(db, 'analyticsLog');
+const logsByDate = {};
+
+const start = new Date();
+start.setDate(start.getDate() - 14);
+const cutoff = Timestamp.fromDate(start);
+
+const q = query(logRef, where('timestamp', '>', cutoff));
+const snapshot = await getDocs(q);
+
+snapshot.forEach(doc => {
+  const data = doc.data();
+  const date = data.timestamp.toDate().toLocaleDateString();
+  logsByDate[date] = (logsByDate[date] || 0) + 1;
+});
+
+const labels = Object.keys(logsByDate);
+const values = Object.values(logsByDate);
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [
+      {
+        label: 'Activity Logs (14 days)',
+        data: values,
+        backgroundColor: '#0071ce',
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
+  },
+});

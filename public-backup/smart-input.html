@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Game Input | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Real-time game tracking with voice commands, quick-tap interface, and intelligent stat recording."
+    />
+    <meta property="og:title" content="Smart Game Input | 3 Ball Network" />
+    <meta
+      property="og:description"
+      content="Real-time game tracking with voice commands, quick-tap interface, and intelligent stat recording."
+    />
+    <meta property="og:url" content="https://3ballnetwork.com/smart-input" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://3ballnetwork.com/smart-input" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0e1a 0%,
+          #1a1f35 50%,
+          #2a3650 100%
+        );
+        color: #ffffff;
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        user-select: none;
+      }
+
+      .game-input-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1em;
+      }
+
+      .game-header {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 1.5em;
+        margin-bottom: 1.5em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .game-header h1 {
+        color: #ffffff;
+        font-size: 2em;
+        margin: 0.5em 0;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #00b4d8, #90e0ef);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .game-controls {
+        display: flex;
+        gap: 1em;
+        margin-bottom: 2em;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .control-btn {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 16px;
+        padding: 1em 2em;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .control-btn:hover {
+        background: rgba(0, 180, 216, 0.25);
+        border-color: rgba(0, 180, 216, 0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
+      }
+
+      .control-btn.active {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-color: #00b4d8;
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+      }
+
+      .control-btn.recording {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+        border-color: #dc3545;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .game-setup {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .setup-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5em;
+      }
+
+      .setup-section {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 1.5em;
+      }
+
+      .setup-section h3 {
+        color: #00b4d8;
+        margin: 0 0 1em 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .team-input {
+        display: flex;
+        gap: 1em;
+        margin-bottom: 1em;
+      }
+
+      .team-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 0.8em;
+        color: white;
+        font-size: 1em;
+      }
+
+      .team-input input:focus {
+        outline: none;
+        border-color: #00b4d8;
+        box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
+      }
+
+      .player-list {
+        max-height: 200px;
+        overflow-y: auto;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1em;
+      }
+
+      .player-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5em;
+        margin: 0.2em 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .player-item:hover {
+        background: rgba(0, 180, 216, 0.2);
+      }
+
+      .player-item.active {
+        background: linear-gradient(135deg, #007cba, #00b4d8);
+        color: white;
+      }
+
+      .quick-input-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 2em;
+        margin-top: 2em;
+      }
+
+      .stats-panel {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .current-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1em;
+        margin-bottom: 2em;
+      }
+
+      .stat-display {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1em;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .stat-value {
+        font-size: 2em;
+        font-weight: 900;
+        color: #00b4d8;
+        margin: 0.2em 0;
+      }
+
+      .stat-label {
+        color: #e8e8e8;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .quick-buttons {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1em;
+        margin-bottom: 2em;
+      }
+
+      .quick-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 1.5em 1em;
+        color: white;
+        font-weight: 700;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quick-btn:hover {
+        background: rgba(0, 180, 216, 0.2);
+        border-color: rgba(0, 180, 216, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
+      }
+
+      .quick-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+      }
+
+      .quick-btn.positive {
+        border-color: rgba(40, 167, 69, 0.5);
+      }
+
+      .quick-btn.positive:hover {
+        background: rgba(40, 167, 69, 0.2);
+        border-color: rgba(40, 167, 69, 0.6);
+      }
+
+      .quick-btn.negative {
+        border-color: rgba(220, 53, 69, 0.5);
+      }
+
+      .quick-btn.negative:hover {
+        background: rgba(220, 53, 69, 0.2);
+        border-color: rgba(220, 53, 69, 0.6);
+      }
+
+      .quick-btn .icon {
+        font-size: 1.5em;
+        display: block;
+        margin-bottom: 0.5em;
+      }
+
+      .voice-status {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1em;
+        margin: 1em 0;
+        text-align: center;
+      }
+
+      .voice-status.listening {
+        background: rgba(40, 167, 69, 0.2);
+        border: 1px solid rgba(40, 167, 69, 0.4);
+      }
+
+      .recent-events {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1em;
+        margin-top: 1em;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .event-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5em;
+        margin: 0.2em 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        font-size: 0.9em;
+      }
+
+      .event-time {
+        color: #00b4d8;
+        font-weight: 700;
+      }
+
+      .undo-btn {
+        background: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, 0.4);
+        border-radius: 4px;
+        padding: 0.2em 0.5em;
+        font-size: 0.8em;
+        cursor: pointer;
+      }
+
+      .undo-btn:hover {
+        background: rgba(220, 53, 69, 0.4);
+      }
+
+      .game-timer {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 2em;
+        margin-bottom: 2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .timer-display {
+        font-size: 4em;
+        font-weight: 900;
+        color: #00b4d8;
+        margin: 0.2em 0;
+        font-family: 'Montserrat', monospace;
+      }
+
+      .timer-controls {
+        display: flex;
+        gap: 1em;
+        justify-content: center;
+        margin-top: 1em;
+      }
+
+      .timer-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 0.8em 1.5em;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .timer-btn:hover {
+        background: rgba(0, 180, 216, 0.2);
+        border-color: rgba(0, 180, 216, 0.4);
+      }
+
+      @media (max-width: 768px) {
+        .game-input-container {
+          padding: 0.5em;
+        }
+
+        .quick-input-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .setup-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .button-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .game-controls {
+          flex-direction: column;
+        }
+
+        .timer-display {
+          font-size: 2.5em;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js"></script>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey.js"></script>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js"></script>
+    <script type="module" crossorigin src="/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css">
+    <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css">
+  </head>
+  <body>
+    <div class="game-input-container">
+      <div class="game-header">
+        <h1>🎙️ Smart Game Input</h1>
+        <p>Real-time tracking with voice commands and quick-tap interface</p>
+      </div>
+
+      <div class="game-controls">
+        <button class="control-btn" id="voice-btn">🎤 Voice Input</button>
+        <button class="control-btn active" id="quicktap-btn">
+          ⚡ Quick Tap
+        </button>
+        <button class="control-btn" id="auto-btn">🤖 Auto Track</button>
+      </div>
+
+      <!-- Game Setup -->
+      <div class="game-setup" id="game-setup">
+        <h2>🏀 Game Setup</h2>
+        <div class="setup-grid">
+          <div class="setup-section">
+            <h3>Teams</h3>
+            <div class="team-input">
+              <input type="text" placeholder="Home Team" id="home-team" />
+              <input type="text" placeholder="Away Team" id="away-team" />
+            </div>
+            <button class="control-btn" onclick="startGame()">
+              Start Game
+            </button>
+          </div>
+
+          <div class="setup-section">
+            <h3>Active Player</h3>
+            <div class="player-list" id="player-list">
+              <div class="player-item active" data-player="Marcus Johnson">
+                <span>Marcus Johnson #23</span>
+                <span>PG</span>
+              </div>
+              <div class="player-item" data-player="Tyler Brown">
+                <span>Tyler Brown #15</span>
+                <span>SG</span>
+              </div>
+              <div class="player-item" data-player="Alex Davis">
+                <span>Alex Davis #32</span>
+                <span>SF</span>
+              </div>
+              <div class="player-item" data-player="Jordan Wilson">
+                <span>Jordan Wilson #44</span>
+                <span>PF</span>
+              </div>
+              <div class="player-item" data-player="Chris Taylor">
+                <span>Chris Taylor #55</span>
+                <span>C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-section">
+            <h3>Game Info</h3>
+            <div class="team-input">
+              <input type="text" placeholder="Venue" id="venue" />
+              <input type="date" id="game-date" />
+            </div>
+            <div class="team-input">
+              <select id="game-type">
+                <option value="regular">Regular Season</option>
+                <option value="playoffs">Playoffs</option>
+                <option value="tournament">Tournament</option>
+                <option value="scrimmage">Scrimmage</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Timer -->
+      <div class="game-timer" id="game-timer" style="display: none">
+        <div class="timer-display" id="timer-display">12:00</div>
+        <div>Quarter <span id="quarter-display">1</span></div>
+        <div class="timer-controls">
+          <button class="timer-btn" onclick="startTimer()">Start</button>
+          <button class="timer-btn" onclick="pauseTimer()">Pause</button>
+          <button class="timer-btn" onclick="resetTimer()">Reset</button>
+          <button class="timer-btn" onclick="nextQuarter()">
+            Next Quarter
+          </button>
+        </div>
+      </div>
+
+      <div class="quick-input-grid" id="input-interface" style="display: none">
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+          <h3>📊 Current Stats</h3>
+          <div class="current-stats" id="current-stats">
+            <div class="stat-display">
+              <div class="stat-value" id="points">0</div>
+              <div class="stat-label">Points</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="rebounds">0</div>
+              <div class="stat-label">Rebounds</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="assists">0</div>
+              <div class="stat-label">Assists</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="steals">0</div>
+              <div class="stat-label">Steals</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="blocks">0</div>
+              <div class="stat-label">Blocks</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="turnovers">0</div>
+              <div class="stat-label">Turnovers</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="fouls">0</div>
+              <div class="stat-label">Fouls</div>
+            </div>
+            <div class="stat-display">
+              <div class="stat-value" id="fg-percentage">0%</div>
+              <div class="stat-label">FG%</div>
+            </div>
+          </div>
+
+          <div class="voice-status" id="voice-status">
+            Voice input ready - Press mic button to start
+          </div>
+
+          <div class="recent-events">
+            <h4>Recent Events</h4>
+            <div id="events-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Buttons -->
+        <div class="quick-buttons">
+          <h3>⚡ Quick Actions</h3>
+          <div class="button-grid">
+            <!-- Scoring -->
+            <button class="quick-btn positive" onclick="recordStat('fgm', 2)">
+              <span class="icon">🏀</span>
+              2PT Made
+            </button>
+            <button class="quick-btn positive" onclick="recordStat('tpm', 3)">
+              <span class="icon">🎯</span>
+              3PT Made
+            </button>
+            <button class="quick-btn positive" onclick="recordStat('ftm', 1)">
+              <span class="icon">🆓</span>
+              Free Throw
+            </button>
+            <button class="quick-btn negative" onclick="recordStat('fga', 0)">
+              <span class="icon">❌</span>
+              Shot Miss
+            </button>
+
+            <!-- Rebounding -->
+            <button class="quick-btn positive" onclick="recordStat('oreb', 0)">
+              <span class="icon">🔄</span>
+              Off. Rebound
+            </button>
+            <button class="quick-btn positive" onclick="recordStat('dreb', 0)">
+              <span class="icon">🛡️</span>
+              Def. Rebound
+            </button>
+
+            <!-- Playmaking -->
+            <button
+              class="quick-btn positive"
+              onclick="recordStat('assists', 0)"
+            >
+              <span class="icon">🤝</span>
+              Assist
+            </button>
+            <button
+              class="quick-btn negative"
+              onclick="recordStat('turnovers', 0)"
+            >
+              <span class="icon">🔄</span>
+              Turnover
+            </button>
+
+            <!-- Defense -->
+            <button
+              class="quick-btn positive"
+              onclick="recordStat('steals', 0)"
+            >
+              <span class="icon">🏃</span>
+              Steal
+            </button>
+            <button
+              class="quick-btn positive"
+              onclick="recordStat('blocks', 0)"
+            >
+              <span class="icon">🚫</span>
+              Block
+            </button>
+
+            <!-- Fouls -->
+            <button class="quick-btn negative" onclick="recordStat('fouls', 0)">
+              <span class="icon">⚠️</span>
+              Personal Foul
+            </button>
+            <button
+              class="quick-btn negative"
+              onclick="recordStat('technical', 0)"
+            >
+              <span class="icon">🔴</span>
+              Technical
+            </button>
+          </div>
+
+          <div class="team-input">
+            <button class="control-btn" onclick="undoLastEvent()">
+              ↶ Undo Last
+            </button>
+            <button class="control-btn" onclick="saveGameData()">
+              💾 Save Game
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smart Game Input UI Controller
+      class SmartGameInputUI {
+        constructor() {
+          this.smartInput = new SmartGameInput();
+          this.currentPlayer = 'Marcus Johnson';
+          this.gameActive = false;
+          this.timer = null;
+          this.gameTime = 12 * 60; // 12 minutes in seconds
+          this.quarter = 1;
+          this.gameStats = {
+            points: 0,
+            rebounds: 0,
+            assists: 0,
+            steals: 0,
+            blocks: 0,
+            turnovers: 0,
+            fouls: 0,
+            fgm: 0,
+            fga: 0,
+            ftm: 0,
+            fta: 0,
+            tpm: 0,
+            tpa: 0,
+            oreb: 0,
+            dreb: 0,
+          };
+          this.events = [];
+          this.initializeEventListeners();
+        }
+
+        initializeEventListeners() {
+          // Player selection
+          document.querySelectorAll('.player-item').forEach(item => {
+            item.addEventListener('click', () => {
+              document
+                .querySelectorAll('.player-item')
+                .forEach(p => p.classList.remove('active'));
+              item.classList.add('active');
+              this.currentPlayer = item.dataset.player;
+            });
+          });
+
+          // Voice input button
+          document.getElementById('voice-btn').addEventListener('click', () => {
+            this.toggleVoiceInput();
+          });
+
+          // Control mode buttons
+          document.querySelectorAll('.control-btn').forEach(btn => {
+            if (
+              btn.id === 'voice-btn' ||
+              btn.id === 'quicktap-btn' ||
+              btn.id === 'auto-btn'
+            ) {
+              btn.addEventListener('click', () => {
+                document.querySelectorAll('.control-btn').forEach(b => {
+                  if (
+                    b.id === 'voice-btn' ||
+                    b.id === 'quicktap-btn' ||
+                    b.id === 'auto-btn'
+                  ) {
+                    b.classList.remove('active');
+                  }
+                });
+                btn.classList.add('active');
+              });
+            }
+          });
+        }
+
+        toggleVoiceInput() {
+          const voiceBtn = document.getElementById('voice-btn');
+          const voiceStatus = document.getElementById('voice-status');
+
+          if (this.smartInput.isRecording) {
+            this.smartInput.stopVoiceRecognition();
+            voiceBtn.classList.remove('recording');
+            voiceBtn.textContent = '🎤 Voice Input';
+            voiceStatus.textContent = 'Voice input stopped';
+            voiceStatus.classList.remove('listening');
+          } else {
+            this.smartInput.startVoiceRecognition();
+            voiceBtn.classList.add('recording');
+            voiceBtn.textContent = '🔴 Listening...';
+            voiceStatus.textContent = 'Listening for commands...';
+            voiceStatus.classList.add('listening');
+          }
+        }
+
+        updateStatsDisplay() {
+          Object.keys(this.gameStats).forEach(stat => {
+            const element = document.getElementById(stat);
+            if (element) {
+              element.textContent = this.gameStats[stat];
+            }
+          });
+
+          // Calculate and update FG%
+          const fgPct =
+            this.gameStats.fga > 0
+              ? Math.round((this.gameStats.fgm / this.gameStats.fga) * 100)
+              : 0;
+          document.getElementById('fg-percentage').textContent = `${fgPct}%`;
+
+          // Update total rebounds
+          const totalRebounds = this.gameStats.oreb + this.gameStats.dreb;
+          document.getElementById('rebounds').textContent = totalRebounds;
+        }
+
+        addEvent(description, type = 'info') {
+          const event = {
+            time: new Date().toLocaleTimeString(),
+            description: description,
+            type: type,
+            player: this.currentPlayer,
+            id: Date.now(),
+          };
+
+          this.events.unshift(event);
+          this.updateEventsDisplay();
+        }
+
+        updateEventsDisplay() {
+          const eventsList = document.getElementById('events-list');
+          eventsList.innerHTML = this.events
+            .slice(0, 10)
+            .map(
+              event => `
+          <div class="event-item">
+            <span>${event.description}</span>
+            <div>
+              <span class="event-time">${event.time}</span>
+              <button class="undo-btn" onclick="undoEvent(${event.id})">Undo</button>
+            </div>
+          </div>
+        `
+            )
+            .join('');
+        }
+
+        formatTime(seconds) {
+          const minutes = Math.floor(seconds / 60);
+          const remainingSeconds = seconds % 60;
+          return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        updateTimer() {
+          document.getElementById('timer-display').textContent =
+            this.formatTime(this.gameTime);
+          document.getElementById('quarter-display').textContent = this.quarter;
+        }
+      }
+
+      // Global functions for button interactions
+      let gameUI;
+
+      function startGame() {
+        const homeTeam = document.getElementById('home-team').value || 'Home';
+        const awayTeam = document.getElementById('away-team').value || 'Away';
+
+        document.getElementById('game-setup').style.display = 'none';
+        document.getElementById('game-timer').style.display = 'block';
+        document.getElementById('input-interface').style.display = 'grid';
+
+        gameUI.gameActive = true;
+        gameUI.addEvent(`Game started: ${homeTeam} vs ${awayTeam}`, 'info');
+      }
+
+      function recordStat(statType, points = 0) {
+        if (!gameUI.gameActive) return;
+
+        let description = '';
+
+        switch (statType) {
+          case 'fgm':
+            gameUI.gameStats.fgm++;
+            gameUI.gameStats.fga++;
+            gameUI.gameStats.points += points;
+            description = `${gameUI.currentPlayer} - ${points}PT Made`;
+            break;
+          case 'tpm':
+            gameUI.gameStats.tpm++;
+            gameUI.gameStats.tpa++;
+            gameUI.gameStats.fgm++;
+            gameUI.gameStats.fga++;
+            gameUI.gameStats.points += points;
+            description = `${gameUI.currentPlayer} - 3PT Made`;
+            break;
+          case 'ftm':
+            gameUI.gameStats.ftm++;
+            gameUI.gameStats.fta++;
+            gameUI.gameStats.points += points;
+            description = `${gameUI.currentPlayer} - Free Throw Made`;
+            break;
+          case 'fga':
+            gameUI.gameStats.fga++;
+            description = `${gameUI.currentPlayer} - Shot Missed`;
+            break;
+          case 'oreb':
+            gameUI.gameStats.oreb++;
+            description = `${gameUI.currentPlayer} - Offensive Rebound`;
+            break;
+          case 'dreb':
+            gameUI.gameStats.dreb++;
+            description = `${gameUI.currentPlayer} - Defensive Rebound`;
+            break;
+          case 'assists':
+            gameUI.gameStats.assists++;
+            description = `${gameUI.currentPlayer} - Assist`;
+            break;
+          case 'turnovers':
+            gameUI.gameStats.turnovers++;
+            description = `${gameUI.currentPlayer} - Turnover`;
+            break;
+          case 'steals':
+            gameUI.gameStats.steals++;
+            description = `${gameUI.currentPlayer} - Steal`;
+            break;
+          case 'blocks':
+            gameUI.gameStats.blocks++;
+            description = `${gameUI.currentPlayer} - Block`;
+            break;
+          case 'fouls':
+            gameUI.gameStats.fouls++;
+            description = `${gameUI.currentPlayer} - Personal Foul`;
+            break;
+          case 'technical':
+            gameUI.gameStats.fouls++;
+            description = `${gameUI.currentPlayer} - Technical Foul`;
+            break;
+        }
+
+        gameUI.updateStatsDisplay();
+        gameUI.addEvent(
+          description,
+          statType.includes('foul') || statType === 'turnovers'
+            ? 'negative'
+            : 'positive'
+        );
+      }
+
+      function startTimer() {
+        if (gameUI.timer) return;
+
+        gameUI.timer = setInterval(() => {
+          if (gameUI.gameTime > 0) {
+            gameUI.gameTime--;
+            gameUI.updateTimer();
+          } else {
+            pauseTimer();
+            gameUI.addEvent(`End of Quarter ${gameUI.quarter}`, 'info');
+          }
+        }, 1000);
+      }
+
+      function pauseTimer() {
+        if (gameUI.timer) {
+          clearInterval(gameUI.timer);
+          gameUI.timer = null;
+        }
+      }
+
+      function resetTimer() {
+        pauseTimer();
+        gameUI.gameTime = 12 * 60;
+        gameUI.updateTimer();
+      }
+
+      function nextQuarter() {
+        pauseTimer();
+        gameUI.quarter++;
+        gameUI.gameTime = 12 * 60;
+        gameUI.updateTimer();
+        gameUI.addEvent(`Start of Quarter ${gameUI.quarter}`, 'info');
+      }
+
+      function undoLastEvent() {
+        if (gameUI.events.length > 0) {
+          const lastEvent = gameUI.events.shift();
+          gameUI.addEvent(`Undid: ${lastEvent.description}`, 'info');
+          gameUI.updateEventsDisplay();
+        }
+      }
+
+      function undoEvent(eventId) {
+        gameUI.events = gameUI.events.filter(event => event.id !== eventId);
+        gameUI.updateEventsDisplay();
+      }
+
+      function saveGameData() {
+        const gameData = {
+          player: gameUI.currentPlayer,
+          stats: gameUI.gameStats,
+          events: gameUI.events,
+          quarter: gameUI.quarter,
+          timestamp: new Date().toISOString(),
+        };
+
+        // In a real app, this would save to a database
+        localStorage.setItem('gameData', JSON.stringify(gameData));
+        alert('Game data saved successfully! 🎉');
+      }
+
+      // Initialize when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        gameUI = new SmartGameInputUI();
+        gameUI.updateStatsDisplay();
+        gameUI.updateTimer();
+      });
+    </script>
+  </body>
+</html>

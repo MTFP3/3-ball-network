@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3 Ball Network | Basketball Community Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="3 Ball Network connects basketball players, coaches, scouts, and fans. Register, showcase your talent, and grow your basketball network."
+    />
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#00b4d8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="3 Ball Network" />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+    />
+    <link
+      rel="manifest"
+      href="/assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #222;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: 0.02em;
+      }
+      .banner-logo {
+        width: 100vw;
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5em 0 1em 0;
+        margin: 0;
+      }
+      .banner-logo-img {
+        max-width: 320px;
+        width: 90vw;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
+        border-radius: 24px;
+        background: none;
+        padding: 0.5em 1.5em;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+        border: none; /* Remove border */
+      }
+      @media (max-width: 700px) {
+        .banner-logo-img {
+          max-width: 90vw;
+          padding: 0.5em;
+        }
+        .banner-logo {
+          padding: 1em 0 0.5em 0;
+        }
+      }
+      header {
+        background: transparent;
+        text-align: center;
+        padding: 3em 1em 1.5em 1em;
+        position: relative;
+      }
+      .logo {
+        width: 150px;
+        height: auto;
+        margin-bottom: 0.7em;
+        filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.18));
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 18px;
+        background: #fff;
+        padding: 0.5em;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+      }
+      .logo:hover {
+        transform: scale(1.09) rotate(-4deg);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+      }
+      .site-title {
+        font-family: 'Montserrat', 'Urbanist', Arial, sans-serif;
+        font-size: 3em;
+        font-weight: 900;
+        letter-spacing: 3px;
+        color: #fff;
+        margin: 0.2em 0 0.1em 0;
+        text-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+        text-transform: uppercase;
+      }
+      .site-tagline {
+        font-family: 'Urbanist', Arial, sans-serif;
+        color: #e0fbfc;
+        font-size: 1.35em;
+        margin-bottom: 0.7em;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      nav {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 1.1em 0;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        border-radius: 0 0 22px 22px;
+        margin: 0 auto 2em auto;
+        max-width: 720px;
+        font-size: 1.18em;
+        font-family: 'Montserrat', Arial, sans-serif;
+      }
+      nav a {
+        margin: 0 1.5em;
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+        position: relative;
+        text-transform: uppercase;
+      }
+      nav a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2.5px;
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        transition: width 0.3s;
+        margin: 0 auto;
+        border-radius: 2px;
+      }
+      nav a:hover {
+        color: #00b4d8;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .advanced-features {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2em 1em;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        border-radius: 22px;
+        margin: 0 auto 2em auto;
+        max-width: 1200px;
+      }
+
+      .advanced-features h2 {
+        color: #000;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 1.8em;
+        font-weight: 900;
+        margin-bottom: 1.5em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5em;
+        margin: 2em 0;
+      }
+
+      .feature-card {
+        background: rgba(0, 180, 216, 0.05);
+        border-radius: 16px;
+        padding: 1.5em;
+        border: 2px solid rgba(0, 180, 216, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.2);
+        border-color: rgba(0, 180, 216, 0.4);
+        background: rgba(0, 180, 216, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .feature-title {
+        color: #222;
+        font-weight: 900;
+        font-size: 1.1em;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .feature-description {
+        color: #555;
+        font-size: 0.9em;
+        line-height: 1.5;
+      }
+
+      .hero {
+        max-width: 750px;
+        margin: 2.5em auto 2em auto;
+        background: rgba(255, 255, 255, 0.99);
+        border-radius: 28px;
+        box-shadow: 0 8px 36px rgba(0, 0, 0, 0.16);
+        padding: 3em 2em 2.5em 2em;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        left: -80px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, #00b4d8 0%, transparent 70%);
+        opacity: 0.16;
+        z-index: 0;
+      }
+      .hero h1 {
+        font-size: 2.4em;
+        margin-bottom: 0.5em;
+        color: #222;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        z-index: 1;
+        position: relative;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .hero p {
+        font-size: 1.22em;
+        color: #444;
+        margin-bottom: 2.2em;
+        z-index: 1;
+        position: relative;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .portal-links {
+        margin: 2em 0 1em 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.7em;
+        z-index: 1;
+        position: relative;
+      }
+      .portal-link {
+        background: linear-gradient(90deg, #007cba 60%, #00b4d8 100%);
+        color: #fff;
+        padding: 1.2em 2.5em;
+        border-radius: 16px;
+        text-decoration: none;
+        font-size: 1.18em;
+        font-weight: 900;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .portal-link:active::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        animation: ripple 0.5s linear;
+        z-index: 2;
+      }
+      @keyframes ripple {
+        to {
+          width: 200px;
+          height: 200px;
+          opacity: 0;
+        }
+      }
+      .portal-link:hover {
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        transform: translateY(-4px) scale(1.07);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+        letter-spacing: 2px;
+      }
+      .spotlight {
+        margin-top: 2.5em;
+        background: rgba(0, 124, 186, 0.09);
+        border-radius: 14px;
+        padding: 1.5em 1em;
+        font-size: 1.15em;
+        color: #007cba;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .cta-banner {
+        background: linear-gradient(90deg, #00b4d8 0%, #007cba 100%);
+        color: #fff;
+        padding: 2em 1em 1.5em 1em;
+        border-radius: 18px;
+        text-align: center;
+        margin: 2.5em auto 2em auto;
+        max-width: 600px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        font-size: 1.22em;
+        font-weight: 900;
+        letter-spacing: 1.2px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .cta-banner h2 {
+        margin: 0 0 0.5em 0;
+        color: #fff;
+        font-size: 1.6em;
+        font-weight: 900;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: 'Montserrat', Arial, sans-serif;
+      }
+      .features {
+        max-width: 800px;
+        margin: 3em auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2em;
+      }
+      .feature {
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 18px;
+        padding: 2.2em 1.5em;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .feature:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13);
+      }
+      .feature h3 {
+        font-size: 1.3em;
+        margin-bottom: 0.5em;
+        color: #222;
+        font-weight: 900;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .feature p {
+        font-size: 1.08em;
+        color: #555;
+        margin: 0;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .social-links {
+        text-align: center;
+        margin: 2em 0;
+      }
+      .social-links a {
+        margin: 0 1em;
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 1.18em;
+        transition: color 0.2s;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .social-links a:hover {
+        color: #00b4d8;
+        text-decoration: underline;
+      }
+      .faq-section {
+        max-width: 750px;
+        margin: 3em auto 2em auto;
+        background: rgba(255, 255, 255, 0.99);
+        border-radius: 22px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        padding: 2.5em 2em 1.5em 2em;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .faq-section h2 {
+        text-align: center;
+        color: #222;
+        margin-bottom: 1em;
+        font-size: 1.5em;
+        font-weight: 900;
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .faq {
+        margin: 1.5em 0;
+      }
+      .faq-question {
+        width: 100%;
+        background: #007cba;
+        color: #fff;
+        border: none;
+        outline: none;
+        padding: 1.1em;
+        text-align: left;
+        font-size: 1.13em;
+        font-weight: 900;
+        border-radius: 10px;
+        margin: 0.5em 0 0 0;
+        cursor: pointer;
+        transition: background 0.2s;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+        font-family: 'Montserrat', Arial, sans-serif;
+        text-transform: uppercase;
+      }
+      .faq-question:hover,
+      .faq-question.active {
+        background: #00b4d8;
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        background: #f1f8fb;
+        color: #222;
+        border-radius: 0 0 10px 10px;
+        padding: 0 1em;
+        transition:
+          max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          padding 0.3s;
+        font-size: 1.08em;
+        font-family: 'Urbanist', Arial, sans-serif;
+      }
+      .faq-question.active + .faq-answer {
+        max-height: 200px;
+        padding: 1em;
+        margin-bottom: 0.5em;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero,
+      .cta-banner,
+      .features,
+      .faq-section {
+        animation: fadeInUp 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .fade-in-section.visible {
+        opacity: 1;
+        transform: none;
+      }
+      #scrollTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 2em;
+        right: 2em;
+        z-index: 1000;
+        background: #007cba;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        font-size: 1.5em;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        font-family: 'Montserrat', Arial, sans-serif;
+      }
+      #scrollTopBtn:hover {
+        background: #00b4d8;
+        transform: scale(1.1);
+      }
+      section {
+        border-radius: 22px;
+        margin-bottom: 2.5em;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      ul,
+      ol {
+        font-size: 1.13em;
+        line-height: 1.7;
+      }
+
+      blockquote {
+        border-left: 6px solid #00b4d8;
+        background: rgba(0, 180, 216, 0.07);
+        padding: 1.2em 1.5em;
+        font-style: normal; /* Removed italic for better readability with black text */
+        color: #222;
+        border-radius: 12px;
+        margin: 1.5em auto;
+      }
+      @media (max-width: 700px) {
+        .hero,
+        nav,
+        .faq-section,
+        .cta-banner {
+          max-width: 98vw;
+          padding: 1em;
+        }
+        .portal-link {
+          padding: 1em 1em;
+          font-size: 1em;
+        }
+        .features {
+          grid-template-columns: 1fr;
+        }
+        .site-title {
+          font-size: 2em;
+        }
+        .logo {
+          width: 90px;
+        }
+      }
+
+      .demo-section {
+        background: rgba(0, 124, 186, 0.95);
+        padding: 2em 1em;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        border-radius: 22px;
+        margin: 0 auto 2em auto;
+        max-width: 1200px;
+        color: white;
+      }
+
+      .demo-section h2 {
+        color: #fff;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 1.8em;
+        font-weight: 900;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .demo-section p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .demo-section .feature-card {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .demo-section .feature-card:hover {
+        border-color: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .demo-section .feature-title {
+        color: white;
+      }
+
+      .demo-section .feature-description {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      footer {
+        padding: 40px 20px;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+        margin-top: 3em;
+      }
+    </style>
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlpKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZpKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBzKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gaShlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9cyhlKTtmZXRjaChlLmhyZWYscil9fSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bW9kdWxlcHJlbG9hZC1wb2x5ZmlsbC1CNVF0OUVNWC5qcy5tYXAK"
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="/assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js"
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPWhtci1oZWxwZXItbDBzTlJOS1ouanMubWFwCg=="
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3Qgbz1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZihvJiZvLnN1cHBvcnRzJiZvLnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlyKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgdCBvZiBlKWlmKHQudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBzIG9mIHQuYWRkZWROb2RlcylzLnRhZ05hbWU9PT0iTElOSyImJnMucmVsPT09Im1vZHVsZXByZWxvYWQiJiZyKHMpfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBuKGUpe2NvbnN0IHQ9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYodC5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJih0LnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj90LmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/dC5jcmVkZW50aWFscz0ib21pdCI6dC5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHR9ZnVuY3Rpb24gcihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHQ9bihlKTtmZXRjaChlLmhyZWYsdCl9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCBpPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKGkmJmkuc3VwcG9ydHMmJmkuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IHIgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4ocik7bmV3IE11dGF0aW9uT2JzZXJ2ZXIocj0+e2Zvcihjb25zdCBlIG9mIHIpaWYoZS50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IHQgb2YgZS5hZGRlZE5vZGVzKXQudGFnTmFtZT09PSJMSU5LIiYmdC5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4odCl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIG8ocil7Y29uc3QgZT17fTtyZXR1cm4gci5pbnRlZ3JpdHkmJihlLmludGVncml0eT1yLmludGVncml0eSksci5yZWZlcnJlclBvbGljeSYmKGUucmVmZXJyZXJQb2xpY3k9ci5yZWZlcnJlclBvbGljeSksci5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP2UuY3JlZGVudGlhbHM9ImluY2x1ZGUiOnIuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9lLmNyZWRlbnRpYWxzPSJvbWl0IjplLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIsZX1mdW5jdGlvbiBuKHIpe2lmKHIuZXApcmV0dXJuO3IuZXA9ITA7Y29uc3QgZT1vKHIpO2ZldGNoKHIuaHJlZixlKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLmpzLm1hcAo="
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js"
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlpKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZpKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBzKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gaShlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9cyhlKTtmZXRjaChlLmhyZWYscil9fSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bW9kdWxlcHJlbG9hZC1wb2x5ZmlsbC1CNVF0OUVNWC5qcy5tYXAK"
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSluKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZuKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBpKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gbihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9aShlKTtmZXRjaChlLmhyZWYscil9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCB0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKHQmJnQuc3VwcG9ydHMmJnQuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IGUgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4oZSk7bmV3IE11dGF0aW9uT2JzZXJ2ZXIoZT0+e2Zvcihjb25zdCByIG9mIGUpaWYoci50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IG8gb2Ygci5hZGRlZE5vZGVzKW8udGFnTmFtZT09PSJMSU5LIiYmby5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4obyl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkoZSl7Y29uc3Qgcj17fTtyZXR1cm4gZS5pbnRlZ3JpdHkmJihyLmludGVncml0eT1lLmludGVncml0eSksZS5yZWZlcnJlclBvbGljeSYmKHIucmVmZXJyZXJQb2xpY3k9ZS5yZWZlcnJlclBvbGljeSksZS5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP3IuY3JlZGVudGlhbHM9ImluY2x1ZGUiOmUuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9yLmNyZWRlbnRpYWxzPSJvbWl0IjpyLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIscn1mdW5jdGlvbiBuKGUpe2lmKGUuZXApcmV0dXJuO2UuZXA9ITA7Y29uc3Qgcj1pKGUpO2ZldGNoKGUuaHJlZixyKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLUMyZHEyRWdWLmpzLm1hcAo="
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js"
+    />
+    <link
+      rel="modulepreload"
+      crossorigin
+      href="data:text/javascript;base64,Y2xhc3MgYXtjb25zdHJ1Y3Rvcigpe3RoaXMucmVnaXN0ZXJpbmc9ITEsdGhpcy5yZWdpc3RyYXRpb249bnVsbH1hc3luYyBpbml0aWFsaXplKCl7aWYoISghKCJzZXJ2aWNlV29ya2VyImluIG5hdmlnYXRvcil8fHRoaXMucmVnaXN0ZXJpbmcpKXt0aGlzLnJlZ2lzdGVyaW5nPSEwO3RyeXt0aGlzLnJlZ2lzdHJhdGlvbj1hd2FpdCBuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5yZWdpc3RlcigiL3N3LmpzIiksY29uc29sZS5sb2coIlNXIHJlZ2lzdGVyZWQ6ICIsdGhpcy5yZWdpc3RyYXRpb24pLHRoaXMuc3RhcnRVcGRhdGVDaGVja2luZygpLHRoaXMuc2V0dXBVcGRhdGVIYW5kbGluZygpLHRoaXMuc2V0dXBDb250cm9sbGVyQ2hhbmdlSGFuZGxpbmcoKX1jYXRjaChlKXtjb25zb2xlLmVycm9yKCJTVyByZWdpc3RyYXRpb24gZmFpbGVkOiAiLGUpfX19c3RhcnRVcGRhdGVDaGVja2luZygpe3RoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLHNldEludGVydmFsKCgpPT57dGhpcy5yZWdpc3RyYXRpb24udXBkYXRlKCl9LDVlMyl9c2V0dXBVcGRhdGVIYW5kbGluZygpe3RoaXMucmVnaXN0cmF0aW9uLmFkZEV2ZW50TGlzdGVuZXIoInVwZGF0ZWZvdW5kIiwoKT0+e2NvbnN0IGU9dGhpcy5yZWdpc3RyYXRpb24uaW5zdGFsbGluZztjb25zb2xlLmxvZygiTmV3IHNlcnZpY2Ugd29ya2VyIGZvdW5kLCBpbnN0YWxsaW5nLi4uIiksZS5hZGRFdmVudExpc3RlbmVyKCJzdGF0ZWNoYW5nZSIsKCk9PntlLnN0YXRlPT09Imluc3RhbGxlZCImJihuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5jb250cm9sbGVyPyhjb25zb2xlLmxvZygiTmV3IHZlcnNpb24gYXZhaWxhYmxlLCB1cGRhdGluZyBpbW1lZGlhdGVseS4uLiIpLGUucG9zdE1lc3NhZ2Uoe3R5cGU6IlNLSVBfV0FJVElORyJ9KSk6Y29uc29sZS5sb2coIkFwcCBpcyBjYWNoZWQgZm9yIHRoZSBmaXJzdCB0aW1lIikpfSl9KX1zZXR1cENvbnRyb2xsZXJDaGFuZ2VIYW5kbGluZygpe25hdmlnYXRvci5zZXJ2aWNlV29ya2VyLmFkZEV2ZW50TGlzdGVuZXIoImNvbnRyb2xsZXJjaGFuZ2UiLCgpPT57Y29uc29sZS5sb2coIlNlcnZpY2Ugd29ya2VyIGNvbnRyb2xsZXIgY2hhbmdlZCwgcmVsb2FkaW5nIHBhZ2UuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9KX1hc3luYyBjbGVhckFsbENhY2hlcygpe2lmKGNvbnNvbGUubG9nKCJDbGVhcmluZyBhbGwgY2FjaGVzLi4uIiksdGhpcy5yZWdpc3RyYXRpb24/LmFjdGl2ZSYmdGhpcy5yZWdpc3RyYXRpb24uYWN0aXZlLnBvc3RNZXNzYWdlKHt0eXBlOiJDTEVBUl9DQUNIRSJ9KSwiY2FjaGVzImluIHdpbmRvdyl7Y29uc3QgZT1hd2FpdCBjYWNoZXMua2V5cygpO2F3YWl0IFByb21pc2UuYWxsKGUubWFwKGk9PmNhY2hlcy5kZWxldGUoaSkpKX1jb25zb2xlLmxvZygiQWxsIGNhY2hlcyBjbGVhcmVkLCByZWxvYWRpbmcuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9YXN5bmMgZm9yY2VVcGRhdGUoKXt0aGlzLnJlZ2lzdHJhdGlvbiYmKGF3YWl0IHRoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLGNvbnNvbGUubG9nKCJGb3JjZWQgc2VydmljZSB3b3JrZXIgdXBkYXRlIGNoZWNrIikpfX1jb25zdCB0PW5ldyBhO2RvY3VtZW50LnJlYWR5U3RhdGU9PT0ibG9hZGluZyI/ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigiRE9NQ29udGVudExvYWRlZCIsKCk9PnQuaW5pdGlhbGl6ZSgpKTp0LmluaXRpYWxpemUoKTt3aW5kb3cuY2xlYXJBbGxDYWNoZXM9KCk9PnQuY2xlYXJBbGxDYWNoZXMoKTt3aW5kb3cuZm9yY2VVcGRhdGU9KCk9PnQuZm9yY2VVcGRhdGUoKTt3aW5kb3cuc3dNYW5hZ2VyPXQ7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPXN3LW1hbmFnZXItLUNqc3ZvVWwuanMubWFwCg=="
+    />
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3Qgbz1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZihvJiZvLnN1cHBvcnRzJiZvLnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlyKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgdCBvZiBlKWlmKHQudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBzIG9mIHQuYWRkZWROb2RlcylzLnRhZ05hbWU9PT0iTElOSyImJnMucmVsPT09Im1vZHVsZXByZWxvYWQiJiZyKHMpfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBuKGUpe2NvbnN0IHQ9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYodC5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJih0LnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj90LmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/dC5jcmVkZW50aWFscz0ib21pdCI6dC5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHR9ZnVuY3Rpb24gcihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHQ9bihlKTtmZXRjaChlLmhyZWYsdCl9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCBpPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKGkmJmkuc3VwcG9ydHMmJmkuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IHIgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4ocik7bmV3IE11dGF0aW9uT2JzZXJ2ZXIocj0+e2Zvcihjb25zdCBlIG9mIHIpaWYoZS50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IHQgb2YgZS5hZGRlZE5vZGVzKXQudGFnTmFtZT09PSJMSU5LIiYmdC5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4odCl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIG8ocil7Y29uc3QgZT17fTtyZXR1cm4gci5pbnRlZ3JpdHkmJihlLmludGVncml0eT1yLmludGVncml0eSksci5yZWZlcnJlclBvbGljeSYmKGUucmVmZXJyZXJQb2xpY3k9ci5yZWZlcnJlclBvbGljeSksci5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP2UuY3JlZGVudGlhbHM9ImluY2x1ZGUiOnIuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9lLmNyZWRlbnRpYWxzPSJvbWl0IjplLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIsZX1mdW5jdGlvbiBuKHIpe2lmKHIuZXApcmV0dXJuO3IuZXA9ITA7Y29uc3QgZT1vKHIpO2ZldGNoKHIuaHJlZixlKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLmpzLm1hcAo=">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSluKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZuKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBpKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gbihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9aShlKTtmZXRjaChlLmhyZWYscil9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCB0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKHQmJnQuc3VwcG9ydHMmJnQuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IGUgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4oZSk7bmV3IE11dGF0aW9uT2JzZXJ2ZXIoZT0+e2Zvcihjb25zdCByIG9mIGUpaWYoci50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IG8gb2Ygci5hZGRlZE5vZGVzKW8udGFnTmFtZT09PSJMSU5LIiYmby5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4obyl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkoZSl7Y29uc3Qgcj17fTtyZXR1cm4gZS5pbnRlZ3JpdHkmJihyLmludGVncml0eT1lLmludGVncml0eSksZS5yZWZlcnJlclBvbGljeSYmKHIucmVmZXJyZXJQb2xpY3k9ZS5yZWZlcnJlclBvbGljeSksZS5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP3IuY3JlZGVudGlhbHM9ImluY2x1ZGUiOmUuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9yLmNyZWRlbnRpYWxzPSJvbWl0IjpyLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIscn1mdW5jdGlvbiBuKGUpe2lmKGUuZXApcmV0dXJuO2UuZXA9ITA7Y29uc3Qgcj1pKGUpO2ZldGNoKGUuaHJlZixyKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLUMyZHEyRWdWLUMyZHEyRWdWLmpzLm1hcAo=">
+    <link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km.js">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,Y2xhc3MgYXtjb25zdHJ1Y3Rvcigpe3RoaXMucmVnaXN0ZXJpbmc9ITEsdGhpcy5yZWdpc3RyYXRpb249bnVsbH1hc3luYyBpbml0aWFsaXplKCl7aWYoISghKCJzZXJ2aWNlV29ya2VyImluIG5hdmlnYXRvcil8fHRoaXMucmVnaXN0ZXJpbmcpKXt0aGlzLnJlZ2lzdGVyaW5nPSEwO3RyeXt0aGlzLnJlZ2lzdHJhdGlvbj1hd2FpdCBuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5yZWdpc3RlcigiL3N3LmpzIiksY29uc29sZS5sb2coIlNXIHJlZ2lzdGVyZWQ6ICIsdGhpcy5yZWdpc3RyYXRpb24pLHRoaXMuc3RhcnRVcGRhdGVDaGVja2luZygpLHRoaXMuc2V0dXBVcGRhdGVIYW5kbGluZygpLHRoaXMuc2V0dXBDb250cm9sbGVyQ2hhbmdlSGFuZGxpbmcoKX1jYXRjaChlKXtjb25zb2xlLmVycm9yKCJTVyByZWdpc3RyYXRpb24gZmFpbGVkOiAiLGUpfX19c3RhcnRVcGRhdGVDaGVja2luZygpe3RoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLHNldEludGVydmFsKCgpPT57dGhpcy5yZWdpc3RyYXRpb24udXBkYXRlKCl9LDVlMyl9c2V0dXBVcGRhdGVIYW5kbGluZygpe3RoaXMucmVnaXN0cmF0aW9uLmFkZEV2ZW50TGlzdGVuZXIoInVwZGF0ZWZvdW5kIiwoKT0+e2NvbnN0IGU9dGhpcy5yZWdpc3RyYXRpb24uaW5zdGFsbGluZztjb25zb2xlLmxvZygiTmV3IHNlcnZpY2Ugd29ya2VyIGZvdW5kLCBpbnN0YWxsaW5nLi4uIiksZS5hZGRFdmVudExpc3RlbmVyKCJzdGF0ZWNoYW5nZSIsKCk9PntlLnN0YXRlPT09Imluc3RhbGxlZCImJihuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5jb250cm9sbGVyPyhjb25zb2xlLmxvZygiTmV3IHZlcnNpb24gYXZhaWxhYmxlLCB1cGRhdGluZyBpbW1lZGlhdGVseS4uLiIpLGUucG9zdE1lc3NhZ2Uoe3R5cGU6IlNLSVBfV0FJVElORyJ9KSk6Y29uc29sZS5sb2coIkFwcCBpcyBjYWNoZWQgZm9yIHRoZSBmaXJzdCB0aW1lIikpfSl9KX1zZXR1cENvbnRyb2xsZXJDaGFuZ2VIYW5kbGluZygpe25hdmlnYXRvci5zZXJ2aWNlV29ya2VyLmFkZEV2ZW50TGlzdGVuZXIoImNvbnRyb2xsZXJjaGFuZ2UiLCgpPT57Y29uc29sZS5sb2coIlNlcnZpY2Ugd29ya2VyIGNvbnRyb2xsZXIgY2hhbmdlZCwgcmVsb2FkaW5nIHBhZ2UuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9KX1hc3luYyBjbGVhckFsbENhY2hlcygpe2lmKGNvbnNvbGUubG9nKCJDbGVhcmluZyBhbGwgY2FjaGVzLi4uIiksdGhpcy5yZWdpc3RyYXRpb24/LmFjdGl2ZSYmdGhpcy5yZWdpc3RyYXRpb24uYWN0aXZlLnBvc3RNZXNzYWdlKHt0eXBlOiJDTEVBUl9DQUNIRSJ9KSwiY2FjaGVzImluIHdpbmRvdyl7Y29uc3QgZT1hd2FpdCBjYWNoZXMua2V5cygpO2F3YWl0IFByb21pc2UuYWxsKGUubWFwKGk9PmNhY2hlcy5kZWxldGUoaSkpKX1jb25zb2xlLmxvZygiQWxsIGNhY2hlcyBjbGVhcmVkLCByZWxvYWRpbmcuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9YXN5bmMgZm9yY2VVcGRhdGUoKXt0aGlzLnJlZ2lzdHJhdGlvbiYmKGF3YWl0IHRoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLGNvbnNvbGUubG9nKCJGb3JjZWQgc2VydmljZSB3b3JrZXIgdXBkYXRlIGNoZWNrIikpfX1jb25zdCB0PW5ldyBhO2RvY3VtZW50LnJlYWR5U3RhdGU9PT0ibG9hZGluZyI/ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigiRE9NQ29udGVudExvYWRlZCIsKCk9PnQuaW5pdGlhbGl6ZSgpKTp0LmluaXRpYWxpemUoKTt3aW5kb3cuY2xlYXJBbGxDYWNoZXM9KCk9PnQuY2xlYXJBbGxDYWNoZXMoKTt3aW5kb3cuZm9yY2VVcGRhdGU9KCk9PnQuZm9yY2VVcGRhdGUoKTt3aW5kb3cuc3dNYW5hZ2VyPXQ7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPXN3LW1hbmFnZXItLUNqc3ZvVWwtLUNqc3ZvVWwuanMubWFwCg==">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgaT1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZihpJiZpLnN1cHBvcnRzJiZpLnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlyKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgdCBvZiBlKWlmKHQudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBzIG9mIHQuYWRkZWROb2RlcylzLnRhZ05hbWU9PT0iTElOSyImJnMucmVsPT09Im1vZHVsZXByZWxvYWQiJiZyKHMpfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBuKGUpe2NvbnN0IHQ9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYodC5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJih0LnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj90LmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/dC5jcmVkZW50aWFscz0ib21pdCI6dC5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHR9ZnVuY3Rpb24gcihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHQ9bihlKTtmZXRjaChlLmhyZWYsdCl9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCBvPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKG8mJm8uc3VwcG9ydHMmJm8uc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IHIgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4ocik7bmV3IE11dGF0aW9uT2JzZXJ2ZXIocj0+e2Zvcihjb25zdCBlIG9mIHIpaWYoZS50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IHQgb2YgZS5hZGRlZE5vZGVzKXQudGFnTmFtZT09PSJMSU5LIiYmdC5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4odCl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkocil7Y29uc3QgZT17fTtyZXR1cm4gci5pbnRlZ3JpdHkmJihlLmludGVncml0eT1yLmludGVncml0eSksci5yZWZlcnJlclBvbGljeSYmKGUucmVmZXJyZXJQb2xpY3k9ci5yZWZlcnJlclBvbGljeSksci5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP2UuY3JlZGVudGlhbHM9ImluY2x1ZGUiOnIuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9lLmNyZWRlbnRpYWxzPSJvbWl0IjplLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIsZX1mdW5jdGlvbiBuKHIpe2lmKHIuZXApcmV0dXJuO3IuZXA9ITA7Y29uc3QgZT1pKHIpO2ZldGNoKHIuaHJlZixlKX19KSgpOyhmdW5jdGlvbigpe2NvbnN0IG89ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgibGluayIpLnJlbExpc3Q7aWYobyYmby5zdXBwb3J0cyYmby5zdXBwb3J0cygibW9kdWxlcHJlbG9hZCIpKXJldHVybjtmb3IoY29uc3QgciBvZiBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCdsaW5rW3JlbD0ibW9kdWxlcHJlbG9hZCJdJykpbihyKTtuZXcgTXV0YXRpb25PYnNlcnZlcihyPT57Zm9yKGNvbnN0IGUgb2YgcilpZihlLnR5cGU9PT0iY2hpbGRMaXN0Iilmb3IoY29uc3QgdCBvZiBlLmFkZGVkTm9kZXMpdC50YWdOYW1lPT09IkxJTksiJiZ0LnJlbD09PSJtb2R1bGVwcmVsb2FkIiYmbih0KX0pLm9ic2VydmUoZG9jdW1lbnQse2NoaWxkTGlzdDohMCxzdWJ0cmVlOiEwfSk7ZnVuY3Rpb24gaShyKXtjb25zdCBlPXt9O3JldHVybiByLmludGVncml0eSYmKGUuaW50ZWdyaXR5PXIuaW50ZWdyaXR5KSxyLnJlZmVycmVyUG9saWN5JiYoZS5yZWZlcnJlclBvbGljeT1yLnJlZmVycmVyUG9saWN5KSxyLmNyb3NzT3JpZ2luPT09InVzZS1jcmVkZW50aWFscyI/ZS5jcmVkZW50aWFscz0iaW5jbHVkZSI6ci5jcm9zc09yaWdpbj09PSJhbm9ueW1vdXMiP2UuY3JlZGVudGlhbHM9Im9taXQiOmUuY3JlZGVudGlhbHM9InNhbWUtb3JpZ2luIixlfWZ1bmN0aW9uIG4ocil7aWYoci5lcClyZXR1cm47ci5lcD0hMDtjb25zdCBlPWkocik7ZmV0Y2goci5ocmVmLGUpfX0pKCk7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPW1vZHVsZXByZWxvYWQtcG9seWZpbGwtQjVRdDlFTVgtdWxWXzFiN3ItQkd4RXNPV0UuanMubWFwCg==">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSluKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZuKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBpKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gbihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9aShlKTtmZXRjaChlLmhyZWYscil9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCB0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKHQmJnQuc3VwcG9ydHMmJnQuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IGUgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4oZSk7bmV3IE11dGF0aW9uT2JzZXJ2ZXIoZT0+e2Zvcihjb25zdCByIG9mIGUpaWYoci50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IG8gb2Ygci5hZGRlZE5vZGVzKW8udGFnTmFtZT09PSJMSU5LIiYmby5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4obyl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkoZSl7Y29uc3Qgcj17fTtyZXR1cm4gZS5pbnRlZ3JpdHkmJihyLmludGVncml0eT1lLmludGVncml0eSksZS5yZWZlcnJlclBvbGljeSYmKHIucmVmZXJyZXJQb2xpY3k9ZS5yZWZlcnJlclBvbGljeSksZS5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP3IuY3JlZGVudGlhbHM9ImluY2x1ZGUiOmUuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9yLmNyZWRlbnRpYWxzPSJvbWl0IjpyLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIscn1mdW5jdGlvbiBuKGUpe2lmKGUuZXApcmV0dXJuO2UuZXA9ITA7Y29uc3Qgcj1pKGUpO2ZldGNoKGUuaHJlZixyKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLUMyZHEyRWdWLUMyZHEyRWdWLUMyZHEyRWdWLmpzLm1hcAo=">
+    <link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY.js">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,Y2xhc3MgYXtjb25zdHJ1Y3Rvcigpe3RoaXMucmVnaXN0ZXJpbmc9ITEsdGhpcy5yZWdpc3RyYXRpb249bnVsbH1hc3luYyBpbml0aWFsaXplKCl7aWYoISghKCJzZXJ2aWNlV29ya2VyImluIG5hdmlnYXRvcil8fHRoaXMucmVnaXN0ZXJpbmcpKXt0aGlzLnJlZ2lzdGVyaW5nPSEwO3RyeXt0aGlzLnJlZ2lzdHJhdGlvbj1hd2FpdCBuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5yZWdpc3RlcigiL3N3LmpzIiksY29uc29sZS5sb2coIlNXIHJlZ2lzdGVyZWQ6ICIsdGhpcy5yZWdpc3RyYXRpb24pLHRoaXMuc3RhcnRVcGRhdGVDaGVja2luZygpLHRoaXMuc2V0dXBVcGRhdGVIYW5kbGluZygpLHRoaXMuc2V0dXBDb250cm9sbGVyQ2hhbmdlSGFuZGxpbmcoKX1jYXRjaChlKXtjb25zb2xlLmVycm9yKCJTVyByZWdpc3RyYXRpb24gZmFpbGVkOiAiLGUpfX19c3RhcnRVcGRhdGVDaGVja2luZygpe3RoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLHNldEludGVydmFsKCgpPT57dGhpcy5yZWdpc3RyYXRpb24udXBkYXRlKCl9LDVlMyl9c2V0dXBVcGRhdGVIYW5kbGluZygpe3RoaXMucmVnaXN0cmF0aW9uLmFkZEV2ZW50TGlzdGVuZXIoInVwZGF0ZWZvdW5kIiwoKT0+e2NvbnN0IGU9dGhpcy5yZWdpc3RyYXRpb24uaW5zdGFsbGluZztjb25zb2xlLmxvZygiTmV3IHNlcnZpY2Ugd29ya2VyIGZvdW5kLCBpbnN0YWxsaW5nLi4uIiksZS5hZGRFdmVudExpc3RlbmVyKCJzdGF0ZWNoYW5nZSIsKCk9PntlLnN0YXRlPT09Imluc3RhbGxlZCImJihuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5jb250cm9sbGVyPyhjb25zb2xlLmxvZygiTmV3IHZlcnNpb24gYXZhaWxhYmxlLCB1cGRhdGluZyBpbW1lZGlhdGVseS4uLiIpLGUucG9zdE1lc3NhZ2Uoe3R5cGU6IlNLSVBfV0FJVElORyJ9KSk6Y29uc29sZS5sb2coIkFwcCBpcyBjYWNoZWQgZm9yIHRoZSBmaXJzdCB0aW1lIikpfSl9KX1zZXR1cENvbnRyb2xsZXJDaGFuZ2VIYW5kbGluZygpe25hdmlnYXRvci5zZXJ2aWNlV29ya2VyLmFkZEV2ZW50TGlzdGVuZXIoImNvbnRyb2xsZXJjaGFuZ2UiLCgpPT57Y29uc29sZS5sb2coIlNlcnZpY2Ugd29ya2VyIGNvbnRyb2xsZXIgY2hhbmdlZCwgcmVsb2FkaW5nIHBhZ2UuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9KX1hc3luYyBjbGVhckFsbENhY2hlcygpe2lmKGNvbnNvbGUubG9nKCJDbGVhcmluZyBhbGwgY2FjaGVzLi4uIiksdGhpcy5yZWdpc3RyYXRpb24/LmFjdGl2ZSYmdGhpcy5yZWdpc3RyYXRpb24uYWN0aXZlLnBvc3RNZXNzYWdlKHt0eXBlOiJDTEVBUl9DQUNIRSJ9KSwiY2FjaGVzImluIHdpbmRvdyl7Y29uc3QgZT1hd2FpdCBjYWNoZXMua2V5cygpO2F3YWl0IFByb21pc2UuYWxsKGUubWFwKGk9PmNhY2hlcy5kZWxldGUoaSkpKX1jb25zb2xlLmxvZygiQWxsIGNhY2hlcyBjbGVhcmVkLCByZWxvYWRpbmcuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9YXN5bmMgZm9yY2VVcGRhdGUoKXt0aGlzLnJlZ2lzdHJhdGlvbiYmKGF3YWl0IHRoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLGNvbnNvbGUubG9nKCJGb3JjZWQgc2VydmljZSB3b3JrZXIgdXBkYXRlIGNoZWNrIikpfX1jb25zdCB0PW5ldyBhO2RvY3VtZW50LnJlYWR5U3RhdGU9PT0ibG9hZGluZyI/ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigiRE9NQ29udGVudExvYWRlZCIsKCk9PnQuaW5pdGlhbGl6ZSgpKTp0LmluaXRpYWxpemUoKTt3aW5kb3cuY2xlYXJBbGxDYWNoZXM9KCk9PnQuY2xlYXJBbGxDYWNoZXMoKTt3aW5kb3cuZm9yY2VVcGRhdGU9KCk9PnQuZm9yY2VVcGRhdGUoKTt3aW5kb3cuc3dNYW5hZ2VyPXQ7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPXN3LW1hbmFnZXItLUNqc3ZvVWwtLUNqc3ZvVWwtLUNqc3ZvVWwuanMubWFwCg==">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSlpKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZpKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBzKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gaShlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9cyhlKTtmZXRjaChlLmhyZWYscil9fSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bW9kdWxlcHJlbG9hZC1wb2x5ZmlsbC1CNVF0OUVNWC5qcy5tYXAK">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSluKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZuKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBpKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gbihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9aShlKTtmZXRjaChlLmhyZWYscil9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCB0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKHQmJnQuc3VwcG9ydHMmJnQuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IGUgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4oZSk7bmV3IE11dGF0aW9uT2JzZXJ2ZXIoZT0+e2Zvcihjb25zdCByIG9mIGUpaWYoci50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IG8gb2Ygci5hZGRlZE5vZGVzKW8udGFnTmFtZT09PSJMSU5LIiYmby5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4obyl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkoZSl7Y29uc3Qgcj17fTtyZXR1cm4gZS5pbnRlZ3JpdHkmJihyLmludGVncml0eT1lLmludGVncml0eSksZS5yZWZlcnJlclBvbGljeSYmKHIucmVmZXJyZXJQb2xpY3k9ZS5yZWZlcnJlclBvbGljeSksZS5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP3IuY3JlZGVudGlhbHM9ImluY2x1ZGUiOmUuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9yLmNyZWRlbnRpYWxzPSJvbWl0IjpyLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIscn1mdW5jdGlvbiBuKGUpe2lmKGUuZXApcmV0dXJuO2UuZXA9ITA7Y29uc3Qgcj1pKGUpO2ZldGNoKGUuaHJlZixyKX19KSgpOyhmdW5jdGlvbigpe2NvbnN0IHQ9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgibGluayIpLnJlbExpc3Q7aWYodCYmdC5zdXBwb3J0cyYmdC5zdXBwb3J0cygibW9kdWxlcHJlbG9hZCIpKXJldHVybjtmb3IoY29uc3QgZSBvZiBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCdsaW5rW3JlbD0ibW9kdWxlcHJlbG9hZCJdJykpbihlKTtuZXcgTXV0YXRpb25PYnNlcnZlcihlPT57Zm9yKGNvbnN0IHIgb2YgZSlpZihyLnR5cGU9PT0iY2hpbGRMaXN0Iilmb3IoY29uc3QgbyBvZiByLmFkZGVkTm9kZXMpby50YWdOYW1lPT09IkxJTksiJiZvLnJlbD09PSJtb2R1bGVwcmVsb2FkIiYmbihvKX0pLm9ic2VydmUoZG9jdW1lbnQse2NoaWxkTGlzdDohMCxzdWJ0cmVlOiEwfSk7ZnVuY3Rpb24gaShlKXtjb25zdCByPXt9O3JldHVybiBlLmludGVncml0eSYmKHIuaW50ZWdyaXR5PWUuaW50ZWdyaXR5KSxlLnJlZmVycmVyUG9saWN5JiYoci5yZWZlcnJlclBvbGljeT1lLnJlZmVycmVyUG9saWN5KSxlLmNyb3NzT3JpZ2luPT09InVzZS1jcmVkZW50aWFscyI/ci5jcmVkZW50aWFscz0iaW5jbHVkZSI6ZS5jcm9zc09yaWdpbj09PSJhbm9ueW1vdXMiP3IuY3JlZGVudGlhbHM9Im9taXQiOnIuY3JlZGVudGlhbHM9InNhbWUtb3JpZ2luIixyfWZ1bmN0aW9uIG4oZSl7aWYoZS5lcClyZXR1cm47ZS5lcD0hMDtjb25zdCByPWkoZSk7ZmV0Y2goZS5ocmVmLHIpfX0pKCk7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPW1vZHVsZXByZWxvYWQtcG9seWZpbGwtQjVRdDlFTVgtdWxWXzFiN3ItQkd4RXNPV0UtQnQtUHphZXkuanMubWFwCg==">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,KGZ1bmN0aW9uKCl7Y29uc3QgdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJsaW5rIikucmVsTGlzdDtpZih0JiZ0LnN1cHBvcnRzJiZ0LnN1cHBvcnRzKCJtb2R1bGVwcmVsb2FkIikpcmV0dXJuO2Zvcihjb25zdCBlIG9mIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2xpbmtbcmVsPSJtb2R1bGVwcmVsb2FkIl0nKSluKGUpO25ldyBNdXRhdGlvbk9ic2VydmVyKGU9Pntmb3IoY29uc3QgciBvZiBlKWlmKHIudHlwZT09PSJjaGlsZExpc3QiKWZvcihjb25zdCBvIG9mIHIuYWRkZWROb2RlcylvLnRhZ05hbWU9PT0iTElOSyImJm8ucmVsPT09Im1vZHVsZXByZWxvYWQiJiZuKG8pfSkub2JzZXJ2ZShkb2N1bWVudCx7Y2hpbGRMaXN0OiEwLHN1YnRyZWU6ITB9KTtmdW5jdGlvbiBpKGUpe2NvbnN0IHI9e307cmV0dXJuIGUuaW50ZWdyaXR5JiYoci5pbnRlZ3JpdHk9ZS5pbnRlZ3JpdHkpLGUucmVmZXJyZXJQb2xpY3kmJihyLnJlZmVycmVyUG9saWN5PWUucmVmZXJyZXJQb2xpY3kpLGUuY3Jvc3NPcmlnaW49PT0idXNlLWNyZWRlbnRpYWxzIj9yLmNyZWRlbnRpYWxzPSJpbmNsdWRlIjplLmNyb3NzT3JpZ2luPT09ImFub255bW91cyI/ci5jcmVkZW50aWFscz0ib21pdCI6ci5jcmVkZW50aWFscz0ic2FtZS1vcmlnaW4iLHJ9ZnVuY3Rpb24gbihlKXtpZihlLmVwKXJldHVybjtlLmVwPSEwO2NvbnN0IHI9aShlKTtmZXRjaChlLmhyZWYscil9fSkoKTsoZnVuY3Rpb24oKXtjb25zdCB0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKS5yZWxMaXN0O2lmKHQmJnQuc3VwcG9ydHMmJnQuc3VwcG9ydHMoIm1vZHVsZXByZWxvYWQiKSlyZXR1cm47Zm9yKGNvbnN0IGUgb2YgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnbGlua1tyZWw9Im1vZHVsZXByZWxvYWQiXScpKW4oZSk7bmV3IE11dGF0aW9uT2JzZXJ2ZXIoZT0+e2Zvcihjb25zdCByIG9mIGUpaWYoci50eXBlPT09ImNoaWxkTGlzdCIpZm9yKGNvbnN0IG8gb2Ygci5hZGRlZE5vZGVzKW8udGFnTmFtZT09PSJMSU5LIiYmby5yZWw9PT0ibW9kdWxlcHJlbG9hZCImJm4obyl9KS5vYnNlcnZlKGRvY3VtZW50LHtjaGlsZExpc3Q6ITAsc3VidHJlZTohMH0pO2Z1bmN0aW9uIGkoZSl7Y29uc3Qgcj17fTtyZXR1cm4gZS5pbnRlZ3JpdHkmJihyLmludGVncml0eT1lLmludGVncml0eSksZS5yZWZlcnJlclBvbGljeSYmKHIucmVmZXJyZXJQb2xpY3k9ZS5yZWZlcnJlclBvbGljeSksZS5jcm9zc09yaWdpbj09PSJ1c2UtY3JlZGVudGlhbHMiP3IuY3JlZGVudGlhbHM9ImluY2x1ZGUiOmUuY3Jvc3NPcmlnaW49PT0iYW5vbnltb3VzIj9yLmNyZWRlbnRpYWxzPSJvbWl0IjpyLmNyZWRlbnRpYWxzPSJzYW1lLW9yaWdpbiIscn1mdW5jdGlvbiBuKGUpe2lmKGUuZXApcmV0dXJuO2UuZXA9ITA7Y29uc3Qgcj1pKGUpO2ZldGNoKGUuaHJlZixyKX19KSgpOwovLyMgc291cmNlTWFwcGluZ1VSTD1tb2R1bGVwcmVsb2FkLXBvbHlmaWxsLUI1UXQ5RU1YLXVsVl8xYjdyLUMyZHEyRWdWLUMyZHEyRWdWLUMyZHEyRWdWLUMyZHEyRWdWLmpzLm1hcAo=">
+    <link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re.js">
+    <link rel="modulepreload" crossorigin href="data:text/javascript;base64,Y2xhc3MgYXtjb25zdHJ1Y3Rvcigpe3RoaXMucmVnaXN0ZXJpbmc9ITEsdGhpcy5yZWdpc3RyYXRpb249bnVsbH1hc3luYyBpbml0aWFsaXplKCl7aWYoISghKCJzZXJ2aWNlV29ya2VyImluIG5hdmlnYXRvcil8fHRoaXMucmVnaXN0ZXJpbmcpKXt0aGlzLnJlZ2lzdGVyaW5nPSEwO3RyeXt0aGlzLnJlZ2lzdHJhdGlvbj1hd2FpdCBuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5yZWdpc3RlcigiL3N3LmpzIiksY29uc29sZS5sb2coIlNXIHJlZ2lzdGVyZWQ6ICIsdGhpcy5yZWdpc3RyYXRpb24pLHRoaXMuc3RhcnRVcGRhdGVDaGVja2luZygpLHRoaXMuc2V0dXBVcGRhdGVIYW5kbGluZygpLHRoaXMuc2V0dXBDb250cm9sbGVyQ2hhbmdlSGFuZGxpbmcoKX1jYXRjaChlKXtjb25zb2xlLmVycm9yKCJTVyByZWdpc3RyYXRpb24gZmFpbGVkOiAiLGUpfX19c3RhcnRVcGRhdGVDaGVja2luZygpe3RoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLHNldEludGVydmFsKCgpPT57dGhpcy5yZWdpc3RyYXRpb24udXBkYXRlKCl9LDVlMyl9c2V0dXBVcGRhdGVIYW5kbGluZygpe3RoaXMucmVnaXN0cmF0aW9uLmFkZEV2ZW50TGlzdGVuZXIoInVwZGF0ZWZvdW5kIiwoKT0+e2NvbnN0IGU9dGhpcy5yZWdpc3RyYXRpb24uaW5zdGFsbGluZztjb25zb2xlLmxvZygiTmV3IHNlcnZpY2Ugd29ya2VyIGZvdW5kLCBpbnN0YWxsaW5nLi4uIiksZS5hZGRFdmVudExpc3RlbmVyKCJzdGF0ZWNoYW5nZSIsKCk9PntlLnN0YXRlPT09Imluc3RhbGxlZCImJihuYXZpZ2F0b3Iuc2VydmljZVdvcmtlci5jb250cm9sbGVyPyhjb25zb2xlLmxvZygiTmV3IHZlcnNpb24gYXZhaWxhYmxlLCB1cGRhdGluZyBpbW1lZGlhdGVseS4uLiIpLGUucG9zdE1lc3NhZ2Uoe3R5cGU6IlNLSVBfV0FJVElORyJ9KSk6Y29uc29sZS5sb2coIkFwcCBpcyBjYWNoZWQgZm9yIHRoZSBmaXJzdCB0aW1lIikpfSl9KX1zZXR1cENvbnRyb2xsZXJDaGFuZ2VIYW5kbGluZygpe25hdmlnYXRvci5zZXJ2aWNlV29ya2VyLmFkZEV2ZW50TGlzdGVuZXIoImNvbnRyb2xsZXJjaGFuZ2UiLCgpPT57Y29uc29sZS5sb2coIlNlcnZpY2Ugd29ya2VyIGNvbnRyb2xsZXIgY2hhbmdlZCwgcmVsb2FkaW5nIHBhZ2UuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9KX1hc3luYyBjbGVhckFsbENhY2hlcygpe2lmKGNvbnNvbGUubG9nKCJDbGVhcmluZyBhbGwgY2FjaGVzLi4uIiksdGhpcy5yZWdpc3RyYXRpb24/LmFjdGl2ZSYmdGhpcy5yZWdpc3RyYXRpb24uYWN0aXZlLnBvc3RNZXNzYWdlKHt0eXBlOiJDTEVBUl9DQUNIRSJ9KSwiY2FjaGVzImluIHdpbmRvdyl7Y29uc3QgZT1hd2FpdCBjYWNoZXMua2V5cygpO2F3YWl0IFByb21pc2UuYWxsKGUubWFwKGk9PmNhY2hlcy5kZWxldGUoaSkpKX1jb25zb2xlLmxvZygiQWxsIGNhY2hlcyBjbGVhcmVkLCByZWxvYWRpbmcuLi4iKSx3aW5kb3cubG9jYXRpb24ucmVsb2FkKCl9YXN5bmMgZm9yY2VVcGRhdGUoKXt0aGlzLnJlZ2lzdHJhdGlvbiYmKGF3YWl0IHRoaXMucmVnaXN0cmF0aW9uLnVwZGF0ZSgpLGNvbnNvbGUubG9nKCJGb3JjZWQgc2VydmljZSB3b3JrZXIgdXBkYXRlIGNoZWNrIikpfX1jb25zdCB0PW5ldyBhO2RvY3VtZW50LnJlYWR5U3RhdGU9PT0ibG9hZGluZyI/ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigiRE9NQ29udGVudExvYWRlZCIsKCk9PnQuaW5pdGlhbGl6ZSgpKTp0LmluaXRpYWxpemUoKTt3aW5kb3cuY2xlYXJBbGxDYWNoZXM9KCk9PnQuY2xlYXJBbGxDYWNoZXMoKTt3aW5kb3cuZm9yY2VVcGRhdGU9KCk9PnQuZm9yY2VVcGRhdGUoKTt3aW5kb3cuc3dNYW5hZ2VyPXQ7Ci8vIyBzb3VyY2VNYXBwaW5nVVJMPXN3LW1hbmFnZXItLUNqc3ZvVWwtLUNqc3ZvVWwtLUNqc3ZvVWwtLUNqc3ZvVWwuanMubWFwCg==">
+    <script type="module" crossorigin src="/assets/js/index-DlJ4jv1D.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js">
+    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css">
+  </head>
+  <body>
+    <div class="banner-logo">
+      <img
+        src="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+        alt="3 Ball Network Logo"
+        class="banner-logo-img"
+      />
+    </div>
+    <header>
+      <div class="site-title">3 Ball Network</div>
+      <div class="site-tagline">
+        Connecting Players, Coaches, Scouts, and Fans
+      </div>
+    </header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/overview.html">Overview</a>
+      <a href="/register.html">Register</a>
+      <a href="/login.html">Log In</a>
+    </nav>
+
+    <!-- Quick Demo Access Bar -->
+    <div
+      style="
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        text-align: center;
+        padding: 1em;
+        font-family: 'Urbanist', Arial, sans-serif;
+      "
+    >
+      <div style="max-width: 1200px; margin: 0 auto">
+        <span style="font-weight: 700; margin-right: 1em"
+          >🚀 Quick Demo Access:</span
+        >
+        <a
+          href="/demo-player"
+          style="
+            color: #00b4d8;
+            text-decoration: none;
+            margin: 0 0.8em;
+            font-weight: 600;
+            transition: color 0.2s;
+          "
+          onmouseover="this.style.color='#fff'"
+          onmouseout="this.style.color='#00b4d8'"
+          >Player</a
+        >
+        <a
+          href="/demo-coach"
+          style="
+            color: #00b4d8;
+            text-decoration: none;
+            margin: 0 0.8em;
+            font-weight: 600;
+            transition: color 0.2s;
+          "
+          onmouseover="this.style.color='#fff'"
+          onmouseout="this.style.color='#00b4d8'"
+          >Coach</a
+        >
+        <a
+          href="/demo-scout"
+          style="
+            color: #00b4d8;
+            text-decoration: none;
+            margin: 0 0.8em;
+            font-weight: 600;
+            transition: color 0.2s;
+          "
+          onmouseover="this.style.color='#fff'"
+          onmouseout="this.style.color='#00b4d8'"
+          >Scout</a
+        >
+        <a
+          href="/demo-fan"
+          style="
+            color: #00b4d8;
+            text-decoration: none;
+            margin: 0 0.8em;
+            font-weight: 600;
+            transition: color 0.2s;
+          "
+          onmouseover="this.style.color='#fff'"
+          onmouseout="this.style.color='#00b4d8'"
+          >Fan</a
+        >
+      </div>
+    </div>
+
+    <!-- Demo Spotlight -->
+    <section
+      class="demo-spotlight"
+      style="
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        margin: 0;
+        border-radius: 0;
+        color: white;
+        text-align: center;
+        padding: 3em 2em;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      "
+    >
+      <div style="max-width: 1200px; margin: 0 auto">
+        <h2
+          style="
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 0.5em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            color: #fff;
+          "
+        >
+          🚀 Experience the Future of Basketball Technology
+        </h2>
+        <p
+          style="
+            font-size: 1.3em;
+            margin-bottom: 2em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          See all our advanced features working together in one comprehensive
+          demo
+        </p>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5em;
+            margin: 2em 0;
+          "
+        >
+          <div
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 1.5em;
+              backdrop-filter: blur(10px);
+            "
+          >
+            <div style="font-size: 2em; margin-bottom: 0.5em">📊</div>
+            <div style="font-weight: 700">Advanced Analytics</div>
+          </div>
+          <div
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 1.5em;
+              backdrop-filter: blur(10px);
+            "
+          >
+            <div style="font-size: 2em; margin-bottom: 0.5em">🎯</div>
+            <div style="font-weight: 700">Smart Recruiting</div>
+          </div>
+          <div
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 1.5em;
+              backdrop-filter: blur(10px);
+            "
+          >
+            <div style="font-size: 2em; margin-bottom: 0.5em">⚡</div>
+            <div style="font-weight: 700">Smart Game Input</div>
+          </div>
+          <div
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 1.5em;
+              backdrop-filter: blur(10px);
+            "
+          >
+            <div style="font-size: 2em; margin-bottom: 0.5em">🧠</div>
+            <div style="font-weight: 700">AI Coach</div>
+          </div>
+          <div
+            style="
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 1.5em;
+              backdrop-filter: blur(10px);
+            "
+          >
+            <div style="font-size: 2em; margin-bottom: 0.5em">🌐</div>
+            <div style="font-weight: 700">Social Ecosystem</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo Portals Section -->
+    <section class="demo-section">
+      <h2>🎮 Demo Portals</h2>
+      <p
+        style="
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 1.2em;
+          text-align: center;
+          margin-bottom: 2em;
+        "
+      >
+        Experience the future of basketball technology with our interactive demo
+        portals
+      </p>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1.5em;
+          max-width: 1200px;
+          margin: 0 auto;
+        "
+      >
+        <a
+          href="/demo-player"
+          style="
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2em 1.5em;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+          "
+          onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='rgba(255,255,255,0.6)'; this.style.background='rgba(255,255,255,0.25)'"
+          onmouseout="this.style.transform=''; this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.15)'"
+        >
+          <div style="font-size: 3em; margin-bottom: 0.5em">🏀</div>
+          <div
+            style="
+              font-weight: 900;
+              font-size: 1.3em;
+              margin-bottom: 0.5em;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            Player Portal Demo
+          </div>
+          <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.5">
+            Complete player dashboard with 2K-style ratings, letter grades, game
+            history, and performance analytics
+          </div>
+        </a>
+
+        <a
+          href="/demo-coach"
+          style="
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2em 1.5em;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+          "
+          onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='rgba(255,255,255,0.6)'; this.style.background='rgba(255,255,255,0.25)'"
+          onmouseout="this.style.transform=''; this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.15)'"
+        >
+          <div style="font-size: 3em; margin-bottom: 0.5em">👨‍🏫</div>
+          <div
+            style="
+              font-weight: 900;
+              font-size: 1.3em;
+              margin-bottom: 0.5em;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            Coach Portal Demo
+          </div>
+          <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.5">
+            Team management with AI coach, roster tools, player grading system,
+            and live game analytics
+          </div>
+        </a>
+
+        <a
+          href="/demo-scout"
+          style="
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2em 1.5em;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+          "
+          onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='rgba(255,255,255,0.6)'; this.style.background='rgba(255,255,255,0.25)'"
+          onmouseout="this.style.transform=''; this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.15)'"
+        >
+          <div style="font-size: 3em; margin-bottom: 0.5em">🔍</div>
+          <div
+            style="
+              font-weight: 900;
+              font-size: 1.3em;
+              margin-bottom: 0.5em;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            Scout Portal Demo
+          </div>
+          <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.5">
+            Advanced scouting tools with player search, recruiting database, and
+            talent evaluation system
+          </div>
+        </a>
+
+        <a
+          href="/demo-fan"
+          style="
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2em 1.5em;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+          "
+          onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='rgba(255,255,255,0.6)'; this.style.background='rgba(255,255,255,0.25)'"
+          onmouseout="this.style.transform=''; this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.15)'"
+        >
+          <div style="font-size: 3em; margin-bottom: 0.5em">🙌</div>
+          <div
+            style="
+              font-weight: 900;
+              font-size: 1.3em;
+              margin-bottom: 0.5em;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            Fan Portal Demo
+          </div>
+          <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.5">
+            Follow your favorite players, teams, and games with social features
+            and real-time updates
+          </div>
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 2em">
+        <p
+          style="
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1em;
+            margin-bottom: 1em;
+          "
+        >
+          Try all demos to experience the complete 3 Ball Network ecosystem
+        </p>
+        <a
+          href="/test-integration.html"
+          style="
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.8em 1.5em;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.borderColor='rgba(255,255,255,0.6)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.4)'"
+        >
+          🧪 Test Integration Portal
+        </a>
+      </div>
+    </section>
+
+    <!-- Advanced Features Section -->
+    <section class="advanced-features">
+      <h2>🚀 Advanced Basketball Technology</h2>
+      <div class="feature-grid">
+        <a href="/analytics-dashboard" class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Advanced Analytics</div>
+          <div class="feature-description">
+            AI-powered performance tracking with real-time insights, trend
+            analysis, and league comparisons
+          </div>
+        </a>
+
+        <a href="/recruiting-hub" class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-title">Smart Recruiting</div>
+          <div class="feature-description">
+            College matching algorithm, communication center, and scholarship
+            calculator
+          </div>
+        </a>
+
+        <a href="/smart-input" class="feature-card">
+          <div class="feature-icon">🎙️</div>
+          <div class="feature-title">Smart Game Input</div>
+          <div class="feature-description">
+            Voice commands and quick-tap interface for real-time game stat
+            tracking
+          </div>
+        </a>
+
+        <a href="/ai-coach" class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <div class="feature-title">AI Coaching Assistant</div>
+          <div class="feature-description">
+            Personalized training plans, opponent scouting, and mental game
+            coaching
+          </div>
+        </a>
+
+        <a href="/social-hub" class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Basketball Social Hub</div>
+          <div class="feature-description">
+            Team chemistry analysis, achievements system, and community features
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section
+      style="
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3em 2em;
+        border-radius: 22px;
+        margin: 2em auto;
+        max-width: 1200px;
+        text-align: center;
+      "
+    >
+      <h2
+        style="
+          color: #000;
+          font-family: 'Montserrat', Arial, sans-serif;
+          font-size: 2.2em;
+          font-weight: 900;
+          margin-bottom: 1em;
+          text-transform: uppercase;
+        "
+      >
+        Ready to Experience the Future?
+      </h2>
+      <p
+        style="
+          color: #555;
+          font-size: 1.3em;
+          margin-bottom: 2em;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        Join thousands of players, coaches, scouts, and fans already using 3
+        Ball Network to revolutionize their basketball experience.
+      </p>
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5em;
+        "
+      >
+        <a
+          href="/overview.html"
+          style="
+            background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
+            color: #fff;
+            padding: 1.2em 2.5em;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.18em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 24px rgba(0,180,216,0.3)'"
+          onmouseout="this.style.transform=''; this.style.boxShadow=''"
+        >
+          📋 Platform Info
+        </a>
+        <a
+          href="/register.html"
+          style="
+            background: rgba(0, 180, 216, 0.1);
+            color: #007cba;
+            padding: 1.2em 2.5em;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.18em;
+            text-transform: uppercase;
+            border: 2px solid #007cba;
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.background='#007cba'; this.style.color='#fff'"
+          onmouseout="this.style.background='rgba(0,180,216,0.1)'; this.style.color='#007cba'"
+        >
+          🚀 Get Started
+        </a>
+      </div>
+    </section>
+    <footer>
+      Built by hoopers. Built for hoopers. Built for what's next.<br />
+      © 2025 The 3 Ball Network
+    </footer>
+
+    <!-- PWA Installation Banner -->
+    <div id="installBanner" class="install-banner" style="display: none">
+      <div class="install-content">
+        <img
+          src="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+          alt="3 Ball Network"
+          style="height: 40px"
+        />
+        <div class="install-text">
+          <h4>Install 3 Ball Network</h4>
+          <p>Get the full app experience on your device</p>
+        </div>
+        <div class="install-actions">
+          <button id="installBtn" class="install-btn">Install</button>
+          <button id="dismissBtn" class="dismiss-btn">×</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // PWA Installation
+      let deferredPrompt;
+      const installBanner = document.getElementById('installBanner');
+      const installBtn = document.getElementById('installBtn');
+      const dismissBtn = document.getElementById('dismissBtn');
+
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBanner.style.display = 'flex';
+      });
+
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response to the install prompt: ${outcome}`);
+          deferredPrompt = null;
+          installBanner.style.display = 'none';
+        }
+      });
+
+      dismissBtn.addEventListener('click', () => {
+        installBanner.style.display = 'none';
+      });
+
+      // Hide banner if already installed
+      window.addEventListener('appinstalled', () => {
+        installBanner.style.display = 'none';
+        console.log('PWA was installed');
+      });
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+  </body>
+</html>
