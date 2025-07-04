@@ -26,11 +26,11 @@
       body {
         background: linear-gradient(
           135deg,
-          #0a0e1a 0%,
-          #1a1f35 50%,
-          #2a3650 100%
+          #f8fafc 0%,
+          #e2e8f0 50%,
+          #cbd5e1 100%
         );
-        color: #ffffff;
+        color: #1e293b;
         font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
         min-height: 100vh;
         margin: 0;
@@ -43,25 +43,25 @@
       }
 
       .demo-header {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(15px);
         border-radius: 20px;
         padding: 2em;
         margin-bottom: 2em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         text-align: center;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 180, 216, 0.15);
       }
 
       .demo-header h1 {
-        color: #ffffff;
+        color: #1e293b;
         font-size: 2.5em;
         margin: 0.5em 0;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: none;
       }
 
       .demo-header p {
-        color: #e8e8e8 !important;
+        color: #64748b !important;
         font-size: 1.1em;
         line-height: 1.6;
       }
@@ -74,9 +74,9 @@
       }
 
       .nav-tab {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         border-radius: 16px;
         padding: 1.2em;
         cursor: pointer;
@@ -85,34 +85,32 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: #ffffff;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        color: #1e293b;
       }
 
       .nav-tab:hover {
-        background: rgba(0, 180, 216, 0.25);
-        border-color: rgba(0, 180, 216, 0.5);
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
-        color: #ffffff;
+        background: rgba(0, 180, 216, 0.1);
+        border-color: rgba(0, 180, 216, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
       }
 
       .nav-tab.active {
         background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
         border-color: #00b4d8;
-        color: #ffffff;
-        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
+        color: white;
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.3);
       }
 
       .demo-section {
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
         border-radius: 20px;
         padding: 2em;
         margin-bottom: 2em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         display: none;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        color: #1e293b;
       }
 
       .demo-section.active {
@@ -120,14 +118,14 @@
       }
 
       .demo-section h2 {
-        color: #ffffff;
+        color: #1e293b;
         font-size: 2em;
         margin-bottom: 1.5em;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        text-shadow: none;
       }
 
       .demo-section h3 {
-        color: #ffffff;
+        color: #1e293b;
         font-size: 1.4em;
         margin-bottom: 1em;
       }
@@ -140,19 +138,18 @@
       }
 
       .stat-card {
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         border-radius: 16px;
         padding: 1.5em;
         text-align: center;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        color: #1e293b;
       }
 
       .stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(0, 180, 216, 0.3);
-        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
       }
 
       .stat-value {
@@ -166,38 +163,37 @@
 
       .stat-label {
         font-size: 0.9em;
-        color: #e8e8e8;
+        color: #64748b;
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-top: 0.5em;
-        font-weight: 600;
       }
 
       .chart-container {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 16px;
         padding: 1.5em;
         margin-bottom: 1.5em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
       }
 
       .chart-container h3 {
-        color: #ffffff;
+        color: #1e293b;
         margin-bottom: 1em;
         font-size: 1.3em;
       }
 
       .games-list {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 16px;
         padding: 1.5em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
       }
 
       .games-list h3 {
-        color: #ffffff;
+        color: #1e293b;
         margin-bottom: 1em;
         font-size: 1.3em;
       }
@@ -225,12 +221,12 @@
       }
 
       .game-item strong {
-        color: #ffffff;
+        color: #1e293b;
         font-size: 1.1em;
       }
 
       .game-item span[style*='color: #888'] {
-        color: #d0d0d0 !important;
+        color: #64748b !important;
         font-size: 0.95em;
       }
 
@@ -354,37 +350,37 @@
       }
 
       .highlight-video {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 16px;
         padding: 1.5em;
         margin-bottom: 1em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         text-align: center;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        color: #1e293b;
       }
 
       .highlight-video h3 {
-        color: #ffffff;
+        color: #1e293b;
         margin-bottom: 1em;
         font-size: 1.3em;
       }
 
       .video-placeholder {
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(240, 240, 240, 0.8);
         border-radius: 10px;
         height: 200px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: #d0d0d0;
+        color: #64748b;
         margin-bottom: 1em;
-        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border: 2px dashed rgba(0, 180, 216, 0.3);
         font-size: 1.1em;
       }
 
       .video-placeholder small {
-        color: #b0b0b0;
+        color: #64748b;
         margin-top: 0.5em;
       }
 
@@ -427,12 +423,12 @@
 
       /* Profile section specific styling */
       .stat-card div[style*='color: #e0e0e0'] {
-        color: #ffffff !important;
+        color: #64748b !important;
         line-height: 1.6;
       }
 
       .stat-card strong {
-        color: #ffffff;
+        color: #1e293b;
       }
 
       /* 2K-Style Player Card */
@@ -478,10 +474,8 @@
         font-size: 2.2em;
         font-weight: 900;
         margin: 0 0 0.3em 0;
-        background: linear-gradient(45deg, #ffffff 0%, #90e0ef 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #1e293b;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .player-details {
@@ -491,23 +485,23 @@
       }
 
       .player-position {
-        background: rgba(0, 180, 216, 0.3);
-        color: #ffffff;
+        background: rgba(0, 180, 216, 0.15);
+        color: #007cba;
         padding: 0.3em 0.8em;
         border-radius: 20px;
         font-size: 0.9em;
         font-weight: 600;
-        border: 1px solid rgba(0, 180, 216, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.3);
       }
 
       .player-school {
-        color: #e8e8e8;
+        color: #475569;
         font-size: 1.1em;
         font-weight: 500;
       }
 
       .player-specs {
-        color: #b0b0b0;
+        color: #64748b;
         font-size: 0.95em;
       }
 
@@ -657,7 +651,7 @@
       }
 
       .ai-insight {
-        background: rgba(0, 180, 216, 0.05);
+        background: rgba(0, 180, 216, 0.1);
         border-radius: 12px;
         padding: 1.5em;
         border-left: 4px solid #00b4d8;
@@ -665,7 +659,7 @@
 
       .ai-insight p {
         margin: 0.5em 0;
-        color: #ffffff;
+        color: #1e293b;
         line-height: 1.6;
       }
 
@@ -676,14 +670,15 @@
       }
 
       .recruiting-section {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 16px;
         padding: 1.5em;
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        color: #1e293b;
       }
 
       .recruiting-section h3 {
-        color: #ffffff;
+        color: #1e293b;
         margin-bottom: 1em;
         font-size: 1.3em;
         border-bottom: 2px solid rgba(0, 180, 216, 0.3);
@@ -696,11 +691,12 @@
       }
 
       .match-item {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.8);
         border-radius: 12px;
         padding: 1.5em;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(0, 180, 216, 0.2);
         transition: all 0.3s ease;
+        color: #1e293b;
       }
 
       .match-item:hover {
@@ -733,7 +729,7 @@
       }
 
       .match-details {
-        color: #d0d0d0;
+        color: #475569;
         font-size: 0.95em;
         line-height: 1.4;
       }
@@ -749,7 +745,7 @@
       .communication-summary p,
       .scholarship-info p {
         margin: 0.5em 0;
-        color: #ffffff;
+        color: #1e293b;
         line-height: 1.6;
       }
 
@@ -757,18 +753,18 @@
       .recruiting-loading {
         text-align: center;
         padding: 3em;
-        color: #d0d0d0;
+        color: #64748b;
         font-style: italic;
       }
     </style>
-    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX.js"></script>
-    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js"></script>
-    <script type="module" crossorigin src="/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W.js"></script>
-    <script type="module" crossorigin src="/assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm.js"></script>
-    <script type="module" crossorigin src="/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js"></script>
-    <script type="module" crossorigin src="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc.css">
-    <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j.css">
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js"></script>
+    <script type="module" crossorigin src="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV.js"></script>
+    <script type="module" crossorigin src="/assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js"></script>
+    <script type="module" crossorigin src="/assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js"></script>
+    <script type="module" crossorigin src="/assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js"></script>
+    <script type="module" crossorigin src="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css">
+    <link rel="stylesheet" crossorigin href="/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css">
   </head>
   <body>
     <div class="demo-container">
@@ -776,12 +772,12 @@
 
       <div class="demo-header">
         <img
-          src="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
+          src="/assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png"
           alt="3 Ball Network"
           style="height: 60px; margin-bottom: 1em"
         />
         <h1>Player Portal Demo<span class="demo-badge">DEMO MODE</span></h1>
-        <p style="color: #b0b0b0; margin-top: 1em">
+        <p style="color: #64748b; margin-top: 1em">
           Experience the Player Dashboard - Track your performance, view game
           grades, and showcase your highlights
         </p>
@@ -948,29 +944,29 @@
 
         <div class="stats-grid">
           <div class="stat-card">
-            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
-              <strong style="color: #60a5fa">Name:</strong> Alex Johnson<br />
-              <strong style="color: #60a5fa">Position:</strong> Point Guard<br />
-              <strong style="color: #60a5fa">Height:</strong> 6'2"<br />
-              <strong style="color: #60a5fa">Weight:</strong> 185 lbs<br />
-              <strong style="color: #60a5fa">School:</strong> Lincoln High
+            <div style="color: #1e293b; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #007cba">Name:</strong> Alex Johnson<br />
+              <strong style="color: #007cba">Position:</strong> Point Guard<br />
+              <strong style="color: #007cba">Height:</strong> 6'2"<br />
+              <strong style="color: #007cba">Weight:</strong> 185 lbs<br />
+              <strong style="color: #007cba">School:</strong> Lincoln High
               School
             </div>
           </div>
 
           <div class="stat-card">
-            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
-              <strong style="color: #60a5fa">Team:</strong> Lincoln Lions<br />
-              <strong style="color: #60a5fa">Jersey #:</strong> 23<br />
-              <strong style="color: #60a5fa">Class:</strong> 2026<br />
-              <strong style="color: #60a5fa">GPA:</strong> 3.8<br />
-              <strong style="color: #60a5fa">Coach:</strong> Mike Thompson
+            <div style="color: #1e293b; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #007cba">Team:</strong> Lincoln Lions<br />
+              <strong style="color: #007cba">Jersey #:</strong> 23<br />
+              <strong style="color: #007cba">Class:</strong> 2026<br />
+              <strong style="color: #007cba">GPA:</strong> 3.8<br />
+              <strong style="color: #007cba">Coach:</strong> Mike Thompson
             </div>
           </div>
 
           <div class="stat-card">
-            <div style="color: #ffffff; margin-bottom: 1em; line-height: 1.8">
-              <strong style="color: #60a5fa">Achievements:</strong><br />
+            <div style="color: #1e293b; margin-bottom: 1em; line-height: 1.8">
+              <strong style="color: #007cba">Achievements:</strong><br />
               • All-District Team 2024<br />
               • Team Captain<br />
               • Honor Roll Student<br />
@@ -984,7 +980,7 @@
           <div class="game-item">
             <div>
               <strong>University of California</strong><br />
-              <span style="color: #d0d0d0">Recruiting Interest - High</span>
+              <span style="color: #64748b">Recruiting Interest - High</span>
             </div>
             <div>
               <span class="grade grade-a">Interested</span>
@@ -994,7 +990,7 @@
           <div class="game-item">
             <div>
               <strong>Duke University</strong><br />
-              <span style="color: #d0d0d0">Recruiting Interest - Medium</span>
+              <span style="color: #64748b">Recruiting Interest - Medium</span>
             </div>
             <div>
               <span class="grade grade-b">Watching</span>
