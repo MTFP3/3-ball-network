@@ -1,974 +1,990 @@
 {
-  "buildTime": "2025-07-04T01:14:06.382Z",
+  "buildTime": "2025-07-04T01:57:58.216Z",
   "version": "3.0.0",
-  "gitCommit": "a33d38c39d08173a618e6ed12b348d45e70c3e97",
+  "gitCommit": "5412973fd2dcbafb346fd6b9d8ecb5d206f7407b",
   "gitBranch": "main",
   "environment": "development",
   "nodeVersion": "v20.19.3",
-  "buildHash": "0732ac1b",
+  "buildHash": "10023156",
   "files": {
     "test-integration.html": {
-      "size": 32565,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "6d14cb56",
+      "size": 40815,
+      "mtime": "2025-07-04T02:01:07.485Z",
+      "hash": "1fd77ed4",
       "type": "html"
     },
     "terms.html": {
-      "size": 8392,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "bd97a59a",
+      "size": 8446,
+      "mtime": "2025-07-04T02:01:07.490Z",
+      "hash": "c3a0fb3d",
       "type": "html"
     },
     "teamArchive.html": {
-      "size": 30028,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "1a785210",
+      "size": 38287,
+      "mtime": "2025-07-04T02:01:07.487Z",
+      "hash": "40976dd1",
       "type": "html"
     },
     "team.html": {
-      "size": 39906,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "658edb84",
+      "size": 49455,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "ac0e3e93",
       "type": "html"
     },
     "social-hub.html": {
-      "size": 32994,
-      "mtime": "2025-07-04T01:17:36.315Z",
-      "hash": "c141434b",
+      "size": 33012,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "b53104fd",
       "type": "html"
     },
     "smart-input.html": {
-      "size": 30271,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "b58b6ad7",
+      "size": 30325,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "cdd4de66",
       "type": "html"
     },
     "search.html": {
-      "size": 35036,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "fdb06381",
+      "size": 43569,
+      "mtime": "2025-07-04T02:01:07.490Z",
+      "hash": "45ea7a08",
       "type": "html"
     },
     "scout.html": {
-      "size": 66623,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "cd6d6aea",
+      "size": 80024,
+      "mtime": "2025-07-04T02:01:07.485Z",
+      "hash": "52a75b8f",
       "type": "html"
     },
     "register.html": {
-      "size": 24479,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "2eb4b29a",
+      "size": 24542,
+      "mtime": "2025-07-04T02:01:07.489Z",
+      "hash": "9adcf56c",
       "type": "html"
     },
     "recruiting-hub.html": {
-      "size": 33926,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "37895598",
+      "size": 33980,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "fbc248a5",
       "type": "html"
     },
     "privacy.html": {
-      "size": 7640,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "717ecee9",
+      "size": 7694,
+      "mtime": "2025-07-04T02:01:07.490Z",
+      "hash": "771d2b0e",
       "type": "html"
     },
     "playerProfile.html": {
-      "size": 39495,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "58c6c77b",
+      "size": 49044,
+      "mtime": "2025-07-04T02:01:07.486Z",
+      "hash": "0931684a",
       "type": "html"
     },
     "player.html": {
-      "size": 30551,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "fd086460",
+      "size": 38810,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "548dc453",
       "type": "html"
     },
     "overview.html": {
-      "size": 15112,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "788a9ebc",
+      "size": 15166,
+      "mtime": "2025-07-04T02:01:07.490Z",
+      "hash": "9ca3b7c4",
       "type": "html"
     },
     "login.html": {
-      "size": 48348,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "8ca93ceb",
+      "size": 59478,
+      "mtime": "2025-07-04T02:01:07.489Z",
+      "hash": "96a82e9b",
       "type": "html"
     },
     "live.html": {
-      "size": 1743,
-      "mtime": "2025-07-04T01:17:36.315Z",
-      "hash": "dbc59e8d",
+      "size": 1788,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "88dea799",
       "type": "html"
     },
     "live-demo.html": {
-      "size": 26476,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "5bb41ee5",
+      "size": 26575,
+      "mtime": "2025-07-04T02:01:07.489Z",
+      "hash": "4cf9c17a",
       "type": "html"
     },
     "index.html": {
-      "size": 80253,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "423a227a",
+      "size": 91971,
+      "mtime": "2025-07-04T02:01:07.490Z",
+      "hash": "b20265d1",
       "type": "html"
     },
     "fan.html": {
-      "size": 30864,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "ceaed853",
+      "size": 39123,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "b49c7960",
       "type": "html"
     },
     "demo-scout.html": {
-      "size": 35513,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "ef9fb3c2",
+      "size": 35531,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "80b94c41",
       "type": "html"
     },
     "demo-player.html": {
-      "size": 61800,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "6876b04c",
+      "size": 65033,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "c6eace92",
       "type": "html"
     },
     "demo-fan.html": {
-      "size": 25655,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "910651ca",
+      "size": 25673,
+      "mtime": "2025-07-04T02:01:07.489Z",
+      "hash": "53131689",
       "type": "html"
     },
     "demo-enhanced.html": {
-      "size": 19653,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "c4313191",
+      "size": 19743,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "8c19df80",
       "type": "html"
     },
     "demo-coach.html": {
-      "size": 53354,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "36a2ed8e",
+      "size": 53390,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "4bd73ca2",
       "type": "html"
     },
     "coach.html": {
-      "size": 67450,
-      "mtime": "2025-07-04T01:17:36.315Z",
-      "hash": "68d4c8e6",
+      "size": 80859,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "3062abc6",
       "type": "html"
     },
     "claim-profile.html": {
-      "size": 30417,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "bd572b93",
+      "size": 38676,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "e6abdbf0",
       "type": "html"
     },
     "cache-clear.html": {
       "size": 0,
-      "mtime": "2025-07-04T01:17:36.286Z",
+      "mtime": "2025-07-04T02:01:07.427Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "backup_overview.html": {
       "size": 0,
-      "mtime": "2025-07-04T01:17:36.246Z",
+      "mtime": "2025-07-04T02:01:07.377Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "analytics.html": {
-      "size": 30703,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "c6a445a1",
+      "size": 38953,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "22721216",
       "type": "html"
     },
     "analytics-dashboard.html": {
-      "size": 29280,
-      "mtime": "2025-07-04T01:17:36.317Z",
-      "hash": "83e5c3be",
+      "size": 29334,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "ed9e94f5",
       "type": "html"
     },
     "ai-coach.html": {
-      "size": 29778,
-      "mtime": "2025-07-04T01:17:36.315Z",
-      "hash": "dbaca60c",
+      "size": 29796,
+      "mtime": "2025-07-04T02:01:07.483Z",
+      "hash": "5d1ec381",
       "type": "html"
     },
     "admin.html": {
-      "size": 43782,
-      "mtime": "2025-07-04T01:17:36.315Z",
-      "hash": "bb3dae95",
+      "size": 52041,
+      "mtime": "2025-07-04T02:01:07.484Z",
+      "hash": "276842a3",
       "type": "html"
     },
     "about.html": {
-      "size": 14159,
-      "mtime": "2025-07-04T01:17:36.316Z",
-      "hash": "0302f25b",
+      "size": 14204,
+      "mtime": "2025-07-04T02:01:07.488Z",
+      "hash": "0097ef7e",
       "type": "html"
     },
-    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": {
+    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": {
       "size": 1165969,
-      "mtime": "2025-07-04T01:17:36.364Z",
+      "mtime": "2025-07-04T02:01:07.569Z",
       "hash": "283ae8cd",
       "type": "image"
     },
-    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": {
+    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": {
       "size": 1300,
-      "mtime": "2025-07-04T01:17:36.330Z",
+      "mtime": "2025-07-04T02:01:07.501Z",
       "hash": "eabaf9e7",
       "type": "data"
     },
-    "assets/js/test-integration-B5YGymmk.js.map": {
-      "size": 21767,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "4475e4a4",
+    "assets/js/test-integration-DNJxumgv.js.map": {
+      "size": 24328,
+      "mtime": "2025-07-04T02:01:07.534Z",
+      "hash": "e25dacfd",
       "type": "other"
     },
-    "assets/js/test-integration-B5YGymmk.js": {
-      "size": 11527,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "7101b8ba",
+    "assets/js/test-integration-DNJxumgv.js": {
+      "size": 12718,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "3a3bbcf3",
       "type": "script"
     },
-    "assets/js/terms-oCfm6d_D.js.map": {
+    "assets/js/terms-06evUDeK.js.map": {
       "size": 98,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "b60fdb0d",
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "2b9b0658",
       "type": "other"
     },
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": {
-      "size": 6836,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "467bd352",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": {
+      "size": 6863,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "409ede87",
       "type": "other"
     },
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": {
-      "size": 3792,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "8585c52e",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": {
+      "size": 3801,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "98934256",
       "type": "script"
     },
-    "assets/js/teamArchive-CY15edz1.js.map": {
-      "size": 2725,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "b4e8f5ab",
+    "assets/js/teamArchive-QdSQr4Rd.js.map": {
+      "size": 2761,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "b9e19435",
       "type": "other"
     },
-    "assets/js/teamArchive-CY15edz1.js": {
-      "size": 1726,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "011c4d22",
+    "assets/js/teamArchive-QdSQr4Rd.js": {
+      "size": 1762,
+      "mtime": "2025-07-04T02:01:07.529Z",
+      "hash": "b153ebc0",
       "type": "script"
     },
-    "assets/js/team-DMcrg39O.js.map": {
-      "size": 4053,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "12cfe78f",
+    "assets/js/team-CBx5tgqF.js.map": {
+      "size": 4098,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "d8b52c18",
       "type": "other"
     },
-    "assets/js/team-DMcrg39O.js": {
-      "size": 2341,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "98e96e9b",
+    "assets/js/team-CBx5tgqF.js": {
+      "size": 2386,
+      "mtime": "2025-07-04T02:01:07.529Z",
+      "hash": "2366b13d",
       "type": "script"
     },
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": {
-      "size": 3434,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "23fe530c",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": {
+      "size": 3461,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "8fb77ed6",
       "type": "other"
     },
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": {
-      "size": 1900,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "2f91eb2b",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": {
+      "size": 1909,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "60209caa",
       "type": "script"
     },
-    "assets/js/social-hub-_fExmYrt.js.map": {
+    "assets/js/social-hub-DTCMaEJR.js.map": {
       "size": 103,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "76de9343",
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "b869eff9",
       "type": "other"
     },
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": {
-      "size": 16212,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "2fd148b7",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": {
+      "size": 16239,
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "0fd89298",
       "type": "other"
     },
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": {
-      "size": 8777,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "0ff0b8a7",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": {
+      "size": 8786,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "9e137b9f",
       "type": "script"
     },
-    "assets/js/smart-input-Dj3tkwU9.js.map": {
+    "assets/js/smart-input-CQ7KbRCc.js.map": {
       "size": 104,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "1db3d571",
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "c4399c78",
       "type": "other"
     },
-    "assets/js/search-CwFAAMKd.js.map": {
-      "size": 11042,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "9a26c07f",
+    "assets/js/search-CTAF_Kah.js.map": {
+      "size": 11087,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "5247c1a5",
       "type": "other"
     },
-    "assets/js/search-CwFAAMKd.js": {
-      "size": 6845,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "e4618e36",
+    "assets/js/search-CTAF_Kah.js": {
+      "size": 6890,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "5ea12f9d",
       "type": "script"
     },
-    "assets/js/scout-CWWIrVUz.js.map": {
-      "size": 8375,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "c2717757",
+    "assets/js/scout-DuO_TMES.js.map": {
+      "size": 8420,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "841b63f3",
       "type": "other"
     },
-    "assets/js/scout-CWWIrVUz.js": {
-      "size": 4875,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "bd7d633e",
+    "assets/js/scout-DuO_TMES.js": {
+      "size": 4920,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "7d077216",
       "type": "script"
     },
-    "assets/js/register-CcHZi2UB.js.map": {
+    "assets/js/register-CoCSauWJ.js.map": {
       "size": 101,
-      "mtime": "2025-07-04T01:17:36.363Z",
-      "hash": "62715b69",
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "788c62dc",
       "type": "other"
     },
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": {
-      "size": 16142,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "5b1f2be7",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js.map": {
+      "size": 16169,
+      "mtime": "2025-07-04T02:01:07.536Z",
+      "hash": "f1d3e807",
       "type": "other"
     },
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": {
-      "size": 8175,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "8c9b65c1",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js": {
+      "size": 8184,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "90b3cd3c",
       "type": "script"
     },
-    "assets/js/recruiting-hub-JaGxctQO.js.map": {
+    "assets/js/recruiting-hub-C36qI1v6.js.map": {
       "size": 107,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "2f8090cf",
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "01ee5057",
       "type": "other"
     },
-    "assets/js/privacy-oCfm6d_D.js.map": {
+    "assets/js/privacy-06evUDeK.js.map": {
       "size": 100,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "300c9ef2",
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "21fafae3",
       "type": "other"
     },
-    "assets/js/playerProfile-DhsdCZ0a.js.map": {
-      "size": 2356,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "08774e5b",
+    "assets/js/playerProfile-BeYlvNRh.js.map": {
+      "size": 2401,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "e8ba0ab9",
       "type": "other"
     },
-    "assets/js/playerProfile-DhsdCZ0a.js": {
-      "size": 1563,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "11bf4566",
+    "assets/js/playerProfile-BeYlvNRh.js": {
+      "size": 1608,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "891ff33c",
       "type": "script"
     },
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": {
-      "size": 10204,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "c4fe958a",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": {
+      "size": 10231,
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "d2ed3c8d",
       "type": "other"
     },
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": {
-      "size": 4994,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "2d64065f",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": {
+      "size": 5003,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "ccd58d17",
       "type": "script"
     },
-    "assets/js/player-CdbSkWut.js.map": {
-      "size": 6782,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "d7a66b7f",
+    "assets/js/player-et7ku3B7.js.map": {
+      "size": 6818,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "ad89bd23",
       "type": "other"
     },
-    "assets/js/player-CdbSkWut.js": {
-      "size": 3815,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "0ec26a61",
+    "assets/js/player-et7ku3B7.js": {
+      "size": 3851,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "ffd7d1d8",
       "type": "script"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js.map": {
-      "size": 45509,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "4b79258a",
-      "type": "other"
-    },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js": {
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1.js": {
       "size": 24511,
-      "mtime": "2025-07-04T01:17:36.355Z",
+      "mtime": "2025-07-04T02:01:07.525Z",
       "hash": "85bf46f7",
       "type": "script"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh.js": {
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js.map": {
+      "size": 45536,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "dcdbe4ca",
+      "type": "other"
+    },
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": {
+      "size": 24520,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "7e620413",
+      "type": "script"
+    },
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh.js": {
       "size": 24502,
-      "mtime": "2025-07-04T01:17:36.352Z",
+      "mtime": "2025-07-04T02:01:07.490Z",
       "hash": "d02b2671",
       "type": "script"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d.js": {
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d.js": {
       "size": 24518,
-      "mtime": "2025-07-04T01:17:36.317Z",
+      "mtime": "2025-07-04T02:01:07.527Z",
       "hash": "c13edce9",
       "type": "script"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": {
-      "size": 14530,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "39a84466",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": {
+      "size": 14557,
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "ab940bef",
       "type": "other"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": {
-      "size": 8169,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "805fc99b",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": {
+      "size": 8178,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "80bb070e",
       "type": "script"
     },
-    "assets/js/overview-Bn5olkfp.js.map": {
+    "assets/js/overview-iaWVGKut.js.map": {
       "size": 101,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "9eb7af71",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "68002e64",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": {
-      "size": 3144,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "6ef91698",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": {
+      "size": 3171,
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "363e8787",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": {
-      "size": 1544,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "547c098f",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": {
+      "size": 1553,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "d55de92c",
       "type": "script"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js.map": {
-      "size": 3081,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "ffe9d14a",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js.map": {
+      "size": 4471,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "950769f7",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js": {
-      "size": 2209,
-      "mtime": "2025-07-04T01:17:36.358Z",
-      "hash": "7b1e56f2",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js": {
+      "size": 2928,
+      "mtime": "2025-07-04T02:01:07.529Z",
+      "hash": "b76a0d62",
       "type": "script"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": {
-      "size": 4451,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "39ca428a",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": {
+      "size": 4478,
+      "mtime": "2025-07-04T02:01:07.533Z",
+      "hash": "ee48f8c2",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": {
-      "size": 2236,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "7f8697b3",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": {
+      "size": 2245,
+      "mtime": "2025-07-04T02:01:07.529Z",
+      "hash": "5c084284",
       "type": "script"
     },
-    "assets/js/login-nudnzM_g.js.map": {
-      "size": 2809,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "9f7267f7",
+    "assets/js/login-C9ePDpuj.js.map": {
+      "size": 2863,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "bff50e46",
       "type": "other"
     },
-    "assets/js/login-nudnzM_g.js": {
-      "size": 1779,
-      "mtime": "2025-07-04T01:17:36.353Z",
-      "hash": "6f0db02a",
+    "assets/js/login-C9ePDpuj.js": {
+      "size": 1833,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "900cb947",
       "type": "script"
     },
-    "assets/js/live-oCfm6d_D.js.map": {
-      "size": 97,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "3cbec0d3",
-      "type": "other"
-    },
-    "assets/js/live-demo-DMYc4_Rk.js.map": {
+    "assets/js/live-demo-ClYMYR5O.js.map": {
       "size": 102,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "61a88053",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "af0dbbb2",
       "type": "other"
     },
-    "assets/js/index-D_JAiDwF.js.map": {
-      "size": 4972,
-      "mtime": "2025-07-04T01:17:36.363Z",
-      "hash": "fb5ed6c6",
+    "assets/js/live-06evUDeK.js.map": {
+      "size": 97,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "26c93028",
       "type": "other"
     },
-    "assets/js/index-D_JAiDwF.js": {
-      "size": 3194,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "6b9f918b",
+    "assets/js/index-BDHhcq93.js.map": {
+      "size": 5027,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "88713b8f",
+      "type": "other"
+    },
+    "assets/js/index-BDHhcq93.js": {
+      "size": 3248,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "6440ce8c",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": {
       "size": 261798,
-      "mtime": "2025-07-04T01:17:36.351Z",
+      "mtime": "2025-07-04T02:01:07.527Z",
       "hash": "f0dfa5ee",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": {
       "size": 261807,
-      "mtime": "2025-07-04T01:17:36.352Z",
+      "mtime": "2025-07-04T02:01:07.525Z",
       "hash": "e812ffe2",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re.js": {
       "size": 261816,
-      "mtime": "2025-07-04T01:17:36.352Z",
+      "mtime": "2025-07-04T02:01:07.526Z",
       "hash": "57f1f542",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": {
-      "size": 485190,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "989ca54c",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": {
+      "size": 485217,
+      "mtime": "2025-07-04T02:01:07.534Z",
+      "hash": "199d6024",
       "type": "other"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": {
+      "size": 261843,
+      "mtime": "2025-07-04T02:01:07.529Z",
+      "hash": "be4111a9",
+      "type": "script"
+    },
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw.js": {
       "size": 261834,
-      "mtime": "2025-07-04T01:17:36.356Z",
+      "mtime": "2025-07-04T02:01:07.533Z",
       "hash": "6eda6725",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z.js": {
       "size": 261825,
-      "mtime": "2025-07-04T01:17:36.353Z",
+      "mtime": "2025-07-04T02:01:07.527Z",
       "hash": "d812716f",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": {
       "size": 261789,
-      "mtime": "2025-07-04T01:17:36.352Z",
+      "mtime": "2025-07-04T02:01:07.525Z",
       "hash": "120f41b9",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": {
       "size": 261851,
-      "mtime": "2025-07-04T01:17:36.351Z",
+      "mtime": "2025-07-04T02:01:07.525Z",
       "hash": "32558c7a",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": {
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": {
       "size": 263982,
-      "mtime": "2025-07-04T01:17:36.352Z",
+      "mtime": "2025-07-04T02:01:07.526Z",
       "hash": "0303239c",
       "type": "script"
     },
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": {
-      "size": 1682,
-      "mtime": "2025-07-04T01:17:36.362Z",
-      "hash": "7a267816",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": {
+      "size": 1709,
+      "mtime": "2025-07-04T02:01:07.532Z",
+      "hash": "316b6e4b",
       "type": "other"
     },
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": {
-      "size": 902,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "5374457d",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": {
+      "size": 911,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "d42e68dc",
       "type": "script"
     },
-    "assets/js/fan-BXqtpHa4.js.map": {
-      "size": 3934,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "c581027d",
+    "assets/js/fan-DM2F5Y4S.js.map": {
+      "size": 3970,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "5b82bf67",
       "type": "other"
     },
-    "assets/js/fan-BXqtpHa4.js": {
-      "size": 2189,
-      "mtime": "2025-07-04T01:17:36.355Z",
-      "hash": "7d452cc7",
+    "assets/js/fan-DM2F5Y4S.js": {
+      "size": 2225,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "e7e526ce",
       "type": "script"
     },
-    "assets/js/demo-scout-CFyRseLx.js.map": {
+    "assets/js/demo-scout-C9LlXcCZ.js.map": {
       "size": 103,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "2a8e7b94",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "e95eaa0c",
       "type": "other"
     },
-    "assets/js/demo-player-BmiOpqso.js.map": {
-      "size": 15940,
-      "mtime": "2025-07-04T01:17:36.361Z",
-      "hash": "cb151ee1",
+    "assets/js/demo-player-CgdcIbbJ.js.map": {
+      "size": 16116,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "4d626e01",
       "type": "other"
     },
-    "assets/js/demo-player-BmiOpqso.js": {
-      "size": 8250,
-      "mtime": "2025-07-04T01:17:36.353Z",
-      "hash": "b24d0075",
+    "assets/js/demo-player-CgdcIbbJ.js": {
+      "size": 8277,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "012ed85b",
       "type": "script"
     },
-    "assets/js/demo-fan-CFyRseLx.js.map": {
+    "assets/js/demo-fan-C9LlXcCZ.js.map": {
       "size": 101,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "c1e6a0d5",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "9c386c4c",
       "type": "other"
     },
-    "assets/js/demo-enhanced-DMYc4_Rk.js.map": {
+    "assets/js/demo-enhanced-ClYMYR5O.js.map": {
       "size": 106,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "6ad433c1",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "10cb35ae",
       "type": "other"
     },
-    "assets/js/demo-coach-DWV0eYAG.js.map": {
+    "assets/js/demo-coach-CVTGXK5l.js.map": {
       "size": 103,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "727917f3",
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "828090d6",
       "type": "other"
     },
-    "assets/js/coach-a9FDaWGs.js.map": {
-      "size": 16185,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "00df1a62",
+    "assets/js/coach-B5_w2ZXf.js.map": {
+      "size": 16230,
+      "mtime": "2025-07-04T02:01:07.531Z",
+      "hash": "c6d4a5c4",
       "type": "other"
     },
-    "assets/js/coach-a9FDaWGs.js": {
-      "size": 9020,
-      "mtime": "2025-07-04T01:17:36.353Z",
-      "hash": "90ff147c",
+    "assets/js/coach-B5_w2ZXf.js": {
+      "size": 9065,
+      "mtime": "2025-07-04T02:01:07.534Z",
+      "hash": "6750cce0",
       "type": "script"
     },
-    "assets/js/claim-profile-DJv-5we9.js.map": {
-      "size": 2627,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "a80c15c4",
+    "assets/js/claim-profile-3z2MKZ1C.js.map": {
+      "size": 2663,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "518b0b26",
       "type": "other"
     },
-    "assets/js/claim-profile-DJv-5we9.js": {
-      "size": 1663,
-      "mtime": "2025-07-04T01:17:36.353Z",
-      "hash": "09c1fc47",
+    "assets/js/claim-profile-3z2MKZ1C.js": {
+      "size": 1699,
+      "mtime": "2025-07-04T02:01:07.528Z",
+      "hash": "735526a8",
       "type": "script"
     },
     "assets/js/cache-clear-l0sNRNKZ.js.map": {
       "size": 104,
-      "mtime": "2025-07-04T01:17:36.360Z",
+      "mtime": "2025-07-04T02:01:07.530Z",
       "hash": "4fd7acd0",
       "type": "other"
     },
     "assets/js/backup_overview-l0sNRNKZ.js.map": {
       "size": 108,
-      "mtime": "2025-07-04T01:17:36.360Z",
+      "mtime": "2025-07-04T02:01:07.530Z",
       "hash": "c3ff31a6",
       "type": "other"
     },
-    "assets/js/analytics-dashboard-gFxU0P_i.js.map": {
+    "assets/js/analytics-dashboard-z1CpiBUy.js.map": {
       "size": 112,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "646fecac",
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "a73717cf",
       "type": "other"
     },
-    "assets/js/analytics-CVY9_eGS.js.map": {
-      "size": 2013,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "8d88442a",
+    "assets/js/analytics-BKwACPJd.js.map": {
+      "size": 2040,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "9de73771",
       "type": "other"
     },
-    "assets/js/analytics-CVY9_eGS.js": {
-      "size": 1373,
-      "mtime": "2025-07-04T01:17:36.354Z",
-      "hash": "12f1f0b5",
+    "assets/js/analytics-BKwACPJd.js": {
+      "size": 1400,
+      "mtime": "2025-07-04T02:01:07.527Z",
+      "hash": "456289e1",
       "type": "script"
     },
-    "assets/js/ai-coach-_fExmYrt.js.map": {
+    "assets/js/ai-coach-DTCMaEJR.js.map": {
       "size": 101,
-      "mtime": "2025-07-04T01:17:36.360Z",
-      "hash": "b5ade608",
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "5ec006e5",
       "type": "other"
     },
-    "assets/js/admin-DVXQsG96.js.map": {
-      "size": 15778,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "35149f18",
+    "assets/js/admin-CVtX1N13.js.map": {
+      "size": 15814,
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "89bd74fd",
       "type": "other"
     },
-    "assets/js/admin-DVXQsG96.js": {
-      "size": 10068,
-      "mtime": "2025-07-04T01:17:36.353Z",
-      "hash": "0f967999",
+    "assets/js/admin-CVtX1N13.js": {
+      "size": 10104,
+      "mtime": "2025-07-04T02:01:07.527Z",
+      "hash": "09bfa98f",
       "type": "script"
     },
-    "assets/js/about-BY8jvNEF.js.map": {
+    "assets/js/about-CLM6StGl.js.map": {
       "size": 98,
-      "mtime": "2025-07-04T01:17:36.359Z",
-      "hash": "22b1006a",
+      "mtime": "2025-07-04T02:01:07.530Z",
+      "hash": "b67d9c1d",
       "type": "other"
     },
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": {
+    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": {
       "size": 12413,
-      "mtime": "2025-07-04T01:17:36.353Z",
+      "mtime": "2025-07-04T02:01:07.527Z",
       "hash": "c4a4d731",
       "type": "stylesheet"
     },
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": {
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": {
       "size": 15245,
-      "mtime": "2025-07-04T01:17:36.335Z",
+      "mtime": "2025-07-04T02:01:07.519Z",
       "hash": "b9a841df",
       "type": "stylesheet"
     },
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": {
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": {
       "size": 2833,
-      "mtime": "2025-07-04T01:17:36.355Z",
+      "mtime": "2025-07-04T02:01:07.527Z",
       "hash": "e553b98b",
       "type": "stylesheet"
     }
   },
   "hashes": {
-    "test-integration.html": "6d14cb56",
-    "terms.html": "bd97a59a",
-    "teamArchive.html": "1a785210",
-    "team.html": "658edb84",
-    "social-hub.html": "c141434b",
-    "smart-input.html": "b58b6ad7",
-    "search.html": "fdb06381",
-    "scout.html": "cd6d6aea",
-    "register.html": "2eb4b29a",
-    "recruiting-hub.html": "37895598",
-    "privacy.html": "717ecee9",
-    "playerProfile.html": "58c6c77b",
-    "player.html": "fd086460",
-    "overview.html": "788a9ebc",
-    "login.html": "8ca93ceb",
-    "live.html": "dbc59e8d",
-    "live-demo.html": "5bb41ee5",
-    "index.html": "423a227a",
-    "fan.html": "ceaed853",
-    "demo-scout.html": "ef9fb3c2",
-    "demo-player.html": "6876b04c",
-    "demo-fan.html": "910651ca",
-    "demo-enhanced.html": "c4313191",
-    "demo-coach.html": "36a2ed8e",
-    "coach.html": "68d4c8e6",
-    "claim-profile.html": "bd572b93",
+    "test-integration.html": "1fd77ed4",
+    "terms.html": "c3a0fb3d",
+    "teamArchive.html": "40976dd1",
+    "team.html": "ac0e3e93",
+    "social-hub.html": "b53104fd",
+    "smart-input.html": "cdd4de66",
+    "search.html": "45ea7a08",
+    "scout.html": "52a75b8f",
+    "register.html": "9adcf56c",
+    "recruiting-hub.html": "fbc248a5",
+    "privacy.html": "771d2b0e",
+    "playerProfile.html": "0931684a",
+    "player.html": "548dc453",
+    "overview.html": "9ca3b7c4",
+    "login.html": "96a82e9b",
+    "live.html": "88dea799",
+    "live-demo.html": "4cf9c17a",
+    "index.html": "b20265d1",
+    "fan.html": "b49c7960",
+    "demo-scout.html": "80b94c41",
+    "demo-player.html": "c6eace92",
+    "demo-fan.html": "53131689",
+    "demo-enhanced.html": "8c19df80",
+    "demo-coach.html": "4bd73ca2",
+    "coach.html": "3062abc6",
+    "claim-profile.html": "e6abdbf0",
     "cache-clear.html": "d41d8cd9",
     "backup_overview.html": "d41d8cd9",
-    "analytics.html": "c6a445a1",
-    "analytics-dashboard.html": "83e5c3be",
-    "ai-coach.html": "dbaca60c",
-    "admin.html": "bb3dae95",
-    "about.html": "0302f25b",
-    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": "283ae8cd",
-    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": "eabaf9e7",
-    "assets/js/test-integration-B5YGymmk.js.map": "4475e4a4",
-    "assets/js/test-integration-B5YGymmk.js": "7101b8ba",
-    "assets/js/terms-oCfm6d_D.js.map": "b60fdb0d",
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": "467bd352",
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": "8585c52e",
-    "assets/js/teamArchive-CY15edz1.js.map": "b4e8f5ab",
-    "assets/js/teamArchive-CY15edz1.js": "011c4d22",
-    "assets/js/team-DMcrg39O.js.map": "12cfe78f",
-    "assets/js/team-DMcrg39O.js": "98e96e9b",
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": "23fe530c",
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": "2f91eb2b",
-    "assets/js/social-hub-_fExmYrt.js.map": "76de9343",
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": "2fd148b7",
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": "0ff0b8a7",
-    "assets/js/smart-input-Dj3tkwU9.js.map": "1db3d571",
-    "assets/js/search-CwFAAMKd.js.map": "9a26c07f",
-    "assets/js/search-CwFAAMKd.js": "e4618e36",
-    "assets/js/scout-CWWIrVUz.js.map": "c2717757",
-    "assets/js/scout-CWWIrVUz.js": "bd7d633e",
-    "assets/js/register-CcHZi2UB.js.map": "62715b69",
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": "5b1f2be7",
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": "8c9b65c1",
-    "assets/js/recruiting-hub-JaGxctQO.js.map": "2f8090cf",
-    "assets/js/privacy-oCfm6d_D.js.map": "300c9ef2",
-    "assets/js/playerProfile-DhsdCZ0a.js.map": "08774e5b",
-    "assets/js/playerProfile-DhsdCZ0a.js": "11bf4566",
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": "c4fe958a",
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": "2d64065f",
-    "assets/js/player-CdbSkWut.js.map": "d7a66b7f",
-    "assets/js/player-CdbSkWut.js": "0ec26a61",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js.map": "4b79258a",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js": "85bf46f7",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh.js": "d02b2671",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d.js": "c13edce9",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": "39a84466",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": "805fc99b",
-    "assets/js/overview-Bn5olkfp.js.map": "9eb7af71",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": "6ef91698",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": "547c098f",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js.map": "ffe9d14a",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js": "7b1e56f2",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": "39ca428a",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": "7f8697b3",
-    "assets/js/login-nudnzM_g.js.map": "9f7267f7",
-    "assets/js/login-nudnzM_g.js": "6f0db02a",
-    "assets/js/live-oCfm6d_D.js.map": "3cbec0d3",
-    "assets/js/live-demo-DMYc4_Rk.js.map": "61a88053",
-    "assets/js/index-D_JAiDwF.js.map": "fb5ed6c6",
-    "assets/js/index-D_JAiDwF.js": "6b9f918b",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": "f0dfa5ee",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY.js": "e812ffe2",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re.js": "57f1f542",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": "989ca54c",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": "6eda6725",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z.js": "d812716f",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": "120f41b9",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": "32558c7a",
-    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": "0303239c",
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": "7a267816",
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": "5374457d",
-    "assets/js/fan-BXqtpHa4.js.map": "c581027d",
-    "assets/js/fan-BXqtpHa4.js": "7d452cc7",
-    "assets/js/demo-scout-CFyRseLx.js.map": "2a8e7b94",
-    "assets/js/demo-player-BmiOpqso.js.map": "cb151ee1",
-    "assets/js/demo-player-BmiOpqso.js": "b24d0075",
-    "assets/js/demo-fan-CFyRseLx.js.map": "c1e6a0d5",
-    "assets/js/demo-enhanced-DMYc4_Rk.js.map": "6ad433c1",
-    "assets/js/demo-coach-DWV0eYAG.js.map": "727917f3",
-    "assets/js/coach-a9FDaWGs.js.map": "00df1a62",
-    "assets/js/coach-a9FDaWGs.js": "90ff147c",
-    "assets/js/claim-profile-DJv-5we9.js.map": "a80c15c4",
-    "assets/js/claim-profile-DJv-5we9.js": "09c1fc47",
+    "analytics.html": "22721216",
+    "analytics-dashboard.html": "ed9e94f5",
+    "ai-coach.html": "5d1ec381",
+    "admin.html": "276842a3",
+    "about.html": "0097ef7e",
+    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": "283ae8cd",
+    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": "eabaf9e7",
+    "assets/js/test-integration-DNJxumgv.js.map": "e25dacfd",
+    "assets/js/test-integration-DNJxumgv.js": "3a3bbcf3",
+    "assets/js/terms-06evUDeK.js.map": "2b9b0658",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": "409ede87",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": "98934256",
+    "assets/js/teamArchive-QdSQr4Rd.js.map": "b9e19435",
+    "assets/js/teamArchive-QdSQr4Rd.js": "b153ebc0",
+    "assets/js/team-CBx5tgqF.js.map": "d8b52c18",
+    "assets/js/team-CBx5tgqF.js": "2366b13d",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": "8fb77ed6",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": "60209caa",
+    "assets/js/social-hub-DTCMaEJR.js.map": "b869eff9",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": "0fd89298",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": "9e137b9f",
+    "assets/js/smart-input-CQ7KbRCc.js.map": "c4399c78",
+    "assets/js/search-CTAF_Kah.js.map": "5247c1a5",
+    "assets/js/search-CTAF_Kah.js": "5ea12f9d",
+    "assets/js/scout-DuO_TMES.js.map": "841b63f3",
+    "assets/js/scout-DuO_TMES.js": "7d077216",
+    "assets/js/register-CoCSauWJ.js.map": "788c62dc",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js.map": "f1d3e807",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js": "90b3cd3c",
+    "assets/js/recruiting-hub-C36qI1v6.js.map": "01ee5057",
+    "assets/js/privacy-06evUDeK.js.map": "21fafae3",
+    "assets/js/playerProfile-BeYlvNRh.js.map": "e8ba0ab9",
+    "assets/js/playerProfile-BeYlvNRh.js": "891ff33c",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": "d2ed3c8d",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": "ccd58d17",
+    "assets/js/player-et7ku3B7.js.map": "ad89bd23",
+    "assets/js/player-et7ku3B7.js": "ffd7d1d8",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1.js": "85bf46f7",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js.map": "dcdbe4ca",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": "7e620413",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh.js": "d02b2671",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d.js": "c13edce9",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": "ab940bef",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": "80bb070e",
+    "assets/js/overview-iaWVGKut.js.map": "68002e64",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": "363e8787",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": "d55de92c",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js.map": "950769f7",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js": "b76a0d62",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": "ee48f8c2",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": "5c084284",
+    "assets/js/login-C9ePDpuj.js.map": "bff50e46",
+    "assets/js/login-C9ePDpuj.js": "900cb947",
+    "assets/js/live-demo-ClYMYR5O.js.map": "af0dbbb2",
+    "assets/js/live-06evUDeK.js.map": "26c93028",
+    "assets/js/index-BDHhcq93.js.map": "88713b8f",
+    "assets/js/index-BDHhcq93.js": "6440ce8c",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": "f0dfa5ee",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": "e812ffe2",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re.js": "57f1f542",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": "199d6024",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": "be4111a9",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw.js": "6eda6725",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z.js": "d812716f",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": "120f41b9",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": "32558c7a",
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": "0303239c",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": "316b6e4b",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": "d42e68dc",
+    "assets/js/fan-DM2F5Y4S.js.map": "5b82bf67",
+    "assets/js/fan-DM2F5Y4S.js": "e7e526ce",
+    "assets/js/demo-scout-C9LlXcCZ.js.map": "e95eaa0c",
+    "assets/js/demo-player-CgdcIbbJ.js.map": "4d626e01",
+    "assets/js/demo-player-CgdcIbbJ.js": "012ed85b",
+    "assets/js/demo-fan-C9LlXcCZ.js.map": "9c386c4c",
+    "assets/js/demo-enhanced-ClYMYR5O.js.map": "10cb35ae",
+    "assets/js/demo-coach-CVTGXK5l.js.map": "828090d6",
+    "assets/js/coach-B5_w2ZXf.js.map": "c6d4a5c4",
+    "assets/js/coach-B5_w2ZXf.js": "6750cce0",
+    "assets/js/claim-profile-3z2MKZ1C.js.map": "518b0b26",
+    "assets/js/claim-profile-3z2MKZ1C.js": "735526a8",
     "assets/js/cache-clear-l0sNRNKZ.js.map": "4fd7acd0",
     "assets/js/backup_overview-l0sNRNKZ.js.map": "c3ff31a6",
-    "assets/js/analytics-dashboard-gFxU0P_i.js.map": "646fecac",
-    "assets/js/analytics-CVY9_eGS.js.map": "8d88442a",
-    "assets/js/analytics-CVY9_eGS.js": "12f1f0b5",
-    "assets/js/ai-coach-_fExmYrt.js.map": "b5ade608",
-    "assets/js/admin-DVXQsG96.js.map": "35149f18",
-    "assets/js/admin-DVXQsG96.js": "0f967999",
-    "assets/js/about-BY8jvNEF.js.map": "22b1006a",
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": "c4a4d731",
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": "b9a841df",
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": "e553b98b"
+    "assets/js/analytics-dashboard-z1CpiBUy.js.map": "a73717cf",
+    "assets/js/analytics-BKwACPJd.js.map": "9de73771",
+    "assets/js/analytics-BKwACPJd.js": "456289e1",
+    "assets/js/ai-coach-DTCMaEJR.js.map": "5ec006e5",
+    "assets/js/admin-CVtX1N13.js.map": "89bd74fd",
+    "assets/js/admin-CVtX1N13.js": "09bfa98f",
+    "assets/js/about-CLM6StGl.js.map": "b67d9c1d",
+    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": "c4a4d731",
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": "b9a841df",
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": "e553b98b"
   },
   "sizes": {
-    "test-integration.html": 32565,
-    "terms.html": 8392,
-    "teamArchive.html": 30028,
-    "team.html": 39906,
-    "social-hub.html": 32994,
-    "smart-input.html": 30271,
-    "search.html": 35036,
-    "scout.html": 66623,
-    "register.html": 24479,
-    "recruiting-hub.html": 33926,
-    "privacy.html": 7640,
-    "playerProfile.html": 39495,
-    "player.html": 30551,
-    "overview.html": 15112,
-    "login.html": 48348,
-    "live.html": 1743,
-    "live-demo.html": 26476,
-    "index.html": 80253,
-    "fan.html": 30864,
-    "demo-scout.html": 35513,
-    "demo-player.html": 61800,
-    "demo-fan.html": 25655,
-    "demo-enhanced.html": 19653,
-    "demo-coach.html": 53354,
-    "coach.html": 67450,
-    "claim-profile.html": 30417,
+    "test-integration.html": 40815,
+    "terms.html": 8446,
+    "teamArchive.html": 38287,
+    "team.html": 49455,
+    "social-hub.html": 33012,
+    "smart-input.html": 30325,
+    "search.html": 43569,
+    "scout.html": 80024,
+    "register.html": 24542,
+    "recruiting-hub.html": 33980,
+    "privacy.html": 7694,
+    "playerProfile.html": 49044,
+    "player.html": 38810,
+    "overview.html": 15166,
+    "login.html": 59478,
+    "live.html": 1788,
+    "live-demo.html": 26575,
+    "index.html": 91971,
+    "fan.html": 39123,
+    "demo-scout.html": 35531,
+    "demo-player.html": 65033,
+    "demo-fan.html": 25673,
+    "demo-enhanced.html": 19743,
+    "demo-coach.html": 53390,
+    "coach.html": 80859,
+    "claim-profile.html": 38676,
     "cache-clear.html": 0,
     "backup_overview.html": 0,
-    "analytics.html": 30703,
-    "analytics-dashboard.html": 29280,
-    "ai-coach.html": 29778,
-    "admin.html": 43782,
-    "about.html": 14159,
-    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": 1165969,
-    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": 1300,
-    "assets/js/test-integration-B5YGymmk.js.map": 21767,
-    "assets/js/test-integration-B5YGymmk.js": 11527,
-    "assets/js/terms-oCfm6d_D.js.map": 98,
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": 6836,
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": 3792,
-    "assets/js/teamArchive-CY15edz1.js.map": 2725,
-    "assets/js/teamArchive-CY15edz1.js": 1726,
-    "assets/js/team-DMcrg39O.js.map": 4053,
-    "assets/js/team-DMcrg39O.js": 2341,
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": 3434,
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": 1900,
-    "assets/js/social-hub-_fExmYrt.js.map": 103,
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": 16212,
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": 8777,
-    "assets/js/smart-input-Dj3tkwU9.js.map": 104,
-    "assets/js/search-CwFAAMKd.js.map": 11042,
-    "assets/js/search-CwFAAMKd.js": 6845,
-    "assets/js/scout-CWWIrVUz.js.map": 8375,
-    "assets/js/scout-CWWIrVUz.js": 4875,
-    "assets/js/register-CcHZi2UB.js.map": 101,
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": 16142,
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": 8175,
-    "assets/js/recruiting-hub-JaGxctQO.js.map": 107,
-    "assets/js/privacy-oCfm6d_D.js.map": 100,
-    "assets/js/playerProfile-DhsdCZ0a.js.map": 2356,
-    "assets/js/playerProfile-DhsdCZ0a.js": 1563,
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": 10204,
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": 4994,
-    "assets/js/player-CdbSkWut.js.map": 6782,
-    "assets/js/player-CdbSkWut.js": 3815,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js.map": 45509,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8.js": 24511,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh.js": 24502,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d.js": 24518,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": 14530,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": 8169,
-    "assets/js/overview-Bn5olkfp.js.map": 101,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": 3144,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": 1544,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js.map": 3081,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE.js": 2209,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": 4451,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": 2236,
-    "assets/js/login-nudnzM_g.js.map": 2809,
-    "assets/js/login-nudnzM_g.js": 1779,
-    "assets/js/live-oCfm6d_D.js.map": 97,
-    "assets/js/live-demo-DMYc4_Rk.js.map": 102,
-    "assets/js/index-D_JAiDwF.js.map": 4972,
-    "assets/js/index-D_JAiDwF.js": 3194,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": 261798,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY.js": 261807,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re.js": 261816,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": 485190,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": 261834,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z.js": 261825,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": 261789,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": 261851,
-    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": 263982,
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": 1682,
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": 902,
-    "assets/js/fan-BXqtpHa4.js.map": 3934,
-    "assets/js/fan-BXqtpHa4.js": 2189,
-    "assets/js/demo-scout-CFyRseLx.js.map": 103,
-    "assets/js/demo-player-BmiOpqso.js.map": 15940,
-    "assets/js/demo-player-BmiOpqso.js": 8250,
-    "assets/js/demo-fan-CFyRseLx.js.map": 101,
-    "assets/js/demo-enhanced-DMYc4_Rk.js.map": 106,
-    "assets/js/demo-coach-DWV0eYAG.js.map": 103,
-    "assets/js/coach-a9FDaWGs.js.map": 16185,
-    "assets/js/coach-a9FDaWGs.js": 9020,
-    "assets/js/claim-profile-DJv-5we9.js.map": 2627,
-    "assets/js/claim-profile-DJv-5we9.js": 1663,
+    "analytics.html": 38953,
+    "analytics-dashboard.html": 29334,
+    "ai-coach.html": 29796,
+    "admin.html": 52041,
+    "about.html": 14204,
+    "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": 1165969,
+    "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": 1300,
+    "assets/js/test-integration-DNJxumgv.js.map": 24328,
+    "assets/js/test-integration-DNJxumgv.js": 12718,
+    "assets/js/terms-06evUDeK.js.map": 98,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": 6863,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": 3801,
+    "assets/js/teamArchive-QdSQr4Rd.js.map": 2761,
+    "assets/js/teamArchive-QdSQr4Rd.js": 1762,
+    "assets/js/team-CBx5tgqF.js.map": 4098,
+    "assets/js/team-CBx5tgqF.js": 2386,
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": 3461,
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": 1909,
+    "assets/js/social-hub-DTCMaEJR.js.map": 103,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": 16239,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": 8786,
+    "assets/js/smart-input-CQ7KbRCc.js.map": 104,
+    "assets/js/search-CTAF_Kah.js.map": 11087,
+    "assets/js/search-CTAF_Kah.js": 6890,
+    "assets/js/scout-DuO_TMES.js.map": 8420,
+    "assets/js/scout-DuO_TMES.js": 4920,
+    "assets/js/register-CoCSauWJ.js.map": 101,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js.map": 16169,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js": 8184,
+    "assets/js/recruiting-hub-C36qI1v6.js.map": 107,
+    "assets/js/privacy-06evUDeK.js.map": 100,
+    "assets/js/playerProfile-BeYlvNRh.js.map": 2401,
+    "assets/js/playerProfile-BeYlvNRh.js": 1608,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": 10231,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": 5003,
+    "assets/js/player-et7ku3B7.js.map": 6818,
+    "assets/js/player-et7ku3B7.js": 3851,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1.js": 24511,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js.map": 45536,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": 24520,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh.js": 24502,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d.js": 24518,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": 14557,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": 8178,
+    "assets/js/overview-iaWVGKut.js.map": 101,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": 3171,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": 1553,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js.map": 4471,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js": 2928,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": 4478,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": 2245,
+    "assets/js/login-C9ePDpuj.js.map": 2863,
+    "assets/js/login-C9ePDpuj.js": 1833,
+    "assets/js/live-demo-ClYMYR5O.js.map": 102,
+    "assets/js/live-06evUDeK.js.map": 97,
+    "assets/js/index-BDHhcq93.js.map": 5027,
+    "assets/js/index-BDHhcq93.js": 3248,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": 261798,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": 261807,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re.js": 261816,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": 485217,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": 261843,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw.js": 261834,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z.js": 261825,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": 261789,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": 261851,
+    "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": 263982,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": 1709,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": 911,
+    "assets/js/fan-DM2F5Y4S.js.map": 3970,
+    "assets/js/fan-DM2F5Y4S.js": 2225,
+    "assets/js/demo-scout-C9LlXcCZ.js.map": 103,
+    "assets/js/demo-player-CgdcIbbJ.js.map": 16116,
+    "assets/js/demo-player-CgdcIbbJ.js": 8277,
+    "assets/js/demo-fan-C9LlXcCZ.js.map": 101,
+    "assets/js/demo-enhanced-ClYMYR5O.js.map": 106,
+    "assets/js/demo-coach-CVTGXK5l.js.map": 103,
+    "assets/js/coach-B5_w2ZXf.js.map": 16230,
+    "assets/js/coach-B5_w2ZXf.js": 9065,
+    "assets/js/claim-profile-3z2MKZ1C.js.map": 2663,
+    "assets/js/claim-profile-3z2MKZ1C.js": 1699,
     "assets/js/cache-clear-l0sNRNKZ.js.map": 104,
     "assets/js/backup_overview-l0sNRNKZ.js.map": 108,
-    "assets/js/analytics-dashboard-gFxU0P_i.js.map": 112,
-    "assets/js/analytics-CVY9_eGS.js.map": 2013,
-    "assets/js/analytics-CVY9_eGS.js": 1373,
-    "assets/js/ai-coach-_fExmYrt.js.map": 101,
-    "assets/js/admin-DVXQsG96.js.map": 15778,
-    "assets/js/admin-DVXQsG96.js": 10068,
-    "assets/js/about-BY8jvNEF.js.map": 98,
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": 12413,
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": 15245,
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": 2833
+    "assets/js/analytics-dashboard-z1CpiBUy.js.map": 112,
+    "assets/js/analytics-BKwACPJd.js.map": 2040,
+    "assets/js/analytics-BKwACPJd.js": 1400,
+    "assets/js/ai-coach-DTCMaEJR.js.map": 101,
+    "assets/js/admin-CVtX1N13.js.map": 15814,
+    "assets/js/admin-CVtX1N13.js": 10104,
+    "assets/js/about-CLM6StGl.js.map": 98,
+    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": 12413,
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": 15245,
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": 2833
   },
   "performance": {
-    "totalFiles": 119,
-    "totalSize": 5270787,
-    "totalSizeFormatted": "5.03 MB",
-    "buildDuration": 210163,
-    "avgFileSize": 44292
+    "totalFiles": 121,
+    "totalSize": 5703764,
+    "totalSizeFormatted": "5.44 MB",
+    "buildDuration": 189597,
+    "avgFileSize": 47139
   }
 }
