@@ -53,3 +53,6 @@ DEPLOYMENT_*.md
 ERROR_FIXES.md
 INTEGRATION_*.md
 PORTAL_*.md
+
+# Backup directories - not needed since we have git
+public-backup/

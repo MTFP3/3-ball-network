@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v10023156';
+const CACHE_VERSION = 'v10023157_force_refresh';
 const CACHE_FILES = [
   '/test-integration.html?v=1fd77ed4',
   '/terms.html?v=c3a0fb3d',
@@ -120,7 +120,7 @@ const CACHE_FILES = [
   '/assets/js/about-CLM6StGl.js.map?v=b67d9c1d',
   '/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css?v=c4a4d731',
   '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css?v=b9a841df',
-  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b'
+  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b',
 ];
 
 // Service Worker for 3 Ball Network PWA - ADVANCED CACHE BUSTING
@@ -196,7 +196,9 @@ self.addEventListener('fetch', event => {
         .then(networkResponse => {
           // Cache the fresh response for offline access
           const responseClone = networkResponse.clone();
-          caches.open(CACHE_VERSION).then(cache => cache.put(request, responseClone));
+          caches
+            .open(CACHE_VERSION)
+            .then(cache => cache.put(request, responseClone));
           return networkResponse;
         })
         .catch(error => {
