@@ -1,865 +1,889 @@
 {
-  "buildTime": "2025-07-07T05:44:10.671Z",
+  "buildTime": "2025-07-07T06:05:38.794Z",
   "version": "3.0.0",
-  "gitCommit": "28e4312dfbe72e8061ba9a98d00b532298356890",
+  "gitCommit": "3d32e61e26d88137fa8a348fa5d58ee9c6ec7bd3",
   "gitBranch": "main",
   "environment": "development",
   "nodeVersion": "v20.19.3",
-  "buildHash": "4b4e44ae",
+  "buildHash": "abc37ad8",
   "files": {
     "test-integration.html": {
-      "size": 71191,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "fde9e979",
+      "size": 76630,
+      "mtime": "2025-07-07T06:09:06.368Z",
+      "hash": "d85b7586",
       "type": "html"
     },
     "terms.html": {
-      "size": 8662,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "2e46e344",
+      "size": 8518,
+      "mtime": "2025-07-07T06:09:06.374Z",
+      "hash": "e59923b1",
       "type": "html"
     },
     "teamArchive.html": {
-      "size": 68699,
-      "mtime": "2025-07-07T05:46:40.118Z",
-      "hash": "a35856c5",
+      "size": 74030,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "8ca61bba",
       "type": "html"
     },
     "team.html": {
-      "size": 85147,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "a39098de",
+      "size": 91828,
+      "mtime": "2025-07-07T06:09:06.368Z",
+      "hash": "2670a7d0",
       "type": "html"
     },
     "social-hub.html": {
-      "size": 33084,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "05909ca4",
+      "size": 32985,
+      "mtime": "2025-07-07T06:09:06.366Z",
+      "hash": "c7640c1c",
       "type": "html"
     },
     "smart-input.html": {
-      "size": 30541,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "19e6d96f",
+      "size": 30406,
+      "mtime": "2025-07-07T06:09:06.365Z",
+      "hash": "a2ac7300",
       "type": "html"
     },
     "search.html": {
-      "size": 75257,
-      "mtime": "2025-07-07T05:46:40.118Z",
-      "hash": "519426a9",
+      "size": 80808,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "e8255b2e",
       "type": "html"
     },
     "scout.html": {
-      "size": 131124,
-      "mtime": "2025-07-07T05:46:40.118Z",
-      "hash": "cffdb013",
+      "size": 141657,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "80959d24",
       "type": "html"
     },
     "register.html": {
-      "size": 24794,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "e6af9588",
+      "size": 24659,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "28490c18",
       "type": "html"
     },
     "recruiting-hub.html": {
-      "size": 34196,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "4ff14ecc",
+      "size": 34061,
+      "mtime": "2025-07-07T06:09:06.365Z",
+      "hash": "1cfef944",
       "type": "html"
     },
     "privacy.html": {
-      "size": 7910,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "25e8f682",
+      "size": 7766,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "119a7cbe",
       "type": "html"
     },
     "playerProfile.html": {
-      "size": 84736,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "e74a6f40",
+      "size": 91417,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "52cf526b",
       "type": "html"
     },
     "player.html": {
-      "size": 69222,
-      "mtime": "2025-07-07T05:46:40.118Z",
-      "hash": "2d5da7f0",
+      "size": 74553,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "47b7dbea",
       "type": "html"
     },
     "overview.html": {
-      "size": 15382,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "f14922bd",
+      "size": 15229,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "24ecec53",
       "type": "html"
     },
     "login.html": {
-      "size": 101674,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "ac3e8840",
+      "size": 109909,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "e65e13e5",
       "type": "html"
     },
     "live.html": {
-      "size": 1968,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "7d07a757",
+      "size": 1824,
+      "mtime": "2025-07-07T06:09:06.366Z",
+      "hash": "1762db44",
       "type": "html"
     },
     "live-demo.html": {
-      "size": 26971,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "d8438542",
+      "size": 26863,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "6c1bb7f4",
       "type": "html"
     },
     "index.html": {
-      "size": 134750,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "81c659e2",
+      "size": 133978,
+      "mtime": "2025-07-07T06:09:06.373Z",
+      "hash": "0ed90e53",
       "type": "html"
     },
     "fan.html": {
-      "size": 69535,
-      "mtime": "2025-07-07T05:46:40.115Z",
-      "hash": "8e66f1e6",
+      "size": 74866,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "800fc162",
       "type": "html"
     },
     "demo-scout.html": {
-      "size": 35603,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "1078ee3c",
+      "size": 36537,
+      "mtime": "2025-07-07T06:09:06.372Z",
+      "hash": "3d36694d",
       "type": "html"
     },
     "demo-player.html": {
-      "size": 75281,
-      "mtime": "2025-07-07T05:46:40.117Z",
-      "hash": "01cf4868",
+      "size": 74735,
+      "mtime": "2025-07-07T06:09:06.372Z",
+      "hash": "3e919f7d",
       "type": "html"
     },
     "demo-fan.html": {
-      "size": 25745,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "afd86113",
+      "size": 26679,
+      "mtime": "2025-07-07T06:09:06.372Z",
+      "hash": "f4010673",
       "type": "html"
     },
     "demo-enhanced.html": {
-      "size": 20103,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "5c92bdc2",
+      "size": 19995,
+      "mtime": "2025-07-07T06:09:06.370Z",
+      "hash": "9030f300",
       "type": "html"
     },
     "demo-coach.html": {
-      "size": 53534,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "b9e0fe8c",
+      "size": 54568,
+      "mtime": "2025-07-07T06:09:06.372Z",
+      "hash": "a9500436",
       "type": "html"
     },
     "coach.html": {
-      "size": 131991,
-      "mtime": "2025-07-07T05:46:40.114Z",
-      "hash": "0198ef9b",
+      "size": 142532,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "3d4c176a",
       "type": "html"
     },
     "claim-profile.html": {
-      "size": 69088,
-      "mtime": "2025-07-07T05:46:40.114Z",
-      "hash": "23d32111",
+      "size": 74419,
+      "mtime": "2025-07-07T06:09:06.367Z",
+      "hash": "5b78c1d6",
       "type": "html"
     },
     "cache-clear.html": {
       "size": 3430,
-      "mtime": "2025-07-07T05:46:40.112Z",
+      "mtime": "2025-07-07T06:09:06.365Z",
       "hash": "943be5ce",
       "type": "html"
     },
     "backup_overview.html": {
       "size": 0,
-      "mtime": "2025-07-07T05:46:40.101Z",
+      "mtime": "2025-07-07T06:09:06.342Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "analytics.html": {
-      "size": 69329,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "f90affbd",
+      "size": 74768,
+      "mtime": "2025-07-07T06:09:06.366Z",
+      "hash": "01b89338",
       "type": "html"
     },
     "analytics-dashboard.html": {
-      "size": 29550,
-      "mtime": "2025-07-07T05:46:40.112Z",
-      "hash": "af57fbd3",
+      "size": 29415,
+      "mtime": "2025-07-07T06:09:06.365Z",
+      "hash": "758059d7",
       "type": "html"
     },
     "ai-coach.html": {
-      "size": 29868,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "69b72edd",
+      "size": 29769,
+      "mtime": "2025-07-07T06:09:06.365Z",
+      "hash": "e78a1d34",
       "type": "html"
     },
     "admin.html": {
-      "size": 82453,
-      "mtime": "2025-07-07T05:46:40.113Z",
-      "hash": "335132bd",
+      "size": 87784,
+      "mtime": "2025-07-07T06:09:06.366Z",
+      "hash": "585b38a8",
       "type": "html"
     },
     "about.html": {
-      "size": 14384,
-      "mtime": "2025-07-07T05:46:40.116Z",
-      "hash": "a14af01b",
+      "size": 14231,
+      "mtime": "2025-07-07T06:09:06.370Z",
+      "hash": "0184398e",
       "type": "html"
     },
     "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": {
       "size": 1165969,
-      "mtime": "2025-07-07T05:46:40.158Z",
+      "mtime": "2025-07-07T06:09:06.543Z",
       "hash": "283ae8cd",
       "type": "image"
     },
     "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": {
       "size": 1300,
-      "mtime": "2025-07-07T05:46:40.124Z",
+      "mtime": "2025-07-07T06:09:06.390Z",
       "hash": "eabaf9e7",
       "type": "data"
     },
-    "assets/js/test-integration-DItq3nya.js.map": {
-      "size": 34469,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "553d8446",
+    "assets/js/test-integration-4QlF9QCN.js.map": {
+      "size": 37287,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "26a70ac3",
       "type": "other"
     },
-    "assets/js/test-integration-DItq3nya.js": {
-      "size": 17514,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "fa5f15c2",
+    "assets/js/test-integration-4QlF9QCN.js": {
+      "size": 18641,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "245d5a9c",
       "type": "script"
     },
-    "assets/js/terms-D69eOhEj.js.map": {
+    "assets/js/terms-TR-5QeNP.js.map": {
       "size": 98,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "b61aa11e",
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "7315032b",
       "type": "other"
     },
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": {
-      "size": 6971,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "e79fb6dc",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": {
+      "size": 6998,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "832cc818",
       "type": "other"
     },
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": {
-      "size": 3837,
-      "mtime": "2025-07-07T05:46:40.147Z",
-      "hash": "c10d9da5",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": {
+      "size": 3846,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "7cf1d283",
       "type": "script"
     },
-    "assets/js/teamArchive-C1e32Gdg.js.map": {
-      "size": 2905,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "f08d0ee0",
+    "assets/js/teamArchive-br2g08T0.js.map": {
+      "size": 2941,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "db0faaba",
       "type": "other"
     },
-    "assets/js/teamArchive-C1e32Gdg.js": {
-      "size": 1906,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "c942d7ea",
+    "assets/js/teamArchive-br2g08T0.js": {
+      "size": 1870,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "2bd01a66",
       "type": "script"
     },
-    "assets/js/team-B14Vzt31.js.map": {
-      "size": 4278,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "d229bbdd",
+    "assets/js/team-CH2b_i5O.js.map": {
+      "size": 4323,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "bec23099",
       "type": "other"
     },
-    "assets/js/team-B14Vzt31.js": {
-      "size": 2566,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "64255486",
+    "assets/js/team-CH2b_i5O.js": {
+      "size": 2539,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "f8486660",
       "type": "script"
     },
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": {
-      "size": 3569,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "59ef6a36",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": {
+      "size": 3596,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "75b16d09",
       "type": "other"
     },
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": {
-      "size": 1945,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "9199b0a9",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": {
+      "size": 1954,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "dd70c50d",
       "type": "script"
     },
-    "assets/js/social-hub-CO3YzbkR.js.map": {
+    "assets/js/social-hub-B1U6oeDE.js.map": {
       "size": 103,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "7bdd47b6",
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "84245fac",
       "type": "other"
     },
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": {
-      "size": 16347,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "0ced6ec3",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": {
+      "size": 16374,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "3caa6029",
       "type": "other"
     },
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": {
-      "size": 8822,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "9730c3d0",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": {
+      "size": 8831,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "5adca707",
       "type": "script"
     },
-    "assets/js/smart-input-CW8p-WON.js.map": {
+    "assets/js/smart-input-BKkzyjHY.js.map": {
       "size": 104,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "fbaa9c86",
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "c5181f1e",
       "type": "other"
     },
-    "assets/js/search-BEaUJ6ch.js.map": {
-      "size": 11269,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "433f26be",
+    "assets/js/search-CWi0Majl.js.map": {
+      "size": 11314,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "1f10289f",
       "type": "other"
     },
-    "assets/js/search-BEaUJ6ch.js": {
-      "size": 7070,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "668c8c6f",
+    "assets/js/search-CWi0Majl.js": {
+      "size": 7043,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "b580897e",
       "type": "script"
     },
-    "assets/js/scout-D2LauMLr.js.map": {
-      "size": 8600,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "b1cc7b54",
+    "assets/js/scout-Bu2UqAQs.js.map": {
+      "size": 8645,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "9a48c201",
       "type": "other"
     },
-    "assets/js/scout-D2LauMLr.js": {
-      "size": 5100,
-      "mtime": "2025-07-07T05:46:40.147Z",
-      "hash": "be9202e6",
+    "assets/js/scout-Bu2UqAQs.js": {
+      "size": 5073,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "8830ed95",
       "type": "script"
     },
-    "assets/js/register-DG9WMDi5.js.map": {
+    "assets/js/register-DQy-nT5l.js.map": {
       "size": 101,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "1ffb6a3a",
+      "mtime": "2025-07-07T06:09:06.540Z",
+      "hash": "426e90e4",
       "type": "other"
     },
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js.map": {
-      "size": 16128,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "31ba2bfe",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": {
+      "size": 16304,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "8f85346a",
       "type": "other"
     },
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js": {
-      "size": 8220,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "ed655b4b",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": {
+      "size": 8229,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "7cd20a8d",
       "type": "script"
     },
-    "assets/js/recruiting-hub-C0hgBX7Z.js.map": {
+    "assets/js/recruiting-hub-DF9z5Otm.js.map": {
       "size": 107,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "e1982f86",
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "19310fbe",
       "type": "other"
     },
-    "assets/js/privacy-D69eOhEj.js.map": {
+    "assets/js/privacy-TR-5QeNP.js.map": {
       "size": 100,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "1521bd8d",
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "3252181f",
       "type": "other"
     },
-    "assets/js/playerProfile-CczJG_-3.js.map": {
-      "size": 2581,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "222baefc",
+    "assets/js/playerProfile-BB6TRT6o.js.map": {
+      "size": 2626,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "d7e43c63",
       "type": "other"
     },
-    "assets/js/playerProfile-CczJG_-3.js": {
-      "size": 1788,
-      "mtime": "2025-07-07T05:46:40.147Z",
-      "hash": "8a1f788a",
+    "assets/js/playerProfile-BB6TRT6o.js": {
+      "size": 1761,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "65a30dd0",
       "type": "script"
     },
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": {
-      "size": 10339,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "980e5acd",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": {
+      "size": 10366,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "d3773ce7",
       "type": "other"
     },
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": {
-      "size": 5039,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "051f45b3",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": {
+      "size": 5048,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "cb885c75",
       "type": "script"
     },
-    "assets/js/player-CvIPDsdR.js.map": {
-      "size": 6962,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "397dfa0e",
+    "assets/js/player-R8UZrJnW.js.map": {
+      "size": 6998,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "30b8ad36",
       "type": "other"
     },
-    "assets/js/player-CvIPDsdR.js": {
-      "size": 3995,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "35e23ac4",
+    "assets/js/player-R8UZrJnW.js": {
+      "size": 3959,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "57f6cdc2",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1.js": {
       "size": 24511,
-      "mtime": "2025-07-07T05:46:40.143Z",
+      "mtime": "2025-07-07T06:09:06.538Z",
       "hash": "85bf46f7",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-DpocxIhM-DpocxIhM-DpocxIhM-DpocxIhM.js": {
       "size": 24520,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "7e620413",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-C005TVuN-C005TVuN-C005TVuN.js": {
       "size": 24529,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "3bbc2711",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bvdin3t6-Bvdin3t6.js": {
       "size": 24538,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.534Z",
       "hash": "58f6745b",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-BpiNB33m.js": {
       "size": 24547,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "a8158eb0",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js.map": {
       "size": 45644,
-      "mtime": "2025-07-07T05:46:40.149Z",
+      "mtime": "2025-07-07T06:09:06.537Z",
       "hash": "c7cb9dc1",
       "type": "other"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": {
       "size": 24556,
-      "mtime": "2025-07-07T05:46:40.146Z",
+      "mtime": "2025-07-07T06:09:06.534Z",
       "hash": "e781bc2c",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh.js": {
       "size": 24502,
-      "mtime": "2025-07-07T05:46:40.143Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "d02b2671",
       "type": "script"
     },
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d.js": {
       "size": 24518,
-      "mtime": "2025-07-07T05:46:40.143Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "c13edce9",
       "type": "script"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": {
-      "size": 14665,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "2728d2a6",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": {
+      "size": 14692,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "e04dcbb3",
       "type": "other"
     },
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": {
-      "size": 8214,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "9bd4beb4",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": {
+      "size": 8223,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "ea6bda4a",
       "type": "script"
     },
-    "assets/js/overview-C-We5_OM.js.map": {
+    "assets/js/overview-tJ6MJP5F.js.map": {
       "size": 101,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "54dd2c60",
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "01dac2d9",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": {
-      "size": 3279,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "44b0e6f9",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js.map": {
+      "size": 115,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "9c443851",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": {
-      "size": 1589,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "39185089",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js": {
+      "size": 771,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "9ef11379",
+      "type": "script"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": {
+      "size": 3306,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "c7c9bc28",
+      "type": "other"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": {
+      "size": 1598,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "022f7685",
+      "type": "script"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js.map": {
+      "size": 10080,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "149c0b88",
+      "type": "other"
+    },
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js": {
+      "size": 5094,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "68144ad1",
       "type": "script"
     },
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-nU8xJ6t7.js": {
       "size": 5085,
-      "mtime": "2025-07-07T05:46:40.143Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "eeba9568",
       "type": "script"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js.map": {
-      "size": 10030,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "dcf507d2",
-      "type": "other"
-    },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js": {
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE-BV6YLeV5.js": {
       "size": 5804,
-      "mtime": "2025-07-07T05:46:40.148Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "4b86567f",
       "type": "script"
     },
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-B142Hfaq-B142Hfaq.js": {
       "size": 4366,
-      "mtime": "2025-07-07T05:46:40.118Z",
+      "mtime": "2025-07-07T06:09:06.374Z",
       "hash": "9b75233b",
       "type": "script"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": {
-      "size": 4586,
-      "mtime": "2025-07-07T05:46:40.151Z",
-      "hash": "371bc175",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js.map": {
+      "size": 15922,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "61edeb7a",
       "type": "other"
     },
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": {
-      "size": 2281,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "e1691849",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js": {
+      "size": 7970,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "4573d329",
       "type": "script"
     },
-    "assets/js/login-CvkYySGg.js.map": {
-      "size": 3079,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "8bc24dd1",
+    "assets/js/login-B_M77wPg.js.map": {
+      "size": 3133,
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "d9c46cad",
       "type": "other"
     },
-    "assets/js/login-CvkYySGg.js": {
-      "size": 2049,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "a594be98",
+    "assets/js/login-B_M77wPg.js": {
+      "size": 2031,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "92e031e3",
       "type": "script"
     },
-    "assets/js/live-demo-Ca2_L_FV.js.map": {
+    "assets/js/live-demo-QWwmDkoK.js.map": {
       "size": 102,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "1745c06e",
+      "mtime": "2025-07-07T06:09:06.538Z",
+      "hash": "4da5597d",
       "type": "other"
     },
-    "assets/js/live-D69eOhEj.js.map": {
+    "assets/js/live-TR-5QeNP.js.map": {
       "size": 97,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "f163a648",
+      "mtime": "2025-07-07T06:09:06.537Z",
+      "hash": "44096727",
       "type": "other"
     },
-    "assets/js/index-rK8HcBcP.js.map": {
-      "size": 5243,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "38e4735e",
+    "assets/js/index-CecU4eM5.js.map": {
+      "size": 506267,
+      "mtime": "2025-07-07T06:09:06.540Z",
+      "hash": "404ef26a",
       "type": "other"
     },
-    "assets/js/index-rK8HcBcP.js": {
-      "size": 3464,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "a10976d6",
+    "assets/js/index-CecU4eM5.js": {
+      "size": 269888,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "e120b5da",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": {
       "size": 261798,
-      "mtime": "2025-07-07T05:46:40.147Z",
+      "mtime": "2025-07-07T06:09:06.532Z",
       "hash": "f0dfa5ee",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": {
       "size": 261807,
-      "mtime": "2025-07-07T05:46:40.146Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "e812ffe2",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re.js": {
       "size": 261816,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "57f1f542",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-C4wcfbVF-C4wcfbVF-C4wcfbVF.js": {
       "size": 261852,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "8b1cbb7d",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Dd9TIeOj-Dd9TIeOj.js": {
       "size": 261861,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "78d7ef09",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-BMqZK7wi.js": {
       "size": 261870,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.541Z",
       "hash": "a77895b6",
       "type": "script"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": {
-      "size": 485325,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "96ef98cf",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-U-EFjld8.js": {
+      "size": 261879,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "c7122be9",
+      "type": "script"
+    },
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": {
+      "size": 485352,
+      "mtime": "2025-07-07T06:09:06.540Z",
+      "hash": "9538b142",
       "type": "other"
     },
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": {
-      "size": 261879,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "c7122be9",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": {
+      "size": 261888,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "15c678b2",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Bsdguary-Bsdguary-Bsdguary-Bsdguary.js": {
       "size": 261843,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "be4111a9",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw-4J497xUw-4J497xUw-4J497xUw-4J497xUw.js": {
       "size": 261834,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.533Z",
       "hash": "6eda6725",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z.js": {
       "size": 261825,
-      "mtime": "2025-07-07T05:46:40.147Z",
+      "mtime": "2025-07-07T06:09:06.532Z",
       "hash": "d812716f",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": {
       "size": 261789,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.532Z",
       "hash": "120f41b9",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": {
       "size": 261851,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.532Z",
       "hash": "32558c7a",
       "type": "script"
     },
     "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": {
       "size": 263982,
-      "mtime": "2025-07-07T05:46:40.144Z",
+      "mtime": "2025-07-07T06:09:06.531Z",
       "hash": "0303239c",
       "type": "script"
     },
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": {
-      "size": 1817,
-      "mtime": "2025-07-07T05:46:40.152Z",
-      "hash": "032f930a",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": {
+      "size": 1844,
+      "mtime": "2025-07-07T06:09:06.539Z",
+      "hash": "d7139dee",
       "type": "other"
     },
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": {
-      "size": 947,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "5f73840d",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": {
+      "size": 956,
+      "mtime": "2025-07-07T06:09:06.535Z",
+      "hash": "05dd698a",
       "type": "script"
     },
-    "assets/js/fan-zWEXw81R.js.map": {
-      "size": 4114,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "867588a8",
+    "assets/js/fan-Bul_3NGy.js.map": {
+      "size": 4150,
+      "mtime": "2025-07-07T06:09:06.537Z",
+      "hash": "a1f4661e",
       "type": "other"
     },
-    "assets/js/fan-zWEXw81R.js": {
-      "size": 2369,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "4dd8b4a0",
+    "assets/js/fan-Bul_3NGy.js": {
+      "size": 2333,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "dc219b0d",
       "type": "script"
     },
     "assets/js/demo-scout-BE5Ek5wQ.js.map": {
       "size": 103,
-      "mtime": "2025-07-07T05:46:40.149Z",
+      "mtime": "2025-07-07T06:09:06.537Z",
       "hash": "d2b1460f",
       "type": "other"
     },
-    "assets/js/demo-player-B87eBSI6.js.map": {
+    "assets/js/demo-player-BFYBwi3c.js.map": {
       "size": 16224,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "809417f1",
+      "mtime": "2025-07-07T06:09:06.537Z",
+      "hash": "7aaa0d3b",
       "type": "other"
     },
-    "assets/js/demo-player-B87eBSI6.js": {
-      "size": 8385,
-      "mtime": "2025-07-07T05:46:40.150Z",
-      "hash": "738505ab",
+    "assets/js/demo-player-BFYBwi3c.js": {
+      "size": 8430,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "d7c8144f",
       "type": "script"
     },
     "assets/js/demo-fan-BE5Ek5wQ.js.map": {
       "size": 101,
-      "mtime": "2025-07-07T05:46:40.149Z",
+      "mtime": "2025-07-07T06:09:06.536Z",
       "hash": "42a1f954",
       "type": "other"
     },
-    "assets/js/demo-enhanced-Ca2_L_FV.js.map": {
+    "assets/js/demo-enhanced-QWwmDkoK.js.map": {
       "size": 106,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "9fc98ff8",
+      "mtime": "2025-07-07T06:09:06.537Z",
+      "hash": "84c507c9",
       "type": "other"
     },
-    "assets/js/demo-coach-UaE1jcmS.js.map": {
+    "assets/js/demo-coach-CstcP1K-.js.map": {
       "size": 103,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "c100ca44",
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "d2524ca8",
       "type": "other"
     },
-    "assets/js/coach-bEV8PlLw.js.map": {
-      "size": 16410,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "694c633c",
+    "assets/js/coach-Bm-iRo1g.js.map": {
+      "size": 16455,
+      "mtime": "2025-07-07T06:09:06.537Z",
+      "hash": "3ee5c4e4",
       "type": "other"
     },
-    "assets/js/coach-bEV8PlLw.js": {
-      "size": 9245,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "08514802",
+    "assets/js/coach-Bm-iRo1g.js": {
+      "size": 9218,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "1bbe03b5",
       "type": "script"
     },
-    "assets/js/claim-profile-BuXXkteq.js.map": {
-      "size": 2807,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "7fea506e",
+    "assets/js/claim-profile-Dhm7sS7L.js.map": {
+      "size": 2843,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "be6aac4e",
       "type": "other"
     },
-    "assets/js/claim-profile-BuXXkteq.js": {
-      "size": 1843,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "87ea519f",
+    "assets/js/claim-profile-Dhm7sS7L.js": {
+      "size": 1807,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "ce00c5bf",
       "type": "script"
     },
     "assets/js/cache-clear-l0sNRNKZ.js.map": {
       "size": 104,
-      "mtime": "2025-07-07T05:46:40.149Z",
+      "mtime": "2025-07-07T06:09:06.536Z",
       "hash": "4fd7acd0",
       "type": "other"
     },
     "assets/js/backup_overview-l0sNRNKZ.js.map": {
       "size": 108,
-      "mtime": "2025-07-07T05:46:40.149Z",
+      "mtime": "2025-07-07T06:09:06.536Z",
       "hash": "c3ff31a6",
       "type": "other"
     },
-    "assets/js/analytics-dashboard-DU7C-8ZJ.js.map": {
+    "assets/js/analytics-dashboard-DK8wJFP_.js.map": {
       "size": 112,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "79dd0e32",
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "9239ab4d",
       "type": "other"
     },
-    "assets/js/analytics-BktdGvca.js.map": {
-      "size": 2148,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "9e8e3e93",
+    "assets/js/analytics-C1dU6k9A.js.map": {
+      "size": 2175,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "a282bd85",
       "type": "other"
     },
-    "assets/js/analytics-BktdGvca.js": {
-      "size": 1508,
-      "mtime": "2025-07-07T05:46:40.146Z",
-      "hash": "d6794956",
+    "assets/js/analytics-C1dU6k9A.js": {
+      "size": 1463,
+      "mtime": "2025-07-07T06:09:06.541Z",
+      "hash": "2763cf2d",
       "type": "script"
     },
-    "assets/js/ai-coach-CO3YzbkR.js.map": {
+    "assets/js/ai-coach-B1U6oeDE.js.map": {
       "size": 101,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "4effed4f",
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "009b377f",
       "type": "other"
     },
-    "assets/js/admin-C5SQ3CQc.js.map": {
-      "size": 15958,
-      "mtime": "2025-07-07T05:46:40.149Z",
-      "hash": "34cc6441",
+    "assets/js/admin-B1lmnO1P.js.map": {
+      "size": 15994,
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "5b4b717a",
       "type": "other"
     },
-    "assets/js/admin-C5SQ3CQc.js": {
-      "size": 10248,
-      "mtime": "2025-07-07T05:46:40.145Z",
-      "hash": "1198bba6",
+    "assets/js/admin-B1lmnO1P.js": {
+      "size": 10212,
+      "mtime": "2025-07-07T06:09:06.534Z",
+      "hash": "31d05745",
       "type": "script"
     },
-    "assets/js/about-D82o9QQk.js.map": {
+    "assets/js/about-LS-f7Trr.js.map": {
       "size": 98,
-      "mtime": "2025-07-07T05:46:40.148Z",
-      "hash": "38048eee",
+      "mtime": "2025-07-07T06:09:06.536Z",
+      "hash": "986a6600",
       "type": "other"
     },
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": {
+    "assets/css/index-atMpp5Bc.css": {
       "size": 12413,
-      "mtime": "2025-07-07T05:46:40.145Z",
+      "mtime": "2025-07-07T06:09:06.534Z",
       "hash": "c4a4d731",
       "type": "stylesheet"
     },
     "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": {
       "size": 15245,
-      "mtime": "2025-07-07T05:46:40.127Z",
+      "mtime": "2025-07-07T06:09:06.396Z",
       "hash": "b9a841df",
       "type": "stylesheet"
     },
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": {
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": {
       "size": 2833,
-      "mtime": "2025-07-07T05:46:40.146Z",
+      "mtime": "2025-07-07T06:09:06.534Z",
       "hash": "e553b98b",
       "type": "stylesheet"
     }
   },
   "hashes": {
-    "test-integration.html": "fde9e979",
-    "terms.html": "2e46e344",
-    "teamArchive.html": "a35856c5",
-    "team.html": "a39098de",
-    "social-hub.html": "05909ca4",
-    "smart-input.html": "19e6d96f",
-    "search.html": "519426a9",
-    "scout.html": "cffdb013",
-    "register.html": "e6af9588",
-    "recruiting-hub.html": "4ff14ecc",
-    "privacy.html": "25e8f682",
-    "playerProfile.html": "e74a6f40",
-    "player.html": "2d5da7f0",
-    "overview.html": "f14922bd",
-    "login.html": "ac3e8840",
-    "live.html": "7d07a757",
-    "live-demo.html": "d8438542",
-    "index.html": "81c659e2",
-    "fan.html": "8e66f1e6",
-    "demo-scout.html": "1078ee3c",
-    "demo-player.html": "01cf4868",
-    "demo-fan.html": "afd86113",
-    "demo-enhanced.html": "5c92bdc2",
-    "demo-coach.html": "b9e0fe8c",
-    "coach.html": "0198ef9b",
-    "claim-profile.html": "23d32111",
+    "test-integration.html": "d85b7586",
+    "terms.html": "e59923b1",
+    "teamArchive.html": "8ca61bba",
+    "team.html": "2670a7d0",
+    "social-hub.html": "c7640c1c",
+    "smart-input.html": "a2ac7300",
+    "search.html": "e8255b2e",
+    "scout.html": "80959d24",
+    "register.html": "28490c18",
+    "recruiting-hub.html": "1cfef944",
+    "privacy.html": "119a7cbe",
+    "playerProfile.html": "52cf526b",
+    "player.html": "47b7dbea",
+    "overview.html": "24ecec53",
+    "login.html": "e65e13e5",
+    "live.html": "1762db44",
+    "live-demo.html": "6c1bb7f4",
+    "index.html": "0ed90e53",
+    "fan.html": "800fc162",
+    "demo-scout.html": "3d36694d",
+    "demo-player.html": "3e919f7d",
+    "demo-fan.html": "f4010673",
+    "demo-enhanced.html": "9030f300",
+    "demo-coach.html": "a9500436",
+    "coach.html": "3d4c176a",
+    "claim-profile.html": "5b78c1d6",
     "cache-clear.html": "943be5ce",
     "backup_overview.html": "d41d8cd9",
-    "analytics.html": "f90affbd",
-    "analytics-dashboard.html": "af57fbd3",
-    "ai-coach.html": "69b72edd",
-    "admin.html": "335132bd",
-    "about.html": "a14af01b",
+    "analytics.html": "01b89338",
+    "analytics-dashboard.html": "758059d7",
+    "ai-coach.html": "e78a1d34",
+    "admin.html": "585b38a8",
+    "about.html": "0184398e",
     "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": "283ae8cd",
     "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": "eabaf9e7",
-    "assets/js/test-integration-DItq3nya.js.map": "553d8446",
-    "assets/js/test-integration-DItq3nya.js": "fa5f15c2",
-    "assets/js/terms-D69eOhEj.js.map": "b61aa11e",
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": "e79fb6dc",
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": "c10d9da5",
-    "assets/js/teamArchive-C1e32Gdg.js.map": "f08d0ee0",
-    "assets/js/teamArchive-C1e32Gdg.js": "c942d7ea",
-    "assets/js/team-B14Vzt31.js.map": "d229bbdd",
-    "assets/js/team-B14Vzt31.js": "64255486",
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": "59ef6a36",
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": "9199b0a9",
-    "assets/js/social-hub-CO3YzbkR.js.map": "7bdd47b6",
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": "0ced6ec3",
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": "9730c3d0",
-    "assets/js/smart-input-CW8p-WON.js.map": "fbaa9c86",
-    "assets/js/search-BEaUJ6ch.js.map": "433f26be",
-    "assets/js/search-BEaUJ6ch.js": "668c8c6f",
-    "assets/js/scout-D2LauMLr.js.map": "b1cc7b54",
-    "assets/js/scout-D2LauMLr.js": "be9202e6",
-    "assets/js/register-DG9WMDi5.js.map": "1ffb6a3a",
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js.map": "31ba2bfe",
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js": "ed655b4b",
-    "assets/js/recruiting-hub-C0hgBX7Z.js.map": "e1982f86",
-    "assets/js/privacy-D69eOhEj.js.map": "1521bd8d",
-    "assets/js/playerProfile-CczJG_-3.js.map": "222baefc",
-    "assets/js/playerProfile-CczJG_-3.js": "8a1f788a",
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": "980e5acd",
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": "051f45b3",
-    "assets/js/player-CvIPDsdR.js.map": "397dfa0e",
-    "assets/js/player-CvIPDsdR.js": "35e23ac4",
+    "assets/js/test-integration-4QlF9QCN.js.map": "26a70ac3",
+    "assets/js/test-integration-4QlF9QCN.js": "245d5a9c",
+    "assets/js/terms-TR-5QeNP.js.map": "7315032b",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": "832cc818",
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": "7cf1d283",
+    "assets/js/teamArchive-br2g08T0.js.map": "db0faaba",
+    "assets/js/teamArchive-br2g08T0.js": "2bd01a66",
+    "assets/js/team-CH2b_i5O.js.map": "bec23099",
+    "assets/js/team-CH2b_i5O.js": "f8486660",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": "75b16d09",
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": "dd70c50d",
+    "assets/js/social-hub-B1U6oeDE.js.map": "84245fac",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": "3caa6029",
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": "5adca707",
+    "assets/js/smart-input-BKkzyjHY.js.map": "c5181f1e",
+    "assets/js/search-CWi0Majl.js.map": "1f10289f",
+    "assets/js/search-CWi0Majl.js": "b580897e",
+    "assets/js/scout-Bu2UqAQs.js.map": "9a48c201",
+    "assets/js/scout-Bu2UqAQs.js": "8830ed95",
+    "assets/js/register-DQy-nT5l.js.map": "426e90e4",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": "8f85346a",
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": "7cd20a8d",
+    "assets/js/recruiting-hub-DF9z5Otm.js.map": "19310fbe",
+    "assets/js/privacy-TR-5QeNP.js.map": "3252181f",
+    "assets/js/playerProfile-BB6TRT6o.js.map": "d7e43c63",
+    "assets/js/playerProfile-BB6TRT6o.js": "65a30dd0",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": "d3773ce7",
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": "cb885c75",
+    "assets/js/player-R8UZrJnW.js.map": "30b8ad36",
+    "assets/js/player-R8UZrJnW.js": "57f6cdc2",
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1.js": "85bf46f7",
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-DpocxIhM-DpocxIhM-DpocxIhM-DpocxIhM.js": "7e620413",
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-C005TVuN-C005TVuN-C005TVuN.js": "3bbc2711",
@@ -869,130 +893,134 @@
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": "e781bc2c",
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh.js": "d02b2671",
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d.js": "c13edce9",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": "2728d2a6",
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": "9bd4beb4",
-    "assets/js/overview-C-We5_OM.js.map": "54dd2c60",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": "44b0e6f9",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": "39185089",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": "e04dcbb3",
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": "ea6bda4a",
+    "assets/js/overview-tJ6MJP5F.js.map": "01dac2d9",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js.map": "9c443851",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js": "9ef11379",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": "c7c9bc28",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": "022f7685",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js.map": "149c0b88",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js": "68144ad1",
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-nU8xJ6t7.js": "eeba9568",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js.map": "dcf507d2",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js": "4b86567f",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE-BV6YLeV5.js": "4b86567f",
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-B142Hfaq-B142Hfaq.js": "9b75233b",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": "371bc175",
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": "e1691849",
-    "assets/js/login-CvkYySGg.js.map": "8bc24dd1",
-    "assets/js/login-CvkYySGg.js": "a594be98",
-    "assets/js/live-demo-Ca2_L_FV.js.map": "1745c06e",
-    "assets/js/live-D69eOhEj.js.map": "f163a648",
-    "assets/js/index-rK8HcBcP.js.map": "38e4735e",
-    "assets/js/index-rK8HcBcP.js": "a10976d6",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js.map": "61edeb7a",
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js": "4573d329",
+    "assets/js/login-B_M77wPg.js.map": "d9c46cad",
+    "assets/js/login-B_M77wPg.js": "92e031e3",
+    "assets/js/live-demo-QWwmDkoK.js.map": "4da5597d",
+    "assets/js/live-TR-5QeNP.js.map": "44096727",
+    "assets/js/index-CecU4eM5.js.map": "404ef26a",
+    "assets/js/index-CecU4eM5.js": "e120b5da",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": "f0dfa5ee",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": "e812ffe2",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re.js": "57f1f542",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-C4wcfbVF-C4wcfbVF-C4wcfbVF.js": "8b1cbb7d",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Dd9TIeOj-Dd9TIeOj.js": "78d7ef09",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-BMqZK7wi.js": "a77895b6",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": "96ef98cf",
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": "c7122be9",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-U-EFjld8.js": "c7122be9",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": "9538b142",
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": "15c678b2",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Bsdguary-Bsdguary-Bsdguary-Bsdguary.js": "be4111a9",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw-4J497xUw-4J497xUw-4J497xUw-4J497xUw.js": "6eda6725",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z.js": "d812716f",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": "120f41b9",
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": "32558c7a",
     "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": "0303239c",
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": "032f930a",
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": "5f73840d",
-    "assets/js/fan-zWEXw81R.js.map": "867588a8",
-    "assets/js/fan-zWEXw81R.js": "4dd8b4a0",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": "d7139dee",
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": "05dd698a",
+    "assets/js/fan-Bul_3NGy.js.map": "a1f4661e",
+    "assets/js/fan-Bul_3NGy.js": "dc219b0d",
     "assets/js/demo-scout-BE5Ek5wQ.js.map": "d2b1460f",
-    "assets/js/demo-player-B87eBSI6.js.map": "809417f1",
-    "assets/js/demo-player-B87eBSI6.js": "738505ab",
+    "assets/js/demo-player-BFYBwi3c.js.map": "7aaa0d3b",
+    "assets/js/demo-player-BFYBwi3c.js": "d7c8144f",
     "assets/js/demo-fan-BE5Ek5wQ.js.map": "42a1f954",
-    "assets/js/demo-enhanced-Ca2_L_FV.js.map": "9fc98ff8",
-    "assets/js/demo-coach-UaE1jcmS.js.map": "c100ca44",
-    "assets/js/coach-bEV8PlLw.js.map": "694c633c",
-    "assets/js/coach-bEV8PlLw.js": "08514802",
-    "assets/js/claim-profile-BuXXkteq.js.map": "7fea506e",
-    "assets/js/claim-profile-BuXXkteq.js": "87ea519f",
+    "assets/js/demo-enhanced-QWwmDkoK.js.map": "84c507c9",
+    "assets/js/demo-coach-CstcP1K-.js.map": "d2524ca8",
+    "assets/js/coach-Bm-iRo1g.js.map": "3ee5c4e4",
+    "assets/js/coach-Bm-iRo1g.js": "1bbe03b5",
+    "assets/js/claim-profile-Dhm7sS7L.js.map": "be6aac4e",
+    "assets/js/claim-profile-Dhm7sS7L.js": "ce00c5bf",
     "assets/js/cache-clear-l0sNRNKZ.js.map": "4fd7acd0",
     "assets/js/backup_overview-l0sNRNKZ.js.map": "c3ff31a6",
-    "assets/js/analytics-dashboard-DU7C-8ZJ.js.map": "79dd0e32",
-    "assets/js/analytics-BktdGvca.js.map": "9e8e3e93",
-    "assets/js/analytics-BktdGvca.js": "d6794956",
-    "assets/js/ai-coach-CO3YzbkR.js.map": "4effed4f",
-    "assets/js/admin-C5SQ3CQc.js.map": "34cc6441",
-    "assets/js/admin-C5SQ3CQc.js": "1198bba6",
-    "assets/js/about-D82o9QQk.js.map": "38048eee",
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": "c4a4d731",
+    "assets/js/analytics-dashboard-DK8wJFP_.js.map": "9239ab4d",
+    "assets/js/analytics-C1dU6k9A.js.map": "a282bd85",
+    "assets/js/analytics-C1dU6k9A.js": "2763cf2d",
+    "assets/js/ai-coach-B1U6oeDE.js.map": "009b377f",
+    "assets/js/admin-B1lmnO1P.js.map": "5b4b717a",
+    "assets/js/admin-B1lmnO1P.js": "31d05745",
+    "assets/js/about-LS-f7Trr.js.map": "986a6600",
+    "assets/css/index-atMpp5Bc.css": "c4a4d731",
     "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": "b9a841df",
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": "e553b98b"
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": "e553b98b"
   },
   "sizes": {
-    "test-integration.html": 71191,
-    "terms.html": 8662,
-    "teamArchive.html": 68699,
-    "team.html": 85147,
-    "social-hub.html": 33084,
-    "smart-input.html": 30541,
-    "search.html": 75257,
-    "scout.html": 131124,
-    "register.html": 24794,
-    "recruiting-hub.html": 34196,
-    "privacy.html": 7910,
-    "playerProfile.html": 84736,
-    "player.html": 69222,
-    "overview.html": 15382,
-    "login.html": 101674,
-    "live.html": 1968,
-    "live-demo.html": 26971,
-    "index.html": 134750,
-    "fan.html": 69535,
-    "demo-scout.html": 35603,
-    "demo-player.html": 75281,
-    "demo-fan.html": 25745,
-    "demo-enhanced.html": 20103,
-    "demo-coach.html": 53534,
-    "coach.html": 131991,
-    "claim-profile.html": 69088,
+    "test-integration.html": 76630,
+    "terms.html": 8518,
+    "teamArchive.html": 74030,
+    "team.html": 91828,
+    "social-hub.html": 32985,
+    "smart-input.html": 30406,
+    "search.html": 80808,
+    "scout.html": 141657,
+    "register.html": 24659,
+    "recruiting-hub.html": 34061,
+    "privacy.html": 7766,
+    "playerProfile.html": 91417,
+    "player.html": 74553,
+    "overview.html": 15229,
+    "login.html": 109909,
+    "live.html": 1824,
+    "live-demo.html": 26863,
+    "index.html": 133978,
+    "fan.html": 74866,
+    "demo-scout.html": 36537,
+    "demo-player.html": 74735,
+    "demo-fan.html": 26679,
+    "demo-enhanced.html": 19995,
+    "demo-coach.html": 54568,
+    "coach.html": 142532,
+    "claim-profile.html": 74419,
     "cache-clear.html": 3430,
     "backup_overview.html": 0,
-    "analytics.html": 69329,
-    "analytics-dashboard.html": 29550,
-    "ai-coach.html": 29868,
-    "admin.html": 82453,
-    "about.html": 14384,
+    "analytics.html": 74768,
+    "analytics-dashboard.html": 29415,
+    "ai-coach.html": 29769,
+    "admin.html": 87784,
+    "about.html": 14231,
     "assets/png/logo-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD-C3J1yCbD.png": 1165969,
     "assets/json/manifest-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_-RduZY6E_.json": 1300,
-    "assets/js/test-integration-DItq3nya.js.map": 34469,
-    "assets/js/test-integration-DItq3nya.js": 17514,
-    "assets/js/terms-D69eOhEj.js.map": 98,
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js.map": 6971,
-    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K.js": 3837,
-    "assets/js/teamArchive-C1e32Gdg.js.map": 2905,
-    "assets/js/teamArchive-C1e32Gdg.js": 1906,
-    "assets/js/team-B14Vzt31.js.map": 4278,
-    "assets/js/team-B14Vzt31.js": 2566,
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": 3569,
-    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": 1945,
-    "assets/js/social-hub-CO3YzbkR.js.map": 103,
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": 16347,
-    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": 8822,
-    "assets/js/smart-input-CW8p-WON.js.map": 104,
-    "assets/js/search-BEaUJ6ch.js.map": 11269,
-    "assets/js/search-BEaUJ6ch.js": 7070,
-    "assets/js/scout-D2LauMLr.js.map": 8600,
-    "assets/js/scout-D2LauMLr.js": 5100,
-    "assets/js/register-DG9WMDi5.js.map": 101,
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js.map": 16128,
-    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP.js": 8220,
-    "assets/js/recruiting-hub-C0hgBX7Z.js.map": 107,
-    "assets/js/privacy-D69eOhEj.js.map": 100,
-    "assets/js/playerProfile-CczJG_-3.js.map": 2581,
-    "assets/js/playerProfile-CczJG_-3.js": 1788,
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js.map": 10339,
-    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W.js": 5039,
-    "assets/js/player-CvIPDsdR.js.map": 6962,
-    "assets/js/player-CvIPDsdR.js": 3995,
+    "assets/js/test-integration-4QlF9QCN.js.map": 37287,
+    "assets/js/test-integration-4QlF9QCN.js": 18641,
+    "assets/js/terms-TR-5QeNP.js.map": 98,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js.map": 6998,
+    "assets/js/teamComparison-DkPk5Wsi-DTB9EFa3-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI-P9lX6k0K-DNi_jEUI.js": 3846,
+    "assets/js/teamArchive-br2g08T0.js.map": 2941,
+    "assets/js/teamArchive-br2g08T0.js": 1870,
+    "assets/js/team-CH2b_i5O.js.map": 4323,
+    "assets/js/team-CH2b_i5O.js": 2539,
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js.map": 3596,
+    "assets/js/sw-manager--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl--CjsvoUl.js": 1954,
+    "assets/js/social-hub-B1U6oeDE.js.map": 103,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js.map": 16374,
+    "assets/js/smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js": 8831,
+    "assets/js/smart-input-BKkzyjHY.js.map": 104,
+    "assets/js/search-CWi0Majl.js.map": 11314,
+    "assets/js/search-CWi0Majl.js": 7043,
+    "assets/js/scout-Bu2UqAQs.js.map": 8645,
+    "assets/js/scout-Bu2UqAQs.js": 5073,
+    "assets/js/register-DQy-nT5l.js.map": 101,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js.map": 16304,
+    "assets/js/recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s.js": 8229,
+    "assets/js/recruiting-hub-DF9z5Otm.js.map": 107,
+    "assets/js/privacy-TR-5QeNP.js.map": 100,
+    "assets/js/playerProfile-BB6TRT6o.js.map": 2626,
+    "assets/js/playerProfile-BB6TRT6o.js": 1761,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js.map": 10366,
+    "assets/js/playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js": 5048,
+    "assets/js/player-R8UZrJnW.js.map": 6998,
+    "assets/js/player-R8UZrJnW.js": 3959,
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1-DAV1RrA1.js": 24511,
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-DpocxIhM-DpocxIhM-DpocxIhM-DpocxIhM.js": 24520,
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-C005TVuN-C005TVuN-C005TVuN.js": 24529,
@@ -1002,69 +1030,73 @@
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js": 24556,
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh-0j_2LXoh.js": 24502,
     "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d-B18uW48d.js": 24518,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": 14665,
-    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": 8214,
-    "assets/js/overview-C-We5_OM.js.map": 101,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": 3279,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": 1589,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js.map": 14692,
+    "assets/js/platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js": 8223,
+    "assets/js/overview-tJ6MJP5F.js.map": 101,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js.map": 115,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX.js": 771,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js.map": 3306,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js": 1598,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js.map": 10080,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-yloy7H--.js": 5094,
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-nU8xJ6t7.js": 5085,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js.map": 10030,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE.js": 5804,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE-BV6YLeV5.js": 5804,
     "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-B142Hfaq-B142Hfaq.js": 4366,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js.map": 4586,
-    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey.js": 2281,
-    "assets/js/login-CvkYySGg.js.map": 3079,
-    "assets/js/login-CvkYySGg.js": 2049,
-    "assets/js/live-demo-Ca2_L_FV.js.map": 102,
-    "assets/js/live-D69eOhEj.js.map": 97,
-    "assets/js/index-rK8HcBcP.js.map": 5243,
-    "assets/js/index-rK8HcBcP.js": 3464,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js.map": 15922,
+    "assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js": 7970,
+    "assets/js/login-B_M77wPg.js.map": 3133,
+    "assets/js/login-B_M77wPg.js": 2031,
+    "assets/js/live-demo-QWwmDkoK.js.map": 102,
+    "assets/js/live-TR-5QeNP.js.map": 97,
+    "assets/js/index-CecU4eM5.js.map": 506267,
+    "assets/js/index-CecU4eM5.js": 269888,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km-CmrFg6km.js": 261798,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY-CnLNGheY.js": 261807,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re-zjChy6re.js": 261816,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-C4wcfbVF-C4wcfbVF-C4wcfbVF.js": 261852,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Dd9TIeOj-Dd9TIeOj.js": 261861,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-BMqZK7wi.js": 261870,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js.map": 485325,
-    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI.js": 261879,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-U-EFjld8.js": 261879,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js.map": 485352,
+    "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_.js": 261888,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Bsdguary-Bsdguary-Bsdguary-Bsdguary.js": 261843,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw-4J497xUw-4J497xUw-4J497xUw-4J497xUw.js": 261834,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z-2GJ28q5z.js": 261825,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo-BjvTU3wo.js": 261789,
     "assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U-BmUL_U9U.js": 261851,
     "assets/js/firebaseConfig-DCH0t8Yd-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL-BoEIudfL.js": 263982,
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js.map": 1817,
-    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW.js": 947,
-    "assets/js/fan-zWEXw81R.js.map": 4114,
-    "assets/js/fan-zWEXw81R.js": 2369,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js.map": 1844,
+    "assets/js/fanFollow-Bh7dTXqa-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn-UU82LnyW-BOIUMshn.js": 956,
+    "assets/js/fan-Bul_3NGy.js.map": 4150,
+    "assets/js/fan-Bul_3NGy.js": 2333,
     "assets/js/demo-scout-BE5Ek5wQ.js.map": 103,
-    "assets/js/demo-player-B87eBSI6.js.map": 16224,
-    "assets/js/demo-player-B87eBSI6.js": 8385,
+    "assets/js/demo-player-BFYBwi3c.js.map": 16224,
+    "assets/js/demo-player-BFYBwi3c.js": 8430,
     "assets/js/demo-fan-BE5Ek5wQ.js.map": 101,
-    "assets/js/demo-enhanced-Ca2_L_FV.js.map": 106,
-    "assets/js/demo-coach-UaE1jcmS.js.map": 103,
-    "assets/js/coach-bEV8PlLw.js.map": 16410,
-    "assets/js/coach-bEV8PlLw.js": 9245,
-    "assets/js/claim-profile-BuXXkteq.js.map": 2807,
-    "assets/js/claim-profile-BuXXkteq.js": 1843,
+    "assets/js/demo-enhanced-QWwmDkoK.js.map": 106,
+    "assets/js/demo-coach-CstcP1K-.js.map": 103,
+    "assets/js/coach-Bm-iRo1g.js.map": 16455,
+    "assets/js/coach-Bm-iRo1g.js": 9218,
+    "assets/js/claim-profile-Dhm7sS7L.js.map": 2843,
+    "assets/js/claim-profile-Dhm7sS7L.js": 1807,
     "assets/js/cache-clear-l0sNRNKZ.js.map": 104,
     "assets/js/backup_overview-l0sNRNKZ.js.map": 108,
-    "assets/js/analytics-dashboard-DU7C-8ZJ.js.map": 112,
-    "assets/js/analytics-BktdGvca.js.map": 2148,
-    "assets/js/analytics-BktdGvca.js": 1508,
-    "assets/js/ai-coach-CO3YzbkR.js.map": 101,
-    "assets/js/admin-C5SQ3CQc.js.map": 15958,
-    "assets/js/admin-C5SQ3CQc.js": 10248,
-    "assets/js/about-D82o9QQk.js.map": 98,
-    "assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css": 12413,
+    "assets/js/analytics-dashboard-DK8wJFP_.js.map": 112,
+    "assets/js/analytics-C1dU6k9A.js.map": 2175,
+    "assets/js/analytics-C1dU6k9A.js": 1463,
+    "assets/js/ai-coach-B1U6oeDE.js.map": 101,
+    "assets/js/admin-B1lmnO1P.js.map": 15994,
+    "assets/js/admin-B1lmnO1P.js": 10212,
+    "assets/js/about-LS-f7Trr.js.map": 98,
+    "assets/css/index-atMpp5Bc.css": 12413,
     "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css": 15245,
-    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": 2833
+    "assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css": 2833
   },
   "performance": {
-    "totalFiles": 131,
-    "totalSize": 7407985,
-    "totalSizeFormatted": "7.06 MB",
-    "buildDuration": 149757,
-    "avgFileSize": 56550
+    "totalFiles": 135,
+    "totalSize": 8550585,
+    "totalSizeFormatted": "8.15 MB",
+    "buildDuration": 208163,
+    "avgFileSize": 63338
   }
 }
