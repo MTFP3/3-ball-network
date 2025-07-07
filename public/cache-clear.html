@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clear Cache - 3 Ball Network</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: white;
+        text-align: center;
+        padding: 2em;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2em;
+        backdrop-filter: blur(10px);
+      }
+      h1 {
+        color: #000;
+        margin-bottom: 1em;
+      }
+      .btn {
+        background: #000;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.1em;
+        margin: 10px;
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        background: #333;
+        transform: translateY(-2px);
+      }
+      .status {
+        margin: 1em 0;
+        font-weight: bold;
+      }
+      .success {
+        color: #4caf50;
+      }
+      .info {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🧹 Cache Clear Tool</h1>
+      <p>
+        If you're not seeing the latest updates, click the button below to clear
+        your browser cache and force refresh.
+      </p>
+
+      <button class="btn" onclick="clearCacheAndReload()">
+        🔄 Clear Cache & Reload
+      </button>
+      <button class="btn" onclick="window.location.href='/'">
+        🏠 Return to Homepage
+      </button>
+
+      <div id="status" class="status"></div>
+
+      <div style="margin-top: 2em; opacity: 0.8">
+        <h3>Manual Instructions:</h3>
+        <p>
+          <strong>Chrome/Firefox/Edge:</strong> Press Ctrl+F5 (Windows) or
+          Cmd+Shift+R (Mac)
+        </p>
+        <p><strong>Safari:</strong> Press Cmd+Option+R</p>
+      </div>
+    </div>
+
+    <script>
+      function clearCacheAndReload() {
+        const status = document.getElementById('status');
+        status.innerHTML = '<div class="info">🔄 Clearing cache...</div>';
+
+        // Clear service worker cache
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then(function (registrations) {
+              for (let registration of registrations) {
+                registration.unregister();
+              }
+            });
+
+          // Clear caches
+          if ('caches' in window) {
+            caches.keys().then(function (names) {
+              for (let name of names) {
+                caches.delete(name);
+              }
+            });
+          }
+        }
+
+        // Force reload with cache bypass
+        setTimeout(() => {
+          status.innerHTML =
+            '<div class="success">✅ Cache cleared! Reloading...</div>';
+          setTimeout(() => {
+            window.location.reload(true);
+          }, 1000);
+        }, 500);
+      }
+
+      // Auto-clear on page load if requested
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('auto') === 'true') {
+        setTimeout(clearCacheAndReload, 1000);
+      }
+    </script>
+  </body>
+</html>
