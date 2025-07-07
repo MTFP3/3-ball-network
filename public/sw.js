@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'vd36854f3';
+const CACHE_VERSION = 'v-text-fix-2025-01-07-12345';
 const CACHE_FILES = [
   '/test-integration.html?v=0730bfb7',
   '/terms.html?v=d16436bb',
@@ -127,7 +127,7 @@ const CACHE_FILES = [
   '/assets/js/about-DkotFe-D.js.map?v=795c5e2f',
   '/assets/css/style-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css?v=c4a4d731',
   '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css?v=b9a841df',
-  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b'
+  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b',
 ];
 
 // Service Worker for 3 Ball Network PWA - ADVANCED CACHE BUSTING
