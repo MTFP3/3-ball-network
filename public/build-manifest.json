@@ -1,340 +1,364 @@
 {
-  "buildTime": "2025-07-08T06:48:15.864Z",
+  "buildTime": "2025-07-08T07:54:59.599Z",
   "version": "3.0.0",
-  "gitCommit": "39ada59e14d2ebb0dd72f3cb47793c6501c88ef4",
+  "gitCommit": "f186a04023379106a1187c2733d3afa62411f339",
   "gitBranch": "main",
   "environment": "development",
   "nodeVersion": "v20.19.3",
-  "buildHash": "412da00c",
+  "buildHash": "72896d8a",
   "files": {
     "test-integration.html": {
-      "size": 91910,
-      "mtime": "2025-07-08T06:51:18.025Z",
-      "hash": "733121c7",
+      "size": 90953,
+      "mtime": "2025-07-08T07:58:09.157Z",
+      "hash": "1f2745d5",
       "type": "html"
     },
     "terms.html": {
       "size": 8498,
-      "mtime": "2025-07-08T06:51:18.022Z",
+      "mtime": "2025-07-08T07:58:09.152Z",
       "hash": "4a329995",
       "type": "html"
     },
     "temp_overview.html": {
       "size": 0,
-      "mtime": "2025-07-08T06:51:18.011Z",
+      "mtime": "2025-07-08T07:58:09.142Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "temp_index.html": {
       "size": 0,
-      "mtime": "2025-07-08T06:51:18.003Z",
+      "mtime": "2025-07-08T07:58:09.139Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "teamArchive.html": {
-      "size": 89301,
-      "mtime": "2025-07-08T06:51:18.068Z",
-      "hash": "af781896",
+      "size": 89141,
+      "mtime": "2025-07-08T07:58:09.200Z",
+      "hash": "533a3335",
       "type": "html"
     },
     "team.html": {
-      "size": 111260,
-      "mtime": "2025-07-08T06:51:18.016Z",
-      "hash": "81d9bb2a",
+      "size": 110885,
+      "mtime": "2025-07-08T07:58:09.146Z",
+      "hash": "6c4716e1",
       "type": "html"
     },
     "sw.js": {
       "size": 19416,
-      "mtime": "2025-07-08T06:51:18.076Z",
+      "mtime": "2025-07-08T07:58:09.203Z",
       "hash": "0f0a22fb",
       "type": "script"
     },
     "social-hub.html": {
       "size": 32843,
-      "mtime": "2025-07-08T06:51:18.002Z",
+      "mtime": "2025-07-08T07:58:09.138Z",
       "hash": "1ada1602",
       "type": "html"
     },
     "smart-input.html": {
       "size": 30213,
-      "mtime": "2025-07-08T06:51:18.077Z",
+      "mtime": "2025-07-08T07:58:09.207Z",
       "hash": "9b93a1c0",
       "type": "html"
     },
     "search.html": {
-      "size": 96448,
-      "mtime": "2025-07-08T06:51:18.073Z",
-      "hash": "6e5439a9",
+      "size": 95055,
+      "mtime": "2025-07-08T07:58:09.201Z",
+      "hash": "c86c56b0",
       "type": "html"
     },
     "scout.html": {
-      "size": 167607,
-      "mtime": "2025-07-08T06:51:18.025Z",
-      "hash": "9e36fb4f",
+      "size": 167286,
+      "mtime": "2025-07-08T07:58:09.160Z",
+      "hash": "65c660ea",
       "type": "html"
     },
     "register.html": {
       "size": 24523,
-      "mtime": "2025-07-08T06:51:18.026Z",
+      "mtime": "2025-07-08T07:58:09.154Z",
       "hash": "dded74dc",
       "type": "html"
     },
     "recruiting-hub.html": {
       "size": 33868,
-      "mtime": "2025-07-08T06:51:18.016Z",
+      "mtime": "2025-07-08T07:58:09.146Z",
       "hash": "3f57915d",
       "type": "html"
     },
     "privacy.html": {
       "size": 7746,
-      "mtime": "2025-07-08T06:51:18.077Z",
+      "mtime": "2025-07-08T07:58:09.205Z",
       "hash": "c5fca2f1",
       "type": "html"
     },
     "playerProfile.html": {
-      "size": 110849,
-      "mtime": "2025-07-08T06:51:18.005Z",
-      "hash": "04c68285",
+      "size": 110555,
+      "mtime": "2025-07-08T07:58:09.141Z",
+      "hash": "c5a62f05",
       "type": "html"
     },
     "player.html": {
-      "size": 89824,
-      "mtime": "2025-07-08T06:51:18.057Z",
-      "hash": "d6b11ff7",
+      "size": 89577,
+      "mtime": "2025-07-08T07:58:09.187Z",
+      "hash": "93e220f8",
       "type": "html"
     },
     "overview.html": {
       "size": 15063,
-      "mtime": "2025-07-08T06:51:18.040Z",
+      "mtime": "2025-07-08T07:58:09.166Z",
       "hash": "7b8d74dc",
       "type": "html"
     },
     "manifest.json": {
       "size": 1300,
-      "mtime": "2025-07-08T06:51:18.059Z",
+      "mtime": "2025-07-08T07:58:09.193Z",
       "hash": "eabaf9e7",
       "type": "data"
     },
     "logo3.png": {
       "size": 309575,
-      "mtime": "2025-07-08T06:51:18.057Z",
+      "mtime": "2025-07-08T07:58:09.189Z",
       "hash": "d02702d3",
       "type": "image"
     },
     "logo.png": {
       "size": 1165969,
-      "mtime": "2025-07-08T06:51:18.081Z",
+      "mtime": "2025-07-08T07:58:09.208Z",
       "hash": "283ae8cd",
       "type": "image"
     },
     "login.html": {
-      "size": 134546,
-      "mtime": "2025-07-08T06:51:18.042Z",
-      "hash": "ac642d12",
+      "size": 132939,
+      "mtime": "2025-07-08T07:58:09.162Z",
+      "hash": "ba1fd2fc",
       "type": "html"
     },
     "live.html": {
       "size": 1923,
-      "mtime": "2025-07-08T06:51:18.061Z",
+      "mtime": "2025-07-08T07:58:09.192Z",
       "hash": "dead6d28",
       "type": "html"
     },
     "live-demo.html": {
       "size": 26054,
-      "mtime": "2025-07-08T06:51:18.075Z",
+      "mtime": "2025-07-08T07:58:09.207Z",
       "hash": "2eb98e6b",
       "type": "html"
     },
     "index.html": {
-      "size": 142908,
-      "mtime": "2025-07-08T06:51:18.015Z",
-      "hash": "902128fe",
+      "size": 118911,
+      "mtime": "2025-07-08T07:58:09.148Z",
+      "hash": "3110e4d3",
       "type": "html"
     },
     "fan.html": {
-      "size": 90137,
-      "mtime": "2025-07-08T06:51:18.060Z",
-      "hash": "b3044d4d",
+      "size": 89880,
+      "mtime": "2025-07-08T07:58:09.191Z",
+      "hash": "0e67e82c",
       "type": "html"
     },
     "demo-scout.html": {
       "size": 36297,
-      "mtime": "2025-07-08T06:51:18.002Z",
+      "mtime": "2025-07-08T07:58:09.138Z",
       "hash": "596b07e0",
       "type": "html"
     },
     "demo-player.html": {
-      "size": 83264,
-      "mtime": "2025-07-08T06:51:18.015Z",
-      "hash": "e07c88cf",
+      "size": 51134,
+      "mtime": "2025-07-08T07:58:09.139Z",
+      "hash": "2f9c6b58",
       "type": "html"
     },
     "demo-fan.html": {
       "size": 26439,
-      "mtime": "2025-07-08T06:51:18.020Z",
+      "mtime": "2025-07-08T07:58:09.148Z",
       "hash": "6c0f6809",
       "type": "html"
     },
     "demo-enhanced.html": {
       "size": 19305,
-      "mtime": "2025-07-08T06:51:18.038Z",
+      "mtime": "2025-07-08T07:58:09.165Z",
       "hash": "5fc928e5",
       "type": "html"
     },
     "demo-coach.html": {
-      "size": 54409,
-      "mtime": "2025-07-08T06:51:18.010Z",
-      "hash": "fe1bd179",
+      "size": 23854,
+      "mtime": "2025-07-08T07:58:09.141Z",
+      "hash": "75df3424",
       "type": "html"
     },
     "coach.html": {
-      "size": 168506,
-      "mtime": "2025-07-08T06:51:18.045Z",
-      "hash": "d418e176",
+      "size": 167853,
+      "mtime": "2025-07-08T07:58:09.182Z",
+      "hash": "c7e69447",
       "type": "html"
     },
     "claim-profile.html": {
-      "size": 89690,
-      "mtime": "2025-07-08T06:51:18.044Z",
-      "hash": "85c2b676",
+      "size": 89453,
+      "mtime": "2025-07-08T07:58:09.179Z",
+      "hash": "4c213ecf",
       "type": "html"
     },
     "cache-clear.html": {
       "size": 3430,
-      "mtime": "2025-07-08T06:51:18.028Z",
+      "mtime": "2025-07-08T07:58:09.158Z",
       "hash": "943be5ce",
       "type": "html"
     },
     "backup_overview.html": {
       "size": 0,
-      "mtime": "2025-07-08T06:51:18.043Z",
+      "mtime": "2025-07-08T07:58:09.166Z",
       "hash": "d41d8cd9",
       "type": "html"
     },
     "analytics.html": {
-      "size": 90048,
-      "mtime": "2025-07-08T06:51:18.069Z",
-      "hash": "a6eaa3a6",
+      "size": 89710,
+      "mtime": "2025-07-08T07:58:09.201Z",
+      "hash": "0b8e7d8c",
       "type": "html"
     },
     "analytics-dashboard.html": {
       "size": 29222,
-      "mtime": "2025-07-08T06:51:18.038Z",
+      "mtime": "2025-07-08T07:58:09.162Z",
       "hash": "00ec86de",
       "type": "html"
     },
     "ai-coach.html": {
       "size": 29621,
-      "mtime": "2025-07-08T06:51:18.037Z",
+      "mtime": "2025-07-08T07:58:09.161Z",
       "hash": "32cbf1b1",
       "type": "html"
     },
     "admin.html": {
-      "size": 326585,
-      "mtime": "2025-07-08T06:51:18.029Z",
-      "hash": "5163d2f4",
+      "size": 212352,
+      "mtime": "2025-07-08T07:58:09.150Z",
+      "hash": "fca39e47",
       "type": "html"
     },
     "about.html": {
       "size": 14044,
-      "mtime": "2025-07-08T06:51:18.019Z",
+      "mtime": "2025-07-08T07:58:09.147Z",
       "hash": "37a412c9",
       "type": "html"
     },
     "CNAME": {
       "size": 16,
-      "mtime": "2025-07-08T06:51:18.018Z",
+      "mtime": "2025-07-08T07:58:09.148Z",
       "hash": "75e8c8ae",
       "type": "other"
     },
     "portals/scout/dashboard.html": {
       "size": 2593,
-      "mtime": "2025-07-08T06:51:18.098Z",
+      "mtime": "2025-07-08T07:58:09.250Z",
       "hash": "cba14bfa",
       "type": "html"
     },
     "portals/player/profile.html ": {
       "size": 1185,
-      "mtime": "2025-07-08T06:51:18.099Z",
+      "mtime": "2025-07-08T07:58:09.251Z",
       "hash": "3e406c74",
       "type": "other"
     },
     "portals/player/dashboard.html": {
       "size": 1745,
-      "mtime": "2025-07-08T06:51:18.099Z",
+      "mtime": "2025-07-08T07:58:09.251Z",
       "hash": "800ffe52",
       "type": "html"
     },
     "portals/fan/dashboard.html": {
       "size": 1878,
-      "mtime": "2025-07-08T06:51:18.100Z",
+      "mtime": "2025-07-08T07:58:09.254Z",
       "hash": "b557c1ad",
       "type": "html"
     },
     "portals/coach/profile.html": {
       "size": 874,
-      "mtime": "2025-07-08T06:51:18.097Z",
+      "mtime": "2025-07-08T07:58:09.251Z",
       "hash": "ac8e97ba",
       "type": "html"
     },
     "portals/coach/dashboard.html": {
       "size": 5984,
-      "mtime": "2025-07-08T06:51:18.097Z",
+      "mtime": "2025-07-08T07:58:09.251Z",
       "hash": "509dcf6f",
       "type": "html"
     },
     "assets/css/style.min.css": {
       "size": 716,
-      "mtime": "2025-07-08T06:51:18.103Z",
+      "mtime": "2025-07-08T07:58:09.256Z",
       "hash": "c1ab3323",
       "type": "stylesheet"
     },
     "assets/css/style.css": {
       "size": 214,
-      "mtime": "2025-07-08T06:51:18.099Z",
+      "mtime": "2025-07-08T07:58:09.257Z",
       "hash": "b5dd2d63",
+      "type": "stylesheet"
+    },
+    "assets/css/index.css": {
+      "size": 15509,
+      "mtime": "2025-07-08T07:58:09.258Z",
+      "hash": "d38e9337",
+      "type": "stylesheet"
+    },
+    "assets/css/demo-player.css": {
+      "size": 18167,
+      "mtime": "2025-07-08T07:58:09.261Z",
+      "hash": "7ea23700",
+      "type": "stylesheet"
+    },
+    "assets/css/demo-coach.css": {
+      "size": 16487,
+      "mtime": "2025-07-08T07:58:09.259Z",
+      "hash": "a053f7fb",
+      "type": "stylesheet"
+    },
+    "assets/css/admin.css": {
+      "size": 50079,
+      "mtime": "2025-07-08T07:58:09.261Z",
+      "hash": "c904f06a",
       "type": "stylesheet"
     }
   },
   "hashes": {
-    "test-integration.html": "733121c7",
+    "test-integration.html": "1f2745d5",
     "terms.html": "4a329995",
     "temp_overview.html": "d41d8cd9",
     "temp_index.html": "d41d8cd9",
-    "teamArchive.html": "af781896",
-    "team.html": "81d9bb2a",
+    "teamArchive.html": "533a3335",
+    "team.html": "6c4716e1",
     "sw.js": "0f0a22fb",
     "social-hub.html": "1ada1602",
     "smart-input.html": "9b93a1c0",
-    "search.html": "6e5439a9",
-    "scout.html": "9e36fb4f",
+    "search.html": "c86c56b0",
+    "scout.html": "65c660ea",
     "register.html": "dded74dc",
     "recruiting-hub.html": "3f57915d",
     "privacy.html": "c5fca2f1",
-    "playerProfile.html": "04c68285",
-    "player.html": "d6b11ff7",
+    "playerProfile.html": "c5a62f05",
+    "player.html": "93e220f8",
     "overview.html": "7b8d74dc",
     "manifest.json": "eabaf9e7",
     "logo3.png": "d02702d3",
     "logo.png": "283ae8cd",
-    "login.html": "ac642d12",
+    "login.html": "ba1fd2fc",
     "live.html": "dead6d28",
     "live-demo.html": "2eb98e6b",
-    "index.html": "902128fe",
-    "fan.html": "b3044d4d",
+    "index.html": "3110e4d3",
+    "fan.html": "0e67e82c",
     "demo-scout.html": "596b07e0",
-    "demo-player.html": "e07c88cf",
+    "demo-player.html": "2f9c6b58",
     "demo-fan.html": "6c0f6809",
     "demo-enhanced.html": "5fc928e5",
-    "demo-coach.html": "fe1bd179",
-    "coach.html": "d418e176",
-    "claim-profile.html": "85c2b676",
+    "demo-coach.html": "75df3424",
+    "coach.html": "c7e69447",
+    "claim-profile.html": "4c213ecf",
     "cache-clear.html": "943be5ce",
     "backup_overview.html": "d41d8cd9",
-    "analytics.html": "a6eaa3a6",
+    "analytics.html": "0b8e7d8c",
     "analytics-dashboard.html": "00ec86de",
     "ai-coach.html": "32cbf1b1",
-    "admin.html": "5163d2f4",
+    "admin.html": "fca39e47",
     "about.html": "37a412c9",
     "CNAME": "75e8c8ae",
     "portals/scout/dashboard.html": "cba14bfa",
@@ -344,47 +368,51 @@
     "portals/coach/profile.html": "ac8e97ba",
     "portals/coach/dashboard.html": "509dcf6f",
     "assets/css/style.min.css": "c1ab3323",
-    "assets/css/style.css": "b5dd2d63"
+    "assets/css/style.css": "b5dd2d63",
+    "assets/css/index.css": "d38e9337",
+    "assets/css/demo-player.css": "7ea23700",
+    "assets/css/demo-coach.css": "a053f7fb",
+    "assets/css/admin.css": "c904f06a"
   },
   "sizes": {
-    "test-integration.html": 91910,
+    "test-integration.html": 90953,
     "terms.html": 8498,
     "temp_overview.html": 0,
     "temp_index.html": 0,
-    "teamArchive.html": 89301,
-    "team.html": 111260,
+    "teamArchive.html": 89141,
+    "team.html": 110885,
     "sw.js": 19416,
     "social-hub.html": 32843,
     "smart-input.html": 30213,
-    "search.html": 96448,
-    "scout.html": 167607,
+    "search.html": 95055,
+    "scout.html": 167286,
     "register.html": 24523,
     "recruiting-hub.html": 33868,
     "privacy.html": 7746,
-    "playerProfile.html": 110849,
-    "player.html": 89824,
+    "playerProfile.html": 110555,
+    "player.html": 89577,
     "overview.html": 15063,
     "manifest.json": 1300,
     "logo3.png": 309575,
     "logo.png": 1165969,
-    "login.html": 134546,
+    "login.html": 132939,
     "live.html": 1923,
     "live-demo.html": 26054,
-    "index.html": 142908,
-    "fan.html": 90137,
+    "index.html": 118911,
+    "fan.html": 89880,
     "demo-scout.html": 36297,
-    "demo-player.html": 83264,
+    "demo-player.html": 51134,
     "demo-fan.html": 26439,
     "demo-enhanced.html": 19305,
-    "demo-coach.html": 54409,
-    "coach.html": 168506,
-    "claim-profile.html": 89690,
+    "demo-coach.html": 23854,
+    "coach.html": 167853,
+    "claim-profile.html": 89453,
     "cache-clear.html": 3430,
     "backup_overview.html": 0,
-    "analytics.html": 90048,
+    "analytics.html": 89710,
     "analytics-dashboard.html": 29222,
     "ai-coach.html": 29621,
-    "admin.html": 326585,
+    "admin.html": 212352,
     "about.html": 14044,
     "CNAME": 16,
     "portals/scout/dashboard.html": 2593,
@@ -394,13 +422,17 @@
     "portals/coach/profile.html": 874,
     "portals/coach/dashboard.html": 5984,
     "assets/css/style.min.css": 716,
-    "assets/css/style.css": 214
+    "assets/css/style.css": 214,
+    "assets/css/index.css": 15509,
+    "assets/css/demo-player.css": 18167,
+    "assets/css/demo-coach.css": 16487,
+    "assets/css/admin.css": 50079
   },
   "performance": {
-    "totalFiles": 48,
-    "totalSize": 3787846,
-    "totalSizeFormatted": "3.61 MB",
-    "buildDuration": 182924,
-    "avgFileSize": 78913
+    "totalFiles": 52,
+    "totalSize": 3680334,
+    "totalSizeFormatted": "3.51 MB",
+    "buildDuration": 189802,
+    "avgFileSize": 70776
   }
 }
