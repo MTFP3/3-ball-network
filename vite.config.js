@@ -30,9 +30,9 @@ export default defineConfig({
     rollupOptions: {
       input: getHtmlEntries(),
       output: {
-        entryFileNames: 'assets/js/[name]-[hash].js',
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        entryFileNames: 'assets/js/[name].js',
+        chunkFileNames: 'assets/js/[name].js',
+        assetFileNames: 'assets/[ext]/[name].[ext]',
       },
     },
     outDir: '../dist',
