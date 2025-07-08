@@ -1,0 +1,100 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Admin users can read/write everything
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'moderator'];
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if isAdmin();
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Pages collection (public read, admin write)
+    match /pages/{pageId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Games collection
+    match /games/{gameId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Videos collection
+    match /videos/{videoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Media collection
+    match /media/{mediaId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Messages collection (admin only)
+    match /messages/{messageId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Message templates (admin only)
+    match /messageTemplates/{templateId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Notifications collection
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null && 
+                  (isAdmin() || request.auth.uid == resource.data.userId);
+      allow write: if isAdmin();
+    }
+    
+    // Moderation reports (admin only)
+    match /moderationReports/{reportId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Moderation actions (admin only)
+    match /moderationActions/{actionId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // System logs (admin only)
+    match /systemLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // System metrics (admin only)
+    match /systemMetrics/{metricId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Backups (admin only)
+    match /backups/{backupId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Settings (admin only)
+    match /settings/{settingId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Analytics (admin read/write, users can write their own data)
+    match /analytics/{analyticsId} {
+      allow read, write: if isAdmin();
+      allow create: if request.auth != null;
+    }
+    
+    // Streams collection
+    match /streams/{streamId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

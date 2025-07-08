@@ -1,2 +1,530 @@
-import"./modulepreload-polyfill-B5Qt9EMX.js";import"./modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey.js";import"./modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js";const L="modulepreload",M=function(n){return"/"+n},b={},y=function(l,m,i){let u=Promise.resolve();if(m&&m.length>0){let t=function(o){return Promise.all(o.map(a=>Promise.resolve(a).then(r=>({status:"fulfilled",value:r}),r=>({status:"rejected",reason:r}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");u=t(m.map(o=>{if(o=M(o),o in b)return;b[o]=!0;const a=o.endsWith(".css"),r=a?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${o}"]${r}`))return;const d=document.createElement("link");if(d.rel=a?"stylesheet":L,a||(d.as="script"),d.crossOrigin="",d.href=o,c&&d.setAttribute("nonce",c),document.head.appendChild(d),a)return new Promise((p,C)=>{d.addEventListener("load",p),d.addEventListener("error",()=>C(new Error(`Unable to preload CSS for ${o}`)))})}))}function s(e){const c=new Event("vite:preloadError",{cancelable:!0});if(c.payload=e,window.dispatchEvent(c),!c.defaultPrevented)throw e}return u.then(e=>{for(const c of e||[])c.status==="rejected"&&s(c.reason);return l().catch(s)})},j="modulepreload",q=function(n){return"/"+n},S={},g=function(n,l,m){let i=Promise.resolve();if(l&&l.length>0){let s=function(t){return Promise.all(t.map(o=>Promise.resolve(o).then(a=>({status:"fulfilled",value:a}),a=>({status:"rejected",reason:a}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");i=s(l.map(t=>{if(t=q(t),t in S)return;S[t]=!0;const o=t.endsWith(".css"),a=o?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${t}"]${a}`))return;const r=document.createElement("link");if(r.rel=o?"stylesheet":j,o||(r.as="script"),r.crossOrigin="",r.href=t,c&&r.setAttribute("nonce",c),document.head.appendChild(r),o)return new Promise((d,p)=>{r.addEventListener("load",d),r.addEventListener("error",()=>p(new Error(`Unable to preload CSS for ${t}`)))})}))}function u(s){const e=new Event("vite:preloadError",{cancelable:!0});if(e.payload=s,window.dispatchEvent(e),!e.defaultPrevented)throw s}return i.then(s=>{for(const e of s||[])e.status==="rejected"&&u(e.reason);return n().catch(u)})},I="modulepreload",N=function(n){return"/"+n},A={},v=function(n,l,m){let i=Promise.resolve();if(l&&l.length>0){let s=function(t){return Promise.all(t.map(o=>Promise.resolve(o).then(a=>({status:"fulfilled",value:a}),a=>({status:"rejected",reason:a}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");i=s(l.map(t=>{if(t=N(t),t in A)return;A[t]=!0;const o=t.endsWith(".css"),a=o?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${t}"]${a}`))return;const r=document.createElement("link");if(r.rel=o?"stylesheet":I,o||(r.as="script"),r.crossOrigin="",r.href=t,c&&r.setAttribute("nonce",c),document.head.appendChild(r),o)return new Promise((d,p)=>{r.addEventListener("load",d),r.addEventListener("error",()=>p(new Error(`Unable to preload CSS for ${t}`)))})}))}function u(s){const e=new Event("vite:preloadError",{cancelable:!0});if(e.payload=s,window.dispatchEvent(e),!e.defaultPrevented)throw s}return i.then(s=>{for(const e of s||[])e.status==="rejected"&&u(e.reason);return n().catch(u)})},O="modulepreload",T=function(n){return"/"+n},_={},E=function(n,l,m){let i=Promise.resolve();if(l&&l.length>0){let s=function(t){return Promise.all(t.map(o=>Promise.resolve(o).then(a=>({status:"fulfilled",value:a}),a=>({status:"rejected",reason:a}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");i=s(l.map(t=>{if(t=T(t),t in _)return;_[t]=!0;const o=t.endsWith(".css"),a=o?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${t}"]${a}`))return;const r=document.createElement("link");if(r.rel=o?"stylesheet":O,o||(r.as="script"),r.crossOrigin="",r.href=t,c&&r.setAttribute("nonce",c),document.head.appendChild(r),o)return new Promise((d,p)=>{r.addEventListener("load",d),r.addEventListener("error",()=>p(new Error(`Unable to preload CSS for ${t}`)))})}))}function u(s){const e=new Event("vite:preloadError",{cancelable:!0});if(e.payload=s,window.dispatchEvent(e),!e.defaultPrevented)throw s}return i.then(s=>{for(const e of s||[])e.status==="rejected"&&u(e.reason);return n().catch(u)})},R="modulepreload",U=function(n){return"/"+n},k={},P=function(n,l,m){let i=Promise.resolve();if(l&&l.length>0){let s=function(t){return Promise.all(t.map(o=>Promise.resolve(o).then(a=>({status:"fulfilled",value:a}),a=>({status:"rejected",reason:a}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");i=s(l.map(t=>{if(t=U(t),t in k)return;k[t]=!0;const o=t.endsWith(".css"),a=o?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${t}"]${a}`))return;const r=document.createElement("link");if(r.rel=o?"stylesheet":R,o||(r.as="script"),r.crossOrigin="",r.href=t,c&&r.setAttribute("nonce",c),document.head.appendChild(r),o)return new Promise((d,p)=>{r.addEventListener("load",d),r.addEventListener("error",()=>p(new Error(`Unable to preload CSS for ${t}`)))})}))}function u(s){const e=new Event("vite:preloadError",{cancelable:!0});if(e.payload=s,window.dispatchEvent(e),!e.defaultPrevented)throw s}return i.then(s=>{for(const e of s||[])e.status==="rejected"&&u(e.reason);return n().catch(u)})},B="modulepreload",G=function(n){return"/"+n},$={},w=function(n,l,m){let i=Promise.resolve();if(l&&l.length>0){let s=function(t){return Promise.all(t.map(o=>Promise.resolve(o).then(a=>({status:"fulfilled",value:a}),a=>({status:"rejected",reason:a}))))};document.getElementsByTagName("link");const e=document.querySelector("meta[property=csp-nonce]"),c=e?.nonce||e?.getAttribute("nonce");i=s(l.map(t=>{if(t=G(t),t in $)return;$[t]=!0;const o=t.endsWith(".css"),a=o?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${t}"]${a}`))return;const r=document.createElement("link");if(r.rel=o?"stylesheet":B,o||(r.as="script"),r.crossOrigin="",r.href=t,c&&r.setAttribute("nonce",c),document.head.appendChild(r),o)return new Promise((d,p)=>{r.addEventListener("load",d),r.addEventListener("error",()=>p(new Error(`Unable to preload CSS for ${t}`)))})}))}function u(s){const e=new Event("vite:preloadError",{cancelable:!0});if(e.payload=s,window.dispatchEvent(e),!e.defaultPrevented)throw s}return i.then(s=>{for(const e of s||[])e.status==="rejected"&&u(e.reason);return n().catch(u)})};let h={playerAnalytics:!1,recruitingHub:!1,smartGameInput:!1,platformManager:!1,demoPages:!0,firebaseConfig:!0,navigation:!0};function f(n,l,m){const i=document.getElementById(n),u=i.querySelector(".test-result");l?(i.className="test-section pass",u.textContent="✅ "+m,h[n]=!0):(i.className="test-section fail",u.textContent="❌ "+m,h[n]=!1),H()}function H(){const n=document.getElementById("overall-status"),l=Object.values(h).filter(i=>i===!0).length,m=Object.keys(h).length;l===m?(n.className="test-section pass",n.textContent=`🎉 All tests passed! (${l}/${m})`):(n.style.background="#fff3cd",n.textContent=`⏳ Tests running... (${l}/${m} completed)`)}try{const n=await w(()=>P(()=>E(()=>v(()=>g(()=>y(()=>import("./playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js"),[]),[]),[]),[]),[]),[]);n&&n.PlayerAnalytics?f("playerAnalytics",!0,"Module loaded successfully"):f("playerAnalytics",!1,"Module loaded but PlayerAnalytics class not found")}catch(n){f("playerAnalytics",!1,"Failed to load: "+n.message)}try{const n=await w(()=>P(()=>E(()=>v(()=>g(()=>y(()=>import("./recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js"),[]),[]),[]),[]),[]),[]);n&&n.RecruitingHub?f("recruitingHub",!0,"Module loaded successfully"):f("recruitingHub",!1,"Module loaded but RecruitingHub class not found")}catch(n){f("recruitingHub",!1,"Failed to load: "+n.message)}try{const n=await w(()=>P(()=>E(()=>v(()=>g(()=>y(()=>import("./smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js"),[]),[]),[]),[]),[]),[]);n&&n.SmartGameInput?f("smartGameInput",!0,"Module loaded successfully"):f("smartGameInput",!1,"Module loaded but SmartGameInput class not found")}catch(n){f("smartGameInput",!1,"Failed to load: "+n.message)}try{const n=await w(()=>P(()=>E(()=>v(()=>g(()=>y(()=>import("./platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js"),[]),[]),[]),[]),[]),[]);n&&n.PlatformManager?f("platformManager",!0,"Module loaded successfully"):f("platformManager",!1,"Module loaded but PlatformManager class not found")}catch(n){f("platformManager",!1,"Failed to load: "+n.message)}setTimeout(()=>{f("demoPages",!0,"Demo pages integration completed"),f("firebaseConfig",!0,"Firebase configuration updated with clean URLs"),f("navigation",!0,"Navigation and URL routing configured")},1e3);
+import './modulepreload-polyfill-B5Qt9EMX.js';
+import './modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey.js';
+import './modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV-C2dq2EgV-C2dq2EgV-C2dq2EgV.js';
+const L = 'modulepreload',
+  M = function (n) {
+    return '/' + n;
+  },
+  b = {},
+  y = function (l, m, i) {
+    let u = Promise.resolve();
+    if (m && m.length > 0) {
+      let t = function (o) {
+        return Promise.all(
+          o.map(a =>
+            Promise.resolve(a).then(
+              r => ({ status: 'fulfilled', value: r }),
+              r => ({ status: 'rejected', reason: r })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      u = t(
+        m.map(o => {
+          if (((o = M(o)), o in b)) return;
+          b[o] = !0;
+          const a = o.endsWith('.css'),
+            r = a ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${o}"]${r}`)) return;
+          const d = document.createElement('link');
+          if (
+            ((d.rel = a ? 'stylesheet' : L),
+            a || (d.as = 'script'),
+            (d.crossOrigin = ''),
+            (d.href = o),
+            c && d.setAttribute('nonce', c),
+            document.head.appendChild(d),
+            a)
+          )
+            return new Promise((p, C) => {
+              (d.addEventListener('load', p),
+                d.addEventListener('error', () =>
+                  C(new Error(`Unable to preload CSS for ${o}`))
+                ));
+            });
+        })
+      );
+    }
+    function s(e) {
+      const c = new Event('vite:preloadError', { cancelable: !0 });
+      if (((c.payload = e), window.dispatchEvent(c), !c.defaultPrevented))
+        throw e;
+    }
+    return u.then(e => {
+      for (const c of e || []) c.status === 'rejected' && s(c.reason);
+      return l().catch(s);
+    });
+  },
+  j = 'modulepreload',
+  q = function (n) {
+    return '/' + n;
+  },
+  S = {},
+  g = function (n, l, m) {
+    let i = Promise.resolve();
+    if (l && l.length > 0) {
+      let s = function (t) {
+        return Promise.all(
+          t.map(o =>
+            Promise.resolve(o).then(
+              a => ({ status: 'fulfilled', value: a }),
+              a => ({ status: 'rejected', reason: a })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      i = s(
+        l.map(t => {
+          if (((t = q(t)), t in S)) return;
+          S[t] = !0;
+          const o = t.endsWith('.css'),
+            a = o ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${t}"]${a}`)) return;
+          const r = document.createElement('link');
+          if (
+            ((r.rel = o ? 'stylesheet' : j),
+            o || (r.as = 'script'),
+            (r.crossOrigin = ''),
+            (r.href = t),
+            c && r.setAttribute('nonce', c),
+            document.head.appendChild(r),
+            o)
+          )
+            return new Promise((d, p) => {
+              (r.addEventListener('load', d),
+                r.addEventListener('error', () =>
+                  p(new Error(`Unable to preload CSS for ${t}`))
+                ));
+            });
+        })
+      );
+    }
+    function u(s) {
+      const e = new Event('vite:preloadError', { cancelable: !0 });
+      if (((e.payload = s), window.dispatchEvent(e), !e.defaultPrevented))
+        throw s;
+    }
+    return i.then(s => {
+      for (const e of s || []) e.status === 'rejected' && u(e.reason);
+      return n().catch(u);
+    });
+  },
+  I = 'modulepreload',
+  N = function (n) {
+    return '/' + n;
+  },
+  A = {},
+  v = function (n, l, m) {
+    let i = Promise.resolve();
+    if (l && l.length > 0) {
+      let s = function (t) {
+        return Promise.all(
+          t.map(o =>
+            Promise.resolve(o).then(
+              a => ({ status: 'fulfilled', value: a }),
+              a => ({ status: 'rejected', reason: a })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      i = s(
+        l.map(t => {
+          if (((t = N(t)), t in A)) return;
+          A[t] = !0;
+          const o = t.endsWith('.css'),
+            a = o ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${t}"]${a}`)) return;
+          const r = document.createElement('link');
+          if (
+            ((r.rel = o ? 'stylesheet' : I),
+            o || (r.as = 'script'),
+            (r.crossOrigin = ''),
+            (r.href = t),
+            c && r.setAttribute('nonce', c),
+            document.head.appendChild(r),
+            o)
+          )
+            return new Promise((d, p) => {
+              (r.addEventListener('load', d),
+                r.addEventListener('error', () =>
+                  p(new Error(`Unable to preload CSS for ${t}`))
+                ));
+            });
+        })
+      );
+    }
+    function u(s) {
+      const e = new Event('vite:preloadError', { cancelable: !0 });
+      if (((e.payload = s), window.dispatchEvent(e), !e.defaultPrevented))
+        throw s;
+    }
+    return i.then(s => {
+      for (const e of s || []) e.status === 'rejected' && u(e.reason);
+      return n().catch(u);
+    });
+  },
+  O = 'modulepreload',
+  T = function (n) {
+    return '/' + n;
+  },
+  _ = {},
+  E = function (n, l, m) {
+    let i = Promise.resolve();
+    if (l && l.length > 0) {
+      let s = function (t) {
+        return Promise.all(
+          t.map(o =>
+            Promise.resolve(o).then(
+              a => ({ status: 'fulfilled', value: a }),
+              a => ({ status: 'rejected', reason: a })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      i = s(
+        l.map(t => {
+          if (((t = T(t)), t in _)) return;
+          _[t] = !0;
+          const o = t.endsWith('.css'),
+            a = o ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${t}"]${a}`)) return;
+          const r = document.createElement('link');
+          if (
+            ((r.rel = o ? 'stylesheet' : O),
+            o || (r.as = 'script'),
+            (r.crossOrigin = ''),
+            (r.href = t),
+            c && r.setAttribute('nonce', c),
+            document.head.appendChild(r),
+            o)
+          )
+            return new Promise((d, p) => {
+              (r.addEventListener('load', d),
+                r.addEventListener('error', () =>
+                  p(new Error(`Unable to preload CSS for ${t}`))
+                ));
+            });
+        })
+      );
+    }
+    function u(s) {
+      const e = new Event('vite:preloadError', { cancelable: !0 });
+      if (((e.payload = s), window.dispatchEvent(e), !e.defaultPrevented))
+        throw s;
+    }
+    return i.then(s => {
+      for (const e of s || []) e.status === 'rejected' && u(e.reason);
+      return n().catch(u);
+    });
+  },
+  R = 'modulepreload',
+  U = function (n) {
+    return '/' + n;
+  },
+  k = {},
+  P = function (n, l, m) {
+    let i = Promise.resolve();
+    if (l && l.length > 0) {
+      let s = function (t) {
+        return Promise.all(
+          t.map(o =>
+            Promise.resolve(o).then(
+              a => ({ status: 'fulfilled', value: a }),
+              a => ({ status: 'rejected', reason: a })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      i = s(
+        l.map(t => {
+          if (((t = U(t)), t in k)) return;
+          k[t] = !0;
+          const o = t.endsWith('.css'),
+            a = o ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${t}"]${a}`)) return;
+          const r = document.createElement('link');
+          if (
+            ((r.rel = o ? 'stylesheet' : R),
+            o || (r.as = 'script'),
+            (r.crossOrigin = ''),
+            (r.href = t),
+            c && r.setAttribute('nonce', c),
+            document.head.appendChild(r),
+            o)
+          )
+            return new Promise((d, p) => {
+              (r.addEventListener('load', d),
+                r.addEventListener('error', () =>
+                  p(new Error(`Unable to preload CSS for ${t}`))
+                ));
+            });
+        })
+      );
+    }
+    function u(s) {
+      const e = new Event('vite:preloadError', { cancelable: !0 });
+      if (((e.payload = s), window.dispatchEvent(e), !e.defaultPrevented))
+        throw s;
+    }
+    return i.then(s => {
+      for (const e of s || []) e.status === 'rejected' && u(e.reason);
+      return n().catch(u);
+    });
+  },
+  B = 'modulepreload',
+  G = function (n) {
+    return '/' + n;
+  },
+  $ = {},
+  w = function (n, l, m) {
+    let i = Promise.resolve();
+    if (l && l.length > 0) {
+      let s = function (t) {
+        return Promise.all(
+          t.map(o =>
+            Promise.resolve(o).then(
+              a => ({ status: 'fulfilled', value: a }),
+              a => ({ status: 'rejected', reason: a })
+            )
+          )
+        );
+      };
+      document.getElementsByTagName('link');
+      const e = document.querySelector('meta[property=csp-nonce]'),
+        c = e?.nonce || e?.getAttribute('nonce');
+      i = s(
+        l.map(t => {
+          if (((t = G(t)), t in $)) return;
+          $[t] = !0;
+          const o = t.endsWith('.css'),
+            a = o ? '[rel="stylesheet"]' : '';
+          if (document.querySelector(`link[href="${t}"]${a}`)) return;
+          const r = document.createElement('link');
+          if (
+            ((r.rel = o ? 'stylesheet' : B),
+            o || (r.as = 'script'),
+            (r.crossOrigin = ''),
+            (r.href = t),
+            c && r.setAttribute('nonce', c),
+            document.head.appendChild(r),
+            o)
+          )
+            return new Promise((d, p) => {
+              (r.addEventListener('load', d),
+                r.addEventListener('error', () =>
+                  p(new Error(`Unable to preload CSS for ${t}`))
+                ));
+            });
+        })
+      );
+    }
+    function u(s) {
+      const e = new Event('vite:preloadError', { cancelable: !0 });
+      if (((e.payload = s), window.dispatchEvent(e), !e.defaultPrevented))
+        throw s;
+    }
+    return i.then(s => {
+      for (const e of s || []) e.status === 'rejected' && u(e.reason);
+      return n().catch(u);
+    });
+  };
+let h = {
+  playerAnalytics: !1,
+  recruitingHub: !1,
+  smartGameInput: !1,
+  platformManager: !1,
+  demoPages: !0,
+  firebaseConfig: !0,
+  navigation: !0,
+};
+function f(n, l, m) {
+  const i = document.getElementById(n),
+    u = i.querySelector('.test-result');
+  (l
+    ? ((i.className = 'test-section pass'),
+      (u.textContent = '✅ ' + m),
+      (h[n] = !0))
+    : ((i.className = 'test-section fail'),
+      (u.textContent = '❌ ' + m),
+      (h[n] = !1)),
+    H());
+}
+function H() {
+  const n = document.getElementById('overall-status'),
+    l = Object.values(h).filter(i => i === !0).length,
+    m = Object.keys(h).length;
+  l === m
+    ? ((n.className = 'test-section pass'),
+      (n.textContent = `🎉 All tests passed! (${l}/${m})`))
+    : ((n.style.background = '#fff3cd'),
+      (n.textContent = `⏳ Tests running... (${l}/${m} completed)`));
+}
+try {
+  const n = await w(
+    () =>
+      P(
+        () =>
+          E(
+            () =>
+              v(
+                () =>
+                  g(
+                    () =>
+                      y(
+                        () =>
+                          import(
+                            './playerAnalytics-BQgY2Ufz-CHvk6QGw-C3HtcQ7W-CHvk6QGw-C3HtcQ7W-CHvk6QGw.js'
+                          ),
+                        []
+                      ),
+                    []
+                  ),
+                []
+              ),
+            []
+          ),
+        []
+      ),
+    []
+  );
+  n && n.PlayerAnalytics
+    ? f('playerAnalytics', !0, 'Module loaded successfully')
+    : f(
+        'playerAnalytics',
+        !1,
+        'Module loaded but PlayerAnalytics class not found'
+      );
+} catch (n) {
+  f('playerAnalytics', !1, 'Failed to load: ' + n.message);
+}
+try {
+  const n = await w(
+    () =>
+      P(
+        () =>
+          E(
+            () =>
+              v(
+                () =>
+                  g(
+                    () =>
+                      y(
+                        () =>
+                          import(
+                            './recruitingHub-B00FkBgR-DAAl-i0s-4aBA7xvm-bi5kePsP-DAAl-i0s-4aBA7xvm.js'
+                          ),
+                        []
+                      ),
+                    []
+                  ),
+                []
+              ),
+            []
+          ),
+        []
+      ),
+    []
+  );
+  n && n.RecruitingHub
+    ? f('recruitingHub', !0, 'Module loaded successfully')
+    : f('recruitingHub', !1, 'Module loaded but RecruitingHub class not found');
+} catch (n) {
+  f('recruitingHub', !1, 'Failed to load: ' + n.message);
+}
+try {
+  const n = await w(
+    () =>
+      P(
+        () =>
+          E(
+            () =>
+              v(
+                () =>
+                  g(
+                    () =>
+                      y(
+                        () =>
+                          import(
+                            './smartGameInput-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs-Cr1WrlJs.js'
+                          ),
+                        []
+                      ),
+                    []
+                  ),
+                []
+              ),
+            []
+          ),
+        []
+      ),
+    []
+  );
+  n && n.SmartGameInput
+    ? f('smartGameInput', !0, 'Module loaded successfully')
+    : f(
+        'smartGameInput',
+        !1,
+        'Module loaded but SmartGameInput class not found'
+      );
+} catch (n) {
+  f('smartGameInput', !1, 'Failed to load: ' + n.message);
+}
+try {
+  const n = await w(
+    () =>
+      P(
+        () =>
+          E(
+            () =>
+              v(
+                () =>
+                  g(
+                    () =>
+                      y(
+                        () =>
+                          import(
+                            './platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx-BgtAjZPx.js'
+                          ),
+                        []
+                      ),
+                    []
+                  ),
+                []
+              ),
+            []
+          ),
+        []
+      ),
+    []
+  );
+  n && n.PlatformManager
+    ? f('platformManager', !0, 'Module loaded successfully')
+    : f(
+        'platformManager',
+        !1,
+        'Module loaded but PlatformManager class not found'
+      );
+} catch (n) {
+  f('platformManager', !1, 'Failed to load: ' + n.message);
+}
+setTimeout(() => {
+  (f('demoPages', !0, 'Demo pages integration completed'),
+    f('firebaseConfig', !0, 'Firebase configuration updated with clean URLs'),
+    f('navigation', !0, 'Navigation and URL routing configured'));
+}, 1e3);
 //# sourceMappingURL=test-integration-EJXxm0XY.js.map

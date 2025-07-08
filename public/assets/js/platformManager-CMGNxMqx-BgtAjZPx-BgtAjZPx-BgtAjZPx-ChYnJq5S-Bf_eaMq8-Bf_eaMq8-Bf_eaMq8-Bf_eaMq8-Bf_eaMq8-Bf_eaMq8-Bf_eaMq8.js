@@ -1,4 +1,948 @@
-var y=(m,u)=>()=>(u||m((u={exports:{}}).exports,u),u.exports),v=y((m,u)=>{(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))t(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const a of i.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&t(a)}).observe(document,{childList:!0,subtree:!0});function e(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function t(s){if(s.ep)return;s.ep=!0;const i=e(s);fetch(s.href,i)}})(),function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))t(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const a of i.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&t(a)}).observe(document,{childList:!0,subtree:!0});function e(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function t(s){if(s.ep)return;s.ep=!0;const i=e(s);fetch(s.href,i)}}(),function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))t(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const a of i.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&t(a)}).observe(document,{childList:!0,subtree:!0});function e(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function t(s){if(s.ep)return;s.ep=!0;const i=e(s);fetch(s.href,i)}}(),function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))t(s);new MutationObserver(s=>{for(const i of s)if(i.type==="childList")for(const a of i.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&t(a)}).observe(document,{childList:!0,subtree:!0});function e(s){const i={};return s.integrity&&(i.integrity=s.integrity),s.referrerPolicy&&(i.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?i.credentials="include":s.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function t(s){if(s.ep)return;s.ep=!0;const i=e(s);fetch(s.href,i)}}();class p{constructor(){this.gameSession=null,this.voiceRecognition=null,this.isRecording=!1,this.currentPlayer=null,this.quickStats={points:0,rebounds:0,assists:0,steals:0,blocks:0,turnovers:0,fouls:0,fgm:0,fga:0,ftm:0,fta:0},this.gameEvents=[],this.initializeVoiceRecognition()}initializeVoiceRecognition(){if("webkitSpeechRecognition"in window||"SpeechRecognition"in window){const e=window.SpeechRecognition||window.webkitSpeechRecognition;this.voiceRecognition=new e,this.voiceRecognition.continuous=!0,this.voiceRecognition.interimResults=!0,this.voiceRecognition.lang="en-US",this.voiceRecognition.onresult=t=>{this.handleVoiceResult(t)},this.voiceRecognition.onerror=t=>{console.error("Voice recognition error:",t.error)}}}startGameSession(e){return this.gameSession={id:this.generateGameId(),homeTeam:e.homeTeam,awayTeam:e.awayTeam,playerTeam:e.playerTeam,opponent:e.opponent,date:new Date().toISOString(),quarter:1,timeRemaining:"12:00",homeScore:0,awayScore:0,players:e.players||[],events:[],isLive:!0},this.gameEvents=[],this.resetQuickStats(),this.gameSession}startVoiceInput(){this.voiceRecognition&&!this.isRecording&&(this.voiceRecognition.start(),this.isRecording=!0,this.showVoiceIndicator())}stopVoiceInput(){this.voiceRecognition&&this.isRecording&&(this.voiceRecognition.stop(),this.isRecording=!1,this.hideVoiceIndicator())}handleVoiceResult(e){const t=e.results,s=t[t.length-1];if(s.isFinal){const i=s[0].transcript.toLowerCase().trim();this.processVoiceCommand(i)}}processVoiceCommand(e){const t={score:/(\w+)\s+(made|scored|hit)\s+(?:a\s+)?(three|2|two|free throw|layup|dunk)/i,miss:/(\w+)\s+(missed|miss)\s+(?:a\s+)?(three|2|two|free throw|layup|shot)/i,assist:/(\w+)\s+(?:to\s+)?(\w+)\s+(?:for\s+(?:a\s+)?)?(three|2|two|score|basket)/i,rebound:/(\w+)\s+(rebound|board|got the rebound)/i,steal:/(\w+)\s+(steal|stole|picked off)/i,block:/(\w+)\s+(block|blocked|swat)/i,turnover:/(\w+)\s+(turnover|lost the ball|travel|double dribble)/i,foul:/(\w+)\s+(foul|fouled)/i,timeout:/(timeout|time out)/i,quarter:/(end of quarter|quarter|period)/i,substitution:/(\w+)\s+(?:in|out)\s+for\s+(\w+)/i};let s=!1;for(const[i,a]of Object.entries(t)){const n=e.match(a);if(n){this.executeVoiceCommand(i,n),s=!0;break}}s||this.showVoiceError(`Command not recognized: "${e}"`)}executeVoiceCommand(e,t){const s=t[1],i=this.findPlayer(s);if(!i&&e!=="timeout"&&e!=="quarter"){this.showVoiceError(`Player "${s}" not found`);return}const a={id:this.generateEventId(),timestamp:new Date().toISOString(),quarter:this.gameSession.quarter,player:i,type:e,description:t[0],processed:!0};switch(e){case"score":this.processScore(a,t[3]);break;case"miss":this.processMiss(a,t[3]);break;case"assist":this.processAssist(a,t[2],t[3]);break;case"rebound":this.processRebound(a);break;case"steal":this.processSteal(a);break;case"block":this.processBlock(a);break;case"turnover":this.processTurnover(a);break;case"foul":this.processFoul(a);break}this.gameEvents.push(a),this.updateGameDisplay(),this.showVoiceConfirmation(a)}processScore(e,t){const s=this.getPointsFromShotType(t);e.points=s,e.shotType=t,this.currentPlayer===e.player?.id&&(this.quickStats.points+=s,this.quickStats.fgm+=1,this.quickStats.fga+=1),this.updateScore(s)}processMiss(e,t){e.shotType=t,e.points=0,this.currentPlayer===e.player?.id&&(this.quickStats.fga+=1)}processAssist(e,t,s){const i=this.getPointsFromShotType(s);e.assistedPlayer=this.findPlayer(t),e.points=i,this.currentPlayer===e.player?.id&&(this.quickStats.assists+=1)}processRebound(e){this.currentPlayer===e.player?.id&&(this.quickStats.rebounds+=1)}processSteal(e){this.currentPlayer===e.player?.id&&(this.quickStats.steals+=1)}processBlock(e){this.currentPlayer===e.player?.id&&(this.quickStats.blocks+=1)}processTurnover(e){this.currentPlayer===e.player?.id&&(this.quickStats.turnovers+=1)}processFoul(e){this.currentPlayer===e.player?.id&&(this.quickStats.fouls+=1)}quickTapScore(e,t="2"){const s={id:this.generateEventId(),timestamp:new Date().toISOString(),quarter:this.gameSession.quarter,player:this.getCurrentPlayer(),type:"score",points:e,shotType:t,method:"quick_tap"};this.quickStats.points+=e,this.quickStats.fgm+=1,this.quickStats.fga+=1,this.gameEvents.push(s),this.updateScore(e),this.updateGameDisplay(),this.showQuickTapFeedback(`+${e} points`)}quickTapMiss(e="2"){const t={id:this.generateEventId(),timestamp:new Date().toISOString(),quarter:this.gameSession.quarter,player:this.getCurrentPlayer(),type:"miss",points:0,shotType:e,method:"quick_tap"};this.quickStats.fga+=1,this.gameEvents.push(t),this.updateGameDisplay(),this.showQuickTapFeedback("Miss recorded")}quickTapAssist(){this.quickStats.assists+=1,this.addQuickEvent("assist"),this.showQuickTapFeedback("+1 Assist")}quickTapRebound(){this.quickStats.rebounds+=1,this.addQuickEvent("rebound"),this.showQuickTapFeedback("+1 Rebound")}quickTapSteal(){this.quickStats.steals+=1,this.addQuickEvent("steal"),this.showQuickTapFeedback("+1 Steal")}quickTapBlock(){this.quickStats.blocks+=1,this.addQuickEvent("block"),this.showQuickTapFeedback("+1 Block")}quickTapTurnover(){this.quickStats.turnovers+=1,this.addQuickEvent("turnover"),this.showQuickTapFeedback("+1 Turnover")}quickTapFoul(){this.quickStats.fouls+=1,this.addQuickEvent("foul"),this.showQuickTapFeedback("+1 Foul")}addQuickEvent(e){const t={id:this.generateEventId(),timestamp:new Date().toISOString(),quarter:this.gameSession.quarter,player:this.getCurrentPlayer(),type:e,method:"quick_tap"};this.gameEvents.push(t),this.updateGameDisplay()}findPlayer(e){return this.gameSession?.players?this.gameSession.players.find(t=>t.name.toLowerCase().includes(e.toLowerCase())||t.firstName?.toLowerCase().includes(e.toLowerCase())||t.lastName?.toLowerCase().includes(e.toLowerCase())):null}getCurrentPlayer(){return this.gameSession?.players?.find(e=>e.id===this.currentPlayer)||{id:this.currentPlayer,name:"Current Player"}}getPointsFromShotType(e){const t=e.toLowerCase();return t.includes("three")||t.includes("3")?3:t.includes("free")?1:2}updateScore(e){this.gameSession&&(this.gameSession.playerTeam==="home"?this.gameSession.homeScore+=e:this.gameSession.awayScore+=e)}showVoiceIndicator(){this.updateUIElement("voice-indicator",{active:!0,text:"Listening..."})}hideVoiceIndicator(){this.updateUIElement("voice-indicator",{active:!1,text:""})}showVoiceConfirmation(e){const t=this.formatEventMessage(e);this.updateUIElement("voice-feedback",{type:"success",message:t,timeout:3e3})}showVoiceError(e){this.updateUIElement("voice-feedback",{type:"error",message:e,timeout:3e3})}showQuickTapFeedback(e){this.updateUIElement("quick-tap-feedback",{message:e,timeout:1500})}formatEventMessage(e){const t=e.player?.name||"Player";switch(e.type){case"score":return`${t} scored ${e.points} points`;case"assist":return`${t} assist recorded`;case"rebound":return`${t} rebound recorded`;case"steal":return`${t} steal recorded`;default:return`${t} ${e.type} recorded`}}updateUIElement(e,t){console.log(`UI Update - ${e}:`,t)}updateGameDisplay(){this.updateUIElement("game-stats",this.quickStats),this.updateUIElement("game-score",{home:this.gameSession?.homeScore||0,away:this.gameSession?.awayScore||0}),this.updateUIElement("recent-events",this.gameEvents.slice(-5))}endQuarter(){this.gameSession.quarter+=1,this.gameSession.timeRemaining="12:00";const e={id:this.generateEventId(),timestamp:new Date().toISOString(),type:"quarter_end",quarter:this.gameSession.quarter-1};this.gameEvents.push(e),this.updateGameDisplay()}endGame(){this.gameSession.isLive=!1,this.gameSession.endTime=new Date().toISOString();const e={...this.quickStats,gameId:this.gameSession.id,opponent:this.gameSession.opponent,result:this.getGameResult(),playTime:this.calculatePlayTime()};return{gameSession:this.gameSession,playerStats:e,events:this.gameEvents}}getGameResult(){const e=this.gameSession.playerTeam==="home"?this.gameSession.homeScore:this.gameSession.awayScore,t=this.gameSession.playerTeam==="home"?this.gameSession.awayScore:this.gameSession.homeScore;return e>t?"W":"L"}calculatePlayTime(){const e=Math.min(this.gameSession.quarter,4)*8,t=Math.min(this.gameEvents.length*.5,e);return Math.round(t)}resetQuickStats(){Object.keys(this.quickStats).forEach(e=>{this.quickStats[e]=0})}generateGameId(){return"game_"+Date.now()+"_"+Math.random().toString(36).substr(2,9)}generateEventId(){return"event_"+Date.now()+"_"+Math.random().toString(36).substr(2,9)}setCurrentPlayer(e){this.currentPlayer=e,this.resetQuickStats()}getGameStats(){return{session:this.gameSession,currentStats:this.quickStats,events:this.gameEvents,eventCount:this.gameEvents.length}}}typeof window<"u"&&(window.SmartGameInput=p);class g{constructor(){this.performanceData=[],this.insights=[],this.comparisons={},this.trends={}}trackPerformance(e){const t={gameId:e.id,date:e.date,opponent:e.opponent,minutes:e.minutes,stats:e.stats,situational:this.analyzeSituationalPerformance(e),efficiency:this.calculateAdvancedEfficiency(e.stats),impact:this.calculateGameImpact(e),timestamp:new Date().toISOString()};return this.performanceData.push(t),this.generateInsights(t),t}generateInsights(e){const t=[];if(e.stats.fga>=8){const i=e.stats.fgm/e.stats.fga*100;i<35&&t.push({type:"shooting",severity:"warning",message:`Shot selection needs improvement - ${i.toFixed(1)}% FG on ${e.stats.fga} attempts`,recommendation:"Focus on high-percentage shots near the basket and open looks"})}const s=e.stats.turnovers/(e.stats.assists+e.stats.points/2)*100;return s>20&&t.push({type:"ballhandling",severity:"alert",message:`High turnover rate: ${s.toFixed(1)}%`,recommendation:"Work on ball security drills and decision-making under pressure"}),e.situational.fourthQuarter&&e.situational.closeGame&&t.push({type:"clutch",severity:"info",message:"Strong clutch performance in close game",recommendation:"Continue developing late-game composure and leadership"}),this.insights.push(...t),t}calculateAdvancedEfficiency(e){const t=e.fga+e.fta*.44+e.turnovers,s=e.points;return{effectiveFG:e.fga>0?(e.fgm+e.threePM*.5)/e.fga*100:0,trueShootingPct:t>0?s/(2*t)*100:0,assistToTurnoverRatio:e.turnovers>0?e.assists/e.turnovers:e.assists,reboundRate:e.rebounds*5/40*100,usageRate:t>0?t/80*100:0}}analyzeSituationalPerformance(e){return{fourthQuarter:e.situational?.fourthQuarter||!1,closeGame:e.situational?.closeGame||!1,pressure:e.situational?.pressure||"normal",location:e.situational?.location||"home",restDays:e.situational?.restDays||1}}calculateGameImpact(e){const t=e.stats,s=e.minutes,i=t.points*1+t.rebounds*1.2+t.assists*1.5+t.steals*2+t.blocks*2-t.turnovers*1.5-t.fouls*.5,a=s>0?i/s:0,n=a*36;return{raw:i,perMinute:a,per36:n,rating:this.getImpactRating(n)}}getImpactRating(e){return e>=25?"Elite":e>=20?"Excellent":e>=15?"Good":e>=10?"Average":"Below Average"}analyzeTrends(e=10){const t=this.performanceData.slice(-e);if(t.length<3)return null;const s={},i=this.calculateTrend(t.map(n=>n.stats.fga>0?n.stats.fgm/n.stats.fga*100:0));s.shooting={direction:i>5?"improving":i<-5?"declining":"stable",value:i,message:this.getTrendMessage("shooting",i)};const a=this.calculateTrend(t.map(n=>n.impact.per36));return s.impact={direction:a>2?"improving":a<-2?"declining":"stable",value:a,message:this.getTrendMessage("impact",a)},s}calculateTrend(e){if(e.length<2)return 0;const t=e.length,s=Array.from({length:t},(c,o)=>o),i=s.reduce((c,o)=>c+o,0),a=e.reduce((c,o)=>c+o,0),n=s.reduce((c,o,f)=>c+o*e[f],0),l=s.reduce((c,o)=>c+o*o,0);return(t*n-i*a)/(t*l-i*i)}getTrendMessage(e,t){const s=t>0?"improving":"declining",i=Math.abs(t);return e==="shooting"?i>10?`Shooting ${s} significantly (${t.toFixed(1)}% trend)`:i>5?`Shooting ${s} moderately`:"Shooting consistency maintained":e==="impact"?i>5?`Overall impact ${s} significantly`:i>2?`Overall impact ${s} moderately`:"Impact level consistent":`${e} trend: ${s}`}generateComparisons(e,t="high_school"){const s=this.getBenchmarks(e,t),i=this.calculateAverages(),a={};return Object.keys(s).forEach(n=>{const l=i[n]||0,c=s[n],o=this.calculatePercentile(l,c);a[n]={player:l,benchmark:c.average,percentile:o,status:o>=75?"excellent":o>=50?"above_average":o>=25?"below_average":"needs_improvement"}}),a}getBenchmarks(e,t){const s={high_school:{point_guard:{points:{average:12.5,std:5.2},assists:{average:4.8,std:2.1},rebounds:{average:3.2,std:1.5},steals:{average:1.8,std:.9},turnovers:{average:2.5,std:1.2}}}};return s[t]?.[e]||s.high_school.point_guard}calculatePercentile(e,t){const s=(e-t.average)/t.std;return Math.max(0,Math.min(100,50+s*15))}calculateAverages(){if(this.performanceData.length===0)return{};const e=this.performanceData.reduce((s,i)=>(Object.keys(i.stats).forEach(a=>{s[a]=(s[a]||0)+(i.stats[a]||0)}),s),{}),t={};return Object.keys(e).forEach(s=>{t[s]=e[s]/this.performanceData.length}),t}getRecommendations(){const e=this.performanceData.slice(-5),t=[];if(e.length===0)return t;const s=e.reduce((a,n)=>a+(n.stats.turnovers||0),0)/e.length,i=e.reduce((a,n)=>{const l=n.stats.fga||0;return a+(l>0?n.stats.fgm/l*100:0)},0)/e.length;return s>3&&t.push({area:"Ball Security",priority:"high",issue:"Above average turnovers in recent games",drills:["Two-ball dribbling","Pressure passing","Decision-making scenarios"],goal:"Reduce turnovers to under 2.5 per game"}),i<40&&t.push({area:"Shooting Efficiency",priority:"medium",issue:"Shooting percentage below optimal range",drills:["Form shooting","Catch and shoot","Shot selection training"],goal:"Increase field goal percentage to 45%+"}),t}}typeof window<"u"&&(window.PlayerAnalytics=g);class h{constructor(){this.modules={},this.sharedData={currentUser:null,gameSession:null,playerProfile:{},teamData:{},performanceMetrics:{},socialConnections:[]},this.eventListeners={},this.initializeModules(),this.setupEventSystem()}initializeModules(){typeof PlayerAnalytics<"u"&&(this.modules.analytics=new PlayerAnalytics),typeof RecruitingHub<"u"&&(this.modules.recruiting=new RecruitingHub),typeof SmartGameInput<"u"&&(this.modules.gameInput=new SmartGameInput),this.setupModuleConnections()}setupModuleConnections(){this.modules.gameInput&&this.modules.analytics&&(this.modules.gameInput.onStatRecorded=e=>{this.modules.analytics.trackPerformance(e),this.updateSharedMetrics(e)}),this.modules.analytics&&this.modules.recruiting&&(this.modules.analytics.onInsightGenerated=e=>{this.modules.recruiting.updatePlayerMetrics(e),this.broadcastEvent("insight-generated",e)})}setupEventSystem(){this.eventBus={listeners:{},emit:(e,t)=>{this.eventBus.listeners[e]&&this.eventBus.listeners[e].forEach(s=>s(t))},on:(e,t)=>{this.eventBus.listeners[e]||(this.eventBus.listeners[e]=[]),this.eventBus.listeners[e].push(t)}},this.setupDefaultEventHandlers()}setupDefaultEventHandlers(){this.eventBus.on("game-completed",e=>{this.processGameCompletion(e)}),this.eventBus.on("achievement-unlocked",e=>{this.handleAchievementUnlock(e)}),this.eventBus.on("recruiter-message",e=>{this.handleRecruiterCommunication(e)}),this.eventBus.on("team-chemistry-update",e=>{this.updateTeamChemistry(e)})}processGameCompletion(e){if(this.modules.analytics){const t=this.modules.analytics.trackPerformance(e);this.sharedData.performanceMetrics=t}this.checkAchievements(e),this.modules.recruiting&&this.modules.recruiting.updatePlayerStats(e.stats),this.updateSocialFeed({type:"game-completed",player:e.player,stats:e.stats,timestamp:new Date().toISOString()}),this.saveGameData(e)}checkAchievements(e){[{id:"first-triple-double",name:"First Triple-Double",check:t=>t.points>=10&&t.rebounds>=10&&t.assists>=10},{id:"sharpshooter",name:"Sharpshooter",check:t=>t.tpm>=10},{id:"defensive-specialist",name:"Defensive Specialist",check:t=>t.steals>=5&&t.blocks>=3},{id:"lightning-fast",name:"Lightning Fast",check:t=>t.firstQuarterPoints>=20},{id:"clutch-player",name:"Clutch Player",check:t=>t.gameWinningShot===!0}].forEach(t=>{t.check(e.stats)&&this.unlockAchievement(t)})}unlockAchievement(e){const t=this.getUnlockedAchievements();t.includes(e.id)||(t.push(e.id),localStorage.setItem("unlockedAchievements",JSON.stringify(t)),this.eventBus.emit("achievement-unlocked",e),this.showAchievementNotification(e))}getUnlockedAchievements(){const e=localStorage.getItem("unlockedAchievements");return e?JSON.parse(e):[]}showAchievementNotification(e){const t=document.createElement("div");t.className="achievement-notification",t.innerHTML=`
+var y = (m, u) => () => (u || m((u = { exports: {} }).exports, u), u.exports),
+  v = y((m, u) => {
+    ((function () {
+      const r = document.createElement('link').relList;
+      if (r && r.supports && r.supports('modulepreload')) return;
+      for (const s of document.querySelectorAll('link[rel="modulepreload"]'))
+        t(s);
+      new MutationObserver(s => {
+        for (const i of s)
+          if (i.type === 'childList')
+            for (const a of i.addedNodes)
+              a.tagName === 'LINK' && a.rel === 'modulepreload' && t(a);
+      }).observe(document, { childList: !0, subtree: !0 });
+      function e(s) {
+        const i = {};
+        return (
+          s.integrity && (i.integrity = s.integrity),
+          s.referrerPolicy && (i.referrerPolicy = s.referrerPolicy),
+          s.crossOrigin === 'use-credentials'
+            ? (i.credentials = 'include')
+            : s.crossOrigin === 'anonymous'
+              ? (i.credentials = 'omit')
+              : (i.credentials = 'same-origin'),
+          i
+        );
+      }
+      function t(s) {
+        if (s.ep) return;
+        s.ep = !0;
+        const i = e(s);
+        fetch(s.href, i);
+      }
+    })(),
+      (function () {
+        const r = document.createElement('link').relList;
+        if (r && r.supports && r.supports('modulepreload')) return;
+        for (const s of document.querySelectorAll('link[rel="modulepreload"]'))
+          t(s);
+        new MutationObserver(s => {
+          for (const i of s)
+            if (i.type === 'childList')
+              for (const a of i.addedNodes)
+                a.tagName === 'LINK' && a.rel === 'modulepreload' && t(a);
+        }).observe(document, { childList: !0, subtree: !0 });
+        function e(s) {
+          const i = {};
+          return (
+            s.integrity && (i.integrity = s.integrity),
+            s.referrerPolicy && (i.referrerPolicy = s.referrerPolicy),
+            s.crossOrigin === 'use-credentials'
+              ? (i.credentials = 'include')
+              : s.crossOrigin === 'anonymous'
+                ? (i.credentials = 'omit')
+                : (i.credentials = 'same-origin'),
+            i
+          );
+        }
+        function t(s) {
+          if (s.ep) return;
+          s.ep = !0;
+          const i = e(s);
+          fetch(s.href, i);
+        }
+      })(),
+      (function () {
+        const r = document.createElement('link').relList;
+        if (r && r.supports && r.supports('modulepreload')) return;
+        for (const s of document.querySelectorAll('link[rel="modulepreload"]'))
+          t(s);
+        new MutationObserver(s => {
+          for (const i of s)
+            if (i.type === 'childList')
+              for (const a of i.addedNodes)
+                a.tagName === 'LINK' && a.rel === 'modulepreload' && t(a);
+        }).observe(document, { childList: !0, subtree: !0 });
+        function e(s) {
+          const i = {};
+          return (
+            s.integrity && (i.integrity = s.integrity),
+            s.referrerPolicy && (i.referrerPolicy = s.referrerPolicy),
+            s.crossOrigin === 'use-credentials'
+              ? (i.credentials = 'include')
+              : s.crossOrigin === 'anonymous'
+                ? (i.credentials = 'omit')
+                : (i.credentials = 'same-origin'),
+            i
+          );
+        }
+        function t(s) {
+          if (s.ep) return;
+          s.ep = !0;
+          const i = e(s);
+          fetch(s.href, i);
+        }
+      })(),
+      (function () {
+        const r = document.createElement('link').relList;
+        if (r && r.supports && r.supports('modulepreload')) return;
+        for (const s of document.querySelectorAll('link[rel="modulepreload"]'))
+          t(s);
+        new MutationObserver(s => {
+          for (const i of s)
+            if (i.type === 'childList')
+              for (const a of i.addedNodes)
+                a.tagName === 'LINK' && a.rel === 'modulepreload' && t(a);
+        }).observe(document, { childList: !0, subtree: !0 });
+        function e(s) {
+          const i = {};
+          return (
+            s.integrity && (i.integrity = s.integrity),
+            s.referrerPolicy && (i.referrerPolicy = s.referrerPolicy),
+            s.crossOrigin === 'use-credentials'
+              ? (i.credentials = 'include')
+              : s.crossOrigin === 'anonymous'
+                ? (i.credentials = 'omit')
+                : (i.credentials = 'same-origin'),
+            i
+          );
+        }
+        function t(s) {
+          if (s.ep) return;
+          s.ep = !0;
+          const i = e(s);
+          fetch(s.href, i);
+        }
+      })());
+    class p {
+      constructor() {
+        ((this.gameSession = null),
+          (this.voiceRecognition = null),
+          (this.isRecording = !1),
+          (this.currentPlayer = null),
+          (this.quickStats = {
+            points: 0,
+            rebounds: 0,
+            assists: 0,
+            steals: 0,
+            blocks: 0,
+            turnovers: 0,
+            fouls: 0,
+            fgm: 0,
+            fga: 0,
+            ftm: 0,
+            fta: 0,
+          }),
+          (this.gameEvents = []),
+          this.initializeVoiceRecognition());
+      }
+      initializeVoiceRecognition() {
+        if (
+          'webkitSpeechRecognition' in window ||
+          'SpeechRecognition' in window
+        ) {
+          const e = window.SpeechRecognition || window.webkitSpeechRecognition;
+          ((this.voiceRecognition = new e()),
+            (this.voiceRecognition.continuous = !0),
+            (this.voiceRecognition.interimResults = !0),
+            (this.voiceRecognition.lang = 'en-US'),
+            (this.voiceRecognition.onresult = t => {
+              this.handleVoiceResult(t);
+            }),
+            (this.voiceRecognition.onerror = t => {
+              console.error('Voice recognition error:', t.error);
+            }));
+        }
+      }
+      startGameSession(e) {
+        return (
+          (this.gameSession = {
+            id: this.generateGameId(),
+            homeTeam: e.homeTeam,
+            awayTeam: e.awayTeam,
+            playerTeam: e.playerTeam,
+            opponent: e.opponent,
+            date: new Date().toISOString(),
+            quarter: 1,
+            timeRemaining: '12:00',
+            homeScore: 0,
+            awayScore: 0,
+            players: e.players || [],
+            events: [],
+            isLive: !0,
+          }),
+          (this.gameEvents = []),
+          this.resetQuickStats(),
+          this.gameSession
+        );
+      }
+      startVoiceInput() {
+        this.voiceRecognition &&
+          !this.isRecording &&
+          (this.voiceRecognition.start(),
+          (this.isRecording = !0),
+          this.showVoiceIndicator());
+      }
+      stopVoiceInput() {
+        this.voiceRecognition &&
+          this.isRecording &&
+          (this.voiceRecognition.stop(),
+          (this.isRecording = !1),
+          this.hideVoiceIndicator());
+      }
+      handleVoiceResult(e) {
+        const t = e.results,
+          s = t[t.length - 1];
+        if (s.isFinal) {
+          const i = s[0].transcript.toLowerCase().trim();
+          this.processVoiceCommand(i);
+        }
+      }
+      processVoiceCommand(e) {
+        const t = {
+          score:
+            /(\w+)\s+(made|scored|hit)\s+(?:a\s+)?(three|2|two|free throw|layup|dunk)/i,
+          miss: /(\w+)\s+(missed|miss)\s+(?:a\s+)?(three|2|two|free throw|layup|shot)/i,
+          assist:
+            /(\w+)\s+(?:to\s+)?(\w+)\s+(?:for\s+(?:a\s+)?)?(three|2|two|score|basket)/i,
+          rebound: /(\w+)\s+(rebound|board|got the rebound)/i,
+          steal: /(\w+)\s+(steal|stole|picked off)/i,
+          block: /(\w+)\s+(block|blocked|swat)/i,
+          turnover: /(\w+)\s+(turnover|lost the ball|travel|double dribble)/i,
+          foul: /(\w+)\s+(foul|fouled)/i,
+          timeout: /(timeout|time out)/i,
+          quarter: /(end of quarter|quarter|period)/i,
+          substitution: /(\w+)\s+(?:in|out)\s+for\s+(\w+)/i,
+        };
+        let s = !1;
+        for (const [i, a] of Object.entries(t)) {
+          const n = e.match(a);
+          if (n) {
+            (this.executeVoiceCommand(i, n), (s = !0));
+            break;
+          }
+        }
+        s || this.showVoiceError(`Command not recognized: "${e}"`);
+      }
+      executeVoiceCommand(e, t) {
+        const s = t[1],
+          i = this.findPlayer(s);
+        if (!i && e !== 'timeout' && e !== 'quarter') {
+          this.showVoiceError(`Player "${s}" not found`);
+          return;
+        }
+        const a = {
+          id: this.generateEventId(),
+          timestamp: new Date().toISOString(),
+          quarter: this.gameSession.quarter,
+          player: i,
+          type: e,
+          description: t[0],
+          processed: !0,
+        };
+        switch (e) {
+          case 'score':
+            this.processScore(a, t[3]);
+            break;
+          case 'miss':
+            this.processMiss(a, t[3]);
+            break;
+          case 'assist':
+            this.processAssist(a, t[2], t[3]);
+            break;
+          case 'rebound':
+            this.processRebound(a);
+            break;
+          case 'steal':
+            this.processSteal(a);
+            break;
+          case 'block':
+            this.processBlock(a);
+            break;
+          case 'turnover':
+            this.processTurnover(a);
+            break;
+          case 'foul':
+            this.processFoul(a);
+            break;
+        }
+        (this.gameEvents.push(a),
+          this.updateGameDisplay(),
+          this.showVoiceConfirmation(a));
+      }
+      processScore(e, t) {
+        const s = this.getPointsFromShotType(t);
+        ((e.points = s),
+          (e.shotType = t),
+          this.currentPlayer === e.player?.id &&
+            ((this.quickStats.points += s),
+            (this.quickStats.fgm += 1),
+            (this.quickStats.fga += 1)),
+          this.updateScore(s));
+      }
+      processMiss(e, t) {
+        ((e.shotType = t),
+          (e.points = 0),
+          this.currentPlayer === e.player?.id && (this.quickStats.fga += 1));
+      }
+      processAssist(e, t, s) {
+        const i = this.getPointsFromShotType(s);
+        ((e.assistedPlayer = this.findPlayer(t)),
+          (e.points = i),
+          this.currentPlayer === e.player?.id &&
+            (this.quickStats.assists += 1));
+      }
+      processRebound(e) {
+        this.currentPlayer === e.player?.id && (this.quickStats.rebounds += 1);
+      }
+      processSteal(e) {
+        this.currentPlayer === e.player?.id && (this.quickStats.steals += 1);
+      }
+      processBlock(e) {
+        this.currentPlayer === e.player?.id && (this.quickStats.blocks += 1);
+      }
+      processTurnover(e) {
+        this.currentPlayer === e.player?.id && (this.quickStats.turnovers += 1);
+      }
+      processFoul(e) {
+        this.currentPlayer === e.player?.id && (this.quickStats.fouls += 1);
+      }
+      quickTapScore(e, t = '2') {
+        const s = {
+          id: this.generateEventId(),
+          timestamp: new Date().toISOString(),
+          quarter: this.gameSession.quarter,
+          player: this.getCurrentPlayer(),
+          type: 'score',
+          points: e,
+          shotType: t,
+          method: 'quick_tap',
+        };
+        ((this.quickStats.points += e),
+          (this.quickStats.fgm += 1),
+          (this.quickStats.fga += 1),
+          this.gameEvents.push(s),
+          this.updateScore(e),
+          this.updateGameDisplay(),
+          this.showQuickTapFeedback(`+${e} points`));
+      }
+      quickTapMiss(e = '2') {
+        const t = {
+          id: this.generateEventId(),
+          timestamp: new Date().toISOString(),
+          quarter: this.gameSession.quarter,
+          player: this.getCurrentPlayer(),
+          type: 'miss',
+          points: 0,
+          shotType: e,
+          method: 'quick_tap',
+        };
+        ((this.quickStats.fga += 1),
+          this.gameEvents.push(t),
+          this.updateGameDisplay(),
+          this.showQuickTapFeedback('Miss recorded'));
+      }
+      quickTapAssist() {
+        ((this.quickStats.assists += 1),
+          this.addQuickEvent('assist'),
+          this.showQuickTapFeedback('+1 Assist'));
+      }
+      quickTapRebound() {
+        ((this.quickStats.rebounds += 1),
+          this.addQuickEvent('rebound'),
+          this.showQuickTapFeedback('+1 Rebound'));
+      }
+      quickTapSteal() {
+        ((this.quickStats.steals += 1),
+          this.addQuickEvent('steal'),
+          this.showQuickTapFeedback('+1 Steal'));
+      }
+      quickTapBlock() {
+        ((this.quickStats.blocks += 1),
+          this.addQuickEvent('block'),
+          this.showQuickTapFeedback('+1 Block'));
+      }
+      quickTapTurnover() {
+        ((this.quickStats.turnovers += 1),
+          this.addQuickEvent('turnover'),
+          this.showQuickTapFeedback('+1 Turnover'));
+      }
+      quickTapFoul() {
+        ((this.quickStats.fouls += 1),
+          this.addQuickEvent('foul'),
+          this.showQuickTapFeedback('+1 Foul'));
+      }
+      addQuickEvent(e) {
+        const t = {
+          id: this.generateEventId(),
+          timestamp: new Date().toISOString(),
+          quarter: this.gameSession.quarter,
+          player: this.getCurrentPlayer(),
+          type: e,
+          method: 'quick_tap',
+        };
+        (this.gameEvents.push(t), this.updateGameDisplay());
+      }
+      findPlayer(e) {
+        return this.gameSession?.players
+          ? this.gameSession.players.find(
+              t =>
+                t.name.toLowerCase().includes(e.toLowerCase()) ||
+                t.firstName?.toLowerCase().includes(e.toLowerCase()) ||
+                t.lastName?.toLowerCase().includes(e.toLowerCase())
+            )
+          : null;
+      }
+      getCurrentPlayer() {
+        return (
+          this.gameSession?.players?.find(e => e.id === this.currentPlayer) || {
+            id: this.currentPlayer,
+            name: 'Current Player',
+          }
+        );
+      }
+      getPointsFromShotType(e) {
+        const t = e.toLowerCase();
+        return t.includes('three') || t.includes('3')
+          ? 3
+          : t.includes('free')
+            ? 1
+            : 2;
+      }
+      updateScore(e) {
+        this.gameSession &&
+          (this.gameSession.playerTeam === 'home'
+            ? (this.gameSession.homeScore += e)
+            : (this.gameSession.awayScore += e));
+      }
+      showVoiceIndicator() {
+        this.updateUIElement('voice-indicator', {
+          active: !0,
+          text: 'Listening...',
+        });
+      }
+      hideVoiceIndicator() {
+        this.updateUIElement('voice-indicator', { active: !1, text: '' });
+      }
+      showVoiceConfirmation(e) {
+        const t = this.formatEventMessage(e);
+        this.updateUIElement('voice-feedback', {
+          type: 'success',
+          message: t,
+          timeout: 3e3,
+        });
+      }
+      showVoiceError(e) {
+        this.updateUIElement('voice-feedback', {
+          type: 'error',
+          message: e,
+          timeout: 3e3,
+        });
+      }
+      showQuickTapFeedback(e) {
+        this.updateUIElement('quick-tap-feedback', {
+          message: e,
+          timeout: 1500,
+        });
+      }
+      formatEventMessage(e) {
+        const t = e.player?.name || 'Player';
+        switch (e.type) {
+          case 'score':
+            return `${t} scored ${e.points} points`;
+          case 'assist':
+            return `${t} assist recorded`;
+          case 'rebound':
+            return `${t} rebound recorded`;
+          case 'steal':
+            return `${t} steal recorded`;
+          default:
+            return `${t} ${e.type} recorded`;
+        }
+      }
+      updateUIElement(e, t) {
+        console.log(`UI Update - ${e}:`, t);
+      }
+      updateGameDisplay() {
+        (this.updateUIElement('game-stats', this.quickStats),
+          this.updateUIElement('game-score', {
+            home: this.gameSession?.homeScore || 0,
+            away: this.gameSession?.awayScore || 0,
+          }),
+          this.updateUIElement('recent-events', this.gameEvents.slice(-5)));
+      }
+      endQuarter() {
+        ((this.gameSession.quarter += 1),
+          (this.gameSession.timeRemaining = '12:00'));
+        const e = {
+          id: this.generateEventId(),
+          timestamp: new Date().toISOString(),
+          type: 'quarter_end',
+          quarter: this.gameSession.quarter - 1,
+        };
+        (this.gameEvents.push(e), this.updateGameDisplay());
+      }
+      endGame() {
+        ((this.gameSession.isLive = !1),
+          (this.gameSession.endTime = new Date().toISOString()));
+        const e = {
+          ...this.quickStats,
+          gameId: this.gameSession.id,
+          opponent: this.gameSession.opponent,
+          result: this.getGameResult(),
+          playTime: this.calculatePlayTime(),
+        };
+        return {
+          gameSession: this.gameSession,
+          playerStats: e,
+          events: this.gameEvents,
+        };
+      }
+      getGameResult() {
+        const e =
+            this.gameSession.playerTeam === 'home'
+              ? this.gameSession.homeScore
+              : this.gameSession.awayScore,
+          t =
+            this.gameSession.playerTeam === 'home'
+              ? this.gameSession.awayScore
+              : this.gameSession.homeScore;
+        return e > t ? 'W' : 'L';
+      }
+      calculatePlayTime() {
+        const e = Math.min(this.gameSession.quarter, 4) * 8,
+          t = Math.min(this.gameEvents.length * 0.5, e);
+        return Math.round(t);
+      }
+      resetQuickStats() {
+        Object.keys(this.quickStats).forEach(e => {
+          this.quickStats[e] = 0;
+        });
+      }
+      generateGameId() {
+        return (
+          'game_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+        );
+      }
+      generateEventId() {
+        return (
+          'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+        );
+      }
+      setCurrentPlayer(e) {
+        ((this.currentPlayer = e), this.resetQuickStats());
+      }
+      getGameStats() {
+        return {
+          session: this.gameSession,
+          currentStats: this.quickStats,
+          events: this.gameEvents,
+          eventCount: this.gameEvents.length,
+        };
+      }
+    }
+    typeof window < 'u' && (window.SmartGameInput = p);
+    class g {
+      constructor() {
+        ((this.performanceData = []),
+          (this.insights = []),
+          (this.comparisons = {}),
+          (this.trends = {}));
+      }
+      trackPerformance(e) {
+        const t = {
+          gameId: e.id,
+          date: e.date,
+          opponent: e.opponent,
+          minutes: e.minutes,
+          stats: e.stats,
+          situational: this.analyzeSituationalPerformance(e),
+          efficiency: this.calculateAdvancedEfficiency(e.stats),
+          impact: this.calculateGameImpact(e),
+          timestamp: new Date().toISOString(),
+        };
+        return (this.performanceData.push(t), this.generateInsights(t), t);
+      }
+      generateInsights(e) {
+        const t = [];
+        if (e.stats.fga >= 8) {
+          const i = (e.stats.fgm / e.stats.fga) * 100;
+          i < 35 &&
+            t.push({
+              type: 'shooting',
+              severity: 'warning',
+              message: `Shot selection needs improvement - ${i.toFixed(1)}% FG on ${e.stats.fga} attempts`,
+              recommendation:
+                'Focus on high-percentage shots near the basket and open looks',
+            });
+        }
+        const s =
+          (e.stats.turnovers / (e.stats.assists + e.stats.points / 2)) * 100;
+        return (
+          s > 20 &&
+            t.push({
+              type: 'ballhandling',
+              severity: 'alert',
+              message: `High turnover rate: ${s.toFixed(1)}%`,
+              recommendation:
+                'Work on ball security drills and decision-making under pressure',
+            }),
+          e.situational.fourthQuarter &&
+            e.situational.closeGame &&
+            t.push({
+              type: 'clutch',
+              severity: 'info',
+              message: 'Strong clutch performance in close game',
+              recommendation:
+                'Continue developing late-game composure and leadership',
+            }),
+          this.insights.push(...t),
+          t
+        );
+      }
+      calculateAdvancedEfficiency(e) {
+        const t = e.fga + e.fta * 0.44 + e.turnovers,
+          s = e.points;
+        return {
+          effectiveFG:
+            e.fga > 0 ? ((e.fgm + e.threePM * 0.5) / e.fga) * 100 : 0,
+          trueShootingPct: t > 0 ? (s / (2 * t)) * 100 : 0,
+          assistToTurnoverRatio:
+            e.turnovers > 0 ? e.assists / e.turnovers : e.assists,
+          reboundRate: ((e.rebounds * 5) / 40) * 100,
+          usageRate: t > 0 ? (t / 80) * 100 : 0,
+        };
+      }
+      analyzeSituationalPerformance(e) {
+        return {
+          fourthQuarter: e.situational?.fourthQuarter || !1,
+          closeGame: e.situational?.closeGame || !1,
+          pressure: e.situational?.pressure || 'normal',
+          location: e.situational?.location || 'home',
+          restDays: e.situational?.restDays || 1,
+        };
+      }
+      calculateGameImpact(e) {
+        const t = e.stats,
+          s = e.minutes,
+          i =
+            t.points * 1 +
+            t.rebounds * 1.2 +
+            t.assists * 1.5 +
+            t.steals * 2 +
+            t.blocks * 2 -
+            t.turnovers * 1.5 -
+            t.fouls * 0.5,
+          a = s > 0 ? i / s : 0,
+          n = a * 36;
+        return {
+          raw: i,
+          perMinute: a,
+          per36: n,
+          rating: this.getImpactRating(n),
+        };
+      }
+      getImpactRating(e) {
+        return e >= 25
+          ? 'Elite'
+          : e >= 20
+            ? 'Excellent'
+            : e >= 15
+              ? 'Good'
+              : e >= 10
+                ? 'Average'
+                : 'Below Average';
+      }
+      analyzeTrends(e = 10) {
+        const t = this.performanceData.slice(-e);
+        if (t.length < 3) return null;
+        const s = {},
+          i = this.calculateTrend(
+            t.map(n =>
+              n.stats.fga > 0 ? (n.stats.fgm / n.stats.fga) * 100 : 0
+            )
+          );
+        s.shooting = {
+          direction: i > 5 ? 'improving' : i < -5 ? 'declining' : 'stable',
+          value: i,
+          message: this.getTrendMessage('shooting', i),
+        };
+        const a = this.calculateTrend(t.map(n => n.impact.per36));
+        return (
+          (s.impact = {
+            direction: a > 2 ? 'improving' : a < -2 ? 'declining' : 'stable',
+            value: a,
+            message: this.getTrendMessage('impact', a),
+          }),
+          s
+        );
+      }
+      calculateTrend(e) {
+        if (e.length < 2) return 0;
+        const t = e.length,
+          s = Array.from({ length: t }, (c, o) => o),
+          i = s.reduce((c, o) => c + o, 0),
+          a = e.reduce((c, o) => c + o, 0),
+          n = s.reduce((c, o, f) => c + o * e[f], 0),
+          l = s.reduce((c, o) => c + o * o, 0);
+        return (t * n - i * a) / (t * l - i * i);
+      }
+      getTrendMessage(e, t) {
+        const s = t > 0 ? 'improving' : 'declining',
+          i = Math.abs(t);
+        return e === 'shooting'
+          ? i > 10
+            ? `Shooting ${s} significantly (${t.toFixed(1)}% trend)`
+            : i > 5
+              ? `Shooting ${s} moderately`
+              : 'Shooting consistency maintained'
+          : e === 'impact'
+            ? i > 5
+              ? `Overall impact ${s} significantly`
+              : i > 2
+                ? `Overall impact ${s} moderately`
+                : 'Impact level consistent'
+            : `${e} trend: ${s}`;
+      }
+      generateComparisons(e, t = 'high_school') {
+        const s = this.getBenchmarks(e, t),
+          i = this.calculateAverages(),
+          a = {};
+        return (
+          Object.keys(s).forEach(n => {
+            const l = i[n] || 0,
+              c = s[n],
+              o = this.calculatePercentile(l, c);
+            a[n] = {
+              player: l,
+              benchmark: c.average,
+              percentile: o,
+              status:
+                o >= 75
+                  ? 'excellent'
+                  : o >= 50
+                    ? 'above_average'
+                    : o >= 25
+                      ? 'below_average'
+                      : 'needs_improvement',
+            };
+          }),
+          a
+        );
+      }
+      getBenchmarks(e, t) {
+        const s = {
+          high_school: {
+            point_guard: {
+              points: { average: 12.5, std: 5.2 },
+              assists: { average: 4.8, std: 2.1 },
+              rebounds: { average: 3.2, std: 1.5 },
+              steals: { average: 1.8, std: 0.9 },
+              turnovers: { average: 2.5, std: 1.2 },
+            },
+          },
+        };
+        return s[t]?.[e] || s.high_school.point_guard;
+      }
+      calculatePercentile(e, t) {
+        const s = (e - t.average) / t.std;
+        return Math.max(0, Math.min(100, 50 + s * 15));
+      }
+      calculateAverages() {
+        if (this.performanceData.length === 0) return {};
+        const e = this.performanceData.reduce(
+            (s, i) => (
+              Object.keys(i.stats).forEach(a => {
+                s[a] = (s[a] || 0) + (i.stats[a] || 0);
+              }),
+              s
+            ),
+            {}
+          ),
+          t = {};
+        return (
+          Object.keys(e).forEach(s => {
+            t[s] = e[s] / this.performanceData.length;
+          }),
+          t
+        );
+      }
+      getRecommendations() {
+        const e = this.performanceData.slice(-5),
+          t = [];
+        if (e.length === 0) return t;
+        const s =
+            e.reduce((a, n) => a + (n.stats.turnovers || 0), 0) / e.length,
+          i =
+            e.reduce((a, n) => {
+              const l = n.stats.fga || 0;
+              return a + (l > 0 ? (n.stats.fgm / l) * 100 : 0);
+            }, 0) / e.length;
+        return (
+          s > 3 &&
+            t.push({
+              area: 'Ball Security',
+              priority: 'high',
+              issue: 'Above average turnovers in recent games',
+              drills: [
+                'Two-ball dribbling',
+                'Pressure passing',
+                'Decision-making scenarios',
+              ],
+              goal: 'Reduce turnovers to under 2.5 per game',
+            }),
+          i < 40 &&
+            t.push({
+              area: 'Shooting Efficiency',
+              priority: 'medium',
+              issue: 'Shooting percentage below optimal range',
+              drills: [
+                'Form shooting',
+                'Catch and shoot',
+                'Shot selection training',
+              ],
+              goal: 'Increase field goal percentage to 45%+',
+            }),
+          t
+        );
+      }
+    }
+    typeof window < 'u' && (window.PlayerAnalytics = g);
+    class h {
+      constructor() {
+        ((this.modules = {}),
+          (this.sharedData = {
+            currentUser: null,
+            gameSession: null,
+            playerProfile: {},
+            teamData: {},
+            performanceMetrics: {},
+            socialConnections: [],
+          }),
+          (this.eventListeners = {}),
+          this.initializeModules(),
+          this.setupEventSystem());
+      }
+      initializeModules() {
+        (typeof PlayerAnalytics < 'u' &&
+          (this.modules.analytics = new PlayerAnalytics()),
+          typeof RecruitingHub < 'u' &&
+            (this.modules.recruiting = new RecruitingHub()),
+          typeof SmartGameInput < 'u' &&
+            (this.modules.gameInput = new SmartGameInput()),
+          this.setupModuleConnections());
+      }
+      setupModuleConnections() {
+        (this.modules.gameInput &&
+          this.modules.analytics &&
+          (this.modules.gameInput.onStatRecorded = e => {
+            (this.modules.analytics.trackPerformance(e),
+              this.updateSharedMetrics(e));
+          }),
+          this.modules.analytics &&
+            this.modules.recruiting &&
+            (this.modules.analytics.onInsightGenerated = e => {
+              (this.modules.recruiting.updatePlayerMetrics(e),
+                this.broadcastEvent('insight-generated', e));
+            }));
+      }
+      setupEventSystem() {
+        ((this.eventBus = {
+          listeners: {},
+          emit: (e, t) => {
+            this.eventBus.listeners[e] &&
+              this.eventBus.listeners[e].forEach(s => s(t));
+          },
+          on: (e, t) => {
+            (this.eventBus.listeners[e] || (this.eventBus.listeners[e] = []),
+              this.eventBus.listeners[e].push(t));
+          },
+        }),
+          this.setupDefaultEventHandlers());
+      }
+      setupDefaultEventHandlers() {
+        (this.eventBus.on('game-completed', e => {
+          this.processGameCompletion(e);
+        }),
+          this.eventBus.on('achievement-unlocked', e => {
+            this.handleAchievementUnlock(e);
+          }),
+          this.eventBus.on('recruiter-message', e => {
+            this.handleRecruiterCommunication(e);
+          }),
+          this.eventBus.on('team-chemistry-update', e => {
+            this.updateTeamChemistry(e);
+          }));
+      }
+      processGameCompletion(e) {
+        if (this.modules.analytics) {
+          const t = this.modules.analytics.trackPerformance(e);
+          this.sharedData.performanceMetrics = t;
+        }
+        (this.checkAchievements(e),
+          this.modules.recruiting &&
+            this.modules.recruiting.updatePlayerStats(e.stats),
+          this.updateSocialFeed({
+            type: 'game-completed',
+            player: e.player,
+            stats: e.stats,
+            timestamp: new Date().toISOString(),
+          }),
+          this.saveGameData(e));
+      }
+      checkAchievements(e) {
+        [
+          {
+            id: 'first-triple-double',
+            name: 'First Triple-Double',
+            check: t => t.points >= 10 && t.rebounds >= 10 && t.assists >= 10,
+          },
+          { id: 'sharpshooter', name: 'Sharpshooter', check: t => t.tpm >= 10 },
+          {
+            id: 'defensive-specialist',
+            name: 'Defensive Specialist',
+            check: t => t.steals >= 5 && t.blocks >= 3,
+          },
+          {
+            id: 'lightning-fast',
+            name: 'Lightning Fast',
+            check: t => t.firstQuarterPoints >= 20,
+          },
+          {
+            id: 'clutch-player',
+            name: 'Clutch Player',
+            check: t => t.gameWinningShot === !0,
+          },
+        ].forEach(t => {
+          t.check(e.stats) && this.unlockAchievement(t);
+        });
+      }
+      unlockAchievement(e) {
+        const t = this.getUnlockedAchievements();
+        t.includes(e.id) ||
+          (t.push(e.id),
+          localStorage.setItem('unlockedAchievements', JSON.stringify(t)),
+          this.eventBus.emit('achievement-unlocked', e),
+          this.showAchievementNotification(e));
+      }
+      getUnlockedAchievements() {
+        const e = localStorage.getItem('unlockedAchievements');
+        return e ? JSON.parse(e) : [];
+      }
+      showAchievementNotification(e) {
+        const t = document.createElement('div');
+        ((t.className = 'achievement-notification'),
+          (t.innerHTML = `
       <div class="achievement-popup">
         <div class="achievement-icon">🏆</div>
         <div class="achievement-content">
@@ -6,7 +950,8 @@ var y=(m,u)=>()=>(u||m((u={exports:{}}).exports,u),u.exports),v=y((m,u)=>{(funct
           <p>${e.name}</p>
         </div>
       </div>
-    `;const s=`
+    `));
+        const s = `
       .achievement-notification {
         position: fixed;
         top: 20px;
@@ -47,5 +992,185 @@ var y=(m,u)=>()=>(u||m((u={exports:{}}).exports,u),u.exports),v=y((m,u)=>{(funct
           opacity: 1;
         }
       }
-    `;if(!document.querySelector("#achievement-styles")){const i=document.createElement("style");i.id="achievement-styles",i.textContent=s,document.head.appendChild(i)}document.body.appendChild(t),setTimeout(()=>{t.style.animation="slideInRight 0.5s ease-out reverse",setTimeout(()=>{t.parentNode&&t.parentNode.removeChild(t)},500)},5e3)}updateTeamChemistry(e){const t={overall:this.calculateTeamChemistry(e),connections:this.analyzePlayerConnections(e),recommendations:this.generateChemistryRecommendations(e)};this.sharedData.teamData.chemistry=t,this.eventBus.emit("chemistry-updated",t)}calculateTeamChemistry(e){const t={communication:e.communicationEvents||0,assists:e.totalAssists||0,turnovers:e.totalTurnovers||0,winRate:e.winRate||0},s=Math.min(t.communication/50*100,100),i=Math.max(0,100-t.turnovers/t.assists*20),a=t.winRate*100;return Math.round((s+i+a)/3)}analyzePlayerConnections(e){const t={};return e.playerStats&&Object.keys(e.playerStats).forEach(s=>{t[s]={},Object.keys(e.playerStats).forEach(i=>{s!==i&&(t[s][i]=this.calculateConnectionStrength(e.playerStats[s],e.playerStats[i]))})}),t}calculateConnectionStrength(e,t){const s=(e.assistsToPlayer2||0)/Math.max(e.totalAssists||1,1),i=(e.turnoversWithPlayer2||0)/Math.max(e.totalTurnovers||1,1),a=s*100-i*50;return a>=70?"high":a>=40?"medium":"low"}generateChemistryRecommendations(e){const t=[];return e.communicationScore<70&&t.push("Focus on defensive communication drills"),e.assistToTurnoverRatio<1.5&&t.push("Practice ball movement and decision-making"),e.benchChemistry<e.starterChemistry&&t.push("Organize team bonding activities for all players"),t}handleRecruiterCommunication(e){const t={id:Date.now(),recruiter:e.recruiter,college:e.college,message:e.content,timestamp:new Date().toISOString(),status:"unread"};this.addRecruiterMessage(t),this.showRecruiterNotification(t)}addRecruiterMessage(e){const t=this.getRecruiterMessages();t.unshift(e),localStorage.setItem("recruiterMessages",JSON.stringify(t))}getRecruiterMessages(){const e=localStorage.getItem("recruiterMessages");return e?JSON.parse(e):[]}showRecruiterNotification(e){console.log("New recruiter message:",e)}updateSocialFeed(e){const t=this.getSocialFeed();t.unshift({...e,id:Date.now(),timestamp:e.timestamp||new Date().toISOString()}),t.length>100&&t.splice(100),localStorage.setItem("socialFeed",JSON.stringify(t)),this.eventBus.emit("social-feed-updated",t)}getSocialFeed(){const e=localStorage.getItem("socialFeed");return e?JSON.parse(e):[]}saveGameData(e){const t=this.getAllGameData();t.unshift(e),t.length>50&&t.splice(50),localStorage.setItem("gameHistory",JSON.stringify(t))}getAllGameData(){const e=localStorage.getItem("gameHistory");return e?JSON.parse(e):[]}broadcastEvent(e,t){this.eventBus.emit(e,t)}addEventListener(e,t){this.eventBus.on(e,t)}updateSharedMetrics(e){this.sharedData.performanceMetrics={...this.sharedData.performanceMetrics,...e,lastUpdated:new Date().toISOString()}}getSharedData(){return this.sharedData}generateCoachingInsight(e){const t={strengths:[],weaknesses:[],recommendations:[]};return e.fgPercentage>50?t.strengths.push("Excellent shooting efficiency"):e.fgPercentage<40&&(t.weaknesses.push("Shooting consistency needs improvement"),t.recommendations.push("Focus on form shooting drills and shot selection")),e.assistToTurnoverRatio>2?t.strengths.push("Great ball security and playmaking"):e.assistToTurnoverRatio<1&&(t.weaknesses.push("High turnover rate affecting team flow"),t.recommendations.push("Practice decision-making under pressure")),t}predictPerformance(e){this.getAllGameData();const t=this.sharedData.performanceMetrics,s={expectedPoints:t.averagePoints||0,expectedAssists:t.averageAssists||0,expectedRebounds:t.averageRebounds||0,confidence:.75};return e.defensiveRating>110&&(s.expectedPoints*=.9,s.confidence*=.9),s}}let d;document.addEventListener("DOMContentLoaded",()=>{d=new h,window.BasketballPlatform=d,window.PlatformManager=h}),typeof u<"u"&&u.exports&&(u.exports=h)});v();
+    `;
+        if (!document.querySelector('#achievement-styles')) {
+          const i = document.createElement('style');
+          ((i.id = 'achievement-styles'),
+            (i.textContent = s),
+            document.head.appendChild(i));
+        }
+        (document.body.appendChild(t),
+          setTimeout(() => {
+            ((t.style.animation = 'slideInRight 0.5s ease-out reverse'),
+              setTimeout(() => {
+                t.parentNode && t.parentNode.removeChild(t);
+              }, 500));
+          }, 5e3));
+      }
+      updateTeamChemistry(e) {
+        const t = {
+          overall: this.calculateTeamChemistry(e),
+          connections: this.analyzePlayerConnections(e),
+          recommendations: this.generateChemistryRecommendations(e),
+        };
+        ((this.sharedData.teamData.chemistry = t),
+          this.eventBus.emit('chemistry-updated', t));
+      }
+      calculateTeamChemistry(e) {
+        const t = {
+            communication: e.communicationEvents || 0,
+            assists: e.totalAssists || 0,
+            turnovers: e.totalTurnovers || 0,
+            winRate: e.winRate || 0,
+          },
+          s = Math.min((t.communication / 50) * 100, 100),
+          i = Math.max(0, 100 - (t.turnovers / t.assists) * 20),
+          a = t.winRate * 100;
+        return Math.round((s + i + a) / 3);
+      }
+      analyzePlayerConnections(e) {
+        const t = {};
+        return (
+          e.playerStats &&
+            Object.keys(e.playerStats).forEach(s => {
+              ((t[s] = {}),
+                Object.keys(e.playerStats).forEach(i => {
+                  s !== i &&
+                    (t[s][i] = this.calculateConnectionStrength(
+                      e.playerStats[s],
+                      e.playerStats[i]
+                    ));
+                }));
+            }),
+          t
+        );
+      }
+      calculateConnectionStrength(e, t) {
+        const s = (e.assistsToPlayer2 || 0) / Math.max(e.totalAssists || 1, 1),
+          i =
+            (e.turnoversWithPlayer2 || 0) / Math.max(e.totalTurnovers || 1, 1),
+          a = s * 100 - i * 50;
+        return a >= 70 ? 'high' : a >= 40 ? 'medium' : 'low';
+      }
+      generateChemistryRecommendations(e) {
+        const t = [];
+        return (
+          e.communicationScore < 70 &&
+            t.push('Focus on defensive communication drills'),
+          e.assistToTurnoverRatio < 1.5 &&
+            t.push('Practice ball movement and decision-making'),
+          e.benchChemistry < e.starterChemistry &&
+            t.push('Organize team bonding activities for all players'),
+          t
+        );
+      }
+      handleRecruiterCommunication(e) {
+        const t = {
+          id: Date.now(),
+          recruiter: e.recruiter,
+          college: e.college,
+          message: e.content,
+          timestamp: new Date().toISOString(),
+          status: 'unread',
+        };
+        (this.addRecruiterMessage(t), this.showRecruiterNotification(t));
+      }
+      addRecruiterMessage(e) {
+        const t = this.getRecruiterMessages();
+        (t.unshift(e),
+          localStorage.setItem('recruiterMessages', JSON.stringify(t)));
+      }
+      getRecruiterMessages() {
+        const e = localStorage.getItem('recruiterMessages');
+        return e ? JSON.parse(e) : [];
+      }
+      showRecruiterNotification(e) {
+        console.log('New recruiter message:', e);
+      }
+      updateSocialFeed(e) {
+        const t = this.getSocialFeed();
+        (t.unshift({
+          ...e,
+          id: Date.now(),
+          timestamp: e.timestamp || new Date().toISOString(),
+        }),
+          t.length > 100 && t.splice(100),
+          localStorage.setItem('socialFeed', JSON.stringify(t)),
+          this.eventBus.emit('social-feed-updated', t));
+      }
+      getSocialFeed() {
+        const e = localStorage.getItem('socialFeed');
+        return e ? JSON.parse(e) : [];
+      }
+      saveGameData(e) {
+        const t = this.getAllGameData();
+        (t.unshift(e),
+          t.length > 50 && t.splice(50),
+          localStorage.setItem('gameHistory', JSON.stringify(t)));
+      }
+      getAllGameData() {
+        const e = localStorage.getItem('gameHistory');
+        return e ? JSON.parse(e) : [];
+      }
+      broadcastEvent(e, t) {
+        this.eventBus.emit(e, t);
+      }
+      addEventListener(e, t) {
+        this.eventBus.on(e, t);
+      }
+      updateSharedMetrics(e) {
+        this.sharedData.performanceMetrics = {
+          ...this.sharedData.performanceMetrics,
+          ...e,
+          lastUpdated: new Date().toISOString(),
+        };
+      }
+      getSharedData() {
+        return this.sharedData;
+      }
+      generateCoachingInsight(e) {
+        const t = { strengths: [], weaknesses: [], recommendations: [] };
+        return (
+          e.fgPercentage > 50
+            ? t.strengths.push('Excellent shooting efficiency')
+            : e.fgPercentage < 40 &&
+              (t.weaknesses.push('Shooting consistency needs improvement'),
+              t.recommendations.push(
+                'Focus on form shooting drills and shot selection'
+              )),
+          e.assistToTurnoverRatio > 2
+            ? t.strengths.push('Great ball security and playmaking')
+            : e.assistToTurnoverRatio < 1 &&
+              (t.weaknesses.push('High turnover rate affecting team flow'),
+              t.recommendations.push(
+                'Practice decision-making under pressure'
+              )),
+          t
+        );
+      }
+      predictPerformance(e) {
+        this.getAllGameData();
+        const t = this.sharedData.performanceMetrics,
+          s = {
+            expectedPoints: t.averagePoints || 0,
+            expectedAssists: t.averageAssists || 0,
+            expectedRebounds: t.averageRebounds || 0,
+            confidence: 0.75,
+          };
+        return (
+          e.defensiveRating > 110 &&
+            ((s.expectedPoints *= 0.9), (s.confidence *= 0.9)),
+          s
+        );
+      }
+    }
+    let d;
+    (document.addEventListener('DOMContentLoaded', () => {
+      ((d = new h()),
+        (window.BasketballPlatform = d),
+        (window.PlatformManager = h));
+    }),
+      typeof u < 'u' && u.exports && (u.exports = h));
+  });
+v();
 //# sourceMappingURL=platformManager-CMGNxMqx-BgtAjZPx-BgtAjZPx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8-Bf_eaMq8.js.map
