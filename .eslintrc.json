@@ -1,0 +1,55 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": "error",
+    "curly": "error",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-script-url": "error",
+    "no-alert": "off",
+    "no-debugger": "error",
+    "no-duplicate-imports": "error",
+    "prefer-arrow-callback": "error",
+    "arrow-spacing": "error",
+    "object-shorthand": "error",
+    "prefer-template": "error",
+    "template-curly-spacing": "error",
+    "no-trailing-spaces": "error",
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-undef": "off"
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js", "deploy.js", "server.js"],
+      "rules": {
+        "no-console": "off",
+        "no-unused-vars": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "coverage/",
+    "public/assets/js/vendor/",
+    "*.min.js",
+    "build/",
+    "temp/"
+  ]
+}

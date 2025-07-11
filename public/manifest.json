@@ -6,8 +6,12 @@
   "display": "standalone",
   "background_color": "#007cba",
   "theme_color": "#00b4d8",
-  "orientation": "portrait-primary",
-  "categories": ["sports", "social", "networking"],
+  "orientation": "any",
+  "categories": [
+    "sports",
+    "social",
+    "entertainment"
+  ],
   "icons": [
     {
       "src": "/logo.png",
@@ -28,21 +32,41 @@
       "short_name": "Player",
       "description": "Try the player demo with advanced features",
       "url": "/demo-player",
-      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
       "name": "Coach Demo",
       "short_name": "Coach",
       "description": "Try the coach demo with analytics",
       "url": "/demo-coach",
-      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
       "name": "Enhanced Demo",
       "short_name": "Enhanced",
       "description": "Experience all advanced features",
       "url": "/demo-enhanced",
-      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "96x96"
+        }
+      ]
     }
+  ],
+  "scope": "/",
+  "prefer_related_applications": false,
+  "background_sync": [
+    "game-data"
   ]
 }

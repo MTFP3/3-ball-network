@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs';
-import path from 'path';
 
 // Automatically discover all HTML files in the public directory
 function getHtmlEntries() {
@@ -30,9 +29,9 @@ export default defineConfig({
     rollupOptions: {
       input: getHtmlEntries(),
       output: {
-        entryFileNames: 'assets/js/[name].js',
-        chunkFileNames: 'assets/js/[name].js',
-        assetFileNames: 'assets/[ext]/[name].[ext]',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
     outDir: '../dist',

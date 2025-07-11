@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 /**
  * 🚀 3 Ball Network - Universal Deployment Script
@@ -244,7 +245,7 @@ class DeploymentManager {
       manifest.files[file] = {
         size: stats.size,
         mtime: stats.mtime.toISOString(),
-        hash: hash,
+        hash,
       };
 
       manifest.hashes[file] = hash;
@@ -340,7 +341,9 @@ class DeploymentManager {
       log.step('Deploying to Firebase Hosting...');
 
       const deployArgs = ['deploy'];
-      if (this.isVerbose) deployArgs.push('--debug');
+      if (this.isVerbose) {
+        deployArgs.push('--debug');
+      }
 
       const deployment = spawn('firebase', deployArgs, {
         stdio: 'inherit',
@@ -389,7 +392,9 @@ class DeploymentManager {
         }
 
         // Run cleanup
-        if (cleanup) await cleanup();
+        if (cleanup) {
+          await cleanup();
+        }
 
         log.success('Shutdown completed');
         process.exit(0);

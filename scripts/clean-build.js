@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 /**
  * 3 Ball Network - Clean Build Script
@@ -6,7 +7,6 @@
  */
 
 import fs from 'fs-extra';
-import path from 'path';
 
 const colors = {
   reset: '\x1b[0m',
@@ -46,6 +46,23 @@ async function cleanBuild() {
     if (await fs.pathExists('public/asset-manifest.json')) {
       await fs.remove('public/asset-manifest.json');
       log.success('Removed asset manifest');
+    }
+
+    // Clean up old hashed JavaScript files
+    const { glob } = await import('glob');
+    const jsFiles = await glob(
+      'public/assets/js/*-[A-Za-z0-9_]*-[A-Za-z0-9_]*.js'
+    );
+    for (const file of jsFiles) {
+      await fs.remove(file);
+      // Also remove corresponding .map file
+      const mapFile = `${file}.map`;
+      if (await fs.pathExists(mapFile)) {
+        await fs.remove(mapFile);
+      }
+    }
+    if (jsFiles.length > 0) {
+      log.success(`Removed ${jsFiles.length} old hashed JS files`);
     }
 
     log.success('✨ Build cleanup completed');

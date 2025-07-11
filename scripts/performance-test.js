@@ -79,8 +79,12 @@ class PerformanceMonitor {
         const speedKBps = (result.speed / 1024).toFixed(0);
 
         let status = '✅';
-        if (result.loadTime > 1.0) status = '⚠️';
-        if (result.loadTime > 2.0) status = '❌';
+        if (result.loadTime > 1.0) {
+          status = '⚠️';
+        }
+        if (result.loadTime > 2.0) {
+          status = '❌';
+        }
 
         console.log(
           `${status} ${page.padEnd(20)} | ${result.loadTime.toFixed(3)}s | ${sizeKB.padStart(6)}KB | ${speedKBps.padStart(6)}KB/s`
@@ -92,7 +96,9 @@ class PerformanceMonitor {
   }
 
   generateReport(results) {
-    if (results.length === 0) return;
+    if (results.length === 0) {
+      return;
+    }
 
     const avgLoadTime =
       results.reduce((sum, r) => sum + r.loadTime, 0) / results.length;

@@ -1,3 +1,17 @@
+/**
+ * 🚀 3 Ball Network - Service Worker
+ *
+ * Advanced PWA service worker with intelligent caching strategies:
+ * - Network-first for HTML pages (always fresh content)
+ * - Cache-first for static assets (performance optimization)
+ * - Comprehensive cache busting and versioning
+ * - Background sync and offline support
+ * - Automatic cache cleanup and management
+ *
+ * @version 3.0.0
+ * @author 3 Ball Network Team
+ */
+
 const CACHE_VERSION = 'v3c50a0ef';
 const CACHE_FILES = [
   '/test-integration.html?v=733121c7',
@@ -27,7 +41,6 @@ const CACHE_FILES = [
   '/coach.html?v=6b69dcfb',
   '/claim-profile.html?v=94f617af',
   '/cache-clear.html?v=943be5ce',
-  '/backup_overview.html?v=d41d8cd9',
   '/analytics.html?v=a6eaa3a6',
   '/analytics-dashboard.html?v=29ee6f4e',
   '/ai-coach.html?v=0f2273c6',
@@ -137,7 +150,6 @@ const CACHE_FILES = [
   '/assets/js/claim-profile-5QXnLCVS.js.map?v=335f084e',
   '/assets/js/claim-profile-5QXnLCVS.js?v=cdec3938',
   '/assets/js/cache-clear-l0sNRNKZ.js.map?v=4fd7acd0',
-  '/assets/js/backup_overview-l0sNRNKZ.js.map?v=c3ff31a6',
   '/assets/js/analytics-dashboard-iz53jYd6.js.map?v=f21b1f8f',
   '/assets/js/analytics-UiVXSquR.js.map?v=2a2ad513',
   '/assets/js/analytics-UiVXSquR.js?v=77f02d50',
@@ -147,19 +159,19 @@ const CACHE_FILES = [
   '/assets/js/about-bKEWkBi2.js.map?v=169a20aa',
   '/assets/css/index-atMpp5Bc-atMpp5Bc-atMpp5Bc-atMpp5Bc.css?v=c4a4d731',
   '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW-CzL5AvnW.css?v=b9a841df',
-  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b'
+  '/assets/css/demo-enhancements-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j-BVQ53G1j.css?v=e553b98b',
 ];
 
-// Service Worker for 3 Ball Network PWA - ADVANCED CACHE BUSTING
+/**
+ * Service Worker Event Handlers
+ */
 
 // Install event - cache versioned files
 self.addEventListener('install', event => {
-  console.log('Service Worker installing, version:', CACHE_VERSION);
   event.waitUntil(
     caches
       .open(CACHE_VERSION)
       .then(cache => {
-        console.log('Opened cache version:', CACHE_VERSION);
         return cache.addAll(CACHE_FILES);
       })
       .then(() => {
@@ -171,7 +183,6 @@ self.addEventListener('install', event => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {
-  console.log('Service Worker activating, version:', CACHE_VERSION);
   event.waitUntil(
     caches
       .keys()
@@ -179,7 +190,6 @@ self.addEventListener('activate', event => {
         return Promise.all(
           cacheNames.map(cacheName => {
             if (cacheName !== CACHE_VERSION) {
-              console.log('Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -198,12 +208,14 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch event - network-first for HTML, cache-first for assets
+/**
+ * Fetch Strategy: Network-first for HTML, Cache-first for assets
+ */
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // For HTML pages, always try network first to get latest content
+  // Network-first strategy for HTML pages (always fresh content)
   if (
     request.destination === 'document' ||
     request.headers.get('accept')?.includes('text/html') ||
@@ -211,13 +223,13 @@ self.addEventListener('fetch', event => {
     url.pathname === '/'
   ) {
     event.respondWith(
-      // Use navigation preload if available for a speed boost
+      // Use navigation preload if available for speed boost
       event.preloadResponse
         .then(preloadedResponse => {
           if (preloadedResponse) {
             return preloadedResponse;
           }
-          // Otherwise, fetch from the network as usual
+          // Otherwise, fetch from network as usual
           return fetch(request);
         })
         .then(networkResponse => {
@@ -228,21 +240,18 @@ self.addEventListener('fetch', event => {
             .then(cache => cache.put(request, responseClone));
           return networkResponse;
         })
-        .catch(error => {
-          // If the network fails, serve the cached version
-          console.log('Fetch failed; returning from cache.', error);
+        .catch(() => {
+          // If network fails, serve cached version
           return caches.match(request);
         })
     );
-  }
-  // For assets, use cache-first with version checking
-  else {
+  } else {
+    // Cache-first strategy for static assets (performance optimization)
     event.respondWith(
       caches.match(request).then(cachedResponse => {
         if (cachedResponse) {
           return cachedResponse;
         }
-
         // If not in cache, fetch from network and cache
         return fetch(request).then(response => {
           if (response.status === 200) {
@@ -258,11 +267,14 @@ self.addEventListener('fetch', event => {
   }
 });
 
-// Listen for messages from the client to force refresh
+/**
+ * Message Handler - Client communication
+ */
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+
   if (event.data && event.data.type === 'CLEAR_CACHE') {
     event.waitUntil(
       caches.keys().then(cacheNames => {

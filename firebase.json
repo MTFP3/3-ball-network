@@ -1,183 +1,29 @@
 {
   "hosting": {
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.map"],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "/home",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/dashboard",
+        "destination": "/admin.html",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
-        "source": "/admin",
-        "destination": "/admin.html"
-      },
-      {
-        "source": "/admin/**",
-        "destination": "/admin.html"
-      },
-      {
-        "source": "/demo-player",
-        "destination": "/demo-player.html"
-      },
-      {
-        "source": "/demo-coach",
-        "destination": "/demo-coach.html"
-      },
-      {
-        "source": "/demo-fan",
-        "destination": "/demo-fan.html"
-      },
-      {
-        "source": "/demo-scout",
-        "destination": "/demo-scout.html"
-      },
-      {
-        "source": "/analytics-dashboard",
-        "destination": "/analytics-dashboard.html"
-      },
-      {
-        "source": "/recruiting-hub",
-        "destination": "/recruiting-hub.html"
-      },
-      {
-        "source": "/smart-input",
-        "destination": "/smart-input.html"
-      },
-      {
-        "source": "/ai-coach",
-        "destination": "/ai-coach.html"
-      },
-      {
-        "source": "/demo-enhanced",
-        "destination": "/demo-enhanced.html"
-      },
-      {
-        "source": "/cache-clear",
-        "destination": "/cache-clear.html"
-      },
-      {
-        "source": "/social-hub",
-        "destination": "/social-hub.html"
+        "source": "/api/**",
+        "function": "api"
       },
       {
         "source": "**",
         "destination": "/index.html"
-      }
-    ],
-    "redirects": [
-      {
-        "source": "/ball-network-web.web.app/**",
-        "destination": "https://3ballnetwork.com/:splat",
-        "type": 301
-      },
-      {
-        "source": "/demo-player.html",
-        "destination": "https://3ballnetwork.com/demo-player",
-        "type": 301
-      },
-      {
-        "source": "/demo-coach.html",
-        "destination": "https://3ballnetwork.com/demo-coach",
-        "type": 301
-      },
-      {
-        "source": "/demo-fan.html",
-        "destination": "https://3ballnetwork.com/demo-fan",
-        "type": 301
-      },
-      {
-        "source": "/demo-scout.html",
-        "destination": "https://3ballnetwork.com/demo-scout",
-        "type": 301
-      },
-      {
-        "source": "/analytics-dashboard.html",
-        "destination": "https://3ballnetwork.com/analytics-dashboard",
-        "type": 301
-      },
-      {
-        "source": "/recruiting-hub.html",
-        "destination": "https://3ballnetwork.com/recruiting-hub",
-        "type": 301
-      },
-      {
-        "source": "/smart-input.html",
-        "destination": "https://3ballnetwork.com/smart-input",
-        "type": 301
-      },
-      {
-        "source": "/ai-coach.html",
-        "destination": "https://3ballnetwork.com/ai-coach",
-        "type": 301
-      },
-      {
-        "source": "/social-hub.html",
-        "destination": "https://3ballnetwork.com/social-hub",
-        "type": 301
-      },
-      {
-        "source": "/demo-enhanced.html",
-        "destination": "https://3ballnetwork.com/demo-enhanced",
-        "type": 301
-      }
-    ],
-    "headers": [
-      {
-        "source": "**/*.html",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
-          },
-          {
-            "key": "Pragma",
-            "value": "no-cache"
-          },
-          {
-            "key": "Expires",
-            "value": "0"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
-        "headers": [
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(js|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=604800"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(webp|jpg|jpeg|gif|png|svg)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=604800"
-          }
-        ]
-      },
-      {
-        "source": "**",
-        "headers": [
-          {
-            "key": "X-Frame-Options",
-            "value": "DENY"
-          },
-          {
-            "key": "X-Content-Type-Options",
-            "value": "nosniff"
-          },
-          {
-            "key": "Referrer-Policy",
-            "value": "strict-origin-when-cross-origin"
-          }
-        ]
       }
     ]
   }

@@ -136,8 +136,12 @@ class UniversalDeploymentManager {
     } catch (error) {
       log.error(`Command failed: ${command}`);
       log.error(`Error: ${error.message}`);
-      if (error.stdout) log.debug(`stdout: ${error.stdout}`);
-      if (error.stderr) log.debug(`stderr: ${error.stderr}`);
+      if (error.stdout) {
+        log.debug(`stdout: ${error.stdout}`);
+      }
+      if (error.stderr) {
+        log.debug(`stderr: ${error.stderr}`);
+      }
       throw error;
     }
   }
@@ -536,7 +540,7 @@ class UniversalDeploymentManager {
       manifest.files[file] = {
         size: stats.size,
         mtime: stats.mtime.toISOString(),
-        hash: hash,
+        hash,
         type: this.getFileType(file),
       };
 
@@ -556,7 +560,7 @@ class UniversalDeploymentManager {
     // Performance metrics
     manifest.performance = {
       totalFiles: files.length,
-      totalSize: totalSize,
+      totalSize,
       totalSizeFormatted: this.formatBytes(totalSize),
       buildDuration: Date.now() - this.startTime,
       avgFileSize: Math.round(totalSize / files.length),
@@ -597,11 +601,13 @@ class UniversalDeploymentManager {
   }
 
   formatBytes(bytes) {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
   }
 
   async updateServiceWorker(manifest) {
@@ -763,7 +769,9 @@ Environment: ${this.deploymentContext.environment}`;
       log.step('Deploying to Firebase Hosting...');
 
       const deployArgs = ['deploy'];
-      if (this.isVerbose) deployArgs.push('--debug');
+      if (this.isVerbose) {
+        deployArgs.push('--debug');
+      }
 
       await this.spawnProcess('firebase', deployArgs, {
         timeout: CONFIG.deployTimeout,
@@ -1004,7 +1012,9 @@ ${chalk.gray('For more information, visit: https://github.com/3ballnetwork/3-bal
         }
 
         // Run cleanup
-        if (cleanup) await cleanup();
+        if (cleanup) {
+          await cleanup();
+        }
 
         log.success('Shutdown completed');
         process.exit(0);
