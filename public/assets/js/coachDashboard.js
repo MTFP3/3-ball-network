@@ -1,8 +1,4 @@
-require('dotenv').config(); // 👈 loads your .env file
-
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
 import {
-  getFirestore,
   doc,
   getDoc,
   collection,
@@ -11,20 +7,9 @@ import {
   query,
   where,
   serverTimestamp,
-} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 import { logAnalyticsEvent } from './analyticsLogger.js';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-  authDomain: 'ball-network-web.firebaseapp.com',
-  projectId: 'ball-network-web',
-  storageBucket: 'ball-network-web.appspot.com',
-  messagingSenderId: '740915998465',
-  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db } from './firebaseConfig.js';
 
 const coachId = localStorage.getItem('coachId') || 'demoCoach';
 const coachTeamName = localStorage.getItem('team') || 'Demo Team';

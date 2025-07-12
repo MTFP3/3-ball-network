@@ -20,28 +20,21 @@ rel="stylesheet"
 /><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-storage-compat.js"></script><script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-functions-compat.js"></script><link rel="stylesheet" href="/assets/css/admin.css"><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-B142Hfaq-D1iTSTs7.js"
 /><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-nU8xJ6t7-DFPxcyfF.js"
 /><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE-BV6YLeV5-shOBG8sm.js"
 /><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-TPseWURc-Cap1MjHN.js"
 /><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-BMalShCc-D1BTAn5h.js"
 /><link
 rel="modulepreload"
 crossorigin
-href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-Bv4D76qD.js"
-/><script type="module" crossorigin src="/assets/js/admin-DMT7NsiK.js"></script><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js"><link rel="stylesheet" crossorigin href="/assets/css/index.css"><script>
 // Loading optimization
 (function() { 'use strict'; // Lazy load images function lazyLoadImages() { const images = document.querySelectorAll('img[data-src]'); const imageObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { const img = entry.target; img.src = img.dataset.src; img.classList.remove('lazy'); imageObserver.unobserve(img); } }); }); images.forEach(img => imageObserver.observe(img)); } // Prefetch critical resources function prefetchCriticalResources() { const criticalResources = [ '/assets/css/index.css', '/assets/js/firebaseConfig.js', '/manifest.json' ]; criticalResources.forEach(resource => { const link = document.createElement('link'); link.rel = 'prefetch'; link.href = resource; document.head.appendChild(link); }); } // Optimize third-party scripts function optimizeThirdPartyScripts() { // Defer non-critical scripts const scripts = document.querySelectorAll('script[src]'); scripts.forEach(script => { if (!script.src.includes('firebaseConfig') && !script.hasAttribute('defer')) { script.defer = true; } }); } // Initialize optimizations if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', () => { lazyLoadImages(); prefetchCriticalResources(); optimizeThirdPartyScripts(); }); } else { lazyLoadImages(); prefetchCriticalResources(); optimizeThirdPartyScripts(); }
 })();

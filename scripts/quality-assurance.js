@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 /**
  * 🧪 Advanced Code Quality & Testing Implementation

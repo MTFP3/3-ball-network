@@ -1,54 +1,394 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | 3 Ball Network</title>
+    <meta name="description" content="Sign in to your 3 Ball Network account">
+    <meta name="theme-color" content="#00b4d8">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://firebaseapp.com">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://www.gstatic.com"><link rel="dns-prefetch" href="https://firebaseapp.com"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="format-detection" content="telephone=no"><meta charset="UTF-8" /><title>Login | 3 Ball Network</title><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com"><meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="DENY"><meta http-equiv="X-XSS-Protection" content="1; mode=block"><meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"><meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()"><meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
-<!-- Security Headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-XSS-Protection" content="1; mode=block">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()">
-<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
-<meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content="Sign in to your 3 Ball Network account" /><link
-href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
-rel="stylesheet"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/firebaseConfig.js"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmUL_U9U-BrKUtuDq.js"
-/><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-CmrFg6km-Db1pYxPG.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-CnLNGheY-D5mo3p-v.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-zjChy6re--fNv2eh1.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-2GJ28q5z-C44Dp5eu.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-4J497xUw-CBIpcmwG.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Bsdguary-naDMphJq.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-C4wcfbVF-oPV_No2D.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-B142Hfaq-D1iTSTs7.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Dd9TIeOj-CkWZhRMq.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-nU8xJ6t7-DFPxcyfF.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-BMqZK7wi-a6nQr4s8.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF-Ch0fsPTR-CXZUdh1a-CeVZLGMH-CTrq4zpE-BV6YLeV5-shOBG8sm.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-U-EFjld8-U-EFjld8-U-EFjld8-Co7ZlCCI.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-TPseWURc-Cap1MjHN.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-DqyyGzGs-BXqlJ2dW.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-BMalShCc-D1BTAn5h.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-sQBoeA-1-DNwsjx8-.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy-Bv4D76qD.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-1ViDTsUR.js"><script type="module" crossorigin src="/assets/js/login-BEgn-H0u.js"></script><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-glEpLKVF.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-BGxEsOWE-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-Bt-Pzaey-CYcforwy.js"><link rel="modulepreload" crossorigin href="/assets/js/modulepreload-polyfill-B5Qt9EMX-ulV_1b7r-C2dq2EgV.js"><link rel="modulepreload" crossorigin href="/assets/js/firebaseConfig-DCH0t8Yd-CLd0mPF9-BmnogoZy-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-B8D1IVXI-Cf6bMmA_-72mneLfG.js"><link rel="modulepreload" crossorigin href="/assets/js/sw.js"><link rel="stylesheet" crossorigin href="/assets/css/index.css"></head><body><div class="banner-logo"><img
-src="/logo.png"
-alt="3 Ball Network Logo"
-class="banner-logo-img"
-/></div><header><div class="site-title">3 Ball Network</div><div class="site-tagline">Welcome Back</div></header><nav><a href="/">Home</a><a href="/about.html">About Us</a><a href="/overview.html">Overview</a><a href="/register.html">Register</a><a href="/login.html">Log In</a></nav><main><div class="hero"><h2>Sign In</h2><p>Access your dashboard and continue your basketball journey</p><form id="loginForm"><label for="email">Email Address</label><input
-type="email"
-id="email"
-placeholder="Enter your email"
-required
-/><label for="password">Password</label><div class="password-container"><input
-type="password"
-id="password"
-placeholder="Enter your password"
-required
-/><button type="button" onclick="togglePassword('password')">
-Show
-</button></div><button type="submit" id="loginBtn">Sign In</button></form><div class="login-link">
-Don't have an account? <a href="/register.html">Register here</a></div><div
-id="loginError"
-style="color:#d90429;
-font-weight:700;
-text-align:center;
-margin-top:1em;"
-></div><div
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="3 Ball Network">
+    <link rel="apple-touch-icon" href="/logo.png">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background: linear-gradient(135deg, #0077b6, #90e0ef);
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .banner-logo {
+            width: 100%;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5em 0 1em 0;
+        }
+
+        .banner-logo-img {
+            max-width: 320px;
+            width: 90vw;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
+            border-radius: 24px;
+            padding: 0.5em 1.5em;
+        }
+
+        header {
+            text-align: center;
+            padding: 2em 0 1em 0;
+        }
+
+        .site-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.2em;
+        }
+
+        .site-tagline {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1em 0;
+            text-align: center;
+            border-radius: 0 0 22px 22px;
+            margin: 0 auto 2em auto;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+        }
+
+        nav a {
+            color: #007cba;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 0 1.5em;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        nav a:hover, nav a.active {
+            background: linear-gradient(135deg, #007cba, #00b4d8);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2em;
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3em 2.5em;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #007cba;
+            margin-bottom: 0.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 2em;
+            line-height: 1.5;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+        }
+
+        label {
+            font-weight: 700;
+            color: #333;
+            text-align: left;
+            margin-bottom: 0.5em;
+            font-size: 1em;
+        }
+
+        input {
+            padding: 1em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Urbanist', sans-serif;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-container input {
+            flex: 1;
+            padding-right: 3.5em;
+        }
+
+        .password-container button {
+            position: absolute;
+            right: 1em;
+            background: none;
+            border: none;
+            color: #007cba;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0.5em;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .password-container button:hover {
+            color: #00b4d8;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #007cba, #00b4d8);
+            color: #fff;
+            padding: 1.2em;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            font-family: 'Urbanist', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1em;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 186, 0.3);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            margin-top: 2em;
+            font-size: 1em;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #007cba;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #00b4d8;
+            text-decoration: underline;
+        }
+
+        #loginError {
+            color: #d90429;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 1em;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 2em;
+            }
+            
+            nav a {
+                margin: 0 0.5em;
+                font-size: 1em;
+            }
+            
+            .hero {
+                padding: 2em 1.5em;
+                margin: 1em;
+            }
+            
+            .hero h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner-logo">
+        <img src="/logo.png" alt="3 Ball Network Logo" class="banner-logo-img">
+    </div>
+
+    <header>
+        <div class="site-title">3 Ball Network</div>
+        <div class="site-tagline">Welcome Back</div>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about.html">About Us</a>
+        <a href="/overview.html">Overview</a>
+        <a href="/register.html">Register</a>
+        <a href="/login.html" class="active">Log In</a>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h2>Sign In</h2>
+            <p>Access your dashboard and continue your basketball journey</p>
+            
+            <form id="loginForm">
+                <div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div>
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <button type="button" onclick="togglePassword('password')">Show</button>
+                    </div>
+                </div>
+                
+                <button type="submit" id="loginBtn">Sign In</button>
+            </form>
+            
+            <div class="login-link">
+                Don't have an account? <a href="/register.html">Register here</a>
+            </div>
+            
+            <div id="loginError"></div>
+        </div>
+    </main>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const button = field.parentNode.querySelector('button');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                button.textContent = 'Hide';
+            } else {
+                field.type = 'password';
+                button.textContent = 'Show';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            // Basic validation
+            if (!email || !password) {
+                errorDiv.textContent = 'Please fill in all fields';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorDiv.textContent = 'Please enter a valid email address';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // Hide error
+            errorDiv.style.display = 'none';
+            
+            // Update button state
+            const button = document.getElementById('loginBtn');
+            button.textContent = 'Signing In...';
+            button.disabled = true;
+            
+            // Simulate login process (replace with actual authentication)
+            setTimeout(() => {
+                // Reset button
+                button.textContent = 'Sign In';
+                button.disabled = false;
+                
+                // For demo purposes, show success or redirect
+                alert('Login functionality will be implemented with Firebase Authentication');
+                
+                // In a real implementation, you would:
+                // 1. Use Firebase Auth to sign in
+                // 2. Redirect to appropriate dashboard based on user role
+                // 3. Store user session
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
 id="loginLoading"
 style="display:none;
 text-align:center;

@@ -17,7 +17,6 @@ import {
   getDownloadURL as k,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js';
 import { F as b } from './teamComparison.js';
-/* empty css                                                                                      */ require('dotenv').config();
 const x = {
     apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
     authDomain: 'ball-network-web.firebaseapp.com',

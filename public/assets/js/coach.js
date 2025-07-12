@@ -156,7 +156,7 @@ class LiveCoachingDashboard {
         // WebSocket error occurred
         this.updateConnectionStatus('offline');
       };
-    } catch (error) {
+    } catch {
       // WebSocket not available, using fallback polling
       this.startPolling();
     }
@@ -1025,7 +1025,7 @@ class LiveCoachingDashboard {
       const response = await fetch('/api/live-game-data');
       const data = await response.json();
       this.handleLiveData(data);
-    } catch (error) {
+    } catch {
       // Failed to fetch game data
     }
   }

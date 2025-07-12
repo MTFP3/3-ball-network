@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 import { build } from 'vite';
 import path, { resolve } from 'path';

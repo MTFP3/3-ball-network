@@ -1,35 +1,19 @@
 // /assets/js/playerDashboard.js
-require('dotenv').config(); // 👈 loads your .env file
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
 import {
-  getFirestore,
   doc,
   getDoc,
   getDocs,
   collection,
   setDoc,
-} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 import {
-  getStorage,
   ref as storageRef,
   getDownloadURL,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js';
 import { Chart } from 'https://cdn.jsdelivr.net/npm/chart.js';
 import { logAnalyticsEvent } from './analyticsLogger.js';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-  authDomain: 'ball-network-web.firebaseapp.com',
-  projectId: 'ball-network-web',
-  storageBucket: 'ball-network-web.appspot.com',
-  messagingSenderId: '740915998465',
-  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
+import { db, storage } from './firebaseConfig.js';
 
 const playerId = localStorage.getItem('playerId') || 'demoPlayer';
 logAnalyticsEvent('visit', playerId, 'player');
@@ -200,7 +184,7 @@ async function loadDailyReport() {
     link.href = url;
     link.textContent = '📄 Download Daily Report (PDF)';
     link.style.display = 'inline-block';
-  } catch (e) {
+  } catch {
     link.textContent = 'Report not available yet.';
     link.style.display = 'block';
   }
@@ -287,7 +271,13 @@ async function loadClassProgress() {
     const status = snap.exists() ? snap.data().status : 'Not Started';
 
     const li = document.createElement('li');
-    li.innerHTML = `${cls.label} — <strong>${status}</strong> <button onclick="startClass('${cls.id}')">Start</button>`;
+    const button = document.createElement('button');
+    button.textContent = 'Start';
+    button.dataset.classId = cls.id;
+    button.addEventListener('click', startClass);
+
+    li.innerHTML = `${cls.label} — <strong>${status}</strong> `;
+    li.appendChild(button);
     wrapper.appendChild(li);
   }
 }
@@ -299,38 +289,81 @@ async function loadGameBreakdowns() {
   }
   breakdownDiv.innerHTML = '<h3>🧠 Game Breakdown</h3>';
 
-  const gameRefs = await getDocs(collection(db, 'games'));
-  for (const game of gameRefs.docs) {
-    const gameId = game.id;
-    const playsRef = collection(db, `playerStats/${gameId}/plays`);
-    const snap = await getDocs(playsRef);
+  // OPTIMIZED APPROACH: Instead of N+1 queries, we'll use a more efficient strategy
 
-    const tagged = [];
-    snap.forEach(doc => {
-      const d = doc.data();
-      if (d.playerId === playerId) {
-        tagged.push(d);
+  // First, get scouting reports for this player to identify which games they're in
+  try {
+    const scoutingReportsSnap = await getDocs(
+      collection(db, 'scoutingReports')
+    );
+    const playerReports = new Map(); // gameId -> report data
+
+    scoutingReportsSnap.forEach(doc => {
+      const reportId = doc.id;
+      if (reportId.endsWith(`_${playerId}`)) {
+        const gameId = reportId.replace(`_${playerId}`, '');
+        playerReports.set(gameId, doc.data());
       }
     });
 
-    if (tagged.length > 0) {
-      const block = document.createElement('div');
-      block.innerHTML = `<strong>Game: ${gameId}</strong><ul>${tagged.map(p => `<li>${p.type} at ${p.timestamp}s</li>`).join('')}</ul>`;
+    // If we have scouting reports, we know which games to look at
+    if (playerReports.size > 0) {
+      // Only query the specific games we know the player is in
+      for (const [gameId, reportData] of playerReports) {
+        const playsRef = collection(db, `playerStats/${gameId}/plays`);
+        const snap = await getDocs(playsRef);
 
-      // Scouting report
-      const reportRef = doc(db, `scoutingReports/${gameId}_${playerId}`);
-      const reportSnap = await getDoc(reportRef);
-      if (reportSnap.exists()) {
-        const rpt = reportSnap.data();
-        block.innerHTML += `<p><strong>📋 Scouting Report:</strong><br>${rpt.report}<br><em>Grade: ${rpt.grade}</em></p>`;
+        const tagged = [];
+        snap.forEach(doc => {
+          const d = doc.data();
+          if (d.playerId === playerId) {
+            tagged.push(d);
+          }
+        });
+
+        if (tagged.length > 0) {
+          const block = document.createElement('div');
+          block.innerHTML = `<strong>Game: ${gameId}</strong><ul>${tagged.map(p => `<li>${p.type} at ${p.timestamp}s</li>`).join('')}</ul>`;
+          block.innerHTML += `<p><strong>📋 Scouting Report:</strong><br>${reportData.report}<br><em>Grade: ${reportData.grade}</em></p>`;
+          breakdownDiv.appendChild(block);
+        }
       }
-
-      breakdownDiv.appendChild(block);
+    } else {
+      // Fallback: If no scouting reports, show a message instead of doing expensive queries
+      breakdownDiv.innerHTML +=
+        '<p>No game breakdowns available yet. Play in some games to see your stats!</p>';
     }
+  } catch (error) {
+    console.error('Error loading game breakdowns:', error);
+    breakdownDiv.innerHTML +=
+      '<p>Unable to load game breakdowns at this time.</p>';
   }
+
+  /*
+   * RECOMMENDED DATA STRUCTURE IMPROVEMENT:
+   *
+   * Instead of the current structure:
+   * - games/{gameId}
+   * - playerStats/{gameId}/plays/{playId}
+   *
+   * Consider this flatter structure:
+   * - games/{gameId}
+   * - plays/{playId} with fields: { gameId, playerId, type, timestamp, ... }
+   *
+   * This would allow for efficient queries like:
+   * query(collection(db, 'plays'), where('playerId', '==', playerId))
+   *
+   * Benefits:
+   * 1. Single query instead of N+1 queries
+   * 2. Better performance and lower costs
+   * 3. Easier to implement player-specific analytics
+   * 4. More scalable as the number of games grows
+   */
 }
 
-window.startClass = async function (classId) {
+// Clean event handlers - no global scope pollution
+async function startClass(event) {
+  const classId = event.target.dataset.classId;
   const ref = doc(db, `players/${playerId}/classes/${classId}`);
   await setDoc(
     ref,
@@ -343,14 +376,23 @@ window.startClass = async function (classId) {
 
   alert(`📘 Class started: ${classId}`);
   loadClassProgress();
-};
+}
 
-window.downloadResume = function () {
+function downloadResume() {
   const iframe = document.getElementById('resumePreview');
   const link = document.createElement('a');
   link.href = iframe.src;
   link.download = 'Player_Resume.pdf';
   link.click();
-};
+}
+
+// Set up event listeners when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Add event listener for download resume button if it exists
+  const downloadBtn = document.getElementById('downloadResumeBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', downloadResume);
+  }
+});
 
 loadPlayerData();
