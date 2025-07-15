@@ -7,11 +7,7 @@
   "background_color": "#007cba",
   "theme_color": "#00b4d8",
   "orientation": "any",
-  "categories": [
-    "sports",
-    "social",
-    "entertainment"
-  ],
+  "categories": ["sports", "social", "entertainment"],
   "icons": [
     {
       "src": "/logo.png",
@@ -66,7 +62,5 @@
   ],
   "scope": "/",
   "prefer_related_applications": false,
-  "background_sync": [
-    "game-data"
-  ]
+  "background_sync": ["game-data"]
 }

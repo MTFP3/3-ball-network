@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Chat Demo - 3 Ball Network</title>
@@ -288,6 +292,7 @@
         }
       }
     </style>
+    <script src="/assets/js/securityFixesComprehensive.js"></script>
   </head>
   <body>
     <div class="demo-container">
@@ -356,19 +361,19 @@
         </p>
 
         <div class="demo-controls">
-          <button class="demo-btn" onclick="openAIChat()">
+          <button class="demo-btn">
             <i class="fas fa-robot"></i>
             Open AI Chat
           </button>
-          <button class="demo-btn secondary" onclick="simulateGameData()">
+          <button class="demo-btn secondary">
             <i class="fas fa-basketball-ball"></i>
             Simulate Game Data
           </button>
-          <button class="demo-btn secondary" onclick="setUserRole('coach')">
+          <button class="demo-btn secondary">
             <i class="fas fa-clipboard-list"></i>
             Coach Mode
           </button>
-          <button class="demo-btn secondary" onclick="setUserRole('player')">
+          <button class="demo-btn secondary">
             <i class="fas fa-running"></i>
             Player Mode
           </button>

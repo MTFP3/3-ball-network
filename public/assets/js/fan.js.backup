@@ -1,0 +1,66 @@
+// Removed broken modulepreload import;
+// Removed broken modulepreload import;
+// Removed broken modulepreload import;
+import { initializeApp as w } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+import {
+  getFirestore as f,
+  getDoc as l,
+  doc as d,
+  getDocs as h,
+  query as D,
+  collection as b,
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
+import { firebaseConfig } from './firebaseConfig.js';
+/* empty css                                                                                      */
+const k = w(firebaseConfig),
+  o = f(k),
+  S = localStorage.getItem('fanId') || 'demoFan',
+  s = await l(d(o, 'fans', S)),
+  m = s.exists() ? s.data() : {},
+  p = m.playersFollowing || [],
+  A = m.teamsFollowing || [],
+  E = document.getElementById('fanHighlights'),
+  B = document.getElementById('fanReports'),
+  c = new Date().toDateString();
+let g = !1,
+  u = !1;
+const n = [];
+for (const t of p) {
+  const e = d(o, 'players', t),
+    i = await l(e);
+  if (!i.exists()) {
+    continue;
+  }
+  const a = i.data();
+  (a.highlights || []).forEach(y => {
+    (n.push({
+      name: a.name || t,
+      link: y,
+      date: a.updatedAt || new Date().toISOString(),
+    }),
+      a.updatedAt && new Date(a.updatedAt).toDateString() === c && (g = !0));
+  });
+}
+n.sort((t, e) => new Date(e.date) - new Date(t.date));
+n.forEach(t => {
+  E.innerHTML += `<a class='highlight-link' href='${t.link}' target='_blank'>🎬 ${t.name}</a>`;
+});
+g && (document.getElementById('alertHighlights').style.display = 'block');
+const v = await h(D(b(o, 'scoutingReports'))),
+  r = [];
+v.forEach(t => {
+  const e = t.data();
+  (p.includes(e.playerId) || A.includes(e.teamName)) &&
+    (r.push({
+      summary: e.summary,
+      player: e.playerName || e.teamName,
+      date: e.updatedAt || new Date().toISOString(),
+    }),
+    e.updatedAt && new Date(e.updatedAt).toDateString() === c && (u = !0));
+});
+r.sort((t, e) => new Date(e.date) - new Date(t.date));
+r.forEach(t => {
+  B.innerHTML += `<div><strong>${t.player}</strong>: ${t.summary}</div><br>`;
+});
+u && (document.getElementById('alertReports').style.display = 'block');
+//# sourceMappingURL=fan.js.map

@@ -1,0 +1,384 @@
+name: Release Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type of release'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      pre_release:
+        description: 'Is this a pre-release?'
+        required: false
+        default: false
+        type: boolean
+
+# Add explicit permissions for GITHUB_TOKEN
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # =============================================
+  # Release preparation and validation
+  # =============================================
+
+  prepare-release:
+    name: 'Prepare Release'
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.version.outputs.new-version }}
+      changelog: ${{ steps.changelog.outputs.changelog }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Determine new version
+        id: version
+        run: |
+          echo "🏷️ Determining new version..."
+
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Current version: $CURRENT_VERSION"
+
+          # Calculate new version based on type
+          case "${{ github.event.inputs.release_type }}" in
+            "major")
+              NEW_VERSION=$(npm version major --no-git-tag-version)
+              ;;
+            "minor")
+              NEW_VERSION=$(npm version minor --no-git-tag-version)
+              ;;
+            "patch")
+              NEW_VERSION=$(npm version patch --no-git-tag-version)
+              ;;
+          esac
+
+          NEW_VERSION=${NEW_VERSION#v} # Remove 'v' prefix
+          echo "New version: $NEW_VERSION"
+          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "📝 Generating changelog..."
+
+          # Get latest tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No previous tags found, generating changelog from first commit"
+            COMMITS=$(git log --oneline --pretty=format:"- %s (%h)")
+          else
+            echo "Generating changelog from $LATEST_TAG"
+            COMMITS=$(git log ${LATEST_TAG}..HEAD --oneline --pretty=format:"- %s (%h)")
+          fi
+
+          # Create changelog
+          echo "## Release v${{ steps.version.outputs.new-version }}" > CHANGELOG_NEW.md
+          echo "" >> CHANGELOG_NEW.md
+          echo "**Release Date:** $(date +'%Y-%m-%d')" >> CHANGELOG_NEW.md
+          echo "**Release Type:** ${{ github.event.inputs.release_type }}" >> CHANGELOG_NEW.md
+          echo "" >> CHANGELOG_NEW.md
+          echo "### Changes" >> CHANGELOG_NEW.md
+          echo "$COMMITS" >> CHANGELOG_NEW.md
+          echo "" >> CHANGELOG_NEW.md
+
+          # Set output for use in later steps
+          CHANGELOG_CONTENT=$(cat CHANGELOG_NEW.md)
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG_CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Update CHANGELOG.md
+        run: |
+          echo "📄 Updating CHANGELOG.md..."
+
+          if [ -f CHANGELOG.md ]; then
+            # Prepend new changelog to existing file
+            cat CHANGELOG_NEW.md CHANGELOG.md > CHANGELOG_TEMP.md
+            mv CHANGELOG_TEMP.md CHANGELOG.md
+          else
+            # Create new changelog file
+            mv CHANGELOG_NEW.md CHANGELOG.md
+          fi
+
+      - name: Commit version bump
+        run: |
+          echo "💾 Committing version bump..."
+
+          git add package.json CHANGELOG.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: bump version to v${{ steps.version.outputs.new-version }}"
+            git push origin main
+          fi
+
+  # =============================================
+  # Pre-release validation
+  # =============================================
+
+  validate_release:
+    name: 'Validate Release'
+    runs-on: ubuntu-latest
+    needs: prepare-release
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0 # Ensure we get the latest changes including version bump
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Run full test suite
+        run: |
+          echo "🧪 Running full test suite for release validation..."
+          # Check if test script exists before running
+          if npm run | grep -q "test:all"; then
+            npm run test:all
+          elif npm run | grep -q "test"; then
+            npm run test
+          else
+            echo "⚠️ No test script found, skipping tests"
+          fi
+
+      - name: Build production version
+        run: |
+          echo "🏗️ Building production version..."
+          # Check if build:prod script exists, fallback to build
+          if npm run | grep -q "build:prod"; then
+            npm run build:prod
+          elif npm run | grep -q "build"; then
+            npm run build
+          else
+            echo "⚠️ No build script found, using custom build"
+            ./deploy.js build
+          fi
+
+      - name: Security audit
+        run: |
+          echo "🔒 Running security audit..."
+          npm audit --audit-level high
+
+      - name: Validate package integrity
+        run: |
+          echo "📦 Validating package integrity..."
+          # Check if quality:check script exists
+          if npm run | grep -q "quality:check"; then
+            npm run quality:check
+          else
+            echo "⚠️ No quality check script found, running basic validation"
+            npm ls --depth=0
+            npm audit --audit-level moderate || echo "⚠️ Some audit issues found but not blocking"
+          fi
+
+  # =============================================
+  # Create GitHub release
+  # =============================================
+
+  create-release:
+    name: 'Create GitHub Release'
+    runs-on: ubuntu-latest
+    needs: [prepare-release, validate_release]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Create Git tag
+        run: |
+          echo "🏷️ Creating Git tag..."
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          TAG_NAME="v${{ needs.prepare-release.outputs.new-version }}"
+          git tag -a $TAG_NAME -m "Release $TAG_NAME"
+          git push origin $TAG_NAME
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.prepare-release.outputs.new-version }}
+          name: Release v${{ needs.prepare-release.outputs.new-version }}
+          body: ${{ needs.prepare-release.outputs.changelog }}
+          draft: false
+          prerelease: ${{ github.event.inputs.pre_release }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  # =============================================
+  # Deploy release to production
+  # =============================================
+
+  deploy-release:
+    name: 'Deploy Release'
+    runs-on: ubuntu-latest
+    needs: [prepare-release, validate_release, create-release]
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Build production version
+        run: |
+          echo "🏗️ Building production version for deployment..."
+          # Check if build:prod script exists, fallback to build
+          if npm run | grep -q "build:prod"; then
+            npm run build:prod
+          elif npm run | grep -q "build"; then
+            npm run build
+          else
+            echo "Using custom deploy script for build"
+            ./deploy.js build
+          fi
+
+      - name: Setup Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Deploy to production
+        run: |
+          echo "🚀 Deploying release v${{ needs.prepare-release.outputs.new-version }} to production..."
+
+          # Check if firebase project is configured
+          if ! firebase projects:list | grep -q "ball-network-web"; then
+            echo "⚠️ Firebase project not found, using default project"
+          fi
+
+          # Deploy using the custom deploy script which handles environment setup
+          ./deploy.js firebase
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        continue-on-error: false
+
+      - name: Verify deployment
+        run: |
+          echo "✅ Verifying production deployment..."
+          # Check if deploy:verify script exists
+          if npm run | grep -q "deploy:verify"; then
+            npm run deploy:verify
+          else
+            echo "Using custom verification script"
+            ./deploy.js verify
+          fi
+
+  # =============================================
+  # Post-release tasks
+  # =============================================
+
+  post-release:
+    name: 'Post-Release Tasks'
+    runs-on: ubuntu-latest
+    needs: [prepare-release, validate_release, deploy-release]
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Create release summary
+        run: |
+          echo "📋 Creating release summary..."
+
+          cat > release-summary.md << EOF
+          # 🚀 Release v${{ needs.prepare-release.outputs.new-version }} Summary
+
+          **Release Information:**
+          - **Version:** v${{ needs.prepare-release.outputs.new-version }}
+          - **Type:** ${{ github.event.inputs.release_type }}
+          - **Date:** $(date +'%Y-%m-%d %H:%M:%S UTC')
+          - **Pre-release:** ${{ github.event.inputs.pre_release }}
+
+          **Deployment Status:**
+          - **Production Deployment:** ${{ needs.deploy-release.result == 'success' && '✅ Successful' || '❌ Failed' }}
+          - **Validation:** ${{ needs.validate_release.result == 'success' && '✅ Passed' || '❌ Failed' }}
+
+          **Quality Assurance:**
+          - ✅ Full test suite validation
+          - ✅ Security audit completed
+          - ✅ Production build verified
+          - ✅ Package integrity validated
+
+          **Next Steps:**
+          - Monitor production deployment for issues
+          - Update documentation if needed
+          - Prepare for next development cycle
+
+          ---
+
+          ${{ needs.prepare-release.outputs.changelog }}
+          EOF
+
+      - name: Archive release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-v${{ needs.prepare-release.outputs.new-version }}
+          path: |
+            release-summary.md
+            CHANGELOG.md
+            package.json
+          retention-days: 365
+
+      - name: Notify release completion
+        run: |
+          echo "🎉 Release v${{ needs.prepare-release.outputs.new-version }} completed!"
+          echo "Status: ${{ needs.deploy-release.result == 'success' && '✅ Successfully deployed' || '❌ Deployment failed' }}"
+          echo "Type: ${{ github.event.inputs.release_type }} release"
+          echo "Environment: Production"
+          echo "The new version is now live and available to users."
+
+      - name: Update project documentation
+        run: |
+          echo "📚 Release v${{ needs.prepare-release.outputs.new-version }} process completed"
+          echo "🎯 Next development cycle can begin"

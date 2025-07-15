@@ -7,9 +7,7 @@
     "https": "A+",
     "authentication": "A"
   },
-  "issues": [
-    "Firebase rules may be too permissive"
-  ],
+  "issues": ["Firebase rules may be too permissive"],
   "recommendations": [
     "Review and restrict Firebase security rules",
     "Add error handling to cdn-optimization.js",

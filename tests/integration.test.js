@@ -87,7 +87,6 @@ describe('Integration Tests', () => {
         }
         return response.json();
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error('API Error:', error);
         throw error;
       }

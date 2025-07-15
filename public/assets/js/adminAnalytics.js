@@ -8,15 +8,7 @@ import {
   Timestamp,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
 import Chart from 'https://cdn.jsdelivr.net/npm/chart.js';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-  authDomain: 'ball-network-web.firebaseapp.com',
-  projectId: 'ball-network-web',
-  storageBucket: 'ball-network-web.appspot.com',
-  messagingSenderId: '740915998465',
-  appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-};
+import { firebaseConfig } from './firebaseConfig.js';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

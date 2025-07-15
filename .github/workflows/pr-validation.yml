@@ -1,0 +1,276 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # =============================================
+  # Quick validation for PR feedback
+  # =============================================
+
+  pr-validation:
+    name: 'PR Quality Check'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Check for breaking changes
+        run: |
+          echo "🔍 Checking for breaking changes..."
+
+          # Check if package.json was modified
+          if git diff --name-only origin/main...HEAD | grep -q "package.json"; then
+            echo "📦 package.json modified - checking for breaking changes"
+            git diff origin/main...HEAD package.json
+          fi
+
+          # Check if core config files were modified
+          if git diff --name-only origin/main...HEAD | grep -E "(firebase|vite|playwright)\.config\.(js|cjs|json)"; then
+            echo "⚙️ Configuration files modified"
+          fi
+
+      - name: Lint changed files
+        run: |
+          echo "🧹 Linting changed files..."
+
+          # Get list of changed JS files
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep '\.js$' | tr '\n' ' ')
+
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "Changed files: $CHANGED_FILES"
+            npx eslint $CHANGED_FILES
+          else
+            echo "No JavaScript files changed"
+          fi
+
+      - name: Format check
+        run: |
+          echo "🎨 Checking code formatting..."
+          npm run format:check
+
+      - name: Quick tests
+        run: |
+          echo "🧪 Running quick test suite..."
+          npm run test:unit
+
+      - name: Security check
+        run: |
+          echo "🔒 Running security audit..."
+          npm audit --audit-level moderate
+
+      - name: Build check
+        run: |
+          echo "🏗️ Testing build process..."
+          npm run build:staging
+
+  # =============================================
+  # PR size and complexity analysis
+  # =============================================
+
+  pr-analysis:
+    name: 'PR Analysis'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Analyze PR size and complexity
+        run: |
+          echo "📊 Analyzing PR size and complexity..."
+
+          # Count changes
+          ADDED_LINES=$(git diff --numstat origin/main...HEAD | awk '{sum += $1} END {print sum}')
+          DELETED_LINES=$(git diff --numstat origin/main...HEAD | awk '{sum += $2} END {print sum}')
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | wc -l)
+
+          echo "Added lines: $ADDED_LINES"
+          echo "Deleted lines: $DELETED_LINES"
+          echo "Changed files: $CHANGED_FILES"
+
+          # Generate PR summary
+          echo "## 📊 PR Analysis" >> pr-analysis.md
+          echo "" >> pr-analysis.md
+          echo "- **Files changed:** $CHANGED_FILES" >> pr-analysis.md
+          echo "- **Lines added:** $ADDED_LINES" >> pr-analysis.md
+          echo "- **Lines deleted:** $DELETED_LINES" >> pr-analysis.md
+          echo "- **Net change:** $((ADDED_LINES - DELETED_LINES))" >> pr-analysis.md
+          echo "" >> pr-analysis.md
+
+          # Check PR size
+          if [ $CHANGED_FILES -gt 20 ]; then
+            echo "⚠️ **Large PR Warning:** This PR changes more than 20 files. Consider breaking it into smaller PRs." >> pr-analysis.md
+          fi
+
+          if [ $ADDED_LINES -gt 500 ]; then
+            echo "⚠️ **Large PR Warning:** This PR adds more than 500 lines. Consider breaking it into smaller PRs." >> pr-analysis.md
+          fi
+
+      - name: Comment PR analysis
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            if (fs.existsSync('pr-analysis.md')) {
+              const analysis = fs.readFileSync('pr-analysis.md', 'utf8');
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: analysis
+              });
+            }
+
+  # =============================================
+  # Focused E2E testing for PRs
+  # =============================================
+
+  pr-e2e-tests:
+    name: 'PR E2E Tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+
+      - name: Start development server
+        run: |
+          npm run dev &
+          npx wait-on http://localhost:5173 --timeout 120000
+
+      - name: Run critical E2E tests
+        run: |
+          echo "🎯 Running critical E2E tests for PR validation..."
+          npm run test:e2e:critical -- --project=chromium
+
+      - name: Upload E2E results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-e2e-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  # =============================================
+  # PR summary and approval
+  # =============================================
+
+  pr-summary:
+    name: 'PR Summary'
+    runs-on: ubuntu-latest
+    needs: [pr-validation, pr-analysis, pr-e2e-tests]
+    if: always()
+
+    steps:
+      - name: Generate PR summary
+        run: |
+          echo "## 🎯 PR Validation Summary" > pr-summary.md
+          echo "" >> pr-summary.md
+          echo "**Validation Results:**" >> pr-summary.md
+          echo "" >> pr-summary.md
+
+          # Check job results
+          if [ "${{ needs.pr-validation.result }}" == "success" ]; then
+            echo "- ✅ Code quality and security checks passed" >> pr-summary.md
+          else
+            echo "- ❌ Code quality and security checks failed" >> pr-summary.md
+          fi
+
+          if [ "${{ needs.pr-analysis.result }}" == "success" ]; then
+            echo "- ✅ PR analysis completed" >> pr-summary.md
+          else
+            echo "- ❌ PR analysis failed" >> pr-summary.md
+          fi
+
+          if [ "${{ needs.pr-e2e-tests.result }}" == "success" ]; then
+            echo "- ✅ Critical E2E tests passed" >> pr-summary.md
+          else
+            echo "- ❌ Critical E2E tests failed" >> pr-summary.md
+          fi
+
+          echo "" >> pr-summary.md
+          echo "**Next Steps:**" >> pr-summary.md
+
+          if [ "${{ needs.pr-validation.result }}" == "success" ] && [ "${{ needs.pr-e2e-tests.result }}" == "success" ]; then
+            echo "- ✅ This PR is ready for review and merge" >> pr-summary.md
+            echo "- 🚀 Full CI/CD pipeline will run after merge" >> pr-summary.md
+          else
+            echo "- ⚠️ Please address the failing checks before merge" >> pr-summary.md
+            echo "- 🔄 Push new commits to re-run validation" >> pr-summary.md
+          fi
+
+      - name: Comment PR summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            if (fs.existsSync('pr-summary.md')) {
+              const summary = fs.readFileSync('pr-summary.md', 'utf8');
+              
+              // Look for existing summary comment
+              const comments = await github.rest.issues.listComments({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+              
+              const botComment = comments.data.find(comment => 
+                comment.user.type === 'Bot' && 
+                comment.body.includes('PR Validation Summary')
+              );
+              
+              if (botComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  comment_id: botComment.id,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: summary
+                });
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: summary
+                });
+              }
+            }

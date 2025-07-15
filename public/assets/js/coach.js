@@ -212,12 +212,27 @@ class LiveCoachingDashboard {
     }
 
     const statsElement = row.querySelector('.player-stats');
-    statsElement.innerHTML = `
-            <span>${player.points}pts</span>
-            <span>${player.rebounds}reb</span>
-            <span>${player.assists}ast</span>
-            <div class="performance-indicator ${this.getPerformanceClass(player.efficiency)}"></div>
-        `;
+
+    // Clear existing content
+    statsElement.textContent = '';
+
+    // Create secure DOM elements
+    const pointsSpan = document.createElement('span');
+    pointsSpan.textContent = `${player.points}pts`;
+
+    const reboundsSpan = document.createElement('span');
+    reboundsSpan.textContent = `${player.rebounds}reb`;
+
+    const assistsSpan = document.createElement('span');
+    assistsSpan.textContent = `${player.assists}ast`;
+
+    const performanceDiv = document.createElement('div');
+    performanceDiv.className = `performance-indicator ${this.getPerformanceClass(player.efficiency)}`;
+
+    statsElement.appendChild(pointsSpan);
+    statsElement.appendChild(reboundsSpan);
+    statsElement.appendChild(assistsSpan);
+    statsElement.appendChild(performanceDiv);
   }
 
   getPerformanceClass(efficiency) {
@@ -261,16 +276,25 @@ class LiveCoachingDashboard {
     this.aiInsights = insights;
     const container = document.getElementById('aiInsights');
 
-    container.innerHTML = Object.entries(insights)
-      .map(
-        ([key, value]) => `
-            <div class="insight-item">
-                <span>${this.formatInsightLabel(key)}</span>
-                <span class="insight-value">${value}</span>
-            </div>
-        `
-      )
-      .join('');
+    // Clear existing content
+    container.textContent = '';
+
+    // Create secure DOM elements for each insight
+    Object.entries(insights).forEach(([key, value]) => {
+      const insightDiv = document.createElement('div');
+      insightDiv.className = 'insight-item';
+
+      const labelSpan = document.createElement('span');
+      labelSpan.textContent = this.formatInsightLabel(key);
+
+      const valueSpan = document.createElement('span');
+      valueSpan.className = 'insight-value';
+      valueSpan.textContent = value;
+
+      insightDiv.appendChild(labelSpan);
+      insightDiv.appendChild(valueSpan);
+      container.appendChild(insightDiv);
+    });
   }
 
   formatInsightLabel(key) {
@@ -947,17 +971,38 @@ class LiveCoachingDashboard {
             z-index: 10000;
         `;
 
-    modal.innerHTML = `
-            <div class="modal-content" style="background: #1a1a1a; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; color: white;">
-                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3>${title}</h3>
-                    <button onclick="liveCoaching.closeModal()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
-                </div>
-                <div class="modal-body">
-                    ${content}
-                </div>
-            </div>
-        `;
+    // Create secure DOM structure instead of innerHTML
+    modal.textContent = '';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    modalContent.style.cssText =
+      'background: #1a1a1a; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; color: white;';
+
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'modal-header';
+    modalHeader.style.cssText =
+      'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;';
+
+    const modalTitle = document.createElement('h3');
+    modalTitle.textContent = title;
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '×';
+    closeButton.style.cssText =
+      'background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;';
+    closeButton.addEventListener('click', () => liveCoaching.closeModal());
+
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeButton);
+
+    const modalBody = document.createElement('div');
+    modalBody.className = 'modal-body';
+    modalBody.textContent = content;
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modal.appendChild(modalContent);
 
     modal.addEventListener('click', e => {
       if (e.target === modal) {
@@ -1317,7 +1362,7 @@ class LiveCoachingDashboard {
     }
 
     // Clear existing dots
-    overlay.innerHTML = '';
+    overlay.textContent = '';
 
     // Add player dots
     this.trackingOverlays.players.forEach((position, playerId) => {
@@ -1430,7 +1475,7 @@ class LiveCoachingDashboard {
     }
 
     // Clear existing markers
-    overlay.innerHTML = '';
+    overlay.textContent = '';
 
     // Add shot markers
     this.trackingOverlays.shotChart.forEach((shot, index) => {
@@ -1565,8 +1610,16 @@ class LiveCoachingDashboard {
       const aiChatBtn = document.createElement('button');
       aiChatBtn.id = 'aiChatBtn';
       aiChatBtn.className = 'control-btn ai-chat-btn';
-      aiChatBtn.innerHTML =
-        '<i class="fas fa-robot"></i><span>AI Assistant</span>';
+
+      // Create secure DOM structure instead of innerHTML
+      const icon = document.createElement('i');
+      icon.className = 'fas fa-robot';
+      const span = document.createElement('span');
+      span.textContent = 'AI Assistant';
+
+      aiChatBtn.appendChild(icon);
+      aiChatBtn.appendChild(span);
+
       aiChatBtn.addEventListener('click', () => {
         if (window.aiChat) {
           window.aiChat.toggleChatVisibility();

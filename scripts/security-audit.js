@@ -32,7 +32,7 @@ try {
       'Run npm audit fix to resolve dependency issues'
     );
   }
-} catch (error) {
+} catch {
   console.log('⚠️  Some vulnerabilities found in dependencies');
 }
 

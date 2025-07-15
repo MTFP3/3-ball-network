@@ -34,7 +34,7 @@
  * @author 3 Ball Network Team
  */
 
-import { createServer, build as viteBuild } from 'vite';
+import { createServer, build as _viteBuild } from 'vite';
 import { spawn, exec } from 'child_process';
 import { promisify } from 'util';
 import chokidar from 'chokidar';

@@ -17,18 +17,38 @@ loadAdminNotifications();
 async function loadUsers() {
   const collections = ['players', 'coaches', 'scouts', 'fans'];
   const userList = document.getElementById('userList');
-  userList.innerHTML = '';
+  userList.textContent = '';
   for (const role of collections) {
     const snap = await getDocs(collection(db, role));
     snap.forEach(docSnap => {
       const user = docSnap.data();
       const div = document.createElement('div');
       div.classList.add('admin-user');
-      div.innerHTML = `
-        <strong>${user.name || 'Unnamed'}</strong> — ${role}
-        ${role === 'scouts' ? `<button onclick="verifyScout('${role}','${docSnap.id}')">${user.verified ? '✅ Verified' : 'Verify Now'}</button>` : ''}
-        ${user.approved === false ? `<button onclick="approveUser('${role}','${docSnap.id}')">Approve ✅</button>` : ''}
-      `;
+
+      const nameSpan = document.createElement('strong');
+      nameSpan.textContent = `${user.name || 'Unnamed'} — ${role}`;
+      div.appendChild(nameSpan);
+
+      // Add verify button for scouts
+      if (role === 'scouts') {
+        const verifyBtn = document.createElement('button');
+        verifyBtn.textContent = user.verified ? '✅ Verified' : 'Verify Now';
+        verifyBtn.dataset.role = role;
+        verifyBtn.dataset.userId = docSnap.id;
+        verifyBtn.addEventListener('click', verifyScout);
+        div.appendChild(verifyBtn);
+      }
+
+      // Add approve button for unapproved users
+      if (user.approved === false) {
+        const approveBtn = document.createElement('button');
+        approveBtn.textContent = 'Approve ✅';
+        approveBtn.dataset.role = role;
+        approveBtn.dataset.userId = docSnap.id;
+        approveBtn.addEventListener('click', approveUser);
+        div.appendChild(approveBtn);
+      }
+
       userList.appendChild(div);
     });
   }
@@ -37,11 +57,25 @@ async function loadUsers() {
 async function loadGames() {
   const snap = await getDocs(collection(db, 'games'));
   const list = document.getElementById('gameList');
-  list.innerHTML = '';
+  list.textContent = '';
   snap.forEach(docSnap => {
     const game = docSnap.data();
     const div = document.createElement('div');
-    div.innerHTML = `<strong>${game.teamName} vs ${game.opponent}</strong> — ${game.date} <br> Status: ${game.analysisStatus}`;
+
+    // Create secure DOM elements instead of innerHTML
+    const gameTitle = document.createElement('strong');
+    gameTitle.textContent = `${game.teamName} vs ${game.opponent}`;
+
+    const gameInfo = document.createTextNode(` — ${game.date}`);
+    const lineBreak = document.createElement('br');
+    const statusText = document.createTextNode(
+      `Status: ${game.analysisStatus}`
+    );
+
+    div.appendChild(gameTitle);
+    div.appendChild(gameInfo);
+    div.appendChild(lineBreak);
+    div.appendChild(statusText);
     list.appendChild(div);
   });
 }
@@ -49,7 +83,7 @@ async function loadGames() {
 async function loadRequests() {
   const snap = await getDocs(collection(db, 'contactRequests'));
   const list = document.getElementById('requestList');
-  list.innerHTML = '';
+  list.textContent = '';
   snap.forEach(docSnap => {
     const r = docSnap.data();
     const li = document.createElement('li');
@@ -60,17 +94,53 @@ async function loadRequests() {
 
 async function loadAdmins() {
   const list = document.getElementById('adminList');
-  list.innerHTML = '';
+  list.textContent = '';
   const snap = await getDocs(collection(db, 'admins'));
   snap.forEach(docSnap => {
     const admin = docSnap.data();
     const div = document.createElement('div');
-    div.innerHTML = `✅ <strong>${admin.name || docSnap.id}</strong> <button onclick="removeAdmin('${docSnap.id}')">Remove ❌</button>`;
+
+    const adminInfo = document.createElement('span');
+
+    // Create secure DOM elements
+    const checkmark = document.createTextNode('✅ ');
+    const nameElement = document.createElement('strong');
+    nameElement.textContent = admin.name || docSnap.id;
+    const space = document.createTextNode(' ');
+
+    adminInfo.appendChild(checkmark);
+    adminInfo.appendChild(nameElement);
+    adminInfo.appendChild(space);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove ❌';
+    removeBtn.dataset.adminId = docSnap.id;
+    removeBtn.addEventListener('click', removeAdmin);
+
+    div.appendChild(adminInfo);
+    div.appendChild(removeBtn);
     list.appendChild(div);
   });
 }
 
-window.addAdmin = async function () {
+// Clean event handlers - no global scope pollution
+async function verifyScout(event) {
+  const role = event.target.dataset.role;
+  const userId = event.target.dataset.userId;
+  await setDoc(doc(db, role, userId), { verified: true }, { merge: true });
+  alert('✅ Scout verified!');
+  loadUsers();
+}
+
+async function approveUser(event) {
+  const role = event.target.dataset.role;
+  const userId = event.target.dataset.userId;
+  await setDoc(doc(db, role, userId), { approved: true }, { merge: true });
+  alert('✅ User approved!');
+  loadUsers();
+}
+
+async function addAdmin() {
   const uid = document.getElementById('newAdminUid').value.trim();
   const name = document.getElementById('newAdminName').value.trim();
   if (!uid || !name) {
@@ -80,30 +150,45 @@ window.addAdmin = async function () {
   await notifyAdmin(`➕ Added new admin: ${name}`, 'admin');
   alert('✅ New admin added!');
   loadAdmins();
-};
+}
 
-window.removeAdmin = async function (uid) {
+async function removeAdmin(event) {
+  const uid = event.target.dataset.adminId;
   await deleteDoc(doc(db, 'admins', uid));
   await notifyAdmin(`❌ Removed admin ${uid}`, 'admin');
   alert('❌ Admin removed.');
   loadAdmins();
-};
+}
+
+// Set up event listeners when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const addAdminBtn = document.getElementById('addAdminBtn');
+  if (addAdminBtn) {
+    addAdminBtn.addEventListener('click', addAdmin);
+  }
+});
 
 async function loadAdminNotifications() {
   const snap = await getDocs(collection(db, 'adminNotifications'));
   const div =
     document.getElementById('adminActivity') || document.createElement('div');
   div.id = 'adminActivity';
-  div.innerHTML = '<h3>🔔 Admin Activity Log</h3>';
+
+  // Create secure header element
+  const header = document.createElement('h3');
+  header.textContent = '🔔 Admin Activity Log';
+  div.appendChild(header);
 
   const entries = [];
   snap.forEach(docSnap => {
     const d = docSnap.data();
     const time = d.createdAt?.toDate().toLocaleString() || '(no date)';
-    entries.push(`<div>[${time}] ${d.message}</div>`);
+    const logEntry = document.createElement('div');
+    logEntry.textContent = `[${time}] ${d.message}`;
+    entries.push(logEntry);
   });
 
-  entries.sort().reverse();
-  div.innerHTML += entries.join('');
+  entries.sort((a, b) => b.textContent.localeCompare(a.textContent));
+  entries.forEach(entry => div.appendChild(entry));
   document.body.appendChild(div);
 }

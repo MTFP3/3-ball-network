@@ -14,6 +14,14 @@ import {
 import { Chart } from 'https://cdn.jsdelivr.net/npm/chart.js';
 import { logAnalyticsEvent } from './analyticsLogger.js';
 import { db, storage } from './firebaseConfig.js';
+import {
+  createVideoClip,
+  createActionList,
+  createScoutingReport,
+  clearContainer,
+  createLoadingIndicator,
+  safeText,
+} from './uiComponents.js';
 
 const playerId = localStorage.getItem('playerId') || 'demoPlayer';
 logAnalyticsEvent('visit', playerId, 'player');
@@ -27,34 +35,55 @@ async function loadPlayerData() {
 
   const data = snap.data();
   if (data.approved === false) {
-    document.body.innerHTML =
-      '<h2 style="text-align:center;margin-top:100px;">⏳ Your account is pending approval by an admin.</h2>';
+    const pendingMsg = createLoadingIndicator(
+      'Your account is pending approval by an admin.'
+    );
+    clearContainer(document.body);
+    document.body.appendChild(pendingMsg);
     return;
   }
 
-  document.getElementById('playerName').textContent = data.name;
-  document.getElementById('name').textContent = data.name;
-  document.getElementById('position').textContent = data.position;
-  document.getElementById('height').textContent = data.height;
-  document.getElementById('weight').textContent = data.weight;
-  document.getElementById('school').textContent = data.school;
-  document.getElementById('state').textContent = data.state;
-  document.getElementById('rating').textContent = data.rating || 'TBD';
-  document.getElementById('profilePic').src =
-    data.photoUrl || '/assets/images/default-avatar.png';
+  // Safely set text content for all elements
+  safeText(document.getElementById('playerName'), data.name);
+  safeText(document.getElementById('name'), data.name);
+  safeText(document.getElementById('position'), data.position);
+  safeText(document.getElementById('height'), data.height);
+  safeText(document.getElementById('weight'), data.weight);
+  safeText(document.getElementById('school'), data.school);
+  safeText(document.getElementById('state'), data.state);
+  safeText(document.getElementById('rating'), data.rating || 'TBD');
 
-  document.getElementById('avgGrade').textContent =
-    data.avgGameGrade?.letter || '-';
-  document.getElementById('resumePreview').src =
-    data.resumeUrl || 'https://example.com/sample-resume.pdf';
-  document.getElementById('highlightVideo').src = data.highlightUrl || '';
+  const profilePic = document.getElementById('profilePic');
+  if (profilePic) {
+    profilePic.src = data.photoUrl || '/assets/images/default-avatar.png';
+  }
+
+  safeText(
+    document.getElementById('avgGrade'),
+    data.avgGameGrade?.letter || '-'
+  );
+
+  const resumePreview = document.getElementById('resumePreview');
+  if (resumePreview) {
+    resumePreview.src =
+      data.resumeUrl || 'https://example.com/sample-resume.pdf';
+  }
+
+  const highlightVideo = document.getElementById('highlightVideo');
+  if (highlightVideo) {
+    highlightVideo.src = data.highlightUrl || '';
+  }
 
   const stats = data.stats || {};
   const statsList = document.getElementById('statsList');
   if (statsList) {
-    statsList.innerHTML = Object.entries(stats)
-      .map(([k, v]) => `<li>${k}: ${v}</li>`)
-      .join('');
+    // Create secure DOM elements instead of innerHTML
+    statsList.textContent = '';
+    Object.entries(stats).forEach(([k, v]) => {
+      const li = document.createElement('li');
+      li.textContent = `${k}: ${v}`;
+      statsList.appendChild(li);
+    });
   }
 
   // Convert grades to letter grades if they're numeric
@@ -237,17 +266,15 @@ async function loadHighlights() {
   if (!gallery) {
     return;
   }
-  gallery.innerHTML = '';
+  clearContainer(gallery);
 
   snap.forEach(doc => {
     const clip = doc.data();
-    const div = document.createElement('div');
-    div.classList.add('clip-card');
-    div.innerHTML = `
-      <p>${clip.type || 'Play'}</p>
-      <video src="${clip.clipUrl}" controls width="300"></video>
-    `;
-    gallery.appendChild(div);
+    const clipElement = createVideoClip(clip, {
+      width: '300',
+      extraClass: 'clip-card',
+    });
+    gallery.appendChild(clipElement);
   });
 }
 
@@ -263,7 +290,7 @@ async function loadClassProgress() {
   if (!wrapper) {
     return;
   }
-  wrapper.innerHTML = '';
+  clearContainer(wrapper);
 
   for (const cls of classList) {
     const ref = doc(db, `players/${playerId}/classes/${cls.id}`);
@@ -272,11 +299,18 @@ async function loadClassProgress() {
 
     const li = document.createElement('li');
     const button = document.createElement('button');
-    button.textContent = 'Start';
+    safeText(button, 'Start');
     button.dataset.classId = cls.id;
     button.addEventListener('click', startClass);
 
-    li.innerHTML = `${cls.label} — <strong>${status}</strong> `;
+    const statusText = document.createElement('span');
+    safeText(statusText, `${cls.label} — `);
+
+    const statusStrong = document.createElement('strong');
+    safeText(statusStrong, status);
+
+    li.appendChild(statusText);
+    li.appendChild(statusStrong);
     li.appendChild(button);
     wrapper.appendChild(li);
   }
@@ -287,7 +321,11 @@ async function loadGameBreakdowns() {
   if (!breakdownDiv) {
     return;
   }
-  breakdownDiv.innerHTML = '<h3>🧠 Game Breakdown</h3>';
+  clearContainer(breakdownDiv);
+
+  const title = document.createElement('h3');
+  safeText(title, '🧠 Game Breakdown');
+  breakdownDiv.appendChild(title);
 
   // OPTIMIZED APPROACH: Instead of N+1 queries, we'll use a more efficient strategy
 
@@ -323,20 +361,33 @@ async function loadGameBreakdowns() {
 
         if (tagged.length > 0) {
           const block = document.createElement('div');
-          block.innerHTML = `<strong>Game: ${gameId}</strong><ul>${tagged.map(p => `<li>${p.type} at ${p.timestamp}s</li>`).join('')}</ul>`;
-          block.innerHTML += `<p><strong>📋 Scouting Report:</strong><br>${reportData.report}<br><em>Grade: ${reportData.grade}</em></p>`;
+          block.classList.add('game-breakdown');
+
+          const gameTitle = document.createElement('strong');
+          safeText(gameTitle, `Game: ${gameId}`);
+          block.appendChild(gameTitle);
+
+          const actionList = createActionList(tagged);
+          block.appendChild(actionList);
+
+          const scoutingReport = createScoutingReport(reportData);
+          block.appendChild(scoutingReport);
+
           breakdownDiv.appendChild(block);
         }
       }
     } else {
       // Fallback: If no scouting reports, show a message instead of doing expensive queries
-      breakdownDiv.innerHTML +=
-        '<p>No game breakdowns available yet. Play in some games to see your stats!</p>';
+      const fallbackMessage = document.createElement('p');
+      fallbackMessage.textContent =
+        'No game breakdowns available yet. Play in some games to see your stats!';
+      breakdownDiv.appendChild(fallbackMessage);
     }
   } catch (error) {
     console.error('Error loading game breakdowns:', error);
-    breakdownDiv.innerHTML +=
-      '<p>Unable to load game breakdowns at this time.</p>';
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'Unable to load game breakdowns at this time.';
+    breakdownDiv.appendChild(errorMessage);
   }
 
   /*

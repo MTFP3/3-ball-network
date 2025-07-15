@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Learn about 3 Ball Network, the basketball community platform connecting players, coaches, scouts, and fans."
+    />
+    <meta name="theme-color" content="#00b4d8" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="3 Ball Network" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()"
+    />
+    <meta
+      http-equiv="Strict-Transport-Security"
+      content="max-age=31536000; includeSubDomains"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Urbanist', sans-serif;
+        background: linear-gradient(135deg, #0077b6, #90e0ef);
+        min-height: 100vh;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .banner-logo {
+        width: 100%;
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5em 0 1em 0;
+      }
+
+      .banner-logo-img {
+        max-width: 320px;
+        width: 90vw;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
+        border-radius: 24px;
+        padding: 0.5em 1.5em;
+      }
+
+      nav {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1em 0;
+        text-align: center;
+        border-radius: 0 0 22px 22px;
+        margin: 0 auto 2em auto;
+        max-width: 1200px;
+        backdrop-filter: blur(10px);
+      }
+
+      nav a {
+        color: #007cba;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1em;
+        margin: 0 1.5em;
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: inline-block;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+
+      nav a:hover {
+        background: linear-gradient(135deg, #007cba, #00b4d8);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2em;
+      }
+
+      .hero {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3em 2em;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 3em;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3em;
+        font-weight: 900;
+        color: #007cba;
+        margin-bottom: 0.5em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero p {
+        font-size: 1.3em;
+        color: #555;
+        margin-bottom: 1.5em;
+      }
+
+      .section {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2.5em;
+        border-radius: 16px;
+        margin-bottom: 2em;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .section h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.2em;
+        color: #007cba;
+        margin-bottom: 1em;
+        text-align: center;
+      }
+
+      .section p {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 1em;
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2em;
+        margin-top: 2em;
+      }
+
+      .feature {
+        background: linear-gradient(135deg, #007cba, #00b4d8);
+        color: white;
+        padding: 2em;
+        border-radius: 12px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .feature:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.5em;
+        margin-bottom: 1em;
+      }
+
+      .feature p {
+        font-size: 1em;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.2em;
+        }
+
+        nav a {
+          margin: 0 0.5em;
+          font-size: 1em;
+        }
+
+        .main-content {
+          padding: 1em;
+        }
+
+        .section {
+          padding: 1.5em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner-logo">
+      <img src="/logo.png" alt="3 Ball Network Logo" class="banner-logo-img" />
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html">About Us</a>
+      <a href="/overview.html">Overview</a>
+      <a href="/register.html">Register</a>
+      <a href="/login.html">Log In</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="hero">
+        <h1>About 3 Ball Network</h1>
+        <p>
+          Connecting the basketball community through innovation, passion, and
+          opportunity.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Our Mission</h2>
+        <p>
+          3 Ball Network is dedicated to creating meaningful connections within
+          the basketball community. We bridge the gap between players, coaches,
+          scouts, and fans, providing a comprehensive platform where talent
+          meets opportunity.
+        </p>
+        <p>
+          Our mission is to democratize basketball recruitment, coaching, and
+          community building by leveraging technology to create transparent,
+          accessible, and effective connections.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>What We Offer</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <h3>For Players</h3>
+            <p>
+              Showcase your skills, connect with coaches and scouts, track your
+              progress, and find opportunities to advance your basketball
+              career.
+            </p>
+          </div>
+          <div class="feature">
+            <h3>For Coaches</h3>
+            <p>
+              Discover talented players, build your team, share your expertise,
+              and connect with other coaching professionals.
+            </p>
+          </div>
+          <div class="feature">
+            <h3>For Scouts</h3>
+            <p>
+              Find promising talent, access detailed player profiles, track
+              performance metrics, and build comprehensive scouting reports.
+            </p>
+          </div>
+          <div class="feature">
+            <h3>For Fans</h3>
+            <p>
+              Follow your favorite players and teams, stay updated with the
+              latest news, and be part of the basketball community.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Why Choose Us</h2>
+        <p>
+          Built by basketball enthusiasts for the basketball community, 3 Ball
+          Network combines deep understanding of the game with cutting-edge
+          technology. Our platform is designed to be intuitive, comprehensive,
+          and focused on creating real value for every member of our community.
+        </p>
+        <p>
+          We believe that talent deserves recognition, hard work should be
+          rewarded, and the basketball community should be connected,
+          supportive, and inclusive.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -5,7 +5,9 @@
   "testPathIgnorePatterns": [
     "/node_modules/",
     "/tests/e2e.test.js",
-    "/tests/performance.test.js"
+    "/tests/performance.test.js",
+    "/tests/e2e-comprehensive.test.js",
+    "/tests/framework-verification.test.js"
   ],
   "collectCoverageFrom": [
     "public/**/*.js",

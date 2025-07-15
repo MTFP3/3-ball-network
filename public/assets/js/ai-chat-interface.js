@@ -1,0 +1,1405 @@
+/**
+ * AI Chat Interface - 3 Ball Network
+ * Voice and text communication system for players and coaches
+ */
+
+class AIChatInterface {
+  constructor() {
+    this.isListening = false;
+    this.recognition = null;
+    this.synthesis = null;
+    this.chatHistory = [];
+    this.userRole = 'coach'; // 'coach', 'player', 'scout'
+    this.contextData = null;
+
+    // AI Response types
+    this.responseTypes = {
+      tactical: 'Tactical advice and strategy',
+      performance: 'Performance analysis and feedback',
+      motivation: 'Motivational and psychological support',
+      technical: 'Technical skill improvement',
+      game_analysis: 'Real-time game analysis',
+      injury_prevention: 'Health and injury prevention',
+    };
+
+    // Voice settings
+    this.voiceSettings = {
+      rate: 1.0,
+      pitch: 1.0,
+      volume: 0.8,
+      voice: null,
+    };
+
+    this.init();
+  }
+
+  init() {
+    this.setupSpeechRecognition();
+    this.setupSpeechSynthesis();
+    this.createChatInterface();
+    this.setupEventListeners();
+    this.loadChatHistory();
+    // AI Chat Interface initialized
+  }
+
+  setupSpeechRecognition() {
+    if ('webkitSpeechRecognition' in window) {
+      this.recognition = new window.webkitSpeechRecognition();
+      this.recognition.continuous = false;
+      this.recognition.interimResults = true;
+      this.recognition.lang = 'en-US';
+
+      this.recognition.onstart = () => {
+        this.isListening = true;
+        this.updateMicrophoneButton(true);
+        this.showListeningIndicator();
+      };
+
+      this.recognition.onresult = event => {
+        let finalTranscript = '';
+        let interimTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        if (finalTranscript) {
+          this.processVoiceInput(finalTranscript);
+        } else if (interimTranscript) {
+          this.showInterimTranscript(interimTranscript);
+        }
+      };
+
+      this.recognition.onerror = event => {
+        this.handleSpeechError(event.error);
+        this.stopListening();
+      };
+
+      this.recognition.onend = () => {
+        this.stopListening();
+      };
+    } else {
+      this.showNotification(
+        'Speech recognition not supported in this browser',
+        'warning'
+      );
+    }
+  }
+
+  setupSpeechSynthesis() {
+    if ('speechSynthesis' in window) {
+      this.synthesis = window.speechSynthesis;
+
+      // Load available voices
+      this.loadVoices();
+
+      // Update voices when they change
+      this.synthesis.onvoiceschanged = () => {
+        this.loadVoices();
+      };
+    } else {
+      this.showNotification(
+        'Speech synthesis not supported in this browser',
+        'warning'
+      );
+    }
+  }
+
+  loadVoices() {
+    const voices = this.synthesis.getVoices();
+    const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
+
+    // Prefer female voices for coaching (studies show better reception)
+    const preferredVoice =
+      englishVoices.find(
+        voice =>
+          voice.name.toLowerCase().includes('female') ||
+          voice.name.toLowerCase().includes('samantha') ||
+          voice.name.toLowerCase().includes('karen')
+      ) || englishVoices[0];
+
+    this.voiceSettings.voice = preferredVoice;
+  }
+
+  createChatInterface() {
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'aiChatInterface';
+    chatContainer.className = 'ai-chat-interface';
+    chatContainer.textContent = `
+      <div class="chat-header">
+        <div class="chat-title">
+          <i class="fas fa-robot"></i>
+          <span>AI Coach Assistant</span>
+          <div class="user-role-indicator">${this.userRole.toUpperCase()}</div>
+        </div>
+        <div class="chat-controls">
+          <button id="chatToggleBtn" class="chat-toggle-btn">
+            <i class="fas fa-comment"></i>
+          </button>
+          <button id="voiceToggleBtn" class="voice-toggle-btn">
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button id="chatMinimizeBtn" class="chat-minimize-btn">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="chat-body" id="chatBody">
+        <div class="chat-messages" id="chatMessages">
+          <div class="ai-message welcome-message">
+            <div class="message-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+              <p>Hello! I'm your AI coach assistant. I can help with:</p>
+              <ul>
+                <li>🎯 Real-time tactical advice</li>
+                <li>📊 Performance analysis</li>
+                <li>💪 Motivation and psychology</li>
+                <li>🏀 Technical skill tips</li>
+                <li>⚡ Live game insights</li>
+              </ul>
+              <p>Ask me anything or use voice commands!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-actions" id="quickActions">
+          <button class="quick-action-btn" data-action="analyze_performance">
+            📊 Analyze Performance
+          </button>
+          <button class="quick-action-btn" data-action="tactical_advice">
+            🎯 Tactical Advice
+          </button>
+          <button class="quick-action-btn" data-action="motivation">
+            💪 Motivation
+          </button>
+          <button class="quick-action-btn" data-action="injury_check">
+            🏥 Injury Prevention
+          </button>
+        </div>
+
+        <div class="listening-indicator" id="listeningIndicator" style="display: none;">
+          <div class="pulse-animation"></div>
+          <span>Listening...</span>
+        </div>
+
+        <div class="chat-input-container">
+          <div class="voice-input-section">
+            <button id="microphoneBtn" class="microphone-btn">
+              <i class="fas fa-microphone"></i>
+            </button>
+            <div class="voice-controls">
+              <button id="pushToTalkBtn" class="ptt-btn">
+                <i class="fas fa-hand-paper"></i>
+                Push to Talk
+              </button>
+            </div>
+          </div>
+          
+          <div class="text-input-section">
+            <input 
+              type="text" 
+              id="chatInput" 
+              placeholder="Type your message or use voice..."
+              autocomplete="off"
+            />
+            <button id="sendBtn" class="send-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-settings" id="chatSettings" style="display: none;">
+        <div class="settings-section">
+          <h4>Voice Settings</h4>
+          <div class="setting-item">
+            <label>Voice Speed:</label>
+            <input type="range" id="voiceRate" min="0.5" max="2" step="0.1" value="1">
+            <span id="rateValue">1.0x</span>
+          </div>
+          <div class="setting-item">
+            <label>Voice Pitch:</label>
+            <input type="range" id="voicePitch" min="0" max="2" step="0.1" value="1">
+            <span id="pitchValue">1.0</span>
+          </div>
+          <div class="setting-item">
+            <label>Volume:</label>
+            <input type="range" id="voiceVolume" min="0" max="1" step="0.1" value="0.8">
+            <span id="volumeValue">80%</span>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h4>Chat Preferences</h4>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="autoSpeak" checked>
+              Auto-speak AI responses
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="showTimestamps" checked>
+              Show message timestamps
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="saveChatHistory" checked>
+              Save chat history
+            </label>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Add chat interface to the page
+    document.body.appendChild(chatContainer);
+    this.addChatStyles();
+  }
+
+  setupEventListeners() {
+    // Microphone button
+    document.getElementById('microphoneBtn').addEventListener('click', () => {
+      this.toggleListening();
+    });
+
+    // Push to talk
+    const pttBtn = document.getElementById('pushToTalkBtn');
+    pttBtn.addEventListener('mousedown', () => this.startListening());
+    pttBtn.addEventListener('mouseup', () => this.stopListening());
+    pttBtn.addEventListener('touchstart', () => this.startListening());
+    pttBtn.addEventListener('touchend', () => this.stopListening());
+
+    // Text input
+    const chatInput = document.getElementById('chatInput');
+    chatInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
+        this.sendTextMessage();
+      }
+    });
+
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      this.sendTextMessage();
+    });
+
+    // Quick actions
+    document.querySelectorAll('.quick-action-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const action = e.target.dataset.action;
+        this.handleQuickAction(action);
+      });
+    });
+
+    // Chat controls
+    document.getElementById('chatToggleBtn').addEventListener('click', () => {
+      this.toggleChatVisibility();
+    });
+
+    document.getElementById('voiceToggleBtn').addEventListener('click', () => {
+      this.toggleVoiceEnabled();
+    });
+
+    document.getElementById('chatMinimizeBtn').addEventListener('click', () => {
+      this.minimizeChat();
+    });
+
+    // Voice settings
+    this.setupVoiceSettings();
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.altKey && e.key === 'v') {
+        e.preventDefault();
+        this.toggleListening();
+      }
+      if (e.altKey && e.key === 'c') {
+        e.preventDefault();
+        this.toggleChatVisibility();
+      }
+    });
+  }
+
+  setupVoiceSettings() {
+    const rateSlider = document.getElementById('voiceRate');
+    const pitchSlider = document.getElementById('voicePitch');
+    const volumeSlider = document.getElementById('voiceVolume');
+
+    rateSlider.addEventListener('input', e => {
+      this.voiceSettings.rate = parseFloat(e.target.value);
+      document.getElementById('rateValue').textContent = `${e.target.value}x`;
+    });
+
+    pitchSlider.addEventListener('input', e => {
+      this.voiceSettings.pitch = parseFloat(e.target.value);
+      document.getElementById('pitchValue').textContent = e.target.value;
+    });
+
+    volumeSlider.addEventListener('input', e => {
+      this.voiceSettings.volume = parseFloat(e.target.value);
+      document.getElementById('volumeValue').textContent =
+        `${Math.round(e.target.value * 100)}%`;
+    });
+  }
+
+  toggleListening() {
+    if (this.isListening) {
+      this.stopListening();
+    } else {
+      this.startListening();
+    }
+  }
+
+  startListening() {
+    if (!this.recognition) {
+      this.showNotification('Speech recognition not available', 'error');
+      return;
+    }
+
+    if (this.isListening) {
+      return;
+    }
+
+    try {
+      this.recognition.start();
+    } catch (error) {
+      this.handleSpeechError(error.message);
+    }
+  }
+
+  stopListening() {
+    if (this.recognition && this.isListening) {
+      this.recognition.stop();
+    }
+    this.isListening = false;
+    this.updateMicrophoneButton(false);
+    this.hideListeningIndicator();
+  }
+
+  updateMicrophoneButton(listening) {
+    const micBtn = document.getElementById('microphoneBtn');
+    if (listening) {
+      micBtn.classList.add('listening');
+      micBtn.textContent = '⏹';
+    } else {
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎤';
+    }
+  }
+
+  showListeningIndicator() {
+    document.getElementById('listeningIndicator').style.display = 'flex';
+  }
+
+  hideListeningIndicator() {
+    document.getElementById('listeningIndicator').style.display = 'none';
+  }
+
+  showInterimTranscript(transcript) {
+    const chatInput = document.getElementById('chatInput');
+    chatInput.value = transcript;
+    chatInput.style.fontStyle = 'italic';
+    chatInput.style.color = '#888';
+  }
+
+  processVoiceInput(transcript) {
+    const chatInput = document.getElementById('chatInput');
+    chatInput.value = transcript;
+    chatInput.style.fontStyle = 'normal';
+    chatInput.style.color = 'white';
+
+    // Automatically send voice input
+    this.sendTextMessage();
+  }
+
+  sendTextMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+
+    if (!message) {
+      return;
+    }
+
+    // Add user message to chat
+    this.addMessage('user', message);
+
+    // Clear input
+    chatInput.value = '';
+    chatInput.style.fontStyle = 'normal';
+    chatInput.style.color = 'white';
+
+    // Process message and get AI response
+    this.processUserMessage(message);
+  }
+
+  addMessage(sender, content, type = 'text') {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${sender}-message`;
+
+    const timestamp = new Date().toLocaleTimeString();
+    const showTimestamp =
+      document.getElementById('showTimestamps')?.checked !== false;
+
+    messageElement.textContent = `
+      <div class="message-avatar">
+        <i class="fas fa-${sender === 'user' ? 'user' : 'robot'}"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text">${content}</div>
+        ${showTimestamp ? `<div class="message-time">${timestamp}</div>` : ''}
+      </div>
+    `;
+
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // Save to history
+    this.chatHistory.push({
+      sender,
+      content,
+      timestamp: Date.now(),
+      type,
+    });
+
+    this.saveChatHistory();
+  }
+
+  async processUserMessage(message) {
+    // Show typing indicator
+    this.showTypingIndicator();
+
+    try {
+      // Analyze message intent and context
+      const intent = this.analyzeIntent(message);
+      const context = this.getContextualData();
+
+      // Generate AI response
+      const response = await this.generateAIResponse(message, intent, context);
+
+      // Hide typing indicator
+      this.hideTypingIndicator();
+
+      // Add AI response
+      this.addMessage('ai', response);
+
+      // Speak response if enabled
+      if (document.getElementById('autoSpeak')?.checked !== false) {
+        this.speakMessage(response);
+      }
+    } catch (error) {
+      this.hideTypingIndicator();
+      this.addMessage(
+        'ai',
+        'Sorry, I encountered an error processing your request. Please try again.'
+      );
+    }
+  }
+
+  analyzeIntent(message) {
+    const lowerMessage = message.toLowerCase();
+
+    // Performance analysis
+    if (
+      lowerMessage.includes('performance') ||
+      lowerMessage.includes('stats') ||
+      lowerMessage.includes('how am i doing')
+    ) {
+      return 'performance_analysis';
+    }
+
+    // Tactical advice
+    if (
+      lowerMessage.includes('strategy') ||
+      lowerMessage.includes('tactic') ||
+      lowerMessage.includes('play') ||
+      lowerMessage.includes('should i')
+    ) {
+      return 'tactical_advice';
+    }
+
+    // Motivation
+    if (
+      lowerMessage.includes('motivat') ||
+      lowerMessage.includes('confidence') ||
+      lowerMessage.includes('nervous') ||
+      lowerMessage.includes('pressure')
+    ) {
+      return 'motivation';
+    }
+
+    // Technical skills
+    if (
+      lowerMessage.includes('shooting') ||
+      lowerMessage.includes('dribbl') ||
+      lowerMessage.includes('pass') ||
+      lowerMessage.includes('defense')
+    ) {
+      return 'technical_advice';
+    }
+
+    // Game analysis
+    if (
+      lowerMessage.includes('opponent') ||
+      lowerMessage.includes('team') ||
+      lowerMessage.includes('formation') ||
+      lowerMessage.includes('weakness')
+    ) {
+      return 'game_analysis';
+    }
+
+    // Injury/health
+    if (
+      lowerMessage.includes('injury') ||
+      lowerMessage.includes('pain') ||
+      lowerMessage.includes('tired') ||
+      lowerMessage.includes('fatigue')
+    ) {
+      return 'health_advice';
+    }
+
+    return 'general';
+  }
+
+  getContextualData() {
+    // Get current game data if available
+    let gameData = null;
+    if (window.liveCoaching) {
+      gameData = {
+        gameState: window.liveCoaching.gameState,
+        playerStats: Array.from(window.liveCoaching.playerStats.entries()),
+        aiInsights: window.liveCoaching.aiInsights,
+      };
+    }
+
+    // Get AI tracking data if available
+    let trackingData = null;
+    if (window.aiTracker) {
+      trackingData = {
+        isTracking: window.aiTracker.isTracking,
+        analytics: window.aiTracker.analytics,
+        performance: window.aiTracker.modelPerformance,
+      };
+    }
+
+    return {
+      userRole: this.userRole,
+      timestamp: Date.now(),
+      gameData,
+      trackingData,
+      chatHistory: this.chatHistory.slice(-5), // Last 5 messages for context
+    };
+  }
+
+  async generateAIResponse(message, intent, context) {
+    // Simulate AI processing delay
+    await new Promise(resolve =>
+      setTimeout(resolve, 1000 + Math.random() * 2000)
+    );
+
+    switch (intent) {
+      case 'performance_analysis':
+        return this.generatePerformanceResponse(context);
+
+      case 'tactical_advice':
+        return this.generateTacticalResponse(message, context);
+
+      case 'motivation':
+        return this.generateMotivationalResponse(context);
+
+      case 'technical_advice':
+        return this.generateTechnicalResponse(message);
+
+      case 'game_analysis':
+        return this.generateGameAnalysisResponse(context);
+
+      case 'health_advice':
+        return this.generateHealthResponse(message);
+
+      default:
+        return this.generateGeneralResponse();
+    }
+  }
+
+  generatePerformanceResponse(context) {
+    if (context.gameData) {
+      const gameState = context.gameData.gameState;
+
+      return `Based on current game data, here's your performance analysis:
+
+📊 **Current Score**: ${gameState.homeTeam} ${gameState.homeScore} - ${gameState.awayScore} ${gameState.awayTeam}
+⏰ **Time**: Q${gameState.quarter}, ${gameState.timeRemaining}
+
+Key insights:
+• Shot selection is looking good this quarter
+• Your defensive positioning has improved 15% since last game
+• Consider increasing pace in the next 2 minutes
+• Energy levels are optimal for a strong finish
+
+Keep up the intensity! 💪`;
+    }
+
+    return `I'd love to analyze your performance! Here's what I can see:
+
+🎯 **Strengths**: Your court awareness and decision-making are excellent
+📈 **Improvement**: Focus on consistent follow-through on shots
+⚡ **Energy**: Maintaining good intensity throughout the game
+
+For more detailed analysis, make sure the AI tracking system is active during games!`;
+  }
+
+  generateTacticalResponse(message, context) {
+    const tacticalAdvice = [
+      '🎯 **Pick and Roll**: Set screens higher to create better separation. Your timing is good, but positioning can improve.',
+      '🛡️ **Defense**: Focus on staying low and moving your feet. Anticipate the pass rather than reacting to it.',
+      '⚡ **Fast Break**: Look for early outlet passes. The first pass is crucial for tempo.',
+      '🏀 **Ball Movement**: Keep the ball moving with purpose. Each pass should advance your position or create an advantage.',
+      '📍 **Positioning**: Stay spaced on offense. Good spacing creates driving lanes and better shot opportunities.',
+    ];
+
+    if (context.gameData) {
+      return `Based on current game situation:
+
+${tacticalAdvice[Math.floor(Math.random() * tacticalAdvice.length)]}
+
+**Situational Advice**: 
+• With ${context.gameData.gameState.timeRemaining} left in Q${context.gameData.gameState.quarter}
+• Current pace favors your team
+• Look for high-percentage shots and maintain ball security
+
+Execute with confidence! 🔥`;
+    }
+
+    return tacticalAdvice[Math.floor(Math.random() * tacticalAdvice.length)];
+  }
+
+  generateMotivationalResponse(context) {
+    const motivationalMessages = [
+      "💪 **You've got this!** Every champion was once a beginner who refused to give up. Your dedication and hard work are paying off!",
+      "🔥 **Pressure makes diamonds!** Use this moment to showcase everything you've trained for. Trust your preparation and instincts.",
+      '⭐ **Believe in yourself!** You have the skills, you have the heart, and you have what it takes to succeed. Play with confidence!',
+      '🚀 **Champions mindset!** Focus on the process, not the outcome. Execute each play with intention and trust the results will follow.',
+      '💎 **Resilience is your strength!** Every setback is a setup for a comeback. Stay focused and keep pushing forward!',
+    ];
+
+    if (context.gameData) {
+      const score = context.gameData.gameState;
+      const scoreDiff = score.homeScore - score.awayScore;
+
+      if (Math.abs(scoreDiff) <= 5) {
+        return `🔥 **Clutch time!** This is what you've trained for. The game is close, but your preparation gives you the edge.
+
+${motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]}
+
+Stay composed, execute your fundamentals, and trust your teammates. You're exactly where you belong! 🏆`;
+      }
+    }
+
+    return motivationalMessages[
+      Math.floor(Math.random() * motivationalMessages.length)
+    ];
+  }
+
+  generateTechnicalResponse(message) {
+    const lowerMessage = message.toLowerCase();
+
+    if (lowerMessage.includes('shoot')) {
+      return `🎯 **Shooting Technique Tips**:
+
+• **Footwork**: Square shoulders to the basket, feet shoulder-width apart
+• **Follow-through**: Snap your wrist down, fingers pointing to the floor
+• **Arc**: Aim for 45-50 degree arc on your shot
+• **Consistency**: Same routine every time - find your rhythm
+
+**Practice drill**: Take 10 shots from the same spot, focus on identical form each time. Quality over quantity! 🏀`;
+    }
+
+    if (lowerMessage.includes('dribbl')) {
+      return `⚡ **Dribbling Mastery**:
+
+• **Keep your head up**: See the court, don't watch the ball
+• **Use your fingertips**: Better control and quicker release
+• **Stay low**: Lower center of gravity = better balance and protection
+• **Change of pace**: Vary your speed to keep defenders guessing
+
+**Pro tip**: Practice with your weak hand daily. Both hands should be equally effective! 🔄`;
+    }
+
+    if (lowerMessage.includes('defense')) {
+      return `🛡️ **Defensive Excellence**:
+
+• **Stance**: Wide base, knees bent, hands active
+• **Anticipation**: Read the offensive player's eyes and body language
+• **Communication**: Talk to your teammates - defense is a team effort
+• **Recovery**: Quick feet and lateral movement beat reaching every time
+
+**Mental game**: Stay mentally tough. Good defense starts with the right mindset! 💪`;
+    }
+
+    return `🏀 **Fundamental Focus**:
+
+Remember the basics that make great players:
+• **Footwork** is the foundation of every skill
+• **Repetition** builds muscle memory
+• **Mental toughness** separates good from great
+• **Team chemistry** amplifies individual skills
+
+What specific skill would you like to work on? I can provide targeted drills and techniques! 🎯`;
+  }
+
+  generateGameAnalysisResponse(context) {
+    if (context.gameData && context.trackingData) {
+      return `📊 **Real-time Game Analysis**:
+
+**Team Dynamics**:
+• Ball movement: Excellent (7+ passes per possession)
+• Pace: ${context.gameData.aiInsights.pace || 'Medium'} tempo
+• Defensive pressure: High intensity
+
+**Key Observations**:
+• Opponent's weakness: Struggling with pick-and-roll defense
+• Your advantage: Superior ball movement and spacing
+• Momentum: ${context.gameData.aiInsights.momentum || 'Even'}
+
+**Strategic Recommendations**:
+1. Exploit the paint with inside-out offense
+2. Maintain current defensive intensity
+3. Look for fast-break opportunities
+
+Stay aggressive and trust your system! 🔥`;
+    }
+
+    return `🧠 **Game Analysis Framework**:
+
+To provide detailed analysis, I need game data. Here's what I typically analyze:
+
+• **Opponent tendencies** and weaknesses
+• **Your team's efficiency** in different situations
+• **Momentum shifts** and their causes
+• **Optimal strategy adjustments**
+
+During live games with AI tracking, I can provide real-time insights and tactical recommendations! 📈`;
+  }
+
+  generateHealthResponse(message) {
+    const lowerMessage = message.toLowerCase();
+
+    if (lowerMessage.includes('tired') || lowerMessage.includes('fatigue')) {
+      return `⚡ **Energy Management**:
+
+**Immediate**: 
+• Deep breathing exercises (4-7-8 technique)
+• Light stretching during timeouts
+• Stay hydrated with small, frequent sips
+
+**Recovery**:
+• Focus on proper sleep (7-9 hours)
+• Nutrition timing - eat within 30 minutes post-game
+• Active recovery on off days
+
+**Warning signs**: If fatigue persists, consider load management and consult your trainer. Your body is your most important equipment! 💪`;
+    }
+
+    if (lowerMessage.includes('injury') || lowerMessage.includes('pain')) {
+      return `🏥 **Injury Prevention & Care**:
+
+**Important**: Any persistent pain should be evaluated by a medical professional immediately.
+
+**Prevention basics**:
+• Proper warm-up (10-15 minutes dynamic movements)
+• Cool-down stretching after activity
+• Strength training for injury prevention
+• Listen to your body - rest when needed
+
+**Red flags**: Sharp pain, swelling, inability to bear weight
+**Green flags**: Normal muscle fatigue, mild soreness
+
+Your health comes first - never play through significant pain! 🚨`;
+    }
+
+    return `🌟 **Health & Wellness Guide**:
+
+**Physical Care**:
+• Hydration: Half your body weight in ounces daily
+• Nutrition: Balanced meals with adequate protein
+• Sleep: 7-9 hours for optimal recovery
+• Movement: Stay active on rest days
+
+**Mental Health**:
+• Stress management techniques
+• Visualization and mental preparation
+• Work-life balance
+
+Remember: Peak performance requires taking care of your whole self! 💚`;
+  }
+
+  generateGeneralResponse() {
+    const generalResponses = [
+      "I'm here to help you excel on and off the court! What specific aspect of your game would you like to improve?",
+      'Great question! I can assist with tactics, performance analysis, motivation, and skill development. What interests you most?',
+      "Let's work together to elevate your game! I'm equipped to help with technical skills, mental preparation, and strategic insights.",
+      "Every question is an opportunity to grow! I'm here to provide personalized coaching advice. What's on your mind?",
+      "I'm your AI coaching partner! Whether it's game strategy, skill improvement, or motivation - I'm here to help you succeed.",
+    ];
+
+    return generalResponses[
+      Math.floor(Math.random() * generalResponses.length)
+    ];
+  }
+
+  handleQuickAction(action) {
+    switch (action) {
+      case 'analyze_performance':
+        this.addMessage('user', 'Analyze my current performance');
+        this.processUserMessage('Analyze my current performance');
+        break;
+
+      case 'tactical_advice':
+        this.addMessage('user', 'Give me tactical advice for this situation');
+        this.processUserMessage('Give me tactical advice for this situation');
+        break;
+
+      case 'motivation':
+        this.addMessage('user', 'I need some motivation');
+        this.processUserMessage('I need some motivation');
+        break;
+
+      case 'injury_check':
+        this.addMessage('user', 'Health and injury prevention advice');
+        this.processUserMessage('Health and injury prevention advice');
+        break;
+    }
+  }
+
+  speakMessage(message) {
+    if (!this.synthesis || !this.voiceSettings.voice) {
+      return;
+    }
+
+    // Clean message for speech (remove markdown and emojis)
+    const cleanMessage = message
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold markdown
+      .replace(/\*(.*?)\*/g, '$1') // Remove italic markdown
+      .replace(
+        /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
+        ''
+      ) // Remove emojis
+      .replace(/•/g, '') // Remove bullet points
+      .replace(/#{1,6}\s/g, '') // Remove markdown headers
+      .trim();
+
+    const utterance = new SpeechSynthesisUtterance(cleanMessage);
+    utterance.voice = this.voiceSettings.voice;
+    utterance.rate = this.voiceSettings.rate;
+    utterance.pitch = this.voiceSettings.pitch;
+    utterance.volume = this.voiceSettings.volume;
+
+    this.synthesis.speak(utterance);
+  }
+
+  showTypingIndicator() {
+    const messagesContainer = document.getElementById('chatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typingIndicator';
+    typingDiv.className = 'message ai-message typing-indicator';
+    typingDiv.textContent = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    `;
+
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  hideTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+
+  toggleChatVisibility() {
+    const chatInterface = document.getElementById('aiChatInterface');
+    chatInterface.classList.toggle('hidden');
+  }
+
+  toggleVoiceEnabled() {
+    const voiceBtn = document.getElementById('voiceToggleBtn');
+    const autoSpeak = document.getElementById('autoSpeak');
+
+    if (autoSpeak.checked) {
+      autoSpeak.checked = false;
+      voiceBtn.classList.add('disabled');
+      voiceBtn.textContent = '🔇';
+    } else {
+      autoSpeak.checked = true;
+      voiceBtn.classList.remove('disabled');
+      voiceBtn.textContent = '🔊';
+    }
+  }
+
+  minimizeChat() {
+    const chatBody = document.getElementById('chatBody');
+    const minimizeBtn = document.getElementById('chatMinimizeBtn');
+
+    chatBody.style.display =
+      chatBody.style.display === 'none' ? 'flex' : 'none';
+    minimizeBtn.textContent =
+      chatBody.style.display === 'none'
+        ? '<i class="fas fa-plus"></i>'
+        : '<i class="fas fa-minus"></i>';
+  }
+
+  handleSpeechError(error) {
+    let message = 'Speech recognition error: ';
+    switch (error) {
+      case 'no-speech':
+        message += 'No speech detected. Please try again.';
+        break;
+      case 'audio-capture':
+        message += 'Microphone not available.';
+        break;
+      case 'not-allowed':
+        message += 'Microphone access denied. Please allow microphone access.';
+        break;
+      default:
+        message += error;
+    }
+    this.showNotification(message, 'error');
+  }
+
+  setUserRole(role) {
+    this.userRole = role;
+    const indicator = document.querySelector('.user-role-indicator');
+    if (indicator) {
+      indicator.textContent = role.toUpperCase();
+    }
+
+    // Adjust AI responses based on role
+    this.contextData = { ...this.contextData, userRole: role };
+  }
+
+  saveChatHistory() {
+    if (document.getElementById('saveChatHistory')?.checked !== false) {
+      localStorage.setItem('aiChatHistory', JSON.stringify(this.chatHistory));
+    }
+  }
+
+  loadChatHistory() {
+    const saved = localStorage.getItem('aiChatHistory');
+    if (saved) {
+      this.chatHistory = JSON.parse(saved);
+      // Optionally restore recent messages to UI
+    }
+  }
+
+  showNotification(message, type = 'info') {
+    // Use existing notification system from live coaching
+    if (window.liveCoaching) {
+      window.liveCoaching.showNotification(message, type);
+    }
+    // Silent fallback - no notification shown if liveCoaching not available
+  }
+
+  addChatStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .ai-chat-interface {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 400px;
+        max-height: 600px;
+        background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid #444;
+      }
+
+      .ai-chat-interface.hidden {
+        transform: translateX(420px);
+      }
+
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: linear-gradient(135deg, #00b4d8, #0077b6);
+        color: white;
+      }
+
+      .chat-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+      }
+
+      .user-role-indicator {
+        font-size: 0.7em;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 6px;
+        border-radius: 10px;
+      }
+
+      .chat-controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      .chat-controls button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .chat-controls button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .chat-body {
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .message {
+        display: flex;
+        gap: 10px;
+        max-width: 90%;
+      }
+
+      .user-message {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+      }
+
+      .ai-message {
+        align-self: flex-start;
+      }
+
+      .message-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .user-message .message-avatar {
+        background: #00b4d8;
+        color: white;
+      }
+
+      .ai-message .message-avatar {
+        background: #2a2a2a;
+        color: #00b4d8;
+      }
+
+      .message-content {
+        background: #333;
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: white;
+        line-height: 1.4;
+      }
+
+      .user-message .message-content {
+        background: #00b4d8;
+      }
+
+      .message-time {
+        font-size: 0.7em;
+        opacity: 0.6;
+        margin-top: 4px;
+      }
+
+      .welcome-message .message-content {
+        background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+      }
+
+      .welcome-message ul {
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+
+      .welcome-message li {
+        margin: 4px 0;
+      }
+
+      .quick-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 15px 10px;
+      }
+
+      .quick-action-btn {
+        background: #333;
+        border: 1px solid #555;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .quick-action-btn:hover {
+        background: #00b4d8;
+        border-color: #00b4d8;
+      }
+
+      .listening-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background: rgba(0, 180, 216, 0.1);
+        color: #00b4d8;
+        font-size: 0.9em;
+      }
+
+      .pulse-animation {
+        width: 12px;
+        height: 12px;
+        background: #00b4d8;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.2); opacity: 0.7; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      .chat-input-container {
+        padding: 15px;
+        background: #1a1a1a;
+        border-top: 1px solid #333;
+      }
+
+      .voice-input-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .microphone-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #333;
+        border: 2px solid #555;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .microphone-btn:hover {
+        background: #00b4d8;
+        border-color: #00b4d8;
+      }
+
+      .microphone-btn.listening {
+        background: #ff6b35;
+        border-color: #ff6b35;
+        animation: pulse 1s infinite;
+      }
+
+      .ptt-btn {
+        background: #333;
+        border: 1px solid #555;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 0.8em;
+        transition: all 0.2s;
+      }
+
+      .ptt-btn:hover {
+        background: #555;
+      }
+
+      .text-input-section {
+        display: flex;
+        gap: 10px;
+      }
+
+      #chatInput {
+        flex: 1;
+        background: #333;
+        border: 1px solid #555;
+        color: white;
+        padding: 10px 12px;
+        border-radius: 20px;
+        outline: none;
+      }
+
+      #chatInput:focus {
+        border-color: #00b4d8;
+      }
+
+      .send-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #00b4d8;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .send-btn:hover {
+        background: #0077b6;
+      }
+
+      .typing-indicator {
+        opacity: 0.7;
+      }
+
+      .typing-dots {
+        display: flex;
+        gap: 4px;
+        padding: 8px 0;
+      }
+
+      .typing-dots span {
+        width: 6px;
+        height: 6px;
+        background: #00b4d8;
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+      }
+
+      .typing-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-10px); }
+      }
+
+      .chat-settings {
+        padding: 15px;
+        background: #1a1a1a;
+        border-top: 1px solid #333;
+      }
+
+      .settings-section {
+        margin-bottom: 15px;
+      }
+
+      .settings-section h4 {
+        color: #00b4d8;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+      }
+
+      .setting-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.8em;
+        color: #ccc;
+      }
+
+      .setting-item input[type="range"] {
+        width: 100px;
+        margin: 0 10px;
+      }
+
+      .setting-item input[type="checkbox"] {
+        margin-right: 8px;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .ai-chat-interface {
+          width: calc(100vw - 20px);
+          right: 10px;
+          left: 10px;
+          bottom: 10px;
+        }
+
+        .ai-chat-interface.hidden {
+          transform: translateY(100%);
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+}
+
+// Initialize AI Chat Interface
+const aiChat = new AIChatInterface();
+
+// Export for global access
+window.aiChat = aiChat;
+
+// Integration with existing live coaching system
+if (window.liveCoaching) {
+  // Auto-detect user role based on URL or existing data
+  const urlPath = window.location.pathname;
+  if (urlPath.includes('coach')) {
+    aiChat.setUserRole('coach');
+  } else if (urlPath.includes('player')) {
+    aiChat.setUserRole('player');
+  } else if (urlPath.includes('scout')) {
+    aiChat.setUserRole('scout');
+  }
+}

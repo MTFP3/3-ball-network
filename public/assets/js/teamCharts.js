@@ -5,44 +5,106 @@ import {
   getDocs,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
 import Chart from 'https://cdn.jsdelivr.net/npm/chart.js';
-import { db } from './firebaseConfig.js';
+import { db, auth } from './firebaseConfig.js';
+import { logAnalyticsEvent, logError } from './analyticsLogger.js';
 
-const teamName = localStorage.getItem('team') || 'Demo Team';
-const q = query(collection(db, 'games'), where('teamName', '==', teamName));
-const snap = await getDocs(q);
+// 🔐 Secure team data loading with authentication
+async function loadTeamCharts() {
+  try {
+    // Wait for authentication state
+    const user = await new Promise(resolve => {
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        unsubscribe();
+        resolve(user);
+      });
+    });
 
-const labels = [];
-const points = [];
-const assists = [];
-const rebounds = [];
-const steals = [];
-const blocks = [];
+    if (!user) {
+      throw new Error('User must be authenticated to view team data');
+    }
 
-snap.forEach(doc => {
-  const d = doc.data();
-  labels.push(d.gameDate || 'Game');
-  points.push(d.stats?.points || 0);
-  assists.push(d.stats?.assists || 0);
-  rebounds.push(d.stats?.rebounds || 0);
-  steals.push(d.stats?.steals || 0);
-  blocks.push(d.stats?.blocks || 0);
-});
+    // Get user's custom claims for role-based access
+    const idTokenResult = await user.getIdTokenResult();
+    const userRole = idTokenResult.claims.role;
+    const teamName =
+      idTokenResult.claims.team || localStorage.getItem('team') || 'Demo Team';
 
-const ctx = document.getElementById('teamChart').getContext('2d');
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels,
-    datasets: [
-      { label: 'Points', data: points, borderColor: 'blue', fill: false },
-      { label: 'Assists', data: assists, borderColor: 'green', fill: false },
-      { label: 'Rebounds', data: rebounds, borderColor: 'orange', fill: false },
-      { label: 'Steals', data: steals, borderColor: 'purple', fill: false },
-      { label: 'Blocks', data: blocks, borderColor: 'red', fill: false },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom' } },
-  },
-});
+    // Log analytics event
+    logAnalyticsEvent('team_charts_viewed', {
+      team_name: teamName,
+      user_role: userRole,
+      user_id: user.uid,
+    });
+
+    const q = query(collection(db, 'games'), where('teamName', '==', teamName));
+    const snap = await getDocs(q);
+
+    const labels = [];
+    const points = [];
+    const assists = [];
+    const rebounds = [];
+    const steals = [];
+    const blocks = [];
+
+    snap.forEach(doc => {
+      const d = doc.data();
+      labels.push(d.gameDate || 'Game');
+      points.push(d.stats?.points || 0);
+      assists.push(d.stats?.assists || 0);
+      rebounds.push(d.stats?.rebounds || 0);
+      steals.push(d.stats?.steals || 0);
+      blocks.push(d.stats?.blocks || 0);
+    });
+
+    const ctx = document.getElementById('teamChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Points', data: points, borderColor: 'blue', fill: false },
+          {
+            label: 'Assists',
+            data: assists,
+            borderColor: 'green',
+            fill: false,
+          },
+          {
+            label: 'Rebounds',
+            data: rebounds,
+            borderColor: 'orange',
+            fill: false,
+          },
+          { label: 'Steals', data: steals, borderColor: 'purple', fill: false },
+          { label: 'Blocks', data: blocks, borderColor: 'red', fill: false },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+      },
+    });
+
+    console.log('✅ Team charts loaded successfully for team:', teamName);
+  } catch (error) {
+    console.error('❌ Error loading team charts:', error);
+    logError(error, { context: 'team_charts_loading' });
+
+    // Show user-friendly error message
+    const chartContainer = document.getElementById('teamChart');
+    if (chartContainer) {
+      chartContainer.textContent = '';
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent =
+        'Unable to load team data. Please ensure you are logged in and have access to this team.';
+      chartContainer.appendChild(errorMessage);
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadTeamCharts);
+} else {
+  loadTeamCharts();
+}

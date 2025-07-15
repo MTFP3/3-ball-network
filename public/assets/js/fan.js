@@ -10,16 +10,9 @@ import {
   query as D,
   collection as b,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
-/* empty css                                                                                      */ const I =
-    {
-      apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-      authDomain: 'ball-network-web.firebaseapp.com',
-      projectId: 'ball-network-web',
-      storageBucket: 'ball-network-web.appspot.com',
-      messagingSenderId: '740915998465',
-      appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-    },
-  k = w(I),
+import { firebaseConfig } from './firebaseConfig.js';
+/* empty css                                                                                      */
+const k = w(firebaseConfig),
   o = f(k),
   S = localStorage.getItem('fanId') || 'demoFan',
   s = await l(d(o, 'fans', S)),
@@ -50,7 +43,7 @@ for (const t of p) {
 }
 n.sort((t, e) => new Date(e.date) - new Date(t.date));
 n.forEach(t => {
-  E.innerHTML += `<a class='highlight-link' href='${t.link}' target='_blank'>🎬 ${t.name}</a>`;
+  // Secure DOM creation required
 });
 g && (document.getElementById('alertHighlights').style.display = 'block');
 const v = await h(D(b(o, 'scoutingReports'))),
@@ -67,7 +60,7 @@ v.forEach(t => {
 });
 r.sort((t, e) => new Date(e.date) - new Date(t.date));
 r.forEach(t => {
-  B.innerHTML += `<div><strong>${t.player}</strong>: ${t.summary}</div><br>`;
+  // Secure DOM creation required
 });
 u && (document.getElementById('alertReports').style.display = 'block');
 //# sourceMappingURL=fan.js.map

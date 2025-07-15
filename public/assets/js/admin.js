@@ -17,16 +17,18 @@ import {
   onAuthStateChanged as k,
   signInWithEmailAndPassword as E,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
-/* empty css                                                                             */ const C =
-    {
-      apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-      authDomain: 'ball-network-web.firebaseapp.com',
-      projectId: 'ball-network-web',
-      storageBucket: 'ball-network-web.appspot.com',
-      messagingSenderId: '740915998465',
-      appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-    },
-  b = y(C),
+import { firebaseConfig } from './firebaseConfig.js';
+import {
+  createPlayerCard,
+  createStatusBadge,
+  createLoadingIndicator,
+  createErrorMessage,
+  clearContainer,
+  safeText,
+  safeAttr,
+} from './uiComponents.js';
+/* empty css                                                                             */
+const b = y(firebaseConfig),
   i = f(b),
   p = x(b);
 let d = [];
@@ -37,14 +39,17 @@ k(p, async e => {
   }
   try {
     if (!(await h(l(i, 'admins', e.uid))).exists()) {
-      document.body.innerHTML =
-        '<div style="text-align:center;margin-top:100px;"><h2>🚫 Access Denied</h2><p>Admin privileges required.</p></div>';
+      const accessDenied = createErrorMessage(
+        'Access Denied: Admin privileges required.'
+      );
+      clearContainer(document.body);
+      document.body.appendChild(accessDenied);
       return;
     }
     I();
   } catch (t) {
-    (console.error('Auth check failed:', t),
-      o('Authentication error', 'error'));
+    console.error('Auth check failed:', t);
+    o('Authentication error', 'error');
   }
 });
 window.switchTab = e => {
@@ -95,55 +100,112 @@ async function m() {
 function B(e) {
   const t = document.getElementById('userList');
   if (e.length === 0) {
-    t.innerHTML = '<div class="loading"><p>No users found</p></div>';
+    const noUsers = createLoadingIndicator('No users found');
+    clearContainer(t);
+    t.appendChild(noUsers);
     return;
   }
-  t.innerHTML = e
-    .map(
-      n => `
-        <div class="user-item">
-          <div class="user-info">
-            <div class="user-name">${n.name || 'Unknown'}</div>
-            <div class="user-details">
-              ${n.email || 'No email'} • ${n.role || 'No role'} • ID: ${n.id}
-            </div>
-          </div>
-          <div>
-            <button class="admin-btn" onclick="editUser('${n.id}')">Edit</button>
-            <button class="admin-btn danger" onclick="banUser('${n.id}')">Ban</button>
-          </div>
-        </div>
-      `
-    )
-    .join('');
+
+  clearContainer(t);
+
+  e.forEach(n => {
+    const userItem = document.createElement('div');
+    userItem.classList.add('user-item');
+
+    const userInfo = document.createElement('div');
+    userInfo.classList.add('user-info');
+
+    const userName = document.createElement('div');
+    userName.classList.add('user-name');
+    safeText(userName, n.name || 'Unknown');
+
+    const userDetails = document.createElement('div');
+    userDetails.classList.add('user-details');
+    safeText(
+      userDetails,
+      `${n.email || 'No email'} • ${n.role || 'No role'} • ID: ${n.id}`
+    );
+
+    userInfo.appendChild(userName);
+    userInfo.appendChild(userDetails);
+
+    const actionButtons = document.createElement('div');
+
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('admin-btn');
+    safeText(editBtn, 'Edit');
+    editBtn.addEventListener('click', () => editUser(n.id));
+
+    const banBtn = document.createElement('button');
+    banBtn.classList.add('admin-btn', 'danger');
+    safeText(banBtn, 'Ban');
+    banBtn.addEventListener('click', () => banUser(n.id));
+
+    actionButtons.appendChild(editBtn);
+    actionButtons.appendChild(banBtn);
+
+    userItem.appendChild(userInfo);
+    userItem.appendChild(actionButtons);
+
+    t.appendChild(userItem);
+  });
 }
 async function g() {
   try {
     const e = await c(u(i, 'flags')),
       t = document.getElementById('flaggedList');
+
+    clearContainer(t);
+
+    const title = document.createElement('h3');
+    safeText(title, 'Flagged Content');
+    t.appendChild(title);
+
     if (e.empty) {
-      t.innerHTML = '<h3>Flagged Content</h3><p>No flagged content found.</p>';
+      const noFlags = document.createElement('p');
+      safeText(noFlags, 'No flagged content found.');
+      t.appendChild(noFlags);
       return;
     }
-    let n = '<h3>Flagged Content</h3>';
-    (e.forEach(r => {
+
+    e.forEach(r => {
       const a = r.data();
-      n += `
-            <div class="user-item">
-              <div class="user-info">
-                <div class="user-name">🚩 ${a.type || 'Unknown'}</div>
-                <div class="user-details">
-                  Target: ${a.targetId || 'Unknown'} • Reason: ${a.reason || 'No reason provided'}
-                </div>
-              </div>
-              <div>
-                <button class="admin-btn" onclick="resolveFlag('${r.id}')">Resolve</button>
-              </div>
-            </div>
-          `;
-    }),
-      (t.innerHTML = n),
-      (document.getElementById('flaggedContent').textContent = e.size));
+      const flagItem = document.createElement('div');
+      flagItem.classList.add('user-item');
+
+      const flagInfo = document.createElement('div');
+      flagInfo.classList.add('user-info');
+
+      const flagName = document.createElement('div');
+      flagName.classList.add('user-name');
+      safeText(flagName, `🚩 ${a.type || 'Unknown'}`);
+
+      const flagDetails = document.createElement('div');
+      flagDetails.classList.add('user-details');
+      safeText(
+        flagDetails,
+        `Target: ${a.targetId || 'Unknown'} • Reason: ${a.reason || 'No reason provided'}`
+      );
+
+      flagInfo.appendChild(flagName);
+      flagInfo.appendChild(flagDetails);
+
+      const actionButtons = document.createElement('div');
+      const resolveBtn = document.createElement('button');
+      resolveBtn.classList.add('admin-btn');
+      safeText(resolveBtn, 'Resolve');
+      resolveBtn.addEventListener('click', () => resolveFlag(r.id));
+      actionButtons.appendChild(resolveBtn);
+
+      flagItem.appendChild(flagInfo);
+      flagItem.appendChild(actionButtons);
+      t.appendChild(flagItem);
+    });
+
+    const flaggedCountElement = document.getElementById('flaggedContent');
+    if (flaggedCountElement) {
+      safeText(flaggedCountElement, e.size.toString());
+    }
   } catch (e) {
     console.error('Error loading flagged content:', e);
   }
@@ -243,42 +305,113 @@ function L(e) {
   }
 }
 function M() {
-  ((document.body.innerHTML = `
-        <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
-          <div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 3em; border: 1px solid rgba(255,255,255,0.1); max-width: 400px; width: 90%; text-align: center;">
-            <div style="margin-bottom: 2em;">
-              <img src="/logo.png" alt="3 Ball Network" style="height: 60px; margin-bottom: 1em;">
-              <h1 style="font-family: 'Montserrat', Arial, sans-serif; font-size: 2em; font-weight: 900; margin: 0; background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 50%, #caf0f8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase; letter-spacing: 2px;">Admin Portal</h1>
-              <p style="color: #b0b0b0; margin-top: 0.5em;">Administrator access required</p>
-            </div>
-            
-            <div id="loginAlert" style="display: none; padding: 1em; border-radius: 10px; margin-bottom: 1em;"></div>
-            
-            <form id="loginForm" style="text-align: left;">
-              <div style="margin-bottom: 1.5em;">
-                <label for="adminEmail" style="display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;">Email Address</label>
-                <input type="email" id="adminEmail" required style="width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;">
-              </div>
-              
-              <div style="margin-bottom: 2em;">
-                <label for="adminPassword" style="display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;">Password</label>
-                <input type="password" id="adminPassword" required style="width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;">
-              </div>
-              
-              <button type="submit" style="width: 100%; padding: 1em; background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%); border: none; border-radius: 10px; color: white; font-weight: 700; font-size: 1em; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;">
-                Sign In
-              </button>
-            </form>
-            
-            <div style="margin-top: 2em; padding-top: 1.5em; border-top: 1px solid rgba(255,255,255,0.1);">
-              <p style="color: #888; font-size: 0.9em; margin: 0;">
-                🔒 Secure admin authentication
-              </p>
-            </div>
-          </div>
-        </div>
-      `),
-    document.getElementById('loginForm').addEventListener('submit', S));
+  clearContainer(document.body);
+
+  // Create main container
+  const mainContainer = document.createElement('div');
+  mainContainer.style.cssText =
+    'min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);';
+
+  // Create form container
+  const formContainer = document.createElement('div');
+  formContainer.style.cssText =
+    'background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 3em; border: 1px solid rgba(255,255,255,0.1); max-width: 400px; width: 90%; text-align: center;';
+
+  // Create header section
+  const headerDiv = document.createElement('div');
+  headerDiv.style.marginBottom = '2em';
+
+  const logo = document.createElement('img');
+  safeAttr(logo, 'src', '/logo.png');
+  safeAttr(logo, 'alt', '3 Ball Network');
+  logo.style.cssText = 'height: 60px; margin-bottom: 1em;';
+
+  const title = document.createElement('h1');
+  safeText(title, 'Admin Portal');
+  title.style.cssText =
+    'font-family: "Montserrat", Arial, sans-serif; font-size: 2em; font-weight: 900; margin: 0; background: linear-gradient(45deg, #00b4d8 0%, #90e0ef 50%, #caf0f8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-transform: uppercase; letter-spacing: 2px;';
+
+  const subtitle = document.createElement('p');
+  safeText(subtitle, 'Administrator access required');
+  subtitle.style.cssText = 'color: #b0b0b0; margin-top: 0.5em;';
+
+  headerDiv.appendChild(logo);
+  headerDiv.appendChild(title);
+  headerDiv.appendChild(subtitle);
+
+  // Create alert div
+  const alertDiv = document.createElement('div');
+  safeAttr(alertDiv, 'id', 'loginAlert');
+  alertDiv.style.cssText =
+    'display: none; padding: 1em; border-radius: 10px; margin-bottom: 1em;';
+
+  // Create form
+  const form = document.createElement('form');
+  safeAttr(form, 'id', 'loginForm');
+  form.style.textAlign = 'left';
+
+  // Email field
+  const emailDiv = document.createElement('div');
+  emailDiv.style.marginBottom = '1.5em';
+
+  const emailLabel = document.createElement('label');
+  safeAttr(emailLabel, 'for', 'adminEmail');
+  safeText(emailLabel, 'Email Address');
+  emailLabel.style.cssText =
+    'display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;';
+
+  const emailInput = document.createElement('input');
+  safeAttr(emailInput, 'type', 'email');
+  safeAttr(emailInput, 'id', 'adminEmail');
+  safeAttr(emailInput, 'required', 'true');
+  emailInput.style.cssText =
+    'width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;';
+
+  emailDiv.appendChild(emailLabel);
+  emailDiv.appendChild(emailInput);
+
+  // Password field
+  const passwordDiv = document.createElement('div');
+  passwordDiv.style.marginBottom = '2em';
+
+  const passwordLabel = document.createElement('label');
+  safeAttr(passwordLabel, 'for', 'adminPassword');
+  safeText(passwordLabel, 'Password');
+  passwordLabel.style.cssText =
+    'display: block; color: #e0e0e0; margin-bottom: 0.5em; font-weight: 600;';
+
+  const passwordInput = document.createElement('input');
+  safeAttr(passwordInput, 'type', 'password');
+  safeAttr(passwordInput, 'id', 'adminPassword');
+  safeAttr(passwordInput, 'required', 'true');
+  passwordInput.style.cssText =
+    'width: 100%; padding: 1em; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.05); color: #e0e0e0; font-size: 1em; box-sizing: border-box;';
+
+  passwordDiv.appendChild(passwordLabel);
+  passwordDiv.appendChild(passwordInput);
+
+  // Submit button
+  const submitBtn = document.createElement('button');
+  safeAttr(submitBtn, 'type', 'submit');
+  safeText(submitBtn, 'Sign In');
+  submitBtn.style.cssText =
+    'width: 100%; padding: 1em; background: linear-gradient(45deg, #00b4d8, #90e0ef); border: none; border-radius: 10px; color: #1a1a2e; font-weight: 700; font-size: 1em; cursor: pointer; transition: transform 0.2s;';
+
+  // Assemble form
+  form.appendChild(emailDiv);
+  form.appendChild(passwordDiv);
+  form.appendChild(submitBtn);
+
+  // Assemble container
+  formContainer.appendChild(headerDiv);
+  formContainer.appendChild(alertDiv);
+  formContainer.appendChild(form);
+
+  mainContainer.appendChild(formContainer);
+  document.body.appendChild(mainContainer);
+
+  // Add form submission handler
+  form.addEventListener('submit', S);
 }
 async function S(e) {
   e.preventDefault();
@@ -314,9 +447,30 @@ function $(e) {
       return 'Login failed. Please try again.';
   }
 }
-window.editUser = e => {
-  o(`Edit user ${e} - Feature coming soon`, 'success');
+// Make functions available for event handlers
+window.editUser = function (userId) {
+  editUser(userId);
 };
+
+window.banUser = function (userId) {
+  banUser(userId);
+};
+
+window.resolveFlag = function (flagId) {
+  resolveFlag(flagId);
+};
+
+function editUser(e) {
+  o(`Edit user ${e} - Feature coming soon`, 'success');
+}
+
+function banUser(userId) {
+  o(`Ban user ${userId} - Feature coming soon`, 'success');
+}
+
+function resolveFlag(flagId) {
+  return window.resolveFlag(flagId);
+}
 window.exportUsers = () => {
   o('User export initiated', 'success');
 };

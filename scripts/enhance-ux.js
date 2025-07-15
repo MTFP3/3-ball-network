@@ -247,14 +247,14 @@ class UXEnhancer {
     const nav = document.querySelector('nav, .navigation');
     if (nav && window.innerWidth <= 768) {
       const toggleButton = document.createElement('button');
-      toggleButton.innerHTML = '☰';
+      toggleButton.textContent = '☰';
       toggleButton.className = 'mobile-menu-toggle';
       toggleButton.style.cssText = 'position:fixed;top:10px;left:10px;z-index:1000;background:#00b4d8;color:#fff;border:none;padding:10px;border-radius:4px;font-size:18px';
       toggleButton.setAttribute('aria-label', 'Toggle mobile menu');
       
       toggleButton.addEventListener('click', () => {
         nav.classList.toggle('mobile-menu-active');
-        toggleButton.innerHTML = nav.classList.contains('mobile-menu-active') ? '✕' : '☰';
+        toggleButton.textContent = nav.classList.contains('mobile-menu-active') ? '✕' : '☰';
       });
       
       document.body.appendChild(toggleButton);
@@ -403,7 +403,7 @@ class UXEnhancer {
       element = document.querySelector(element);
     }
     if (element) {
-      element.innerHTML = '<span class="loading-spinner"></span> Loading...';
+      element.textContent = '<span class="loading-spinner"></span> Loading...';
       element.disabled = true;
     }
   };
@@ -414,7 +414,7 @@ class UXEnhancer {
       element = document.querySelector(element);
     }
     if (element) {
-      element.innerHTML = originalText || 'Submit';
+      element.textContent = originalText || 'Submit';
       element.disabled = false;
     }
   };
@@ -426,7 +426,7 @@ class UXEnhancer {
       overlay = document.createElement('div');
       overlay.id = 'loading-overlay';
       overlay.className = 'loading-overlay';
-      overlay.innerHTML = '<div><div class="loading-spinner"></div><p>' + message + '</p></div>';
+      overlay.textContent = '<div><div class="loading-spinner"></div><p>' + message + '</p></div>';
       document.body.appendChild(overlay);
     }
     overlay.classList.remove('hidden');
@@ -444,7 +444,7 @@ class UXEnhancer {
   function addSkeletonLoading() {
     const cards = document.querySelectorAll('.card:empty, .player-card:empty, .game-card:empty');
     cards.forEach(card => {
-      card.innerHTML = '<div class="skeleton" style="height: 20px; margin: 10px 0;"></div><div class="skeleton" style="height: 20px; margin: 10px 0;"></div><div class="skeleton" style="height: 20px; margin: 10px 0;"></div>';
+      card.textContent = '<div class="skeleton" style="height: 20px; margin: 10px 0;"></div><div class="skeleton" style="height: 20px; margin: 10px 0;"></div><div class="skeleton" style="height: 20px; margin: 10px 0;"></div>';
     });
   }
 
@@ -519,7 +519,7 @@ class UXEnhancer {
       });
       
       breadcrumbHTML += '</ol>';
-      breadcrumbContainer.innerHTML = breadcrumbHTML;
+      breadcrumbContainer.textContent = breadcrumbHTML;
       
       const main = document.querySelector('main') || document.body;
       main.insertBefore(breadcrumbContainer, main.firstChild);
@@ -546,7 +546,7 @@ class UXEnhancer {
           const filteredSuggestions = mockSuggestions.filter(s => s.includes(query));
           
           if (filteredSuggestions.length > 0) {
-            suggestions.innerHTML = filteredSuggestions.map(s => 
+            suggestions.textContent = filteredSuggestions.map(s => 
               '<div class="suggestion-item" style="padding:8px;cursor:pointer;border-bottom:1px solid #eee">' + s + '</div>'
             ).join('');
             suggestions.style.display = 'block';
@@ -583,7 +583,7 @@ class UXEnhancer {
     quickLinks.forEach(link => {
       const a = document.createElement('a');
       a.href = link.href;
-      a.innerHTML = link.text;
+      a.textContent = link.text;
       a.title = link.title;
       a.style.cssText = 'display:block;padding:8px;text-decoration:none;font-size:20px;text-align:center;margin:2px 0;border-radius:4px;transition:background 0.2s';
       a.addEventListener('mouseenter', () => {
@@ -661,7 +661,7 @@ class UXEnhancer {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.style.cssText = 'position:fixed;top:20px;right:20px;background:#ff4444;color:#fff;padding:15px;border-radius:8px;z-index:10000;max-width:300px;box-shadow:0 2px 10px rgba(0,0,0,0.2)';
-    errorDiv.innerHTML = message + '<button onclick="this.parentNode.remove()" style="background:none;border:none;color:#fff;float:right;font-size:16px;cursor:pointer">×</button>';
+    errorDiv.textContent = message + '<button onclick="this.parentNode.remove()" style="background:none;border:none;color:#fff;float:right;font-size:16px;cursor:pointer">×</button>';
     
     document.body.appendChild(errorDiv);
     
@@ -768,7 +768,7 @@ class UXEnhancer {
     
     // Smooth scroll to top button
     const scrollToTopBtn = document.createElement('button');
-    scrollToTopBtn.innerHTML = '↑';
+    scrollToTopBtn.textContent = '↑';
     scrollToTopBtn.className = 'scroll-to-top';
     scrollToTopBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#00b4d8;color:#fff;border:none;width:50px;height:50px;border-radius:50%;font-size:20px;cursor:pointer;opacity:0;transition:opacity 0.3s;z-index:1000';
     scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');

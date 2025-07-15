@@ -131,8 +131,8 @@ echo "✅ Pre-commit checks complete!"
 
     try {
       execSync('chmod +x .git/hooks/pre-commit');
-    } catch (error) {
-      log.warning('Could not make pre-commit hook executable');
+    } catch {
+      // whatever is here
     }
 
     log.success('Advanced linting setup complete');
@@ -262,14 +262,14 @@ describe('Performance Monitoring', () => {
 
 describe('Accessibility Features', () => {
   test('should have skip links', () => {
-    document.body.innerHTML = '<a href="#main-content" class="skip-link">Skip to main content</a>';
+    document.body.textContent = '<a href="#main-content" class="skip-link">Skip to main content</a>';
     const skipLink = document.querySelector('.skip-link');
     expect(skipLink).toBeTruthy();
     expect(skipLink.textContent).toBe('Skip to main content');
   });
 
   test('should have ARIA labels', () => {
-    document.body.innerHTML = '<button aria-label="Close modal">×</button>';
+    document.body.textContent = '<button aria-label="Close modal">×</button>';
     const button = document.querySelector('button');
     expect(button.getAttribute('aria-label')).toBe('Close modal');
   });
@@ -308,11 +308,11 @@ describe('Error Handling', () => {
 
 describe('Page Integration', () => {
   beforeEach(() => {
-    document.body.innerHTML = '';
+    document.body.textContent = '';
   });
 
   test('should load main page elements', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <header class="header">
         <nav class="navigation">
           <ul>
@@ -337,7 +337,7 @@ describe('Page Integration', () => {
   });
 
   test('should handle form submissions', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <form id="test-form">
         <input type="text" name="name" required>
         <input type="email" name="email" required>
@@ -567,11 +567,11 @@ const axe = require('axe-core');
 
 describe('Accessibility Tests', () => {
   beforeEach(() => {
-    document.body.innerHTML = '';
+    document.body.textContent = '';
   });
 
   test('should have no accessibility violations on homepage', async () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <header>
         <nav role="navigation" aria-label="Main navigation">
           <ul>
@@ -592,7 +592,7 @@ describe('Accessibility Tests', () => {
   });
 
   test('should have proper form labels', async () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <form>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -609,7 +609,7 @@ describe('Accessibility Tests', () => {
   });
 
   test('should have keyboard navigation support', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <button id="btn1">Button 1</button>
       <button id="btn2">Button 2</button>
       <a href="#" id="link1">Link 1</a>
@@ -628,7 +628,7 @@ describe('Accessibility Tests', () => {
   });
 
   test('should have proper heading hierarchy', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <h1>Main Title</h1>
       <h2>Section Title</h2>
       <h3>Subsection Title</h3>
@@ -643,7 +643,7 @@ describe('Accessibility Tests', () => {
   });
 
   test('should have color contrast compliance', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <div style="background-color: #ffffff; color: #000000;">
         High contrast text
       </div>
@@ -714,7 +714,7 @@ describe('Performance Tests', () => {
   });
 
   test('should lazy load images', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <img data-src="/image1.jpg" class="lazy" alt="Image 1">
       <img data-src="/image2.jpg" class="lazy" alt="Image 2">
     \`;
@@ -728,7 +728,7 @@ describe('Performance Tests', () => {
   });
 
   test('should minimize reflows and repaints', () => {
-    document.body.innerHTML = \`
+    document.body.textContent = \`
       <div id="container">
         <div class="item">Item 1</div>
         <div class="item">Item 2</div>

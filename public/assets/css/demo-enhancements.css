@@ -5,7 +5,7 @@
 .demo-container h3,
 .demo-container h4 {
   color: #ffffff !important;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .demo-container p {
@@ -15,15 +15,15 @@
 
 /* Enhanced navigation tabs */
 .nav-tab {
-  background: rgba(255,255,255,0.15) !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .nav-tab:hover {
-  background: rgba(0,180,216,0.25) !important;
-  border-color: rgba(0,180,216,0.5) !important;
+  background: rgba(0, 180, 216, 0.25) !important;
+  border-color: rgba(0, 180, 216, 0.5) !important;
   color: #ffffff !important;
 }
 
@@ -34,9 +34,9 @@
 
 /* Enhanced sections */
 .demo-section {
-  background: rgba(255,255,255,0.12) !important;
-  border: 1px solid rgba(255,255,255,0.2) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Enhanced cards */
@@ -44,16 +44,16 @@
 .player-card,
 .team-card,
 .prospect-card {
-  background: rgba(255,255,255,0.15) !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .stat-card:hover,
 .player-card:hover,
 .team-card:hover,
 .prospect-card:hover {
-  background: rgba(255,255,255,0.2) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
   transform: translateY(-3px);
 }
 
@@ -67,8 +67,8 @@
 .game-item,
 .player-item,
 .team-item {
-  border-bottom: 1px solid rgba(255,255,255,0.15) !important;
-  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   margin-bottom: 0.5em;
 }
@@ -76,7 +76,7 @@
 .game-item:hover,
 .player-item:hover,
 .team-item:hover {
-  background: rgba(0,180,216,0.15) !important;
+  background: rgba(0, 180, 216, 0.15) !important;
   transform: translateX(5px);
 }
 
@@ -90,53 +90,53 @@
 .btn {
   background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(0,180,216,0.3);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
   font-size: 0.95em;
 }
 
 .btn:hover {
   background: linear-gradient(135deg, #00b4d8 0%, #007cba 100%) !important;
-  box-shadow: 0 8px 24px rgba(0,180,216,0.4);
+  box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
 }
 
 /* Enhanced grades and badges */
-.grade-a { 
-  background: rgba(52, 199, 89, 0.3) !important; 
-  color: #4ade80 !important; 
+.grade-a {
+  background: rgba(52, 199, 89, 0.3) !important;
+  color: #4ade80 !important;
   border: 1px solid rgba(52, 199, 89, 0.5);
 }
 
-.grade-b { 
-  background: rgba(50, 173, 230, 0.3) !important; 
-  color: #60a5fa !important; 
+.grade-b {
+  background: rgba(50, 173, 230, 0.3) !important;
+  color: #60a5fa !important;
   border: 1px solid rgba(50, 173, 230, 0.5);
 }
 
-.grade-c { 
-  background: rgba(255, 149, 0, 0.3) !important; 
-  color: #fbbf24 !important; 
+.grade-c {
+  background: rgba(255, 149, 0, 0.3) !important;
+  color: #fbbf24 !important;
   border: 1px solid rgba(255, 149, 0, 0.5);
 }
 
-.grade-d { 
-  background: rgba(255, 69, 58, 0.3) !important; 
-  color: #f87171 !important; 
+.grade-d {
+  background: rgba(255, 69, 58, 0.3) !important;
+  color: #f87171 !important;
   border: 1px solid rgba(255, 69, 58, 0.5);
 }
 
 /* Enhanced chart containers */
 .chart-container {
-  background: rgba(255,255,255,0.12) !important;
-  border: 1px solid rgba(255,255,255,0.2) !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Enhanced forms and inputs */
 .demo-section input,
 .demo-section select,
 .demo-section textarea {
-  background: rgba(255,255,255,0.1) !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
   border-radius: 8px;
   padding: 0.8em;
@@ -161,7 +161,7 @@
 .demo-badge {
   background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%) !important;
   color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Mobile responsiveness improvements */
@@ -169,16 +169,16 @@
   .demo-container {
     padding: 1em !important;
   }
-  
+
   .demo-header h1 {
     font-size: 2em !important;
   }
-  
+
   .nav-tab {
     padding: 1em !important;
     font-size: 0.9em;
   }
-  
+
   .game-item,
   .player-item,
   .team-item {

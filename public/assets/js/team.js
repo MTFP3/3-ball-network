@@ -14,16 +14,9 @@ import {
   limit as h,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase.js';
 import { d as E } from './fanFollow.js';
-/* empty css                                                                    */ const $ =
-    {
-      apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-      authDomain: 'ball-network-web.firebaseapp.com',
-      projectId: 'ball-network-web',
-      storageBucket: 'ball-network-web.appspot.com',
-      messagingSenderId: '740915998465',
-      appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-    },
-  b = g($),
+import { firebaseConfig } from './firebaseConfig.js';
+/* empty css                                                                    */
+const b = g(firebaseConfig),
   o = p(b),
   u = new URLSearchParams(window.location.search),
   t = u.get('team') || 'Demo Team';
@@ -32,7 +25,7 @@ document.getElementById('followTeam').onclick = () => E('team', t);
 const I = w(o, 'teams', t),
   c = await f(I),
   T = c.exists() ? c.data() : {};
-document.getElementById('teamTags').innerHTML = (T.tags || [])
+document.getElementById('teamTags').textContent = (T.tags || [])
   .map(e => `<li>${e}</li>`)
   .join('');
 const l = await m(n(i(o, 'games'), r('teamName', '==', t)));
@@ -47,7 +40,13 @@ const B = await m(n(i(o, 'players'), r('team', '==', t))),
 B.forEach(e => {
   const a = e.data(),
     d = a.name || e.id;
-  k.innerHTML += `<li><a href="playerProfile.html?id=${e.id}" target="_blank">${d}</a> - Avg Grade: ${a.avgGrade || 'N/A'}</li>`;
+  const li = document.createElement('li');
+  const link = document.createElement('a');
+  link.href = `playerProfile.html?id=${e.id}`;
+  link.target = '_blank';
+  link.textContent = `${d} - Avg Grade: ${a.avgGrade || 'N/A'}`;
+  li.appendChild(link);
+  k.appendChild(li);
 });
 const D = await m(
     n(i(o, 'games'), r('teamName', '==', t), y('gameDate', 'desc'), h(3))
@@ -55,7 +54,13 @@ const D = await m(
   N = document.getElementById('recentGames');
 D.forEach(e => {
   const a = e.data();
-  N.innerHTML += `<li><a href="${a.videoUrl}" target="_blank">${a.opponent} - ${a.gameDate}</a></li>`;
+  const li = document.createElement('li');
+  const link = document.createElement('a');
+  link.href = a.videoUrl;
+  link.target = '_blank';
+  link.textContent = `${a.opponent} - ${a.gameDate}`;
+  li.appendChild(link);
+  N.appendChild(li);
 });
 const L = await m(n(i(o, 'coaches'), r('teamNames', 'array-contains', t)));
 L.forEach(e => {

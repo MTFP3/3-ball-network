@@ -17,15 +17,18 @@ import {
   getDownloadURL as k,
 } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js';
 import { F as b } from './teamComparison.js';
-const x = {
-    apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-    authDomain: 'ball-network-web.firebaseapp.com',
-    projectId: 'ball-network-web',
-    storageBucket: 'ball-network-web.appspot.com',
-    messagingSenderId: '740915998465',
-    appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-  },
-  w = m(x),
+import { firebaseConfig } from './firebaseConfig.js';
+import {
+  createPlayerCard,
+  createTagList,
+  createLoadingIndicator,
+  createErrorMessage,
+  clearContainer,
+  safeText,
+  safeAttr,
+} from './uiComponents.js';
+
+const w = m(firebaseConfig),
   c = g(w),
   v = L(w),
   i = localStorage.getItem('scoutId') || 'demoScout';
@@ -38,13 +41,17 @@ let s = [];
   const o = d(c, 'scouts', i),
     t = await u(o);
   if (!t.exists()) {
-    document.body.innerHTML =
-      '<h2 style="text-align:center;margin-top:100px;">❌ Scout profile not found.</h2>';
+    const errorMsg = createErrorMessage('Scout profile not found.');
+    clearContainer(document.body);
+    document.body.appendChild(errorMsg);
     return;
   }
   if (t.data().approved === !1) {
-    document.body.innerHTML =
-      '<h2 style="text-align:center;margin-top:100px;">⏳ Your account is pending admin approval.</h2>';
+    const pendingMsg = createLoadingIndicator(
+      'Your account is pending admin approval.'
+    );
+    clearContainer(document.body);
+    document.body.appendChild(pendingMsg);
     return;
   }
   C();
@@ -59,29 +66,70 @@ async function C() {
     h(s));
 }
 function h(o) {
-  ((l.innerHTML = ''),
-    o.forEach(t => {
-      const e = document.createElement('div');
-      (e.classList.add('player-row'),
-        (e.innerHTML = `
-      <strong>${t.name}</strong> — ${t.position} | ${t.state} | Rating: ${t.rating || 'N/A'}
-      <br>
-      <a href="/public/player.html?id=${t.id}" target="_blank">View Profile</a>
-      ${t.coachId ? `<button onclick="requestContact('${t.id}', '${t.coachId}')">Request Contact</button>` : ''}
-      <br><a id="reportLink-${t.id}" target="_blank">Loading report...</a>
-    `),
-        l.appendChild(e));
-      const r = S(v, `reports/${t.id}/daily.pdf`);
-      k(r)
-        .then(n => {
-          const a = document.getElementById(`reportLink-${t.id}`);
-          ((a.href = n), (a.textContent = '📄 Daily Report (PDF)'));
-        })
-        .catch(() => {
-          const n = document.getElementById(`reportLink-${t.id}`);
-          n.textContent = 'No report available yet';
-        });
-    }));
+  clearContainer(l);
+  o.forEach(t => {
+    const e = document.createElement('div');
+    e.classList.add('player-row');
+
+    // Create secure player information display
+    const playerInfo = document.createElement('div');
+    playerInfo.classList.add('player-info');
+
+    const name = document.createElement('strong');
+    safeText(name, t.name);
+
+    const details = document.createElement('span');
+    safeText(
+      details,
+      ` — ${t.position || 'N/A'} | ${t.state || 'N/A'} | Rating: ${t.rating || 'N/A'}`
+    );
+
+    playerInfo.appendChild(name);
+    playerInfo.appendChild(details);
+    e.appendChild(playerInfo);
+
+    // Create action buttons container
+    const actions = document.createElement('div');
+    actions.classList.add('player-actions');
+
+    // Profile link
+    const profileLink = document.createElement('a');
+    safeAttr(profileLink, 'href', `/public/player.html?id=${t.id}`);
+    safeAttr(profileLink, 'target', '_blank');
+    safeText(profileLink, 'View Profile');
+    actions.appendChild(profileLink);
+
+    // Contact button if coach exists
+    if (t.coachId) {
+      const contactBtn = document.createElement('button');
+      safeText(contactBtn, 'Request Contact');
+      contactBtn.addEventListener('click', () =>
+        requestContact(t.id, t.coachId)
+      );
+      actions.appendChild(contactBtn);
+    }
+
+    // Report link
+    const reportLink = document.createElement('a');
+    safeAttr(reportLink, 'id', `reportLink-${t.id}`);
+    safeAttr(reportLink, 'target', '_blank');
+    safeText(reportLink, 'Loading report...');
+    actions.appendChild(reportLink);
+
+    e.appendChild(actions);
+    l.appendChild(e);
+
+    // Load report asynchronously
+    const r = S(v, `reports/${t.id}/daily.pdf`);
+    k(r)
+      .then(n => {
+        safeAttr(reportLink, 'href', n);
+        safeText(reportLink, '📄 Daily Report (PDF)');
+      })
+      .catch(() => {
+        safeText(reportLink, 'No report available yet');
+      });
+  });
 }
 function E() {
   const o = I.value.toLowerCase(),
@@ -95,66 +143,111 @@ function E() {
 }
 window.requestContact = async function (o, t) {
   const e = d(c, 'contactRequests', `${i}_${o}`);
-  (await setDoc(e, {
+  await setDoc(e, {
     scoutId: i,
     playerId: o,
     coachId: t,
     requestedAt: new Date(),
-  }),
-    await b('contact', i, 'scout'),
-    alert('📩 Contact request sent to coach!'));
+  });
+  await b('contact', i, 'scout');
+  alert('📩 Contact request sent to coach!');
 };
 window.searchReports = async function () {
   const o = document.getElementById('searchPlayerId').value.trim(),
     t = document.getElementById('searchGameId').value.trim(),
     e = document.getElementById('reportList');
-  ((e.innerHTML = '<h3>🔍 Results:</h3>'),
-    (await y(f(c, 'scoutingReports'))).forEach(r => {
-      const n = r.data();
-      if ((o && !n.playerId.includes(o)) || (t && !n.gameId.includes(t))) {
-        return;
-      }
-      const a = document.createElement('div');
-      ((a.innerHTML = `
-      <strong>Player:</strong> ${n.playerId}<br>
-      <strong>Game:</strong> ${n.gameId}<br>
-      <strong>Grade:</strong> ${n.grade}<br>
-      <strong>Summary:</strong> ${n.report}<br>
-      <strong>Strengths:</strong> ${n.strengths.join(', ')}<br>
-      <strong>Needs Work:</strong> ${n.areasForImprovement.join(', ')}<br>
-      <button onclick='downloadScoutReport("${n.playerId}", "${n.gameId}", ${JSON.stringify(n).replace(/'/g, "\\'")})'>Download PDF</button>
-      <hr>`),
-        e.appendChild(a));
-    }));
+
+  clearContainer(e);
+
+  const title = document.createElement('h3');
+  safeText(title, '🔍 Results:');
+  e.appendChild(title);
+
+  const reportsSnap = await y(f(c, 'scoutingReports'));
+  reportsSnap.forEach(r => {
+    const n = r.data();
+    if ((o && !n.playerId.includes(o)) || (t && !n.gameId.includes(t))) {
+      return;
+    }
+
+    const reportDiv = document.createElement('div');
+    reportDiv.classList.add('scout-report');
+
+    // Create report fields securely
+    const fields = [
+      { label: 'Player:', value: n.playerId },
+      { label: 'Game:', value: n.gameId },
+      { label: 'Grade:', value: n.grade },
+      { label: 'Summary:', value: n.report },
+      { label: 'Strengths:', value: n.strengths?.join(', ') || 'N/A' },
+      {
+        label: 'Needs Work:',
+        value: n.areasForImprovement?.join(', ') || 'N/A',
+      },
+    ];
+
+    fields.forEach(field => {
+      const fieldDiv = document.createElement('div');
+      const label = document.createElement('strong');
+      safeText(label, field.label);
+      const value = document.createElement('span');
+      safeText(value, ` ${field.value}`);
+      fieldDiv.appendChild(label);
+      fieldDiv.appendChild(value);
+      reportDiv.appendChild(fieldDiv);
+    });
+
+    // Download button
+    const downloadBtn = document.createElement('button');
+    safeText(downloadBtn, 'Download PDF');
+    downloadBtn.addEventListener('click', () =>
+      downloadScoutReport(n.playerId, n.gameId, n)
+    );
+    reportDiv.appendChild(downloadBtn);
+
+    const hr = document.createElement('hr');
+    reportDiv.appendChild(hr);
+
+    e.appendChild(reportDiv);
+  });
 };
+// Make requestContact function available
+function requestContact(playerId, coachId) {
+  return window.requestContact(playerId, coachId);
+}
+
+// Make downloadScoutReport function available
+function downloadScoutReport(playerId, gameId, reportData) {
+  return window.downloadScoutReport(playerId, gameId, reportData);
+}
+
 window.downloadScoutReport = function (o, t, e) {
   const r = new $();
-  (r.text(`Scouting Report - Player ${o}`, 10, 10),
-    r.text(`Game: ${t}`, 10, 20),
-    r.text(`Grade: ${e.grade}`, 10, 30),
-    r.text(`Summary: ${e.report}`, 10, 40),
-    r.text(`Strengths: ${e.strengths.join(', ')}`, 10, 50),
-    r.text(
-      `Areas for Improvement: ${e.areasForImprovement.join(', ')}`,
-      10,
-      60
-    ),
-    r.save(`Scouting_Report_${o}_${t}.pdf`));
+  r.text(`Scouting Report - Player ${o}`, 10, 10);
+  r.text(`Game: ${t}`, 10, 20);
+  r.text(`Grade: ${e.grade}`, 10, 30);
+  r.text(`Summary: ${e.report}`, 10, 40);
+  r.text(`Strengths: ${e.strengths?.join(', ') || 'N/A'}`, 10, 50);
+  r.text(
+    `Areas for Improvement: ${e.areasForImprovement?.join(', ') || 'N/A'}`,
+    10,
+    60
+  );
+  r.save(`Scouting_Report_${o}_${t}.pdf`);
 };
-const D = {
-    apiKey: 'AIzaSyD4XJLc3_CLGvOhMysQTx2fabgZQt3y5g0',
-    authDomain: 'ball-network-web.firebaseapp.com',
-    projectId: 'ball-network-web',
-    storageBucket: 'ball-network-web.appspot.com',
-    messagingSenderId: '740915998465',
-    appId: '1:740915998465:web:59ac026f3f4c2ec5da3500',
-  },
-  R = m(D),
+
+// Secure tags display
+const R = m(firebaseConfig),
   B = g(R),
   T = localStorage.getItem('playerId') || 'demoPlayer',
   M = d(B, 'players', T),
   p = await u(M),
   j = p.exists() ? p.data() : {},
   P = document.getElementById('smartTags');
-P.innerHTML = (j.tags || []).map(o => `<li>${o}</li>`).join('');
+
+if (P) {
+  const tagList = createTagList(j.tags || [], { extraClass: 'smart-tags' });
+  clearContainer(P);
+  P.appendChild(tagList);
+}
 //# sourceMappingURL=scout.js.map

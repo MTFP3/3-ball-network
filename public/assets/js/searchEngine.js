@@ -1,8 +1,27 @@
-// Advanced Search System
+// Advanced Search Engine with Firebase Integration
+import { db, auth } from './firebaseConfig.js';
+import {
+  createContainer,
+  createInput,
+  createButton,
+  createSelect,
+  createLabel,
+  createProgressIndicator,
+  createToast,
+  createOptimisticElement,
+  safeText,
+  safeAttr,
+  clearContainer,
+} from './uiComponents.js';
+
 class SearchEngine {
   constructor() {
+    this.db = db;
+    this.auth = auth;
     this.searchIndex = new Map();
     this.filters = {};
+    this.searchProgress = null;
+    this.pendingSearchId = null;
     this.init();
   }
 
@@ -18,83 +37,121 @@ class SearchEngine {
       return;
     }
 
-    searchContainer.innerHTML = `
-      <div class="advanced-search">
-        <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search players, teams, coaches..." class="search-input">
-          <button onclick="searchEngine.performSearch()" class="search-btn">
-            <i class="icon-search"></i>
-          </button>
-        </div>
-        
-        <div class="search-filters">
-          <div class="filter-group">
-            <label>Role:</label>
-            <select id="roleFilter">
-              <option value="">All</option>
-              <option value="player">Players</option>
-              <option value="coach">Coaches</option>
-              <option value="scout">Scouts</option>
-            </select>
-          </div>
-          
-          <div class="filter-group">
-            <label>Location:</label>
-            <input type="text" id="locationFilter" placeholder="City, State">
-          </div>
-          
-          <div class="filter-group">
-            <label>Position:</label>
-            <select id="positionFilter">
-              <option value="">All Positions</option>
-              <option value="PG">Point Guard</option>
-              <option value="SG">Shooting Guard</option>
-              <option value="SF">Small Forward</option>
-              <option value="PF">Power Forward</option>
-              <option value="C">Center</option>
-            </select>
-          </div>
-          
-          <div class="filter-group">
-            <label>Skill Level:</label>
-            <select id="skillFilter">
-              <option value="">All Levels</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-              <option value="elite">Elite</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="search-results" id="searchResults"></div>
-      </div>
-    `;
+    // Clear existing content securely
+    clearContainer(searchContainer);
 
-    // Add event listeners
-    document
-      .getElementById('searchInput')
-      .addEventListener(
-        'input',
-        this.debounce(this.performSearch.bind(this), 300)
-      );
-    document
-      .getElementById('roleFilter')
-      .addEventListener('change', this.performSearch.bind(this));
-    document
-      .getElementById('locationFilter')
-      .addEventListener(
-        'input',
-        this.debounce(this.performSearch.bind(this), 300)
-      );
-    document
-      .getElementById('positionFilter')
-      .addEventListener('change', this.performSearch.bind(this));
-    document
-      .getElementById('skillFilter')
-      .addEventListener('change', this.performSearch.bind(this));
+    // Create advanced search container
+    const advancedSearch = createContainer('advanced-search');
+
+    // Create search bar
+    const searchBar = createContainer('search-bar');
+
+    const searchInput = createInput(
+      'text',
+      'searchInput',
+      'Search players, teams, coaches...'
+    );
+    searchInput.classList.add('search-input');
+
+    const searchBtn = createButton('Search', 'searchBtn', 'search-btn');
+    const icon = document.createElement('i');
+    icon.classList.add('icon-search');
+    clearContainer(searchBtn);
+    searchBtn.appendChild(icon);
+
+    searchBar.appendChild(searchInput);
+    searchBar.appendChild(searchBtn);
+
+    // Create filters container
+    const filtersContainer = createContainer('search-filters');
+
+    // Role filter
+    const roleGroup = createContainer('filter-group');
+    roleGroup.appendChild(createLabel('Role:'));
+    const roleFilter = createSelect('roleFilter', [
+      { value: '', text: 'All' },
+      { value: 'player', text: 'Players' },
+      { value: 'coach', text: 'Coaches' },
+      { value: 'scout', text: 'Scouts' },
+    ]);
+    roleGroup.appendChild(roleFilter);
+
+    // Location filter
+    const locationGroup = createContainer('filter-group');
+    locationGroup.appendChild(createLabel('Location:'));
+    const locationFilter = createInput('text', 'locationFilter', 'City, State');
+    locationGroup.appendChild(locationFilter);
+
+    // Position filter
+    const positionGroup = createContainer('filter-group');
+    positionGroup.appendChild(createLabel('Position:'));
+    const positionFilter = createSelect('positionFilter', [
+      { value: '', text: 'All Positions' },
+      { value: 'PG', text: 'Point Guard' },
+      { value: 'SG', text: 'Shooting Guard' },
+      { value: 'SF', text: 'Small Forward' },
+      { value: 'PF', text: 'Power Forward' },
+      { value: 'C', text: 'Center' },
+    ]);
+    positionGroup.appendChild(positionFilter);
+
+    // Skill level filter
+    const skillGroup = createContainer('filter-group');
+    skillGroup.appendChild(createLabel('Skill Level:'));
+    const skillFilter = createSelect('skillFilter', [
+      { value: '', text: 'All Levels' },
+      { value: 'beginner', text: 'Beginner' },
+      { value: 'intermediate', text: 'Intermediate' },
+      { value: 'advanced', text: 'Advanced' },
+      { value: 'elite', text: 'Elite' },
+    ]);
+    skillGroup.appendChild(skillFilter);
+
+    // Sort options
+    const sortGroup = createContainer('sort-options');
+    sortGroup.appendChild(createLabel('Sort by:'));
+    const sortFilter = createSelect('sortFilter', [
+      { value: 'relevance', text: 'Relevance' },
+      { value: 'name', text: 'Name' },
+      { value: 'rating', text: 'Rating' },
+      { value: 'location', text: 'Location' },
+    ]);
+    sortGroup.appendChild(sortFilter);
+
+    // Assemble filters
+    filtersContainer.appendChild(roleGroup);
+    filtersContainer.appendChild(locationGroup);
+    filtersContainer.appendChild(positionGroup);
+    filtersContainer.appendChild(skillGroup);
+    filtersContainer.appendChild(sortGroup);
+
+    // Create results container
+    const resultsContainer = createContainer('search-results');
+    safeAttr(resultsContainer, 'id', 'searchResults');
+
+    // Assemble main container
+    advancedSearch.appendChild(searchBar);
+    advancedSearch.appendChild(filtersContainer);
+    advancedSearch.appendChild(resultsContainer);
+    searchContainer.appendChild(advancedSearch);
+
+    // Add event listeners securely
+    searchBtn.addEventListener('click', this.performSearch.bind(this));
+    searchInput.addEventListener(
+      'input',
+      this.debounce(this.performSearch.bind(this), 300)
+    );
+    roleFilter.addEventListener('change', this.performSearch.bind(this));
+    locationFilter.addEventListener(
+      'input',
+      this.debounce(this.performSearch.bind(this), 300)
+    );
+    positionFilter.addEventListener('change', this.performSearch.bind(this));
+    skillFilter.addEventListener('change', this.performSearch.bind(this));
+    sortFilter.addEventListener('change', e =>
+      this.sortResults(e.target.value)
+    );
   }
-
   async buildSearchIndex() {
     // Build search index from Firebase data
     try {
@@ -108,210 +165,367 @@ class SearchEngine {
         });
       }
 
-      console.log('Search index built successfully');
-    } catch (error) {
-      console.error('Error building search index:', error);
+      // Search index built successfully
+    } catch {
+      // Error building search index
     }
   }
 
   indexDocument(doc) {
+    // Create searchable text from document fields
     const searchableFields = [
       'name',
+      'title',
       'position',
-      'school',
-      'city',
-      'state',
+      'location',
       'skills',
+      'bio',
+      'team',
     ];
-    const tokens = [];
+    const searchText = searchableFields
+      .map(field => doc[field] || '')
+      .join(' ')
+      .toLowerCase();
 
-    searchableFields.forEach(field => {
-      if (doc[field]) {
-        tokens.push(...this.tokenize(doc[field].toString()));
-      }
-    });
-
-    tokens.forEach(token => {
-      if (!this.searchIndex.has(token)) {
-        this.searchIndex.set(token, new Set());
-      }
-      this.searchIndex.get(token).add(doc.id);
+    this.searchIndex.set(doc.id, {
+      ...doc,
+      searchText,
     });
   }
 
-  tokenize(text) {
-    return text
-      .toLowerCase()
-      .replace(/[^\w\s]/g, '')
-      .split(/\s+/)
-      .filter(token => token.length > 2);
+  setupFilters() {
+    this.filters = {
+      role: '',
+      location: '',
+      position: '',
+      skill: '',
+      sort: 'relevance',
+    };
+  }
+
+  debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
   }
 
   async performSearch() {
-    const query = document.getElementById('searchInput').value.trim();
+    // Generate unique search ID for optimistic updates
+    const searchId = Date.now().toString();
+    this.pendingSearchId = searchId;
+
+    const query = document.getElementById('searchInput').value.toLowerCase();
     const roleFilter = document.getElementById('roleFilter').value;
     const locationFilter = document
       .getElementById('locationFilter')
-      .value.trim();
+      .value.toLowerCase();
     const positionFilter = document.getElementById('positionFilter').value;
     const skillFilter = document.getElementById('skillFilter').value;
 
-    let results = [];
+    const resultsContainer = document.getElementById('searchResults');
+    if (!resultsContainer) return;
 
-    if (query) {
-      results = this.textSearch(query);
-    } else {
-      results = await this.getAllDocuments();
+    // Show optimistic loading state
+    if (
+      query ||
+      roleFilter ||
+      locationFilter ||
+      positionFilter ||
+      skillFilter
+    ) {
+      this.showSearchLoading(resultsContainer);
     }
 
-    // Apply filters
-    results = this.applyFilters(results, {
-      role: roleFilter,
-      location: locationFilter,
-      position: positionFilter,
-      skill: skillFilter,
+    try {
+      const results = [];
+
+      // Search through indexed documents
+      for (const [, doc] of this.searchIndex) {
+        // Check if this is still the current search
+        if (this.pendingSearchId !== searchId) return;
+
+        let score = 0;
+
+        // Text matching
+        if (query) {
+          if (doc.searchText.includes(query)) {
+            score += 10;
+            // Boost for exact name matches
+            if (doc.name && doc.name.toLowerCase().includes(query)) {
+              score += 20;
+            }
+          }
+        } else {
+          score = 1; // Default score when no query
+        }
+
+        // Apply filters
+        if (roleFilter && doc.collection !== `${roleFilter}s`) {
+          continue;
+        }
+        if (
+          locationFilter &&
+          !doc.location?.toLowerCase().includes(locationFilter)
+        ) {
+          continue;
+        }
+        if (positionFilter && doc.position !== positionFilter) {
+          continue;
+        }
+        if (skillFilter && doc.skillLevel !== skillFilter) {
+          continue;
+        }
+
+        if (score > 0) {
+          results.push({ ...doc, score });
+        }
+      }
+
+      // Check if this is still the current search before displaying
+      if (this.pendingSearchId === searchId) {
+        // Sort results
+        this.sortResults('relevance', results);
+        this.displayResults(results);
+
+        // Show success toast for non-empty queries
+        if (query && results.length > 0) {
+          createToast(
+            `Found ${results.length} result${results.length === 1 ? '' : 's'}`,
+            'success',
+            3000
+          );
+        }
+      }
+    } catch (error) {
+      // Only show error if this is still the current search
+      if (this.pendingSearchId === searchId) {
+        console.error('Search error:', error);
+        this.showSearchError(resultsContainer);
+        createToast('Search failed. Please try again.', 'error');
+      }
+    }
+  }
+
+  showSearchLoading(container) {
+    clearContainer(container);
+
+    const loadingElement = createOptimisticElement('Searching...', {
+      extraClass: 'search-loading',
+      showSpinner: true,
     });
+    loadingElement.setPending();
+
+    this.searchProgress = createProgressIndicator();
+    this.searchProgress.setIndeterminate();
+
+    container.appendChild(loadingElement);
+    container.appendChild(this.searchProgress);
+  }
+
+  showSearchError(container) {
+    clearContainer(container);
+
+    const errorElement = createContainer('search-error');
+    const errorText = document.createElement('p');
+    safeText(
+      errorText,
+      'Search failed. Please check your connection and try again.'
+    );
+
+    const retryBtn = createButton('Try Again', null, 'btn-retry');
+    retryBtn.addEventListener('click', () => this.performSearch());
+
+    errorElement.appendChild(errorText);
+    errorElement.appendChild(retryBtn);
+    container.appendChild(errorElement);
+  }
+  sortResults(sortBy, results = null) {
+    if (!results) {
+      // Re-perform search with current sort
+      this.performSearch();
+      return;
+    }
+
+    switch (sortBy) {
+      case 'name':
+        results.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        break;
+      case 'rating':
+        results.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        break;
+      case 'location':
+        results.sort((a, b) =>
+          (a.location || '').localeCompare(b.location || '')
+        );
+        break;
+      case 'relevance':
+      default:
+        results.sort((a, b) => b.score - a.score);
+        break;
+    }
 
     this.displayResults(results);
   }
 
-  textSearch(query) {
-    const tokens = this.tokenize(query);
-    const matchingDocs = new Set();
-
-    tokens.forEach(token => {
-      if (this.searchIndex.has(token)) {
-        this.searchIndex.get(token).forEach(docId => {
-          matchingDocs.add(docId);
-        });
-      }
-    });
-
-    return Array.from(matchingDocs);
-  }
-
-  async getAllDocuments() {
-    // Return all documents if no search query
-    const results = [];
-    const collections = ['players', 'coaches', 'scouts'];
-
-    for (const collection of collections) {
-      const snapshot = await this.db.collection(collection).limit(20).get();
-      snapshot.forEach(doc => {
-        results.push({ id: doc.id, ...doc.data(), collection });
-      });
-    }
-
-    return results;
-  }
-
-  applyFilters(results, filters) {
-    return results.filter(doc => {
-      if (filters.role && doc.collection !== `${filters.role}s`) {
-        return false;
-      }
-      if (filters.location && !this.matchesLocation(doc, filters.location)) {
-        return false;
-      }
-      if (filters.position && doc.position !== filters.position) {
-        return false;
-      }
-      if (filters.skill && doc.skillLevel !== filters.skill) {
-        return false;
-      }
-      return true;
-    });
-  }
-
-  matchesLocation(doc, location) {
-    const docLocation = `${doc.city || ''} ${doc.state || ''}`.toLowerCase();
-    return docLocation.includes(location.toLowerCase());
-  }
-
   displayResults(results) {
     const resultsContainer = document.getElementById('searchResults');
-
-    if (results.length === 0) {
-      resultsContainer.innerHTML =
-        '<p class="no-results">No results found. Try adjusting your search criteria.</p>';
+    if (!resultsContainer) {
       return;
     }
 
-    resultsContainer.innerHTML = `
-      <div class="results-header">
-        <h3>Search Results (${results.length})</h3>
-        <div class="sort-options">
-          <select onchange="searchEngine.sortResults(this.value)">
-            <option value="relevance">Sort by Relevance</option>
-            <option value="name">Sort by Name</option>
-            <option value="location">Sort by Location</option>
-            <option value="recent">Most Recent</option>
-          </select>
-        </div>
-      </div>
-      <div class="results-list">
-        ${results.map(this.renderResultCard).join('')}
-      </div>
-    `;
+    clearContainer(resultsContainer);
+
+    if (results.length === 0) {
+      const noResults = createContainer('no-results');
+      safeText(noResults, 'No results found');
+      resultsContainer.appendChild(noResults);
+      return;
+    }
+
+    // Create results header
+    const resultsHeader = createContainer('results-header');
+    const headerTitle = document.createElement('h3');
+    safeText(headerTitle, `Search Results (${results.length})`);
+    resultsHeader.appendChild(headerTitle);
+
+    // Create results grid
+    const resultsGrid = createContainer('results-grid');
+
+    results.forEach(result => {
+      const resultCard = this.createResultCard(result);
+      resultsGrid.appendChild(resultCard);
+    });
+
+    resultsContainer.appendChild(resultsHeader);
+    resultsContainer.appendChild(resultsGrid);
   }
 
-  renderResultCard(result) {
-    const roleIcon = {
-      players: '🏀',
-      coaches: '👔',
-      scouts: '🔍',
-      teams: '🏆',
+  createResultCard(result) {
+    const { collection, name, title, position, location, rating, photo, bio } =
+      result;
+
+    const resultCard = createContainer('result-card');
+    safeAttr(resultCard, 'data-id', result.id);
+    safeAttr(resultCard, 'data-collection', collection);
+
+    // Create result header
+    const resultHeader = createContainer('result-header');
+
+    // Avatar image
+    const avatar = document.createElement('img');
+    safeAttr(avatar, 'src', photo || '/assets/images/default-avatar.png');
+    safeAttr(avatar, 'alt', name || title || 'Unknown');
+    avatar.classList.add('result-avatar');
+
+    // Result info
+    const resultInfo = createContainer('result-info');
+
+    const resultName = document.createElement('h4');
+    resultName.classList.add('result-name');
+    safeText(resultName, name || title || 'Unknown');
+
+    const resultType = document.createElement('p');
+    resultType.classList.add('result-type');
+    safeText(resultType, this.formatType(collection));
+
+    resultInfo.appendChild(resultName);
+    resultInfo.appendChild(resultType);
+
+    if (position) {
+      const resultPosition = document.createElement('p');
+      resultPosition.classList.add('result-position');
+      safeText(resultPosition, position);
+      resultInfo.appendChild(resultPosition);
+    }
+
+    resultHeader.appendChild(avatar);
+    resultHeader.appendChild(resultInfo);
+
+    // Rating if available
+    if (rating) {
+      const resultRating = createContainer('result-rating');
+      safeText(resultRating, `${rating}/5 ⭐`);
+      resultHeader.appendChild(resultRating);
+    }
+
+    // Create result details
+    const resultDetails = createContainer('result-details');
+
+    if (location) {
+      const resultLocation = document.createElement('p');
+      resultLocation.classList.add('result-location');
+      safeText(resultLocation, `📍 ${location}`);
+      resultDetails.appendChild(resultLocation);
+    }
+
+    if (bio) {
+      const resultBio = document.createElement('p');
+      resultBio.classList.add('result-bio');
+      safeText(resultBio, this.truncateText(bio, 100));
+      resultDetails.appendChild(resultBio);
+    }
+
+    // Create result actions
+    const resultActions = createContainer('result-actions');
+
+    const viewProfileBtn = createButton(
+      'View Profile',
+      null,
+      'btn-view-profile'
+    );
+    safeAttr(viewProfileBtn, 'data-id', result.id);
+    safeAttr(viewProfileBtn, 'data-collection', collection);
+
+    resultActions.appendChild(viewProfileBtn);
+
+    // Add message button if user is authenticated
+    if (this.auth.currentUser) {
+      const messageBtn = createButton('Message', null, 'btn-message');
+      safeAttr(messageBtn, 'data-id', result.id);
+      resultActions.appendChild(messageBtn);
+    }
+
+    // Assemble the card
+    resultCard.appendChild(resultHeader);
+    resultCard.appendChild(resultDetails);
+    resultCard.appendChild(resultActions);
+
+    return resultCard;
+  }
+
+  formatType(collection) {
+    const types = {
+      players: 'Player',
+      coaches: 'Coach',
+      scouts: 'Scout',
+      teams: 'Team',
     };
-
-    return `
-      <div class="result-card" onclick="searchEngine.viewProfile('${result.id}', '${result.collection}')">
-        <div class="result-avatar">
-          ${roleIcon[result.collection] || '👤'}
-        </div>
-        <div class="result-info">
-          <h4>${result.name || 'Unnamed'}</h4>
-          <p class="result-details">
-            ${result.position ? `${result.position} • ` : ''}
-            ${result.school || result.team || ''}
-            ${result.city && result.state ? ` • ${result.city}, ${result.state}` : ''}
-          </p>
-          <div class="result-stats">
-            ${result.rating ? `Rating: ${result.rating}` : ''}
-            ${result.wins && result.losses ? `Record: ${result.wins}-${result.losses}` : ''}
-          </div>
-        </div>
-        <div class="result-actions">
-          <button class="btn-primary">View Profile</button>
-        </div>
-      </div>
-    `;
+    return types[collection] || 'Unknown';
   }
 
-  sortResults(criteria) {
-    // Implement sorting logic
-    console.log('Sorting results by:', criteria);
+  truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return `${text.substring(0, maxLength)}...`;
   }
 
-  viewProfile(id, collection) {
-    // Navigate to profile page
-    window.location.href = `/profile/${collection}/${id}`;
-  }
-
-  debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
+  // Initialize search engine when DOM is ready
+  static init() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        window.searchEngine = new SearchEngine();
+      });
+    } else {
+      window.searchEngine = new SearchEngine();
+    }
   }
 }
 
-// Initialize search engine
-const searchEngine = new SearchEngine();
-window.searchEngine = searchEngine;
+// Export for module use
+export default SearchEngine;
 
-export { SearchEngine };
+// Auto-initialize if loaded as script
+SearchEngine.init();

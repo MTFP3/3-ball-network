@@ -1,0 +1,129 @@
+// 🏀 3-Ball Network - Main Index Module
+// Entry point for the home page functionality
+import { initializeFirebase, auth } from './firebaseConfig.js';
+import './secureAuth.js'; // Import secure authentication system
+
+/**
+ * Initialize the main page functionality
+ */
+async function initializeMainPage() {
+  try {
+    console.log('🚀 Initializing 3-Ball Network...');
+
+    // Initialize Firebase
+    await initializeFirebase();
+
+    // Set up authentication state listener
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('✅ User authenticated:', user.email);
+        updateUIForAuthenticatedUser(user);
+      } else {
+        console.log('❌ User not authenticated');
+        updateUIForGuestUser();
+      }
+    });
+
+    // Initialize page-specific functionality
+    initializeNavigation();
+    initializeHeroSection();
+
+    console.log('✨ Main page initialized successfully!');
+  } catch (error) {
+    console.error('❌ Error initializing main page:', error);
+  }
+}
+
+/**
+ * Update UI for authenticated users
+ */
+function updateUIForAuthenticatedUser(user) {
+  const authButtons = document.querySelector('.auth-buttons');
+  const userProfile = document.querySelector('.user-profile');
+
+  if (authButtons) {
+    authButtons.style.display = 'none';
+  }
+
+  if (userProfile) {
+    userProfile.style.display = 'block';
+    userProfile.innerHTML = `
+      <span>Welcome, ${user.displayName || user.email}</span>
+      <button onclick="auth.signOut()" class="btn btn-outline">Sign Out</button>
+    `;
+  }
+}
+
+/**
+ * Update UI for guest users
+ */
+function updateUIForGuestUser() {
+  const authButtons = document.querySelector('.auth-buttons');
+  const userProfile = document.querySelector('.user-profile');
+
+  if (authButtons) {
+    authButtons.style.display = 'block';
+  }
+
+  if (userProfile) {
+    userProfile.style.display = 'none';
+  }
+}
+
+/**
+ * Initialize navigation functionality
+ */
+function initializeNavigation() {
+  // Mobile menu toggle
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    });
+  });
+}
+
+/**
+ * Initialize hero section interactions
+ */
+function initializeHeroSection() {
+  // Add any hero section specific functionality here
+  const ctaButtons = document.querySelectorAll('.cta-button');
+  ctaButtons.forEach(button => {
+    button.addEventListener('click', e => {
+      // Track CTA clicks for analytics
+      console.log('CTA clicked:', button.textContent);
+    });
+  });
+}
+
+// Initialize when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeMainPage);
+} else {
+  initializeMainPage();
+}
+
+// Export for potential use by other modules
+export {
+  initializeMainPage,
+  updateUIForAuthenticatedUser,
+  updateUIForGuestUser,
+};

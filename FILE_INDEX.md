@@ -5,6 +5,7 @@ Generated: 7/11/2025
 ## File Organization (65 total files)
 
 ### Admin (5 files)
+
 - adminDashboard.js
 - adminAnalytics.js
 - admin-aT8t-ZJ1.js
@@ -12,21 +13,26 @@ Generated: 7/11/2025
 - admin-DVXQsG96.js
 
 ### Analytics (3 files)
+
 - analyticsLogger.js
 - analyticsDashboard.js
 - analytics-B7XR8O1t.js
 
 ### Auth (1 files)
+
 - login-C9ePDpuj.js
 
 ### Dashboard (1 files)
+
 - dashboardManager.js
 
 ### Demo (2 files)
+
 - demoMode.js
 - demo-player-lhNj6CWE.js
 
 ### Player (9 files)
+
 - playerProfile-BeYlvNRh.js
 - playerImprovement.js
 - playerDashboardDemo.js
@@ -38,6 +44,7 @@ Generated: 7/11/2025
 - player-DlWGw8c-.js
 
 ### Coach (8 files)
+
 - live-coaching.js
 - coachDashboardDemo.js
 - coachDashboard.js
@@ -48,23 +55,27 @@ Generated: 7/11/2025
 - coach-B5_w2ZXf.js
 
 ### Fan (4 files)
+
 - fanDashboard.js
 - fan-Dj-ZwYQ1.js
 - fan-DM2F5Y4S.js
 - fan-AFNB-IpY.js
 
 ### Scout (3 files)
+
 - scoutDashboard.js
 - scout-DuO_TMES.js
 - scout-Bn-ruSd2.js
 
 ### Team (4 files)
+
 - teamCharts.js
 - teamArchive-QdSQr4Rd.js
 - team-zGklEDSS.js
 - team-Daj8G-x5.js
 
 ### Utils (6 files)
+
 - searchEngine.js
 - search-Cv-05BqF.js
 - search-CTAF_Kah.js
@@ -73,6 +84,7 @@ Generated: 7/11/2025
 - compression.js
 
 ### Other (19 files)
+
 - winLossChart.js
 - test-integration-DNJxumgv.js
 - sw-manager.js
@@ -84,7 +96,7 @@ Generated: 7/11/2025
 - firebaseAuth.js
 - dev-env.js
 - claim-profile-DJv-5we9.js
-- claim-profile-Bz-_hgNK.js
+- claim-profile-Bz-\_hgNK.js
 - claim-profile-3z2MKZ1C.js
 - cdn-optimization.js
 - ai-game-tracker.js
@@ -96,6 +108,7 @@ Generated: 7/11/2025
 ## File Size Analysis
 
 **Largest Files:**
+
 - live-coaching.js: 44.8KB
 - ai-chat-interface.js: 39.7KB
 - ai-game-tracker.js: 36.3KB

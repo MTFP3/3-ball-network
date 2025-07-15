@@ -1,0 +1,375 @@
+// 🔧 Admin Role Management Interface
+// Enhanced admin tools for testing Firebase Functions
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+import {
+  getFunctions,
+  httpsCallable,
+} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-functions.js';
+import { auth } from './firebaseConfig.js';
+import { logAnalyticsEvent, logSecurityEvent } from './analyticsLogger.js';
+
+const functions = getFunctions();
+
+// Firebase Function references
+const assignUserRole = httpsCallable(functions, 'assignUserRole');
+const getUserRole = httpsCallable(functions, 'getUserRole');
+const listUsersWithRoles = httpsCallable(functions, 'listUsersWithRoles');
+const verifyUserPermissions = httpsCallable(functions, 'verifyUserPermissions');
+
+/**
+ * Admin Role Management Class
+ */
+class AdminRoleManager {
+  constructor() {
+    this.currentUser = null;
+    this.usersList = [];
+    this.isAdmin = false;
+
+    this.initializeEventListeners();
+    this.checkAdminStatus();
+  }
+
+  /**
+   * Initialize event listeners for the admin interface
+   */
+  initializeEventListeners() {
+    // Auth state listener
+    auth.onAuthStateChanged(user => {
+      this.currentUser = user;
+      this.updateAuthDisplay();
+      if (user) {
+        this.checkAdminStatus();
+      }
+    });
+
+    // Role assignment form
+    const roleForm = document.getElementById('assign-role-form');
+    if (roleForm) {
+      roleForm.addEventListener('submit', this.handleRoleAssignment.bind(this));
+    }
+
+    // User creation form
+    const createUserForm = document.getElementById('create-user-form');
+    if (createUserForm) {
+      createUserForm.addEventListener(
+        'submit',
+        this.handleUserCreation.bind(this)
+      );
+    }
+
+    // Refresh users list button
+    const refreshBtn = document.getElementById('refresh-users-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', this.loadUsersList.bind(this));
+    }
+
+    // Role check form
+    const roleCheckForm = document.getElementById('role-check-form');
+    if (roleCheckForm) {
+      roleCheckForm.addEventListener('submit', this.handleRoleCheck.bind(this));
+    }
+  }
+
+  /**
+   * Check if current user has admin privileges
+   */
+  async checkAdminStatus() {
+    if (!this.currentUser) {
+      this.isAdmin = false;
+      this.updateAdminDisplay();
+      return;
+    }
+
+    try {
+      const idTokenResult = await this.currentUser.getIdTokenResult();
+      this.isAdmin = idTokenResult.claims.role === 'admin';
+
+      this.log(
+        `Admin status: ${this.isAdmin ? '✅ Admin' : '❌ Not Admin'}`,
+        this.isAdmin ? 'success' : 'warning'
+      );
+
+      this.updateAdminDisplay();
+
+      if (this.isAdmin) {
+        this.loadUsersList();
+      }
+    } catch (error) {
+      this.log(`Error checking admin status: ${error.message}`, 'error');
+      this.isAdmin = false;
+      this.updateAdminDisplay();
+    }
+  }
+
+  /**
+   * Handle role assignment form submission
+   */
+  async handleRoleAssignment(event) {
+    event.preventDefault();
+
+    if (!this.isAdmin) {
+      this.log('❌ Only admins can assign roles', 'error');
+      return;
+    }
+
+    const formData = new FormData(event.target);
+    const userId = formData.get('userId');
+    const role = formData.get('role');
+
+    if (!userId || !role) {
+      this.log('❌ Please provide both user ID and role', 'error');
+      return;
+    }
+
+    try {
+      this.log(`🔄 Assigning role "${role}" to user ${userId}...`, 'info');
+
+      const result = await assignUserRole({ userId, role });
+
+      this.log(
+        `✅ Role assigned successfully: ${JSON.stringify(result.data)}`,
+        'success'
+      );
+
+      // Log security event
+      logSecurityEvent('role_assignment', {
+        targetUserId: userId,
+        assignedRole: role,
+        adminUserId: this.currentUser.uid,
+      });
+
+      // Refresh users list
+      this.loadUsersList();
+
+      // Clear form
+      event.target.reset();
+    } catch (error) {
+      this.log(`❌ Role assignment failed: ${error.message}`, 'error');
+
+      logSecurityEvent('role_assignment_failed', {
+        targetUserId: userId,
+        requestedRole: role,
+        adminUserId: this.currentUser.uid,
+        error: error.message,
+      });
+    }
+  }
+
+  /**
+   * Handle user creation form submission
+   */
+  async handleUserCreation(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const displayName = formData.get('displayName');
+    const role = formData.get('role');
+
+    if (!email || !password || !displayName || !role) {
+      this.log('❌ Please fill in all fields', 'error');
+      return;
+    }
+
+    try {
+      this.log(`🔄 Creating user ${email} with role ${role}...`, 'info');
+
+      // Create user account
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const newUser = userCredential.user;
+
+      // Update display name
+      await updateProfile(newUser, { displayName });
+
+      this.log(`✅ User created: ${newUser.uid}`, 'success');
+
+      // Wait a moment for the user to be fully created
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Assign role if admin
+      if (this.isAdmin && role !== 'fan') {
+        try {
+          await assignUserRole({ userId: newUser.uid, role });
+          this.log(`✅ Role "${role}" assigned to new user`, 'success');
+        } catch (roleError) {
+          this.log(
+            `⚠️ User created but role assignment failed: ${roleError.message}`,
+            'warning'
+          );
+        }
+      }
+
+      // Sign back in as admin if we were signed in before
+      if (this.currentUser && this.currentUser.uid !== newUser.uid) {
+        // This will sign out the new user and we'll need to sign back in as admin
+        this.log('ℹ️ Please sign back in as admin to continue', 'info');
+      }
+
+      // Clear form
+      event.target.reset();
+    } catch (error) {
+      this.log(`❌ User creation failed: ${error.message}`, 'error');
+    }
+  }
+
+  /**
+   * Handle role check form submission
+   */
+  async handleRoleCheck(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const userId = formData.get('checkUserId');
+
+    if (!userId) {
+      this.log('❌ Please provide a user ID', 'error');
+      return;
+    }
+
+    try {
+      this.log(`🔄 Checking role for user ${userId}...`, 'info');
+
+      const result = await getUserRole({ userId });
+
+      this.log(
+        `✅ User role: ${JSON.stringify(result.data, null, 2)}`,
+        'success'
+      );
+    } catch (error) {
+      this.log(`❌ Role check failed: ${error.message}`, 'error');
+    }
+  }
+
+  /**
+   * Load and display users list
+   */
+  async loadUsersList() {
+    if (!this.isAdmin) {
+      this.log('❌ Only admins can view users list', 'error');
+      return;
+    }
+
+    try {
+      this.log('🔄 Loading users list...', 'info');
+
+      const result = await listUsersWithRoles();
+      this.usersList = result.data.users || [];
+
+      this.log(`✅ Loaded ${this.usersList.length} users`, 'success');
+      this.displayUsersList();
+    } catch (error) {
+      this.log(`❌ Failed to load users: ${error.message}`, 'error');
+    }
+  }
+
+  /**
+   * Display users list in the UI
+   */
+  displayUsersList() {
+    const container = document.getElementById('users-list');
+    if (!container) return;
+
+    if (this.usersList.length === 0) {
+      container.textContent = 'No users found';
+      return;
+    }
+
+    const usersHtml = this.usersList
+      .map(
+        user => `
+      <div class="user-item">
+        <div class="user-info">
+          <strong>${user.email || user.uid}</strong>
+          <span class="role-badge role-${user.role || 'none'}">${user.role || 'No role'}</span>
+        </div>
+        <div class="user-meta">
+          <small>ID: ${user.uid}</small>
+          <small>Created: ${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Unknown'}</small>
+        </div>
+      </div>
+    `
+      )
+      .join('');
+
+    container.textContent = usersHtml;
+  }
+
+  /**
+   * Update authentication display
+   */
+  updateAuthDisplay() {
+    const authStatus = document.getElementById('auth-status');
+    if (authStatus) {
+      if (this.currentUser) {
+        authStatus.textContent = `
+          <div class="auth-info">
+            <span class="user-email">${this.currentUser.email}</span>
+            <span class="user-id">ID: ${this.currentUser.uid}</span>
+          </div>
+        `;
+      } else {
+        authStatus.textContent =
+          '<span class="not-authenticated">Not signed in</span>';
+      }
+    }
+  }
+
+  /**
+   * Update admin interface display
+   */
+  updateAdminDisplay() {
+    const adminSection = document.getElementById('admin-section');
+    const nonAdminMessage = document.getElementById('non-admin-message');
+
+    if (adminSection) {
+      adminSection.style.display = this.isAdmin ? 'block' : 'none';
+    }
+
+    if (nonAdminMessage) {
+      nonAdminMessage.style.display = this.isAdmin ? 'none' : 'block';
+    }
+  }
+
+  /**
+   * Log message to the admin console
+   */
+  log(message, type = 'info') {
+    console.log(`[Admin] ${message}`);
+
+    const logContainer = document.getElementById('admin-log');
+    if (logContainer) {
+      const logEntry = document.createElement('div');
+      logEntry.className = `log-entry log-${type}`;
+      logEntry.textContent = `
+        <span class="log-time">${new Date().toLocaleTimeString()}</span>
+        <span class="log-message">${message}</span>
+      `;
+
+      logContainer.insertBefore(logEntry, logContainer.firstChild);
+
+      // Keep only last 50 entries
+      while (logContainer.children.length > 50) {
+        logContainer.removeChild(logContainer.lastChild);
+      }
+    }
+  }
+}
+
+// Initialize admin interface when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  window.adminManager = new AdminRoleManager();
+  console.log('🔧 Admin Role Manager initialized');
+});
+
+// Export for global access
+export { AdminRoleManager };
