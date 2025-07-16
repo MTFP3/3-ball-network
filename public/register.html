@@ -75,54 +75,188 @@
       }
 
       .role-selector {
+        display: none; /* Hide the old role selector */
+      }
+
+      .role-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
         display: flex;
         justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .role-modal.hidden {
+        display: none;
+      }
+
+      .role-modal-content {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-radius: 20px;
+        padding: 3rem;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .role-modal h2 {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .role-modal p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .role-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        margin-bottom: 3rem;
-        flex-wrap: wrap;
+        margin-bottom: 2rem;
       }
 
-      .role-option {
-        position: relative;
-      }
-
-      .role-option input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-      }
-
-      .role-option label {
-        display: block;
-        padding: 1rem 2rem;
+      .role-card {
         background: rgba(255, 255, 255, 0.1);
         border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 12px;
+        border-radius: 16px;
+        padding: 1.5rem;
         cursor: pointer;
         transition: all 0.3s ease;
-        text-align: center;
-        font-weight: 600;
         backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
       }
 
-      .role-option input[type="radio"]:checked + label {
+      .role-card:hover {
         background: rgba(255, 255, 255, 0.2);
         border-color: #fff;
-        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
       }
 
-      .role-option label:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: translateY(-2px);
+      .role-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .role-card:hover::before {
+        left: 100%;
+      }
+
+      .role-card .icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .role-card .title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      .role-card .description {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.4;
       }
 
       .registration-form {
+        display: none;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 16px;
         padding: 2rem;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        animation: slideIn 0.5s ease;
+      }
+
+      .registration-form.active {
+        display: block;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-header h3 {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-header p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 768px) {
+        .role-modal-content {
+          padding: 2rem;
+        }
+
+        .role-options {
+          grid-template-columns: 1fr;
+        }
+
+        .role-card {
+          padding: 1rem;
+        }
+
+        .role-card .icon {
+          font-size: 2rem;
+        }
       }
 
       .form-row {
@@ -306,31 +440,56 @@
         <p>Connect with the basketball community</p>
       </div>
 
-      <div class="role-selector">
-        <div class="role-option">
-          <input type="radio" id="player" name="role" value="player" checked>
-          <label for="player">🏀 Player</label>
-        </div>
-        <div class="role-option">
-          <input type="radio" id="coach" name="role" value="coach">
-          <label for="coach">🏆 Coach</label>
-        </div>
-        <div class="role-option">
-          <input type="radio" id="scout" name="role" value="scout">
-          <label for="scout">🔍 Scout</label>
-        </div>
-        <div class="role-option">
-          <input type="radio" id="fan" name="role" value="fan">
-          <label for="fan">📣 Fan</label>
+      <!-- Role Selection Modal -->
+      <div class="role-modal" id="roleModal">
+        <div class="role-modal-content">
+          <h2>I am a...</h2>
+          <p>Select your role to get started with the right experience</p>
+          
+          <div class="role-options">
+            <div class="role-card" data-role="player">
+              <span class="icon">🏀</span>
+              <div class="title">Player</div>
+              <div class="description">Showcase your skills and connect with coaches and scouts</div>
+            </div>
+            
+            <div class="role-card" data-role="coach">
+              <span class="icon">🏆</span>
+              <div class="title">Coach</div>
+              <div class="description">Find talent, share knowledge, and build your team</div>
+            </div>
+            
+            <div class="role-card" data-role="scout">
+              <span class="icon">🔍</span>
+              <div class="title">Scout</div>
+              <div class="description">Discover emerging talent and build your network</div>
+            </div>
+            
+            <div class="role-card" data-role="fan">
+              <span class="icon">📣</span>
+              <div class="title">Fan</div>
+              <div class="description">Follow players, teams, and stay connected to the game</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="registration-form">
+      <!-- Registration Form -->
+      <div class="registration-form" id="registrationForm">
+        <button class="back-btn" id="backBtn">← Back to role selection</button>
+        
+        <div class="form-header">
+          <h3 id="formTitle">Complete Your Registration</h3>
+          <p id="formDescription">Fill out the form below to join as a <span id="selectedRole"></span></p>
+        </div>
+
         <div class="error-message" id="errorMessage"></div>
         <div class="success-message" id="successMessage"></div>
         <div class="loading" id="loading">Creating your account...</div>
 
-        <form id="registrationForm">
+        <form id="registrationFormElement">
+          <input type="hidden" id="selectedRoleInput" name="role" value="">
+          
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -474,21 +633,67 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
 
-      // Role switching functionality
-      document.querySelectorAll('input[name="role"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-          // Hide all role-specific fields
-          document.querySelectorAll('.role-fields').forEach(field => {
-            field.style.display = 'none';
-          });
-          
-          // Show fields for selected role
-          const selectedRole = this.value;
-          const roleFields = document.getElementById(selectedRole + 'Fields');
-          if (roleFields) {
-            roleFields.style.display = 'block';
-          }
+      // Modal and form elements
+      const roleModal = document.getElementById('roleModal');
+      const registrationForm = document.getElementById('registrationForm');
+      const backBtn = document.getElementById('backBtn');
+      const selectedRoleInput = document.getElementById('selectedRoleInput');
+      const selectedRoleSpan = document.getElementById('selectedRole');
+      const formTitle = document.getElementById('formTitle');
+
+      // Role selection functionality
+      document.querySelectorAll('.role-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const role = this.getAttribute('data-role');
+          selectRole(role);
         });
+      });
+
+      function selectRole(role) {
+        // Hide modal
+        roleModal.classList.add('hidden');
+        
+        // Show registration form
+        registrationForm.classList.add('active');
+        
+        // Set selected role
+        selectedRoleInput.value = role;
+        selectedRoleSpan.textContent = role;
+        
+        // Update form title
+        const roleNames = {
+          player: 'Player',
+          coach: 'Coach',
+          scout: 'Scout',
+          fan: 'Fan'
+        };
+        formTitle.textContent = `${roleNames[role]} Registration`;
+        
+        // Show role-specific fields
+        document.querySelectorAll('.role-fields').forEach(field => {
+          field.style.display = 'none';
+        });
+        
+        const roleFields = document.getElementById(role + 'Fields');
+        if (roleFields) {
+          roleFields.style.display = 'block';
+        }
+        
+        // Scroll to top of form
+        registrationForm.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Back button functionality
+      backBtn.addEventListener('click', function() {
+        registrationForm.classList.remove('active');
+        roleModal.classList.remove('hidden');
+        
+        // Clear form
+        document.getElementById('registrationFormElement').reset();
+        
+        // Hide error/success messages
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
       });
 
       // Password toggle functionality
@@ -508,7 +713,7 @@
       });
 
       // Form submission
-      document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+      document.getElementById('registrationFormElement').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const errorMessage = document.getElementById('errorMessage');
@@ -621,6 +826,11 @@
             }
           });
         }
+      });
+
+      // Initialize - show modal on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        roleModal.classList.remove('hidden');
       });
     </script>
   </body>
