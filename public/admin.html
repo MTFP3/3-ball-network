@@ -60,11 +60,11 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-storage-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/1.7.0/firebase-functions-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-functions-compat.js"></script>
     <link rel="stylesheet" href="/assets/css/admin.css" />
     <script>
       // Loading optimization
@@ -1976,7 +1976,7 @@ Site is temporarily down for maintenance. Please check back soon!</textarea
       </div>
       <div id="alertContainer"></div>
     </div>
-    <script src="/assets/js/firebaseConfig.js"></script>
+    <script src="/assets/js/firebaseConfig-compat.js"></script>
     <script>
       // ============================================================================
       // Phase 2:Interactive JavaScript Logic
@@ -1985,7 +1985,12 @@ Site is temporarily down for maintenance. Please check back soon!</textarea
       let currentUser = null;
 
       // Initialize Firebase using secure config
-      firebase.initializeApp(getFirebaseConfig());
+      const config = getFirebaseConfig();
+      if (config) {
+        firebase.initializeApp(config);
+      } else {
+        console.error('Failed to initialize Firebase - invalid configuration');
+      }
       const auth = firebase.auth();
       const db = firebase.firestore();
       const storage = firebase.storage();
