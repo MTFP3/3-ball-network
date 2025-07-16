@@ -4607,6 +4607,15 @@ cursor:pointer;
         // The loading will be hidden when auth state is determined
       });
       function setupEventListeners() {
+        // Login button click
+        const loginBtn = document.getElementById('loginBtn');
+        if (loginBtn) {
+          loginBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            attemptLogin();
+          });
+        }
+
         // Login form submission
         const loginForm = document.getElementById('loginForm');
         if (loginForm) {
