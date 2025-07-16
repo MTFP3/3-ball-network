@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Join the 3 Ball Network community. Register as a player, coach, scout, or fan and connect with the basketball community."
+    />
+    <meta name="theme-color" content="#00b4d8" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com"
+    />
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="/assets/js/firebaseConfig-compat.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: 0.02em;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .header h1 {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+      }
+
+      .role-selector {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .role-option {
+        position: relative;
+      }
+
+      .role-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .role-option label {
+        display: block;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .role-option input[type="radio"]:checked + label {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #fff;
+        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+      }
+
+      .role-option label:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .registration-form {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-row {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        flex: 1;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.875rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .password-group {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 4px;
+      }
+
+      .password-toggle:hover {
+        color: #fff;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(135deg, #ff5252 0%, #ff7979 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .login-link a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .login-link a:hover {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      }
+
+      .error-message {
+        background: rgba(255, 0, 0, 0.2);
+        color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        display: none;
+      }
+
+      .success-message {
+        background: rgba(0, 255, 0, 0.2);
+        color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        display: none;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .loading::after {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: 2px solid #fff;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 10px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .header h1 {
+          font-size: 2.5rem;
+        }
+
+        .role-selector {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Join 3 Ball Network</h1>
+        <p>Connect with the basketball community</p>
+      </div>
+
+      <div class="role-selector">
+        <div class="role-option">
+          <input type="radio" id="player" name="role" value="player" checked>
+          <label for="player">🏀 Player</label>
+        </div>
+        <div class="role-option">
+          <input type="radio" id="coach" name="role" value="coach">
+          <label for="coach">🏆 Coach</label>
+        </div>
+        <div class="role-option">
+          <input type="radio" id="scout" name="role" value="scout">
+          <label for="scout">🔍 Scout</label>
+        </div>
+        <div class="role-option">
+          <input type="radio" id="fan" name="role" value="fan">
+          <label for="fan">📣 Fan</label>
+        </div>
+      </div>
+
+      <div class="registration-form">
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        <div class="loading" id="loading">Creating your account...</div>
+
+        <form id="registrationForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+          </div>
+
+          <div class="form-group password-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+            <button type="button" class="password-toggle" data-target="password">👁️</button>
+          </div>
+
+          <div class="form-group password-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+            <button type="button" class="password-toggle" data-target="confirmPassword">👁️</button>
+          </div>
+
+          <!-- Player-specific fields -->
+          <div id="playerFields" class="role-fields">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="position">Position</label>
+                <select id="position" name="position">
+                  <option value="">Select Position</option>
+                  <option value="PG">Point Guard</option>
+                  <option value="SG">Shooting Guard</option>
+                  <option value="SF">Small Forward</option>
+                  <option value="PF">Power Forward</option>
+                  <option value="C">Center</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="height">Height</label>
+                <input type="text" id="height" name="height" placeholder="e.g., 6'2\"">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="weight">Weight (lbs)</label>
+                <input type="number" id="weight" name="weight" placeholder="e.g., 180">
+              </div>
+              <div class="form-group">
+                <label for="experience">Experience Level</label>
+                <select id="experience" name="experience">
+                  <option value="">Select Experience</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                  <option value="professional">Professional</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coach-specific fields -->
+          <div id="coachFields" class="role-fields" style="display: none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="coachingLevel">Coaching Level</label>
+                <select id="coachingLevel" name="coachingLevel">
+                  <option value="">Select Level</option>
+                  <option value="youth">Youth</option>
+                  <option value="high-school">High School</option>
+                  <option value="college">College</option>
+                  <option value="professional">Professional</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="yearsCoaching">Years of Experience</label>
+                <input type="number" id="yearsCoaching" name="yearsCoaching" placeholder="e.g., 5">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="specialization">Specialization</label>
+              <input type="text" id="specialization" name="specialization" placeholder="e.g., Player Development, Strategy">
+            </div>
+          </div>
+
+          <!-- Scout-specific fields -->
+          <div id="scoutFields" class="role-fields" style="display: none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" name="organization" placeholder="e.g., College, Agency">
+              </div>
+              <div class="form-group">
+                <label for="territory">Territory</label>
+                <input type="text" id="territory" name="territory" placeholder="e.g., West Coast, National">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="focusArea">Focus Area</label>
+              <select id="focusArea" name="focusArea">
+                <option value="">Select Focus</option>
+                <option value="high-school">High School</option>
+                <option value="college">College</option>
+                <option value="international">International</option>
+                <option value="professional">Professional</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fan-specific fields -->
+          <div id="fanFields" class="role-fields" style="display: none;">
+            <div class="form-group">
+              <label for="favoriteTeam">Favorite Team</label>
+              <input type="text" id="favoriteTeam" name="favoriteTeam" placeholder="e.g., Lakers, Warriors">
+            </div>
+            <div class="form-group">
+              <label for="interests">Interests</label>
+              <textarea id="interests" name="interests" placeholder="What aspects of basketball interest you most?" rows="3"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Create Account</button>
+        </form>
+
+        <div class="login-link">
+          <p>Already have an account? <a href="/login.html">Sign in here</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize Firebase
+      const config = getFirebaseConfig();
+      if (config) {
+        firebase.initializeApp(config);
+      }
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Role switching functionality
+      document.querySelectorAll('input[name="role"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+          // Hide all role-specific fields
+          document.querySelectorAll('.role-fields').forEach(field => {
+            field.style.display = 'none';
+          });
+          
+          // Show fields for selected role
+          const selectedRole = this.value;
+          const roleFields = document.getElementById(selectedRole + 'Fields');
+          if (roleFields) {
+            roleFields.style.display = 'block';
+          }
+        });
+      });
+
+      // Password toggle functionality
+      document.querySelectorAll('.password-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const passwordInput = document.getElementById(targetId);
+          
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            this.textContent = '🙈';
+          } else {
+            passwordInput.type = 'password';
+            this.textContent = '👁️';
+          }
+        });
+      });
+
+      // Form submission
+      document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const loading = document.getElementById('loading');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        // Hide previous messages
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+        
+        // Get form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        
+        // Validate passwords match
+        if (data.password !== data.confirmPassword) {
+          errorMessage.textContent = 'Passwords do not match';
+          errorMessage.style.display = 'block';
+          return;
+        }
+        
+        // Validate password strength
+        if (data.password.length < 6) {
+          errorMessage.textContent = 'Password must be at least 6 characters long';
+          errorMessage.style.display = 'block';
+          return;
+        }
+        
+        // Show loading state
+        loading.style.display = 'block';
+        submitBtn.disabled = true;
+        
+        try {
+          // Create user account
+          const userCredential = await auth.createUserWithEmailAndPassword(data.email, data.password);
+          const user = userCredential.user;
+          
+          // Prepare user data
+          const userData = {
+            uid: user.uid,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            role: data.role,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          };
+          
+          // Add role-specific data
+          if (data.role === 'player') {
+            userData.position = data.position;
+            userData.height = data.height;
+            userData.weight = data.weight ? parseInt(data.weight) : null;
+            userData.experience = data.experience;
+          } else if (data.role === 'coach') {
+            userData.coachingLevel = data.coachingLevel;
+            userData.yearsCoaching = data.yearsCoaching ? parseInt(data.yearsCoaching) : null;
+            userData.specialization = data.specialization;
+          } else if (data.role === 'scout') {
+            userData.organization = data.organization;
+            userData.territory = data.territory;
+            userData.focusArea = data.focusArea;
+          } else if (data.role === 'fan') {
+            userData.favoriteTeam = data.favoriteTeam;
+            userData.interests = data.interests;
+          }
+          
+          // Save user data to Firestore
+          await db.collection('users').doc(user.uid).set(userData);
+          
+          // Show success message
+          successMessage.textContent = 'Account created successfully! Redirecting...';
+          successMessage.style.display = 'block';
+          
+          // Redirect based on role
+          setTimeout(() => {
+            window.location.href = `/${data.role}.html`;
+          }, 2000);
+          
+        } catch (error) {
+          console.error('Registration error:', error);
+          
+          let errorText = 'Registration failed. Please try again.';
+          if (error.code === 'auth/email-already-in-use') {
+            errorText = 'An account with this email already exists.';
+          } else if (error.code === 'auth/invalid-email') {
+            errorText = 'Please enter a valid email address.';
+          } else if (error.code === 'auth/weak-password') {
+            errorText = 'Please choose a stronger password.';
+          }
+          
+          errorMessage.textContent = errorText;
+          errorMessage.style.display = 'block';
+        }
+        
+        // Hide loading state
+        loading.style.display = 'none';
+        submitBtn.disabled = false;
+      });
+
+      // Check if user is already logged in
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          // User is already logged in, redirect to their dashboard
+          db.collection('users').doc(user.uid).get().then(doc => {
+            if (doc.exists) {
+              const userData = doc.data();
+              window.location.href = `/${userData.role}.html`;
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
