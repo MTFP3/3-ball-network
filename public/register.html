@@ -21,7 +21,7 @@
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/png" href="/logo.png" />
-    
+
     <!-- Security Headers -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -154,7 +154,12 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
         transition: left 0.5s ease;
       }
 
@@ -325,6 +330,86 @@
         color: #fff;
       }
 
+      .checkbox-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: #fff;
+        margin-bottom: 0 !important;
+      }
+
+      .checkbox-label input[type='checkbox'] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        width: 0;
+        height: 0;
+      }
+
+      .checkbox-custom {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .checkbox-label input[type='checkbox']:checked + .checkbox-custom {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #fff;
+      }
+
+      .checkbox-label input[type='checkbox']:checked + .checkbox-custom::after {
+        content: '✓';
+        color: #fff;
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .checkbox-label:hover .checkbox-custom {
+        border-color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .height-group {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .height-group select {
+        flex: 1;
+        min-width: 80px;
+      }
+
+      @media (max-width: 768px) {
+        .checkbox-group {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .height-group {
+          flex-direction: row;
+          gap: 0.5rem;
+        }
+
+        .height-group select {
+          flex: 1;
+        }
+      }
+
       .submit-btn {
         width: 100%;
         padding: 1rem;
@@ -408,8 +493,12 @@
       }
 
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
       @media (max-width: 768px) {
@@ -445,30 +534,38 @@
         <div class="role-modal-content">
           <h2>I am a...</h2>
           <p>Select your role to get started with the right experience</p>
-          
+
           <div class="role-options">
             <div class="role-card" data-role="player">
               <span class="icon">🏀</span>
               <div class="title">Player</div>
-              <div class="description">Showcase your skills and connect with coaches and scouts</div>
+              <div class="description">
+                Showcase your skills and connect with coaches and scouts
+              </div>
             </div>
-            
+
             <div class="role-card" data-role="coach">
               <span class="icon">🏆</span>
               <div class="title">Coach</div>
-              <div class="description">Find talent, share knowledge, and build your team</div>
+              <div class="description">
+                Find talent, share knowledge, and build your team
+              </div>
             </div>
-            
+
             <div class="role-card" data-role="scout">
               <span class="icon">🔍</span>
               <div class="title">Scout</div>
-              <div class="description">Discover emerging talent and build your network</div>
+              <div class="description">
+                Discover emerging talent and build your network
+              </div>
             </div>
-            
+
             <div class="role-card" data-role="fan">
               <span class="icon">📣</span>
               <div class="title">Fan</div>
-              <div class="description">Follow players, teams, and stay connected to the game</div>
+              <div class="description">
+                Follow players, teams, and stay connected to the game
+              </div>
             </div>
           </div>
         </div>
@@ -477,10 +574,12 @@
       <!-- Registration Form -->
       <div class="registration-form" id="registrationForm">
         <button class="back-btn" id="backBtn">← Back to role selection</button>
-        
+
         <div class="form-header">
           <h3 id="formTitle">Complete Your Registration</h3>
-          <p id="formDescription">Fill out the form below to join as a <span id="selectedRole"></span></p>
+          <p id="formDescription">
+            Fill out the form below to join as a <span id="selectedRole"></span>
+          </p>
         </div>
 
         <div class="error-message" id="errorMessage"></div>
@@ -488,75 +587,157 @@
         <div class="loading" id="loading">Creating your account...</div>
 
         <form id="registrationFormElement">
-          <input type="hidden" id="selectedRoleInput" name="role" value="">
-          
+          <input type="hidden" id="selectedRoleInput" name="role" value="" />
+
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="Enter your first name"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Enter your last name"
+                required
+              />
             </div>
           </div>
 
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email address"
+              required
+            />
           </div>
 
           <div class="form-group password-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Create a strong password" required>
-            <button type="button" class="password-toggle" data-target="password">👁️</button>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a strong password"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              data-target="password"
+            >
+              👁️
+            </button>
           </div>
 
           <div class="form-group password-group">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
-            <button type="button" class="password-toggle" data-target="confirmPassword">👁️</button>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              data-target="confirmPassword"
+            >
+              👁️
+            </button>
           </div>
 
           <!-- Player-specific fields -->
           <div id="playerFields" class="role-fields">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="position">Position</label>
-                <select id="position" name="position">
-                  <option value="">Select Position</option>
-                  <option value="PG">Point Guard</option>
-                  <option value="SG">Shooting Guard</option>
-                  <option value="SF">Small Forward</option>
-                  <option value="PF">Power Forward</option>
-                  <option value="C">Center</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="height">Height</label>
-                <input type="text" id="height" name="height" placeholder="e.g., 6'2\"">
+            <div class="form-group">
+              <label>Positions (select all that apply)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="positions" value="guard" />
+                  <span class="checkbox-custom"></span>
+                  Guard
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="positions" value="forward" />
+                  <span class="checkbox-custom"></span>
+                  Forward
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="positions" value="center" />
+                  <span class="checkbox-custom"></span>
+                  Center
+                </label>
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group">
-                <label for="weight">Weight (lbs)</label>
-                <input type="number" id="weight" name="weight" placeholder="e.g., 180">
+                <label for="heightFeet">Height</label>
+                <div class="height-group">
+                  <select id="heightFeet" name="heightFeet">
+                    <option value="">Feet</option>
+                    <option value="4">4'</option>
+                    <option value="5">5'</option>
+                    <option value="6">6'</option>
+                    <option value="7">7'</option>
+                  </select>
+                  <select id="heightInches" name="heightInches">
+                    <option value="">Inches</option>
+                    <option value="0">0"</option>
+                    <option value="1">1"</option>
+                    <option value="2">2"</option>
+                    <option value="3">3"</option>
+                    <option value="4">4"</option>
+                    <option value="5">5"</option>
+                    <option value="6">6"</option>
+                    <option value="7">7"</option>
+                    <option value="8">8"</option>
+                    <option value="9">9"</option>
+                    <option value="10">10"</option>
+                    <option value="11">11"</option>
+                  </select>
+                </div>
               </div>
               <div class="form-group">
-                <label for="experience">Experience Level</label>
-                <select id="experience" name="experience">
-                  <option value="">Select Experience</option>
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
-                  <option value="professional">Professional</option>
-                </select>
+                <label for="age">Age</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  placeholder="e.g., 18"
+                  min="10"
+                  max="50"
+                />
               </div>
+            </div>
+
+            <div class="form-group">
+              <label for="weight">Weight (lbs)</label>
+              <input
+                type="number"
+                id="weight"
+                name="weight"
+                placeholder="e.g., 180"
+                min="80"
+                max="400"
+              />
             </div>
           </div>
 
           <!-- Coach-specific fields -->
-          <div id="coachFields" class="role-fields" style="display: none;">
+          <div id="coachFields" class="role-fields" style="display: none">
             <div class="form-row">
               <div class="form-group">
                 <label for="coachingLevel">Coaching Level</label>
@@ -570,25 +751,45 @@
               </div>
               <div class="form-group">
                 <label for="yearsCoaching">Years of Experience</label>
-                <input type="number" id="yearsCoaching" name="yearsCoaching" placeholder="e.g., 5">
+                <input
+                  type="number"
+                  id="yearsCoaching"
+                  name="yearsCoaching"
+                  placeholder="e.g., 5"
+                />
               </div>
             </div>
             <div class="form-group">
               <label for="specialization">Specialization</label>
-              <input type="text" id="specialization" name="specialization" placeholder="e.g., Player Development, Strategy">
+              <input
+                type="text"
+                id="specialization"
+                name="specialization"
+                placeholder="e.g., Player Development, Strategy"
+              />
             </div>
           </div>
 
           <!-- Scout-specific fields -->
-          <div id="scoutFields" class="role-fields" style="display: none;">
+          <div id="scoutFields" class="role-fields" style="display: none">
             <div class="form-row">
               <div class="form-group">
                 <label for="organization">Organization</label>
-                <input type="text" id="organization" name="organization" placeholder="e.g., College, Agency">
+                <input
+                  type="text"
+                  id="organization"
+                  name="organization"
+                  placeholder="e.g., College, Agency"
+                />
               </div>
               <div class="form-group">
                 <label for="territory">Territory</label>
-                <input type="text" id="territory" name="territory" placeholder="e.g., West Coast, National">
+                <input
+                  type="text"
+                  id="territory"
+                  name="territory"
+                  placeholder="e.g., West Coast, National"
+                />
               </div>
             </div>
             <div class="form-group">
@@ -604,18 +805,30 @@
           </div>
 
           <!-- Fan-specific fields -->
-          <div id="fanFields" class="role-fields" style="display: none;">
+          <div id="fanFields" class="role-fields" style="display: none">
             <div class="form-group">
               <label for="favoriteTeam">Favorite Team</label>
-              <input type="text" id="favoriteTeam" name="favoriteTeam" placeholder="e.g., Lakers, Warriors">
+              <input
+                type="text"
+                id="favoriteTeam"
+                name="favoriteTeam"
+                placeholder="e.g., Lakers, Warriors"
+              />
             </div>
             <div class="form-group">
               <label for="interests">Interests</label>
-              <textarea id="interests" name="interests" placeholder="What aspects of basketball interest you most?" rows="3"></textarea>
+              <textarea
+                id="interests"
+                name="interests"
+                placeholder="What aspects of basketball interest you most?"
+                rows="3"
+              ></textarea>
             </div>
           </div>
 
-          <button type="submit" class="submit-btn" id="submitBtn">Create Account</button>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            Create Account
+          </button>
         </form>
 
         <div class="login-link">
@@ -643,7 +856,7 @@
 
       // Role selection functionality
       document.querySelectorAll('.role-card').forEach(card => {
-        card.addEventListener('click', function() {
+        card.addEventListener('click', function () {
           const role = this.getAttribute('data-role');
           selectRole(role);
         });
@@ -652,45 +865,52 @@
       function selectRole(role) {
         // Hide modal
         roleModal.classList.add('hidden');
-        
+
         // Show registration form
         registrationForm.classList.add('active');
-        
+
         // Set selected role
         selectedRoleInput.value = role;
         selectedRoleSpan.textContent = role;
-        
+
         // Update form title
         const roleNames = {
           player: 'Player',
           coach: 'Coach',
           scout: 'Scout',
-          fan: 'Fan'
+          fan: 'Fan',
         };
         formTitle.textContent = `${roleNames[role]} Registration`;
-        
+
         // Show role-specific fields
         document.querySelectorAll('.role-fields').forEach(field => {
           field.style.display = 'none';
         });
-        
+
         const roleFields = document.getElementById(role + 'Fields');
         if (roleFields) {
           roleFields.style.display = 'block';
         }
-        
+
         // Scroll to top of form
         registrationForm.scrollIntoView({ behavior: 'smooth' });
       }
 
       // Back button functionality
-      backBtn.addEventListener('click', function() {
+      backBtn.addEventListener('click', function () {
         registrationForm.classList.remove('active');
         roleModal.classList.remove('hidden');
-        
+
         // Clear form
         document.getElementById('registrationFormElement').reset();
-        
+
+        // Clear checkboxes
+        document
+          .querySelectorAll('input[type="checkbox"]')
+          .forEach(checkbox => {
+            checkbox.checked = false;
+          });
+
         // Hide error/success messages
         document.getElementById('errorMessage').style.display = 'none';
         document.getElementById('successMessage').style.display = 'none';
@@ -698,10 +918,10 @@
 
       // Password toggle functionality
       document.querySelectorAll('.password-toggle').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
           const targetId = this.getAttribute('data-target');
           const passwordInput = document.getElementById(targetId);
-          
+
           if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             this.textContent = '🙈';
@@ -713,123 +933,173 @@
       });
 
       // Form submission
-      document.getElementById('registrationFormElement').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-        const loading = document.getElementById('loading');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        // Hide previous messages
-        errorMessage.style.display = 'none';
-        successMessage.style.display = 'none';
-        
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        
-        // Validate passwords match
-        if (data.password !== data.confirmPassword) {
-          errorMessage.textContent = 'Passwords do not match';
-          errorMessage.style.display = 'block';
-          return;
-        }
-        
-        // Validate password strength
-        if (data.password.length < 6) {
-          errorMessage.textContent = 'Password must be at least 6 characters long';
-          errorMessage.style.display = 'block';
-          return;
-        }
-        
-        // Show loading state
-        loading.style.display = 'block';
-        submitBtn.disabled = true;
-        
-        try {
-          // Create user account
-          const userCredential = await auth.createUserWithEmailAndPassword(data.email, data.password);
-          const user = userCredential.user;
-          
-          // Prepare user data
-          const userData = {
-            uid: user.uid,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            role: data.role,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-          };
-          
-          // Add role-specific data
+      document
+        .getElementById('registrationFormElement')
+        .addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          const errorMessage = document.getElementById('errorMessage');
+          const successMessage = document.getElementById('successMessage');
+          const loading = document.getElementById('loading');
+          const submitBtn = document.getElementById('submitBtn');
+
+          // Hide previous messages
+          errorMessage.style.display = 'none';
+          successMessage.style.display = 'none';
+
+          // Get form data
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData);
+
+          // Validate passwords match
+          if (data.password !== data.confirmPassword) {
+            errorMessage.textContent = 'Passwords do not match';
+            errorMessage.style.display = 'block';
+            return;
+          }
+
+          // Validate password strength
+          if (data.password.length < 6) {
+            errorMessage.textContent =
+              'Password must be at least 6 characters long';
+            errorMessage.style.display = 'block';
+            return;
+          }
+
+          // Validate player-specific fields
           if (data.role === 'player') {
-            userData.position = data.position;
-            userData.height = data.height;
-            userData.weight = data.weight ? parseInt(data.weight) : null;
-            userData.experience = data.experience;
-          } else if (data.role === 'coach') {
-            userData.coachingLevel = data.coachingLevel;
-            userData.yearsCoaching = data.yearsCoaching ? parseInt(data.yearsCoaching) : null;
-            userData.specialization = data.specialization;
-          } else if (data.role === 'scout') {
-            userData.organization = data.organization;
-            userData.territory = data.territory;
-            userData.focusArea = data.focusArea;
-          } else if (data.role === 'fan') {
-            userData.favoriteTeam = data.favoriteTeam;
-            userData.interests = data.interests;
+            const selectedPositions = Array.from(
+              document.querySelectorAll('input[name="positions"]:checked')
+            );
+            if (selectedPositions.length === 0) {
+              errorMessage.textContent = 'Please select at least one position';
+              errorMessage.style.display = 'block';
+              return;
+            }
+
+            if (data.heightFeet && !data.heightInches) {
+              errorMessage.textContent =
+                'Please select both feet and inches for height';
+              errorMessage.style.display = 'block';
+              return;
+            }
+
+            if (!data.heightFeet && data.heightInches) {
+              errorMessage.textContent =
+                'Please select both feet and inches for height';
+              errorMessage.style.display = 'block';
+              return;
+            }
           }
-          
-          // Save user data to Firestore
-          await db.collection('users').doc(user.uid).set(userData);
-          
-          // Show success message
-          successMessage.textContent = 'Account created successfully! Redirecting...';
-          successMessage.style.display = 'block';
-          
-          // Redirect based on role
-          setTimeout(() => {
-            window.location.href = `/${data.role}.html`;
-          }, 2000);
-          
-        } catch (error) {
-          console.error('Registration error:', error);
-          
-          let errorText = 'Registration failed. Please try again.';
-          if (error.code === 'auth/email-already-in-use') {
-            errorText = 'An account with this email already exists.';
-          } else if (error.code === 'auth/invalid-email') {
-            errorText = 'Please enter a valid email address.';
-          } else if (error.code === 'auth/weak-password') {
-            errorText = 'Please choose a stronger password.';
+
+          // Show loading state
+          loading.style.display = 'block';
+          submitBtn.disabled = true;
+
+          try {
+            // Create user account
+            const userCredential = await auth.createUserWithEmailAndPassword(
+              data.email,
+              data.password
+            );
+            const user = userCredential.user;
+
+            // Prepare user data
+            const userData = {
+              uid: user.uid,
+              email: data.email,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              role: data.role,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            };
+
+            // Add role-specific data
+            if (data.role === 'player') {
+              // Handle multiple positions
+              const selectedPositions = Array.from(
+                document.querySelectorAll('input[name="positions"]:checked')
+              ).map(checkbox => checkbox.value);
+              userData.positions = selectedPositions;
+
+              // Format height
+              const heightFeet = data.heightFeet;
+              const heightInches = data.heightInches;
+              if (heightFeet && heightInches) {
+                userData.height = `${heightFeet}'${heightInches}"`;
+              } else if (heightFeet) {
+                userData.height = `${heightFeet}'0"`;
+              }
+
+              userData.age = data.age ? parseInt(data.age) : null;
+              userData.weight = data.weight ? parseInt(data.weight) : null;
+            } else if (data.role === 'coach') {
+              userData.coachingLevel = data.coachingLevel;
+              userData.yearsCoaching = data.yearsCoaching
+                ? parseInt(data.yearsCoaching)
+                : null;
+              userData.specialization = data.specialization;
+            } else if (data.role === 'scout') {
+              userData.organization = data.organization;
+              userData.territory = data.territory;
+              userData.focusArea = data.focusArea;
+            } else if (data.role === 'fan') {
+              userData.favoriteTeam = data.favoriteTeam;
+              userData.interests = data.interests;
+            }
+
+            // Save user data to Firestore
+            await db.collection('users').doc(user.uid).set(userData);
+
+            // Show success message
+            successMessage.textContent =
+              'Account created successfully! Redirecting...';
+            successMessage.style.display = 'block';
+
+            // Redirect based on role
+            setTimeout(() => {
+              window.location.href = `/${data.role}.html`;
+            }, 2000);
+          } catch (error) {
+            console.error('Registration error:', error);
+
+            let errorText = 'Registration failed. Please try again.';
+            if (error.code === 'auth/email-already-in-use') {
+              errorText = 'An account with this email already exists.';
+            } else if (error.code === 'auth/invalid-email') {
+              errorText = 'Please enter a valid email address.';
+            } else if (error.code === 'auth/weak-password') {
+              errorText = 'Please choose a stronger password.';
+            }
+
+            errorMessage.textContent = errorText;
+            errorMessage.style.display = 'block';
           }
-          
-          errorMessage.textContent = errorText;
-          errorMessage.style.display = 'block';
-        }
-        
-        // Hide loading state
-        loading.style.display = 'none';
-        submitBtn.disabled = false;
-      });
+
+          // Hide loading state
+          loading.style.display = 'none';
+          submitBtn.disabled = false;
+        });
 
       // Check if user is already logged in
-      auth.onAuthStateChanged(function(user) {
+      auth.onAuthStateChanged(function (user) {
         if (user) {
           // User is already logged in, redirect to their dashboard
-          db.collection('users').doc(user.uid).get().then(doc => {
-            if (doc.exists) {
-              const userData = doc.data();
-              window.location.href = `/${userData.role}.html`;
-            }
-          });
+          db.collection('users')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              if (doc.exists) {
+                const userData = doc.data();
+                window.location.href = `/${userData.role}.html`;
+              }
+            });
         }
       });
 
       // Initialize - show modal on page load
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         roleModal.classList.remove('hidden');
       });
     </script>
