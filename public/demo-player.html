@@ -1,97 +1,1576 @@
-<!doctype html><html lang="en"><head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://firebaseapp.com">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://www.gstatic.com"><link rel="dns-prefetch" href="https://firebaseapp.com"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="format-detection" content="telephone=no"><meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com"><meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="DENY"><meta http-equiv="X-XSS-Protection" content="1; mode=block"><meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"><meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()"><meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
-<!-- Security Headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-XSS-Protection" content="1; mode=block">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()">
-<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Player Portal Demo | 3 Ball Network</title><meta
-name="description"
-content="Experience the Player Dashboard - Track your performance, view game grades, and showcase your highlights on 3 Ball Network."
-/><meta property="og:title" content="Player Portal Demo | 3 Ball Network" /><meta
-property="og:description"
-content="Experience the Player Dashboard - Track your performance, view game grades, and showcase your highlights."
-/><meta property="og:url" content="https://3ballnetwork.com/demo-player" /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary_large_image" /><link rel="canonical" href="https://3ballnetwork.com/demo-player" /><link
-href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&display=swap"
-rel="stylesheet"
-/><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><link rel="stylesheet" href="/assets/css/demo-player.css"><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager.js"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-0j_2LXoh-C5W5Tc3C.js"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-DAV1RrA1-JVRntdH9.js"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-DpocxIhM-B4Ehg4gA.js"
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-C005TVuN-8droooaP.js"
-/><link
-rel="modulepreload"
-crossorigin
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-Bvdin3t6-Dh2LTHj9.js"
-/><link
-rel="modulepreload"
-crossorigin
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-BpiNB33m-DZaRoQqh.js"
-/><link
-rel="modulepreload"
-crossorigin
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-BPOGcxLr-Dte6F16m.js"
-/><link
-rel="modulepreload"
-crossorigin
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-gKgsdMp8-DOXTs-WI.js"
-/><link
-rel="modulepreload"
-crossorigin
-/><link
-rel="modulepreload"
-crossorigin
-href="/assets/js/platformManager-CMGNxMqx-BgtAjZPx-ChYnJq5S-Bf_eaMq8-B9ciSY_J.js"
-src="/logo.png"
-alt="3 Ball Network"
-style="height:60px; margin-bottom:1em"
-/><h1>Player Portal Demo<span class="demo-badge">DEMO MODE</span></h1><p style="color:#64748b; margin-top:1em">
-Experience the Player Dashboard - Track your performance, view game
-grades, and showcase your highlights
-</p></div><div class="demo-nav"><div class="nav-tab active" >
-Overview
-</div><div class="nav-tab" >
-Advanced Analytics
-</div><div class="nav-tab" >
-Recruiting Hub
-</div><div class="nav-tab" >Game History</div><div class="nav-tab" >Highlights</div><div class="nav-tab" >Profile</div></div><div id="overview" class="demo-section active"><h2>Player Profile</h2><div class="player-card-2k"><div class="player-card-header"><div class="player-avatar"><img
-src="/assets/images/default-avatar.png"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com https://www.youtube.com;"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.gstatic.com" />
+    <link rel="dns-prefetch" href="https://firebaseapp.com" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player Portal Demo | 3 Ball Network</title>
+    <meta
+      name="description"
+      content="Experience the Player Dashboard - Track your performance, view game grades, and showcase your highlights on 3 Ball Network."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Urbanist:wght@400;700;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Urbanist', 'Montserrat', Arial, sans-serif;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #222;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: 0.02em;
+      }
+
+      /* Demo Badge */
+      .demo-badge {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        color: #fff;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        margin-left: 1rem;
+        text-shadow: none;
+        letter-spacing: 0.5px;
+      }
+
+      /* Header Styles */
+      .header {
+        background: rgba(17, 17, 17, 0.9);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 180, 216, 0.3);
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .logo img {
+        height: 40px;
+        border-radius: 8px;
+      }
+
+      .logo h1 {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 1.8rem;
+        color: #00b4d8;
+        letter-spacing: 2px;
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .nav-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #fff;
+        margin: 3px 0;
+        transition: all 0.3s;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+      }
+
+      .nav-menu a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      .nav-menu a:hover {
+        color: #00b4d8;
+      }
+
+      .nav-menu a.active {
+        color: #00b4d8;
+      }
+
+      .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #00b4d8;
+        transition: width 0.3s;
+      }
+
+      .nav-menu a:hover::after,
+      .nav-menu a.active::after {
+        width: 100%;
+      }
+
+      /* Main Container */
+      .main-container {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 2rem;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 2rem;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .sidebar-nav {
+        list-style: none;
+      }
+
+      .sidebar-nav li {
+        margin-bottom: 1rem;
+      }
+
+      .sidebar-nav a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: #666;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s;
+        font-weight: 500;
+      }
+
+      .sidebar-nav a:hover {
+        background: rgba(0, 180, 216, 0.1);
+        color: #007cba;
+      }
+
+      .sidebar-nav a.active {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+      }
+
+      .sidebar-nav .icon {
+        font-size: 1.2rem;
+      }
+
+      /* Main Content */
+      .main-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 2rem;
+        min-height: 80vh;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .content-section {
+        display: none;
+      }
+
+      .content-section.active {
+        display: block;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .section-title {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 2rem;
+        color: #007cba;
+        letter-spacing: 1px;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 124, 186, 0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(0, 180, 216, 0.1);
+        color: #007cba;
+        border: 1px solid rgba(0, 180, 216, 0.3);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(0, 180, 216, 0.2);
+      }
+
+      /* Player Profile Section */
+      .profile-header {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        border-radius: 16px;
+        color: #fff;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .profile-info h2 {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+      }
+
+      .profile-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .profile-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .profile-stat {
+        text-align: center;
+      }
+
+      .profile-stat-value {
+        font-size: 2rem;
+        font-weight: 900;
+        display: block;
+      }
+
+      .profile-stat-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        transition: all 0.3s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border-color: #00b4d8;
+      }
+
+      .stat-card h3 {
+        color: #007cba;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #007cba;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Charts */
+      .chart-container {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        margin-bottom: 2rem;
+      }
+
+      .chart-container h3 {
+        color: #007cba;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .chart-canvas {
+        width: 100%;
+        height: 300px;
+      }
+
+      /* Heatmap */
+      .heatmap-container {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        margin-bottom: 2rem;
+      }
+
+      .court-heatmap {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .court-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.3) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.3) 1px,
+            transparent 1px
+          );
+        background-size: 50px 50px;
+      }
+
+      .heat-point {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulse 2s infinite;
+      }
+
+      .heat-point.hot {
+        background: radial-gradient(circle, #ff4444 0%, #ff0000 100%);
+        box-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+      }
+
+      .heat-point.warm {
+        background: radial-gradient(circle, #ffaa00 0%, #ff6600 100%);
+        box-shadow: 0 0 15px rgba(255, 170, 0, 0.6);
+      }
+
+      .heat-point.cool {
+        background: radial-gradient(circle, #00aa00 0%, #006600 100%);
+        box-shadow: 0 0 10px rgba(0, 170, 0, 0.6);
+      }
+
+      /* Highlights Section */
+      .highlights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .highlight-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        transition: all 0.3s;
+      }
+
+      .highlight-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .highlight-video {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 3rem;
+      }
+
+      .highlight-info {
+        padding: 1.5rem;
+      }
+
+      .highlight-title {
+        font-weight: 700;
+        color: #007cba;
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight-description {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .highlight-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: #999;
+      }
+
+      /* AI Coach Chat */
+      .ai-chat-container {
+        background: #fff;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .ai-chat-header {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .ai-chat-header h3 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .ai-status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-left: auto;
+      }
+
+      .ai-status-dot {
+        width: 8px;
+        height: 8px;
+        background: #4ade80;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      .ai-chat-messages {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .ai-message {
+        display: flex;
+        gap: 1rem;
+        max-width: 80%;
+      }
+
+      .ai-message.user {
+        margin-left: auto;
+        flex-direction: row-reverse;
+      }
+
+      .ai-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .ai-message-content {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 12px;
+        flex: 1;
+      }
+
+      .ai-message.user .ai-message-content {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+      }
+
+      .ai-chat-input {
+        padding: 1rem;
+        border-top: 1px solid rgba(0, 180, 216, 0.2);
+        display: flex;
+        gap: 1rem;
+      }
+
+      .ai-chat-input input {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .ai-chat-input input:focus {
+        outline: none;
+        border-color: #00b4d8;
+      }
+
+      /* Class Modules */
+      .class-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .class-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        transition: all 0.3s;
+      }
+
+      .class-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .class-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .class-title {
+        font-weight: 700;
+        color: #007cba;
+        font-size: 1.2rem;
+      }
+
+      .class-level {
+        background: linear-gradient(135deg, #007cba 0%, #00b4d8 100%);
+        color: #fff;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .class-progress {
+        margin-bottom: 1rem;
+      }
+
+      .class-progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(0, 180, 216, 0.2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .class-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #007cba 0%, #00b4d8 100%);
+        transition: width 0.3s;
+      }
+
+      .class-progress-text {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 0.5rem;
+      }
+
+      .class-description {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Resume Builder */
+      .resume-preview {
+        background: #fff;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .resume-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .resume-name {
+        font-family: 'Bebas Neue', cursive;
+        font-size: 2rem;
+        color: #007cba;
+        margin-bottom: 0.5rem;
+      }
+
+      .resume-position {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .resume-contact {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .resume-section {
+        margin-bottom: 2rem;
+      }
+
+      .resume-section h3 {
+        color: #007cba;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+      }
+
+      .resume-item {
+        margin-bottom: 1rem;
+      }
+
+      .resume-item h4 {
+        color: #333;
+        margin-bottom: 0.25rem;
+      }
+
+      .resume-item-meta {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .resume-item-description {
+        color: #666;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      /* Public Profile Toggle */
+      .profile-visibility {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        margin-bottom: 2rem;
+      }
+
+      .visibility-toggle {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background: #ddd;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .toggle-switch.active {
+        background: #00b4d8;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      .toggle-switch.active .toggle-slider {
+        transform: translateX(30px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-container {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 0 1rem;
+        }
+
+        .sidebar {
+          position: static;
+          order: 2;
+        }
+
+        .profile-header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .profile-meta {
+          justify-content: center;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .highlights-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .class-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-toggle {
+          display: flex;
+        }
+
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(17, 17, 17, 0.95);
+          flex-direction: column;
+          padding: 1rem;
+          gap: 1rem;
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="/logo.png" alt="3 Ball Network" />
+          <h1>3 Ball Network <span class="demo-badge">DEMO MODE</span></h1>
+        </div>
+        <nav class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/overview.html">Overview</a></li>
+          <li><a href="/demo-player.html" class="active">Player Demo</a></li>
+          <li><a href="/coach.html">Coach</a></li>
+          <li><a href="/scout.html">Scout</a></li>
+          <li><a href="/fan.html">Fan</a></li>
+          <li><a href="/login.html">Login</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li>
+            <a href="#profile" class="nav-link active" data-section="profile">
+              <span class="icon">👤</span>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="#stats" class="nav-link" data-section="stats">
+              <span class="icon">📊</span>
+              <span>Stats Display</span>
+            </a>
+          </li>
+          <li>
+            <a href="#heatmaps" class="nav-link" data-section="heatmaps">
+              <span class="icon">🔥</span>
+              <span>Heatmaps</span>
+            </a>
+          </li>
+          <li>
+            <a href="#highlights" class="nav-link" data-section="highlights">
+              <span class="icon">🎬</span>
+              <span>Highlights</span>
+            </a>
+          </li>
+          <li>
+            <a href="#classes" class="nav-link" data-section="classes">
+              <span class="icon">🎓</span>
+              <span>Class Modules</span>
+            </a>
+          </li>
+          <li>
+            <a href="#ai-coach" class="nav-link" data-section="ai-coach">
+              <span class="icon">🤖</span>
+              <span>AI Coach</span>
+            </a>
+          </li>
+          <li>
+            <a href="#resume" class="nav-link" data-section="resume">
+              <span class="icon">📄</span>
+              <span>Resume Builder</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#public-profile"
+              class="nav-link"
+              data-section="public-profile"
+            >
+              <span class="icon">🌐</span>
+              <span>Public Profile</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Profile Section -->
+        <section id="profile" class="content-section active">
+          <div class="section-header">
+            <h2 class="section-title">Player Profile</h2>
+            <button class="btn btn-primary" onclick="showDemoMessage()">
+              <span>✏️</span>
+              Edit Profile
+            </button>
+          </div>
+
+          <div class="profile-header">
+            <img
+              src="/assets/images/default-avatar.png"
+              alt="Player Avatar"
+              class="profile-avatar"
+              id="playerAvatar"
+            />
+            <div class="profile-info">
+              <h2 id="playerName">Marcus Johnson</h2>
+              <div class="profile-meta">
+                <span
+                  ><strong>📍</strong> Position:
+                  <span id="playerPosition">Point Guard</span></span
+                >
+                <span
+                  ><strong>📏</strong> Height:
+                  <span id="playerHeight">6'2"</span></span
+                >
+                <span
+                  ><strong>⚖️</strong> Weight:
+                  <span id="playerWeight">185 lbs</span></span
+                >
+                <span
+                  ><strong>🏫</strong> School:
+                  <span id="playerSchool">Lincoln High School</span></span
+                >
+              </div>
+              <div class="profile-stats">
+                <div class="profile-stat">
+                  <span class="profile-stat-value" id="overallRating">87</span>
+                  <span class="profile-stat-label">Overall Rating</span>
+                </div>
+                <div class="profile-stat">
+                  <span class="profile-stat-value" id="gamesPlayed">24</span>
+                  <span class="profile-stat-label">Games Played</span>
+                </div>
+                <div class="profile-stat">
+                  <span class="profile-stat-value" id="avgGrade">B+</span>
+                  <span class="profile-stat-label">Avg Grade</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Points Per Game</h3>
+              <span class="stat-value" id="ppg">15.8</span>
+              <span class="stat-label">Season Average</span>
+            </div>
+            <div class="stat-card">
+              <h3>Rebounds Per Game</h3>
+              <span class="stat-value" id="rpg">4.1</span>
+              <span class="stat-label">Season Average</span>
+            </div>
+            <div class="stat-card">
+              <h3>Assists Per Game</h3>
+              <span class="stat-value" id="apg">7.3</span>
+              <span class="stat-label">Season Average</span>
+            </div>
+            <div class="stat-card">
+              <h3>Field Goal %</h3>
+              <span class="stat-value" id="fgPercentage">52.4%</span>
+              <span class="stat-label">Season Average</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stats Display Section -->
+        <section id="stats" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Performance Statistics</h2>
+            <button class="btn btn-secondary" onclick="showDemoMessage()">
+              <span>📊</span>
+              Export Stats
+            </button>
+          </div>
+
+          <div class="chart-container">
+            <h3>Performance Trends</h3>
+            <canvas id="performanceChart" class="chart-canvas"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Skill Breakdown</h3>
+            <canvas id="skillChart" class="chart-canvas"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Game-by-Game Analysis</h3>
+            <canvas id="gameAnalysisChart" class="chart-canvas"></canvas>
+          </div>
+        </section>
+
+        <!-- Heatmaps Section -->
+        <section id="heatmaps" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Court Heatmaps</h2>
+            <button class="btn btn-secondary" onclick="showDemoMessage()">
+              <span>🔄</span>
+              Toggle View
+            </button>
+          </div>
+
+          <div class="heatmap-container">
+            <h3>Shot Chart</h3>
+            <div class="court-heatmap" id="shotChart">
+              <div class="court-lines"></div>
+              <!-- Heat points will be dynamically added -->
+            </div>
+          </div>
+
+          <div class="heatmap-container">
+            <h3>Movement Patterns</h3>
+            <div class="court-heatmap" id="movementChart">
+              <div class="court-lines"></div>
+              <!-- Movement heat points will be dynamically added -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Highlights Section -->
+        <section id="highlights" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Game Highlights</h2>
+            <button class="btn btn-primary" onclick="showDemoMessage()">
+              <span>📹</span>
+              Upload Highlight
+            </button>
+          </div>
+
+          <div class="highlights-grid" id="highlightsGrid">
+            <!-- Highlight cards will be dynamically added -->
+          </div>
+        </section>
+
+        <!-- Class Modules Section -->
+        <section id="classes" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Training Modules</h2>
+            <button class="btn btn-secondary" onclick="showDemoMessage()">
+              <span>🔍</span>
+              Browse All Classes
+            </button>
+          </div>
+
+          <div class="class-grid" id="classGrid">
+            <!-- Class cards will be dynamically added -->
+          </div>
+        </section>
+
+        <!-- AI Coach Section -->
+        <section id="ai-coach" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">AI Coach Assistant</h2>
+            <button class="btn btn-secondary" onclick="showDemoMessage()">
+              <span>🗑️</span>
+              Clear Chat
+            </button>
+          </div>
+
+          <div class="ai-chat-container">
+            <div class="ai-chat-header">
+              <h3>🤖 AI Coach</h3>
+              <div class="ai-status">
+                <div class="ai-status-dot"></div>
+                <span>Demo Mode</span>
+              </div>
+            </div>
+            <div class="ai-chat-messages" id="aiChatMessages">
+              <!-- Demo messages will be added -->
+            </div>
+            <div class="ai-chat-input">
+              <input
+                type="text"
+                id="aiChatInput"
+                placeholder="Ask your AI coach anything (Demo Mode)..."
+                disabled
+              />
+              <button class="btn btn-primary" onclick="showDemoMessage()">
+                <span>📤</span>
+                Send
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resume Builder Section -->
+        <section id="resume" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Resume Builder</h2>
+            <div>
+              <button class="btn btn-secondary" onclick="showDemoMessage()">
+                <span>📥</span>
+                Download PDF
+              </button>
+              <button class="btn btn-primary" onclick="showDemoMessage()">
+                <span>✏️</span>
+                Edit Resume
+              </button>
+            </div>
+          </div>
+
+          <div class="resume-preview" id="resumePreview">
+            <!-- Resume content will be dynamically generated -->
+          </div>
+        </section>
+
+        <!-- Public Profile Section -->
+        <section id="public-profile" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Public Profile Settings</h2>
+            <button class="btn btn-secondary" onclick="showDemoMessage()">
+              <span>👁️</span>
+              Preview Public Profile
+            </button>
+          </div>
+
+          <div class="profile-visibility">
+            <div class="visibility-toggle">
+              <div
+                class="toggle-switch active"
+                id="publicToggle"
+                onclick="showDemoMessage()"
+              >
+                <div class="toggle-slider"></div>
+              </div>
+              <div>
+                <h4>Public Profile Visibility</h4>
+                <p>Allow verified scouts and fans to view your profile</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Profile Views</h3>
+              <span class="stat-value" id="profileViews">127</span>
+              <span class="stat-label">This Month</span>
+            </div>
+            <div class="stat-card">
+              <h3>Scout Interest</h3>
+              <span class="stat-value" id="scoutInterest">8</span>
+              <span class="stat-label">Active Scouts</span>
+            </div>
+            <div class="stat-card">
+              <h3>Fan Following</h3>
+              <span class="stat-value" id="fanFollowing">45</span>
+              <span class="stat-label">Followers</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // Demo functionality
+      function showDemoMessage() {
+        alert('This is a demo version. Please register to access full features!');
+      }
+
+      // Navigation functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links and sections
+            navLinks.forEach(l => l.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Show corresponding section
+            const targetSection = this.getAttribute('data-section');
+            document.getElementById(targetSection).classList.add('active');
+          });
+        });
+
+        // Initialize demo data
+        initializeDemoData();
+      });
+
+      // Initialize demo data
+      function initializeDemoData() {
+        // Add demo heatmap points
+        addDemoHeatmapPoints();
+        
+        // Add demo highlights
+        addDemoHighlights();
+        
+        // Add demo classes
+        addDemoClasses();
+        
+        // Add demo AI messages
+        addDemoAIMessages();
+        
+        // Add demo resume
+        addDemoResume();
+        
+        // Initialize demo charts
+        initializeDemoCharts();
+      }
+
+      function addDemoHeatmapPoints() {
+        const shotChart = document.getElementById('shotChart');
+        const movementChart = document.getElementById('movementChart');
+        
+        // Add shot chart points
+        const shotPoints = [
+          { x: 50, y: 30, type: 'hot' },
+          { x: 30, y: 50, type: 'warm' },
+          { x: 70, y: 40, type: 'hot' },
+          { x: 50, y: 70, type: 'cool' },
+          { x: 40, y: 60, type: 'warm' }
+        ];
+        
+        shotPoints.forEach(point => {
+          const heatPoint = document.createElement('div');
+          heatPoint.className = `heat-point ${point.type}`;
+          heatPoint.style.left = `${point.x}%`;
+          heatPoint.style.top = `${point.y}%`;
+          shotChart.appendChild(heatPoint);
+        });
+        
+        // Add movement chart points
+        const movementPoints = [
+          { x: 20, y: 40, type: 'warm' },
+          { x: 80, y: 60, type: 'hot' },
+          { x: 60, y: 30, type: 'cool' },
+          { x: 40, y: 70, type: 'warm' },
+          { x: 50, y: 50, type: 'hot' }
+        ];
+        
+        movementPoints.forEach(point => {
+          const heatPoint = document.createElement('div');
+          heatPoint.className = `heat-point ${point.type}`;
+          heatPoint.style.left = `${point.x}%`;
+          heatPoint.style.top = `${point.y}%`;
+          movementChart.appendChild(heatPoint);
+        });
+      }
+
+      function addDemoHighlights() {
+        const highlightsGrid = document.getElementById('highlightsGrid');
+        
+        const highlights = [
+          {
+            title: '30-Point Game vs Roosevelt',
+            description: 'Career-high performance with 8 three-pointers',
+            date: '2 days ago',
+            views: '1.2K'
+          },
+          {
+            title: 'Clutch Buzzer Beater',
+            description: 'Game-winning three-pointer in overtime',
+            date: '1 week ago',
+            views: '856'
+          },
+          {
+            title: 'Triple-Double Performance',
+            description: '18 pts, 12 ast, 10 reb vs Central High',
+            date: '2 weeks ago',
+            views: '634'
+          }
+        ];
+        
+        highlights.forEach(highlight => {
+          const card = document.createElement('div');
+          card.className = 'highlight-card';
+          card.innerHTML = `
+            <div class="highlight-video">🎬</div>
+            <div class="highlight-info">
+              <div class="highlight-title">${highlight.title}</div>
+              <div class="highlight-description">${highlight.description}</div>
+              <div class="highlight-meta">
+                <span>${highlight.date}</span>
+                <span>${highlight.views} views</span>
+              </div>
+            </div>
+          `;
+          highlightsGrid.appendChild(card);
+        });
+      }
+
+      function addDemoClasses() {
+        const classGrid = document.getElementById('classGrid');
+        
+        const classes = [
+          {
+            title: 'Ball Handling Fundamentals',
+            level: 'Beginner',
+            progress: 75,
+            description: 'Master the basics of dribbling and ball control'
+          },
+          {
+            title: 'Shooting Mechanics',
+            level: 'Intermediate',
+            progress: 45,
+            description: 'Improve your shooting form and accuracy'
+          },
+          {
+            title: 'Defensive Positioning',
+            level: 'Advanced',
+            progress: 20,
+            description: 'Learn advanced defensive techniques and strategies'
+          }
+        ];
+        
+        classes.forEach(cls => {
+          const card = document.createElement('div');
+          card.className = 'class-card';
+          card.innerHTML = `
+            <div class="class-header">
+              <div class="class-title">${cls.title}</div>
+              <div class="class-level">${cls.level}</div>
+            </div>
+            <div class="class-progress">
+              <div class="class-progress-bar">
+                <div class="class-progress-fill" style="width: ${cls.progress}%"></div>
+              </div>
+              <div class="class-progress-text">${cls.progress}% Complete</div>
+            </div>
+            <div class="class-description">${cls.description}</div>
+          `;
+          classGrid.appendChild(card);
+        });
+      }
+
+      function addDemoAIMessages() {
+        const chatMessages = document.getElementById('aiChatMessages');
+        
+        const messages = [
+          {
+            type: 'ai',
+            content: 'Hello Marcus! I\'ve been analyzing your recent games. Your shooting percentage has improved by 8% this month. Great work!'
+          },
+          {
+            type: 'user',
+            content: 'Thanks! What should I focus on next?'
+          },
+          {
+            type: 'ai',
+            content: 'I recommend working on your left-hand dribbling. I noticed you favor your right hand 73% of the time. Developing ambidexterity will make you harder to defend.'
+          }
+        ];
+        
+        messages.forEach(msg => {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = `ai-message ${msg.type}`;
+          messageDiv.innerHTML = `
+            <div class="ai-avatar">${msg.type === 'ai' ? '🤖' : 'MJ'}</div>
+            <div class="ai-message-content">${msg.content}</div>
+          `;
+          chatMessages.appendChild(messageDiv);
+        });
+      }
+
+      function addDemoResume() {
+        const resumePreview = document.getElementById('resumePreview');
+        
+        resumePreview.innerHTML = `
+          <div class="resume-header">
+            <div class="resume-name">Marcus Johnson</div>
+            <div class="resume-position">Point Guard</div>
+            <div class="resume-contact">
+              <span>📧 marcus.johnson@email.com</span>
+              <span>📱 (555) 123-4567</span>
+              <span>📍 Lincoln, NE</span>
+            </div>
+          </div>
+          
+          <div class="resume-section">
+            <h3>Player Statistics</h3>
+            <div class="resume-item">
+              <h4>Season Averages (2024)</h4>
+              <div class="resume-item-description">
+                15.8 PPG, 7.3 APG, 4.1 RPG, 52.4% FG, 87 Overall Rating
+              </div>
+            </div>
+          </div>
+          
+          <div class="resume-section">
+            <h3>Experience</h3>
+            <div class="resume-item">
+              <h4>Varsity Basketball Team</h4>
+              <div class="resume-item-meta">Lincoln High School | 2022 - Present</div>
+              <div class="resume-item-description">
+                Starting point guard for state championship team. Led team in assists and steals.
+              </div>
+            </div>
+          </div>
+          
+          <div class="resume-section">
+            <h3>Achievements</h3>
+            <div class="resume-item">
+              <h4>All-State First Team</h4>
+              <div class="resume-item-meta">2024</div>
+            </div>
+            <div class="resume-item">
+              <h4>State Championship</h4>
+              <div class="resume-item-meta">2023</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function initializeDemoCharts() {
+        // Performance Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {
+          type: 'line',
+          data: {
+            labels: ['Game 1', 'Game 2', 'Game 3', 'Game 4', 'Game 5', 'Game 6'],
+            datasets: [{
+              label: 'Points',
+              data: [12, 19, 15, 25, 22, 18],
+              borderColor: '#007cba',
+              backgroundColor: 'rgba(0, 124, 186, 0.1)',
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        // Skill Chart
+        const skillCtx = document.getElementById('skillChart').getContext('2d');
+        new Chart(skillCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Shooting', 'Dribbling', 'Passing', 'Defense', 'Rebounding', 'Speed'],
+            datasets: [{
+              label: 'Current Skills',
+              data: [85, 90, 95, 75, 60, 80],
+              borderColor: '#007cba',
+              backgroundColor: 'rgba(0, 124, 186, 0.2)',
+              pointBackgroundColor: '#007cba'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                beginAtZero: true,
+                max: 100
+              }
+            }
+          }
+        });
+
+        // Game Analysis Chart
+        const gameCtx = document.getElementById('gameAnalysisChart').getContext('2d');
+        new Chart(gameCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Points', 'Assists', 'Rebounds', 'Steals', 'Blocks'],
+            datasets: [{
+              label: 'Last Game',
+              data: [24, 8, 5, 3, 1],
+              backgroundColor: '#007cba'
+            }, {
+              label: 'Season Average',
+              data: [15.8, 7.3, 4.1, 2.1, 0.5],
+              backgroundColor: '#00b4d8'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+      // Mobile menu toggle
+      document.getElementById('navToggle').addEventListener('click', function() {
+        document.getElementById('navMenu').classList.toggle('active');
+      });
+    </script>
+  </body>
+</html>
 alt="Player"
 id="playerAvatar"
 /></div><div class="player-info"><h3 class="player-name" id="playerName">Marcus Johnson</h3><div class="player-details"><span class="player-position" id="playerPosition"

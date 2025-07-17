@@ -327,7 +327,21 @@
         </div>
     </main>
 
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="/assets/js/firebaseConfig-compat.js"></script>
+
     <script>
+        // Initialize Firebase
+        const config = getFirebaseConfig();
+        if (config) {
+            firebase.initializeApp(config);
+        }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         function togglePassword(fieldId) {
             const field = document.getElementById(fieldId);
             const button = field.parentNode.querySelector('button');
@@ -341,12 +355,59 @@
             }
         }
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Check if user is already logged in
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                // User is already logged in, redirect to their dashboard
+                redirectToUserDashboard(user.uid);
+            }
+        });
+
+        async function redirectToUserDashboard(uid) {
+            try {
+                const userDoc = await db.collection('users').doc(uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    const role = userData.role;
+                    
+                    // Redirect based on user role
+                    switch (role) {
+                        case 'player':
+                            window.location.href = '/player.html';
+                            break;
+                        case 'coach':
+                            window.location.href = '/coach.html';
+                            break;
+                        case 'scout':
+                            window.location.href = '/scout.html';
+                            break;
+                        case 'fan':
+                            window.location.href = '/fan.html';
+                            break;
+                        case 'admin':
+                            window.location.href = '/admin.html';
+                            break;
+                        default:
+                            console.warn('Unknown user role:', role);
+                            window.location.href = '/';
+                    }
+                } else {
+                    console.error('User document not found');
+                    window.location.href = '/register.html';
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                window.location.href = '/';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('loginError');
+            const button = document.getElementById('loginBtn');
             
             // Basic validation
             if (!email || !password) {
@@ -363,28 +424,101 @@
                 return;
             }
             
-            // Hide error
+            // Hide error and show loading
             errorDiv.style.display = 'none';
-            
-            // Update button state
-            const button = document.getElementById('loginBtn');
             button.textContent = 'Signing In...';
             button.disabled = true;
             
-            // Simulate login process (replace with actual authentication)
-            setTimeout(() => {
-                // Reset button
-                button.textContent = 'Sign In';
-                button.disabled = false;
+            try {
+                // Sign in with Firebase Auth
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
                 
-                // For demo purposes, show success or redirect
-                alert('Login functionality will be implemented with Firebase Authentication');
+                // Get user data from Firestore to determine role
+                const userDoc = await db.collection('users').doc(user.uid).get();
                 
-                // In a real implementation, you would:
-                // 1. Use Firebase Auth to sign in
-                // 2. Redirect to appropriate dashboard based on user role
-                // 3. Store user session
-            }, 1000);
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    const role = userData.role;
+                    
+                    // Store user info in localStorage for quick access
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        uid: user.uid,
+                        email: user.email,
+                        role: role,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName
+                    }));
+                    
+                    // Redirect based on role
+                    switch (role) {
+                        case 'player':
+                            window.location.href = '/player.html';
+                            break;
+                        case 'coach':
+                            window.location.href = '/coach.html';
+                            break;
+                        case 'scout':
+                            window.location.href = '/scout.html';
+                            break;
+                        case 'fan':
+                            window.location.href = '/fan.html';
+                            break;
+                        case 'admin':
+                            window.location.href = '/admin.html';
+                            break;
+                        default:
+                            console.warn('Unknown user role:', role);
+                            window.location.href = '/';
+                    }
+                } else {
+                    // User document doesn't exist, redirect to registration
+                    errorDiv.textContent = 'Account setup incomplete. Please register again.';
+                    errorDiv.style.display = 'block';
+                    
+                    // Sign out the user
+                    await auth.signOut();
+                    
+                    setTimeout(() => {
+                        window.location.href = '/register.html';
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Handle specific error codes
+                let errorMessage = 'Login failed. Please try again.';
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No account found with this email address.';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password. Please try again.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Please enter a valid email address.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled.';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many failed attempts. Please try again later.';
+                        break;
+                    case 'auth/network-request-failed':
+                        errorMessage = 'Network error. Please check your connection.';
+                        break;
+                    default:
+                        errorMessage = error.message || 'An error occurred during login.';
+                }
+                
+                errorDiv.textContent = errorMessage;
+                errorDiv.style.display = 'block';
+            }
+            
+            // Reset button state
+            button.textContent = 'Sign In';
+            button.disabled = false;
         });
     </script>
 </body>
