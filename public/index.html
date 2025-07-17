@@ -506,6 +506,34 @@
       © 2025 The 3 Ball Network
     </footer>
 
-    <script type="module" src="/assets/js/index.js"></script>
+    <!-- Temporarily disable ES6 module that requires Vite -->
+    <!-- <script type="module" src="/assets/js/index.js"></script> -->
+    <script>
+      // Simple navigation without ES6 modules
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('✅ 3 Ball Network homepage loaded successfully');
+
+        // Test that login link works
+        const loginLink = document.querySelector('a[href="/login.html"]');
+        if (loginLink) {
+          console.log('✅ Login link found:', loginLink.href);
+          loginLink.addEventListener('click', function (e) {
+            console.log('🔗 Login link clicked - navigating to login page');
+            // Don't prevent default - let normal navigation happen
+          });
+        } else {
+          console.error('❌ Login link not found');
+        }
+
+        // Debug all navigation links
+        const navLinks = document.querySelectorAll(
+          'nav a, .hero-buttons a, .feature-link'
+        );
+        console.log('📋 Found navigation links:', navLinks.length);
+        navLinks.forEach((link, index) => {
+          console.log(`Link ${index + 1}: ${link.href}`);
+        });
+      });
+    </script>
   </body>
 </html>
