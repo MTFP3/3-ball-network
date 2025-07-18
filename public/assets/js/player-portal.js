@@ -1,4 +1,4 @@
-// Player Portal JavaScript - Enhanced for User-Specific Data
+// Player Portal JavaScript - Enhanced for User-Specific Data with Comprehensive Feedback
 // Modern ES6+ implementation with proper user authentication and data isolation
 
 // Initialize Firebase
@@ -19,6 +19,111 @@ const playerPortalState = {
   currentHeatmapView: 'shots',
   userDataLoaded: false,
 };
+
+// UI Feedback System
+const UIFeedback = {
+  // Show/hide loading overlay
+  showLoading: function (message = 'Loading...') {
+    const overlay = document.getElementById('loadingOverlay');
+    const messageEl = document.getElementById('loadingMessage');
+    if (overlay && messageEl) {
+      messageEl.textContent = message;
+      overlay.style.display = 'flex';
+    }
+  },
+
+  hideLoading: function () {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
+  },
+
+  // Update authentication status
+  updateAuthStatus: function (status, message, user = null) {
+    const dashboard = document.getElementById('authStatusDashboard');
+    const statusIcon = document.getElementById('authStatusIcon');
+    const statusText = document.getElementById('authStatusText');
+    const userInfo = document.getElementById('userInfoDisplay');
+
+    if (!dashboard || !statusIcon || !statusText) return;
+
+    // Show the dashboard
+    dashboard.style.display = 'block';
+
+    // Update status icon
+    switch (status) {
+      case 'success':
+        statusIcon.style.background = '#28a745';
+        statusIcon.style.animation = 'none';
+        break;
+      case 'loading':
+        statusIcon.style.background = '#17a2b8';
+        statusIcon.style.animation = 'pulse 2s infinite';
+        break;
+      case 'error':
+        statusIcon.style.background = '#dc3545';
+        statusIcon.style.animation = 'pulse 2s infinite';
+        break;
+      case 'warning':
+        statusIcon.style.background = '#ffc107';
+        statusIcon.style.animation = 'pulse 2s infinite';
+        break;
+    }
+
+    // Update status text
+    statusText.textContent = message;
+
+    // Update user info if provided
+    if (user && userInfo) {
+      userInfo.innerHTML = `
+        <div style="margin-bottom: 5px;"><strong>User:</strong> ${user.email}</div>
+        <div style="margin-bottom: 5px;"><strong>UID:</strong> ${user.uid.substring(0, 8)}...</div>
+        <div><strong>Role:</strong> ${user.role || 'Loading...'}</div>
+      `;
+      userInfo.style.display = 'block';
+    } else if (userInfo) {
+      userInfo.style.display = 'none';
+    }
+  },
+
+  // Show message notifications
+  showMessage: function (message, type = 'info', duration = 5000) {
+    const container = document.getElementById('messageContainer');
+    if (!container) return;
+
+    const messageEl = document.createElement('div');
+    messageEl.className = `message-item message-${type}`;
+    messageEl.textContent = message;
+
+    container.appendChild(messageEl);
+
+    // Auto-remove after duration
+    setTimeout(() => {
+      if (messageEl.parentNode) {
+        messageEl.parentNode.removeChild(messageEl);
+      }
+    }, duration);
+  },
+
+  // Hide auth status dashboard
+  hideAuthStatus: function () {
+    const dashboard = document.getElementById('authStatusDashboard');
+    if (dashboard) {
+      dashboard.style.display = 'none';
+    }
+  },
+};
+
+// Initialize UI feedback controls
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('toggleStatus');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      UIFeedback.hideAuthStatus();
+    });
+  }
+});
 
 // Data collections for user-specific data
 const COLLECTIONS = {
@@ -49,73 +154,277 @@ const elements = {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
+  console.log('Player Portal initializing...');
+  UIFeedback.updateAuthStatus('loading', 'Initializing player portal...');
+  UIFeedback.showLoading('Checking authentication...');
   initializeApp();
   setupEventListeners();
 });
 
-// Authentication state listener - CRITICAL: This ensures only authenticated users can access data
+// Enhanced Authentication State Handler with Comprehensive Feedback
 auth.onAuthStateChanged(async function (user) {
-  if (user) {
-    console.log('User authenticated:', user.uid);
-    playerPortalState.currentUser = user;
+  try {
+    if (user) {
+      console.log('✅ User authenticated:', user.uid);
+      UIFeedback.updateAuthStatus(
+        'loading',
+        'User authenticated, verifying player role...',
+        user
+      );
+      UIFeedback.showLoading('Verifying your player account...');
 
-    // Verify user is a player
-    const userDoc = await db.collection(COLLECTIONS.USERS).doc(user.uid).get();
-    if (userDoc.exists && userDoc.data().role === 'player') {
-      await loadPlayerProfile(user.uid);
-      await initializeUserData(user.uid);
-      playerPortalState.userDataLoaded = true;
+      playerPortalState.currentUser = user;
+
+      // Verify user is a player with detailed feedback
+      try {
+        const userDoc = await db
+          .collection(COLLECTIONS.USERS)
+          .doc(user.uid)
+          .get();
+
+        if (userDoc.exists) {
+          const userData = userDoc.data();
+          console.log('📋 User data loaded:', userData);
+
+          if (userData.role === 'player') {
+            console.log('✅ Player role verified');
+            UIFeedback.updateAuthStatus(
+              'success',
+              'Player account verified! Loading your profile...',
+              {
+                ...user,
+                role: userData.role,
+              }
+            );
+            UIFeedback.showMessage('Welcome to your player portal!', 'success');
+
+            // Load player profile and data
+            UIFeedback.showLoading('Loading your player profile...');
+            await loadPlayerProfile(user.uid);
+
+            UIFeedback.showLoading('Loading your stats and game data...');
+            await initializeUserData(user.uid);
+
+            playerPortalState.userDataLoaded = true;
+            UIFeedback.hideLoading();
+            UIFeedback.updateAuthStatus(
+              'success',
+              `Welcome ${userData.name || user.email}! Your player data is ready.`,
+              {
+                ...user,
+                role: userData.role,
+              }
+            );
+            UIFeedback.showMessage(
+              'All your player data has been loaded successfully!',
+              'success'
+            );
+          } else {
+            console.error(
+              '❌ Access denied: User role is not "player":',
+              userData.role
+            );
+            UIFeedback.updateAuthStatus(
+              'error',
+              `Access denied: Account role is "${userData.role}", not "player"`
+            );
+            UIFeedback.hideLoading();
+            UIFeedback.showMessage(
+              `This account is registered as "${userData.role}". Player portal access requires "player" role.`,
+              'error',
+              10000
+            );
+
+            // Redirect based on role
+            setTimeout(() => {
+              switch (userData.role) {
+                case 'coach':
+                  window.location.href = '/coach.html';
+                  break;
+                case 'admin':
+                  window.location.href = '/admin.html';
+                  break;
+                case 'fan':
+                  window.location.href = '/fan.html';
+                  break;
+                default:
+                  window.location.href = '/login.html';
+              }
+            }, 3000);
+          }
+        } else {
+          console.error('❌ User document not found in Firestore');
+          UIFeedback.updateAuthStatus(
+            'error',
+            'User profile not found in database'
+          );
+          UIFeedback.hideLoading();
+          UIFeedback.showMessage(
+            'Your user profile was not found. Please contact support or try logging in again.',
+            'error',
+            10000
+          );
+
+          setTimeout(() => {
+            window.location.href = '/login.html';
+          }, 5000);
+        }
+      } catch (roleError) {
+        console.error('❌ Error checking user role:', roleError);
+        UIFeedback.updateAuthStatus('error', 'Failed to verify user role');
+        UIFeedback.hideLoading();
+        UIFeedback.showMessage(
+          'Error accessing your account data. Please try refreshing the page.',
+          'error',
+          8000
+        );
+
+        setTimeout(() => {
+          window.location.href = '/login.html';
+        }, 3000);
+      }
     } else {
-      console.error('Access denied: User is not a player');
-      window.location.href = '/login.html';
+      console.log('❌ User not authenticated, redirecting to login');
+      UIFeedback.updateAuthStatus(
+        'error',
+        'Not authenticated - redirecting to login...'
+      );
+      UIFeedback.hideLoading();
+      UIFeedback.showMessage(
+        'Please log in to access your player portal.',
+        'warning',
+        3000
+      );
+
+      setTimeout(() => {
+        window.location.href = '/login.html';
+      }, 1000);
     }
-  } else {
-    console.log('User not authenticated, redirecting to login');
-    window.location.href = '/login.html';
+  } catch (error) {
+    console.error('❌ Authentication error:', error);
+    UIFeedback.updateAuthStatus('error', 'Authentication system error');
+    UIFeedback.hideLoading();
+    UIFeedback.showMessage(
+      'Authentication system error. Please try refreshing the page.',
+      'error',
+      8000
+    );
   }
 });
 
-// Initialize user-specific data
+// Initialize user-specific data with progress feedback
 async function initializeUserData(uid) {
   try {
-    // Load all user-specific data
-    await Promise.all([
-      loadPlayerStats(uid),
-      loadPlayerGames(uid),
-      loadPlayerHighlights(uid),
-      loadPlayerClasses(uid),
-      loadPlayerHeatmaps(uid),
-      loadAIChatHistory(uid),
-      loadPublicProfileSettings(uid),
-    ]);
+    console.log('🔄 Initializing user data for:', uid);
+
+    // Load all user-specific data with progress tracking
+    const dataPromises = [
+      { name: 'Player Stats', fn: loadPlayerStats(uid) },
+      { name: 'Game History', fn: loadPlayerGames(uid) },
+      { name: 'Highlights', fn: loadPlayerHighlights(uid) },
+      { name: 'Classes', fn: loadPlayerClasses(uid) },
+      { name: 'Heatmaps', fn: loadPlayerHeatmaps(uid) },
+      { name: 'AI Chat History', fn: loadAIChatHistory(uid) },
+      { name: 'Profile Settings', fn: loadPublicProfileSettings(uid) },
+    ];
+
+    // Load data with individual progress updates
+    for (const dataItem of dataPromises) {
+      try {
+        UIFeedback.showLoading(`Loading ${dataItem.name}...`);
+        await dataItem.fn;
+        console.log(`✅ ${dataItem.name} loaded successfully`);
+      } catch (error) {
+        console.error(`❌ Error loading ${dataItem.name}:`, error);
+        UIFeedback.showMessage(
+          `Warning: Could not load ${dataItem.name}`,
+          'warning',
+          3000
+        );
+      }
+    }
 
     // Initialize UI components
-    initializeCharts();
-    initializeHeatmaps();
-    loadHighlights();
-    loadClassModules();
-    initializeAIChat();
-    generateResume();
+    UIFeedback.showLoading('Setting up charts and visualizations...');
+    try {
+      initializeCharts();
+      initializeHeatmaps();
+      loadHighlights();
+      loadClassModules();
+      initializeAIChat();
+      generateResume();
+      console.log('✅ UI components initialized successfully');
+    } catch (uiError) {
+      console.error('❌ Error initializing UI components:', uiError);
+      UIFeedback.showMessage(
+        'Some UI components may not work properly. Try refreshing the page.',
+        'warning',
+        5000
+      );
+    }
 
-    console.log('User data initialized successfully');
+    console.log('✅ User data initialization completed');
   } catch (error) {
-    console.error('Error initializing user data:', error);
+    console.error('❌ Critical error initializing user data:', error);
+    UIFeedback.showMessage(
+      'Failed to load your player data. Please try refreshing the page.',
+      'error',
+      8000
+    );
+    throw error; // Re-throw to handle in parent function
   }
 }
 
-// Load player profile from Firebase - User-specific
+// Load player profile from Firebase - User-specific with enhanced feedback
 async function loadPlayerProfile(uid) {
   try {
+    console.log('🔄 Loading player profile for UID:', uid);
     const userDoc = await db.collection(COLLECTIONS.USERS).doc(uid).get();
+
     if (userDoc.exists) {
       const userData = userDoc.data();
+      console.log('✅ Player profile loaded:', userData.name || userData.email);
       playerPortalState.playerData = userData;
       updatePlayerProfile(userData);
+      UIFeedback.showMessage(
+        `Profile loaded for ${userData.name || userData.email}`,
+        'success',
+        3000
+      );
     } else {
-      console.error('Player profile not found for UID:', uid);
+      console.error('❌ Player profile not found for UID:', uid);
+      UIFeedback.showMessage(
+        'Player profile not found. Using default profile.',
+        'warning',
+        5000
+      );
+
+      // Set default profile data
+      playerPortalState.playerData = {
+        name: 'Player',
+        email: playerPortalState.currentUser?.email || '',
+        position: 'Unknown',
+        team: 'No Team',
+        uid: uid,
+      };
+      updatePlayerProfile(playerPortalState.playerData);
     }
   } catch (error) {
-    console.error('Error loading player profile:', error);
+    console.error('❌ Error loading player profile:', error);
+    UIFeedback.showMessage(
+      'Error loading player profile. Some features may not work correctly.',
+      'error',
+      5000
+    );
+
+    // Fallback profile
+    playerPortalState.playerData = {
+      name: 'Player',
+      email: playerPortalState.currentUser?.email || '',
+      position: 'Unknown',
+      team: 'No Team',
+      uid: uid,
+    };
   }
 }
 
