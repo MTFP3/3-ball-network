@@ -26,10 +26,10 @@
     <meta name="apple-mobile-web-app-title" content="3 Ball Network" />
     <link rel="apple-touch-icon" href="/logo.png" />
 
-    <!-- Security Headers -->
+    <!-- Security Headers with Firebase domains -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://securetoken.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.googleapis.com wss://*.firebaseio.com; frame-src 'self' https://www.google.com https://*.firebaseapp.com"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com wss://*.firebaseio.com; frame-src 'self' https://www.google.com https://*.firebaseapp.com"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
@@ -37,14 +37,6 @@
     <meta
       http-equiv="Referrer-Policy"
       content="strict-origin-when-cross-origin"
-    />
-    <meta
-      http-equiv="Permissions-Policy"
-      content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=()"
-    />
-    <meta
-      http-equiv="Strict-Transport-Security"
-      content="max-age=31536000; includeSubDomains"
     />
 
     <style>
@@ -56,97 +48,18 @@
 
       body {
         font-family: 'Urbanist', sans-serif;
-        background: linear-gradient(135deg, #0077b6, #90e0ef);
+        background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
         min-height: 100vh;
-        color: #333;
         display: flex;
-        flex-direction: column;
-      }
-
-      .banner-logo {
-        width: 100%;
-        background: #111;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        padding: 1.5em 0 1em 0;
-      }
-
-      .banner-logo-img {
-        max-width: 320px;
-        width: 90vw;
-        height: auto;
-        display: block;
-        filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
-        border-radius: 24px;
-        padding: 0.5em 1.5em;
-      }
-
-      header {
-        text-align: center;
-        padding: 2em 0 1em 0;
-      }
-
-      .site-title {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 2.5em;
-        font-weight: 900;
-        color: #fff;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        margin-bottom: 0.2em;
-      }
-
-      .site-tagline {
-        font-size: 1.2em;
-        color: rgba(255, 255, 255, 0.9);
-        font-weight: 400;
-      }
-
-      nav {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 1em 0;
-        text-align: center;
-        border-radius: 0 0 22px 22px;
-        margin: 0 auto 2em auto;
-        max-width: 1200px;
-        backdrop-filter: blur(10px);
-      }
-
-      nav a {
-        color: #007cba;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 1.1em;
-        margin: 0 1.5em;
-        padding: 0.5em 1em;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        display: inline-block;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-      }
-
-      nav a:hover,
-      nav a.active {
-        background: linear-gradient(135deg, #007cba, #00b4d8);
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      main {
-        flex: 1;
-        display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 2em;
+        padding: 1rem;
       }
 
-      .hero {
+      .container {
         background: rgba(255, 255, 255, 0.95);
-        padding: 3em 2.5em;
+        padding: 3rem;
         border-radius: 20px;
-        text-align: center;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         max-width: 450px;
         width: 100%;
@@ -198,154 +111,85 @@
         box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
       }
 
-      .password-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-
-      .password-container input {
-        flex: 1;
-        padding-right: 3.5em;
-      }
-
-      .password-container button {
-        position: absolute;
-        right: 1em;
-        background: none;
+      button {
+        background: linear-gradient(135deg, #00b4d8, #0077b6);
+        color: white;
         border: none;
-        color: #007cba;
-        font-weight: 700;
-        cursor: pointer;
-        padding: 0.5em;
-        font-size: 0.9em;
-        transition: color 0.3s ease;
-      }
-
-      .password-container button:hover {
-        color: #00b4d8;
-      }
-
-      button[type='submit'] {
-        background: linear-gradient(135deg, #007cba, #00b4d8);
-        color: #fff;
-        padding: 1.2em;
-        border: none;
+        padding: 1em;
         border-radius: 8px;
         font-size: 1.1em;
         font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
         font-family: 'Urbanist', sans-serif;
         text-transform: uppercase;
         letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 1em;
       }
 
-      button[type='submit']:hover {
+      button:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 123, 186, 0.3);
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.3);
       }
 
-      button[type='submit']:active {
-        transform: translateY(0);
-      }
-
-      button[type='submit']:disabled {
+      button:disabled {
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
       }
 
-      .login-link {
-        margin-top: 2em;
-        font-size: 1em;
+      .error {
+        background: #fff3f3;
+        border: 1px solid #ffccc7;
+        color: #d63384;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        font-weight: 600;
+        display: none;
+      }
+
+      .success {
+        background: #f0fff4;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        font-weight: 600;
+        display: none;
+      }
+
+      .debug-indicator {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+        padding: 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8em;
+        margin-bottom: 1rem;
+        display: none;
+      }
+
+      .footer-link {
+        text-align: center;
+        margin-top: 2rem;
         color: #666;
       }
 
-      .login-link a {
-        color: #007cba;
+      .footer-link a {
+        color: #00b4d8;
         text-decoration: none;
-        font-weight: 700;
-        transition: color 0.3s ease;
+        font-weight: 600;
       }
 
-      .login-link a:hover {
-        color: #00b4d8;
+      .footer-link a:hover {
         text-decoration: underline;
       }
 
-      #loginError {
-        color: #d90429;
-        font-weight: 700;
-        text-align: center;
-        margin-top: 1em;
-        display: none;
-        background: rgba(217, 4, 41, 0.1);
-        padding: 1em;
-        border-radius: 8px;
-        border: 1px solid rgba(217, 4, 41, 0.3);
-        font-size: 14px;
-        line-height: 1.4;
-        animation: slideIn 0.3s ease;
-      }
-
-      #loginError.show {
-        display: block !important;
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Debug indicator */
-      .debug-indicator {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        background: #007bff;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 12px;
-        z-index: 1000;
-        display: none;
-      }
-
-      .test-credentials {
-        background: rgba(0, 180, 216, 0.1);
-        padding: 1em;
-        border-radius: 8px;
-        border: 1px solid rgba(0, 180, 216, 0.3);
-        margin-top: 1em;
-        font-size: 0.9em;
-        color: #007cba;
-      }
-
-      .test-credentials h4 {
-        margin-bottom: 0.5em;
-      }
-
       @media (max-width: 768px) {
-        .site-title {
-          font-size: 2em;
-        }
-
-        nav a {
-          margin: 0 0.5em;
-          font-size: 1em;
-        }
-
-        .hero {
-          padding: 2em 1.5em;
-          margin: 1em;
+        .container {
+          padding: 2rem;
+          margin: 1rem;
         }
 
         .hero h2 {
@@ -354,66 +198,45 @@
       }
     </style>
   </head>
+
   <body>
-    <div class="banner-logo">
-      <img src="/logo.png" alt="3 Ball Network Logo" class="banner-logo-img" />
-    </div>
-
-    <header>
-      <div class="site-title">3 Ball Network</div>
-      <div class="site-tagline">Welcome Back</div>
-    </header>
-
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about.html">About Us</a>
-      <a href="/overview.html">Overview</a>
-      <a href="/register.html">Register</a>
-      <a href="/login.html" class="active">Log In</a>
-    </nav>
-
-    <main>
+    <div class="container">
       <div class="hero">
-        <h2>Sign In</h2>
-        <p>Access your dashboard and continue your basketball journey</p>
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your 3 Ball Network profile</p>
+      </div>
 
-        <form id="loginForm">
-          <div>
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
+      <div id="debug-indicator" class="debug-indicator">
+        🐛 Debug mode active - Check console for detailed logs
+      </div>
 
-          <div>
-            <label for="password">Password</label>
-            <div class="password-container">
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required
-              />
-              <button type="button" onclick="togglePassword()">Show</button>
-            </div>
-          </div>
+      <div id="error" class="error"></div>
+      <div id="success" class="success"></div>
 
-          <button type="submit" id="loginBtn">Sign In</button>
-        </form>
-
-        <div class="login-link">
-          Don't have an account? <a href="/register.html">Register here</a>
+      <form id="loginForm">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
         </div>
 
-        <div id="loginError"></div>
-      </div>
-    </main>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
 
-    <!-- Debug indicator -->
-    <div id="debugIndicator" class="debug-indicator"></div>
+        <button type="submit" id="loginButton">Sign In</button>
+      </form>
+
+      <div class="footer-link">
+        <p>
+          Don't have an account?
+          <a href="/register.html">Register here</a>
+        </p>
+        <p style="margin-top: 1rem">
+          <a href="/">← Back to Home</a>
+        </p>
+      </div>
+    </div>
 
     <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -422,430 +245,166 @@
     <script src="/assets/js/firebaseConfig-compat.js"></script>
 
     <script>
-      // Enhanced Error Handling Functions
-      function showError(message, duration = 10000) {
-        console.log('🚨 Showing error:', message);
+      // Enable debug mode
+      const DEBUG_MODE = true;
 
-        const errorDiv = document.getElementById('loginError');
-        const debugIndicator = document.getElementById('debugIndicator');
-
-        if (errorDiv) {
-          errorDiv.textContent = message;
-          errorDiv.style.display = 'block';
-          errorDiv.classList.add('show');
-
-          // Also show in debug indicator
-          if (debugIndicator) {
-            debugIndicator.textContent = 'Error: ' + message.substring(0, 30) + '...';
-            debugIndicator.style.display = 'block';
-            debugIndicator.style.background = '#dc3545';
-          }
-
-          // Auto-hide after duration
-          setTimeout(() => {
-            errorDiv.style.display = 'none';
-            errorDiv.classList.remove('show');
-            if (debugIndicator) {
-              debugIndicator.style.display = 'none';
-            }
-          }, duration);
-        } else {
-          console.error('❌ Error div not found!');
-          alert('Error: ' + message); // Fallback
+      function log(...args) {
+        if (DEBUG_MODE) {
+          console.log('🔐 LOGIN:', ...args);
         }
       }
 
-      function showSuccess(message, duration = 5000) {
-        console.log('✅ Showing success:', message);
+      function showError(message) {
+        const errorDiv = document.getElementById('error');
+        const successDiv = document.getElementById('success');
 
-        const errorDiv = document.getElementById('loginError');
-        const debugIndicator = document.getElementById('debugIndicator');
+        // Hide success message
+        successDiv.style.display = 'none';
 
-        if (errorDiv) {
-          errorDiv.textContent = message;
-          errorDiv.style.display = 'block';
-          errorDiv.style.background = 'rgba(40, 167, 69, 0.1)';
-          errorDiv.style.color = '#28a745';
-          errorDiv.style.borderColor = 'rgba(40, 167, 69, 0.3)';
-          errorDiv.classList.add('show');
+        // Show error message
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
 
-          if (debugIndicator) {
-            debugIndicator.textContent = 'Success: ' + message.substring(0, 30) + '...';
-            debugIndicator.style.display = 'block';
-            debugIndicator.style.background = '#28a745';
-          }
-
-          // Auto-hide after duration
-          setTimeout(() => {
-            errorDiv.style.display = 'none';
-            errorDiv.classList.remove('show');
-            // Reset styles
-            errorDiv.style.background = 'rgba(217, 4, 41, 0.1)';
-            errorDiv.style.color = '#d90429';
-            errorDiv.style.borderColor = 'rgba(217, 4, 41, 0.3)';
-            if (debugIndicator) {
-              debugIndicator.style.display = 'none';
-            }
-          }, duration);
-        }
+        log('❌ Error shown to user:', message);
       }
 
-      function hideError() {
-        const errorDiv = document.getElementById('loginError');
-        const debugIndicator = document.getElementById('debugIndicator');
+      function showSuccess(message) {
+        const errorDiv = document.getElementById('error');
+        const successDiv = document.getElementById('success');
 
-        if (errorDiv) {
-          errorDiv.style.display = 'none';
-          errorDiv.classList.remove('show');
-        }
-        if (debugIndicator) {
-          debugIndicator.style.display = 'none';
-        }
+        // Hide error message
+        errorDiv.style.display = 'none';
+
+        // Show success message
+        successDiv.textContent = message;
+        successDiv.style.display = 'block';
+
+        log('✅ Success shown to user:', message);
       }
 
-      // Debug: Prevent unwanted navigation
-      console.log('🔍 Login page loaded at:', new Date().toISOString());
-
-      // Simple debug logging without interfering with navigation
-      console.log('� Original URL:', window.location.href);
+      function hideMessages() {
+        document.getElementById('error').style.display = 'none';
+        document.getElementById('success').style.display = 'none';
+      }
 
       // Initialize Firebase
-      console.log('🔥 Initializing Firebase...');
+      document.addEventListener('DOMContentLoaded', function () {
+        log('🚀 DOM loaded, initializing Firebase...');
 
-      // Check if Firebase config script is available
-      if (typeof getFirebaseConfig === 'undefined') {
-        console.error('❌ Firebase config function not available');
-        console.log('🔧 Attempting to load Firebase config...');
-
-        // Try to load the config manually
-        const configScript = document.createElement('script');
-        configScript.src = '/assets/js/firebaseConfig-compat.js';
-        configScript.onload = function () {
-          console.log('✅ Firebase config script loaded');
-          initializeFirebaseAuth();
-        };
-        configScript.onerror = function () {
-          console.error('❌ Failed to load Firebase config script');
-          document.getElementById('loginError').textContent =
-            'Configuration error. Please refresh the page.';
-          document.getElementById('loginError').style.display = 'block';
-        };
-        document.head.appendChild(configScript);
-        return;
-      }
-
-      initializeFirebaseAuth();
-
-      function initializeFirebaseAuth() {
-        const config = getFirebaseConfig();
-        if (config) {
-          try {
-            firebase.initializeApp(config);
-            console.log('✅ Firebase initialized successfully');
-            console.log('🔐 Auth available:', !!firebase.auth);
-            console.log('🗃️ Firestore available:', !!firebase.firestore);
-          } catch (error) {
-            console.error('❌ Firebase initialization error:', error);
-            document.getElementById('loginError').textContent =
-              'Authentication system initialization failed. Please refresh the page.';
-            document.getElementById('loginError').style.display = 'block';
-          }
-        } else {
-          console.error('❌ Failed to get Firebase config');
-          document.getElementById('loginError').textContent =
-            'System configuration error. Please try again later.';
-          document.getElementById('loginError').style.display = 'block';
+        if (DEBUG_MODE) {
+          document.getElementById('debug-indicator').style.display = 'block';
         }
-      }
 
-      // Toggle password visibility
-      function togglePassword() {
-        const field = document.getElementById('password');
-        const button = field.parentNode.querySelector('button');
-
-        if (field.type === 'password') {
-          field.type = 'text';
-          button.textContent = 'Hide';
-        } else {
-          field.type = 'password';
-          button.textContent = 'Show';
+        try {
+          const config = getFirebaseConfig();
+          firebase.initializeApp(config);
+          log('✅ Firebase initialized successfully');
+        } catch (error) {
+          log('❌ Firebase initialization failed:', error);
+          showError('System initialization failed. Please refresh the page.');
+          return;
         }
-      }
 
-      // Enhanced form submission handler with comprehensive error feedback
-      document
-        .getElementById('loginForm')
-        .addEventListener('submit', function (e) {
-          e.preventDefault();
-          console.log('🔄 Form submitted');
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-          const email = document.getElementById('email').value.trim();
-          const password = document.getElementById('password').value;
-          const button = document.getElementById('loginBtn');
+        // Handle form submission
+        document
+          .getElementById('loginForm')
+          .addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-          console.log('📧 Email:', email);
-          console.log('🔐 Password length:', password.length);
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const button = document.getElementById('loginButton');
 
-          // Input validation with enhanced feedback
-          if (!email || !password) {
-            console.log('❌ Missing fields');
-            showError('Please fill in all fields');
-            return;
-          }
+            log('📧 Login attempt for:', email);
 
-          // Email format validation
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            console.log('❌ Invalid email format');
-            showError('Please enter a valid email address');
-            return;
-          }
+            // Basic validation
+            if (!email || !password) {
+              showError('Please enter both email and password');
+              return;
+            }
 
-          // Hide previous errors and show loading
-          hideError();
-          button.textContent = 'Signing In...';
-          button.disabled = true;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              showError('Please enter a valid email address');
+              return;
+            }
 
-          // Check Firebase availability
-          if (!window.firebase || !firebase.auth) {
-            console.error('❌ Firebase not available');
-            showError('Authentication system not loaded. Please refresh the page.');
-            button.textContent = 'Sign In';
-            button.disabled = false;
-            return;
-          }
+            // Hide messages and show loading
+            hideMessages();
+            button.textContent = 'Signing In...';
+            button.disabled = true;
 
-          console.log('🔥 Firebase available, attempting login...');
+            try {
+              log('🔥 Attempting Firebase authentication...');
 
-          // Attempt login with enhanced error handling
-          firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(async (userCredential) => {
+              // Sign in with Firebase Auth
+              const userCredential = await auth.signInWithEmailAndPassword(
+                email,
+                password
+              );
               const user = userCredential.user;
-              console.log('✅ Login successful:', user.uid);
+
+              log('✅ Authentication successful:', user.uid);
               showSuccess('Login successful! Checking your role...');
 
-              try {
-                // Get user role from Firestore with timeout
-                const userDocPromise = firebase.firestore()
-                  .collection('users')
-                  .doc(user.uid)
-                  .get();
-
-                const timeoutPromise = new Promise((_, reject) => {
-                  setTimeout(() => reject(new Error('Timeout: Database query took too long')), 10000);
-                });
-
-                const userDoc = await Promise.race([userDocPromise, timeoutPromise]);
-
-                if (userDoc.exists) {
-                  const userData = userDoc.data();
-                  const role = userData.role;
-
-                  console.log('👤 User role:', role);
-                  showSuccess(`Welcome ${userData.name || email}! Redirecting to ${role} portal...`);
-
-                  // Determine redirect URL
-                  let redirectUrl;
-                  switch (role) {
-                    case 'player':
-                      redirectUrl = '/player.html';
-                      break;
-                    case 'coach':
-                      redirectUrl = '/coach.html';
-                      break;
-                    case 'scout':
-                      redirectUrl = '/scout.html';
-                      break;
-                    case 'fan':
-                      redirectUrl = '/fan.html';
-                      break;
-                    case 'admin':
-                      redirectUrl = '/admin.html';
-                      break;
-                    default:
-                      redirectUrl = '/register.html?setup=true';
-                  }
-
-                  console.log('🔄 Redirecting to:', redirectUrl);
-
-                  // Redirect after 2 seconds
-                  setTimeout(() => {
-                    try {
-                      window.location.href = redirectUrl;
-                    } catch (error) {
-                      console.error('❌ Redirect failed:', error);
-                      showError('Redirect failed. Please click here: ' + redirectUrl);
-                    }
-                  }, 2000);
-                } else {
-                  console.error('❌ User profile not found');
-                  showError('User profile not found. Please contact support or register again.');
-                  button.textContent = 'Sign In';
-                  button.disabled = false;
-                }
-              } catch (error) {
-                console.error('❌ Error getting user role:', error);
-                showError('Error accessing your profile: ' + error.message);
-                button.textContent = 'Sign In';
-                button.disabled = false;
-              }
-            })
-            .catch(error => {
-              console.error('❌ Login error:', error);
-              button.textContent = 'Sign In';
-              button.disabled = false;
-
-              // Handle specific Firebase Auth errors with detailed messages
-              let errorMessage = 'Login failed. Please try again.';
-
-              switch (error.code) {
-                case 'auth/user-not-found':
-                  errorMessage = 'No account found with this email address. Please check your email or register first.';
-                  break;
-                case 'auth/wrong-password':
-                  errorMessage = 'Incorrect password. Please check your password and try again.';
-                  break;
-                case 'auth/invalid-email':
-                  errorMessage = 'Please enter a valid email address.';
-                  break;
-                case 'auth/user-disabled':
-                  errorMessage = 'This account has been disabled. Please contact support.';
-                  break;
-                case 'auth/too-many-requests':
-                  errorMessage = 'Too many failed attempts. Please wait a few minutes and try again.';
-                  break;
-                case 'auth/network-request-failed':
-                  errorMessage = 'Network error. Please check your internet connection and try again.';
-                  break;
-                case 'auth/invalid-credential':
-                  errorMessage = 'Invalid login credentials. Please check your email and password.';
-                  break;
-                default:
-                  errorMessage = error.message || 'Login failed. Please try again.';
-              }
-
-              console.log('🚨 Showing error to user:', errorMessage);
-              showError(errorMessage);
-            });
-            errorDiv.style.display = 'block';
-            return;
-          }
-
-          // Email validation
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            errorDiv.textContent = 'Please enter a valid email address';
-            errorDiv.style.display = 'block';
-            return;
-          }
-
-          // Hide error and show loading
-          errorDiv.style.display = 'none';
-          button.textContent = 'Signing In...';
-          button.disabled = true;
-
-          // Check if Firebase is available
-          if (typeof firebase === 'undefined' || !firebase.auth) {
-            console.error('❌ Firebase not available');
-            button.textContent = 'Sign In';
-            button.disabled = false;
-            errorDiv.textContent =
-              'Authentication system not available. Please try again.';
-            errorDiv.style.display = 'block';
-            return;
-          }
-
-          // Firebase Authentication
-          firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(async userCredential => {
-              const user = userCredential.user;
-              console.log('✅ User signed in:', user.uid);
-
               // Get user role from Firestore
-              try {
-                const userDoc = await firebase
-                  .firestore()
-                  .collection('users')
-                  .doc(user.uid)
-                  .get();
-                if (userDoc.exists) {
-                  const userData = userDoc.data();
-                  const role = userData.role;
+              log('📊 Fetching user data from Firestore...');
+              const userDoc = await db.collection('users').doc(user.uid).get();
 
-                  console.log('👤 User data:', userData);
-                  console.log('👤 User role:', role);
-                  console.log('🔄 Redirecting to', role, 'portal...');
+              if (userDoc.exists) {
+                const userData = userDoc.data();
+                const role = userData.role;
 
-                  // Debug: Log all user data for troubleshooting
-                  console.table({
-                    'User ID': user.uid,
-                    Email: user.email,
-                    Role: role,
-                    Name: userData.name || 'Not set',
-                    Position: userData.position || 'Not set',
-                    School: userData.school || 'Not set',
-                  });
+                log('👤 User data retrieved:', userData);
+                log('🎭 User role:', role);
 
-                  // Redirect based on role
-                  console.log('🚀 About to redirect to:', role, 'portal');
+                showSuccess(
+                  `Welcome ${userData.name || email}! Redirecting to ${role} portal...`
+                );
 
-                  let redirectUrl;
-                  switch (role) {
-                    case 'player':
-                      redirectUrl = '/player.html';
-                      break;
-                    case 'coach':
-                      redirectUrl = '/coach.html';
-                      break;
-                    case 'scout':
-                      redirectUrl = '/scout.html';
-                      break;
-                    case 'fan':
-                      redirectUrl = '/fan.html';
-                      break;
-                    case 'admin':
-                      redirectUrl = '/admin.html';
-                      break;
-                    default:
-                      console.warn('⚠️ Unknown role:', role);
-                      redirectUrl = '/register.html?setup=true';
-                  }
-                  console.log('🎯 Redirecting to:', redirectUrl);
-
-                  // Add a small delay to ensure all console logs are visible
-                  setTimeout(() => {
-                    console.log('🔄 Executing redirect now...');
-                    try {
-                      window.location.href = redirectUrl;
-                    } catch (error) {
-                      console.error('❌ Direct href redirect failed:', error);
-                      try {
-                        window.location.replace(redirectUrl);
-                      } catch (error2) {
-                        console.error('❌ Replace redirect failed:', error2);
-                        window.location.assign(redirectUrl);
-                      }
-                    }
-                  }, 500);
-                } else {
-                  throw new Error(
-                    'User profile not found. Please contact support.'
-                  );
+                // Determine redirect URL
+                let redirectUrl;
+                switch (role) {
+                  case 'player':
+                    redirectUrl = '/player.html';
+                    break;
+                  case 'coach':
+                    redirectUrl = '/coach.html';
+                    break;
+                  case 'scout':
+                    redirectUrl = '/scout.html';
+                    break;
+                  case 'fan':
+                    redirectUrl = '/fan.html';
+                    break;
+                  case 'admin':
+                    redirectUrl = '/admin.html';
+                    break;
+                  default:
+                    log('⚠️ Unknown role, redirecting to setup:', role);
+                    redirectUrl = '/register.html?setup=true';
                 }
-              } catch (error) {
-                console.error('❌ Error getting user role:', error);
+
+                log('🎯 Redirect URL determined:', redirectUrl);
+
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                  log('🔄 Executing redirect...');
+                  window.location.href = redirectUrl;
+                }, 2000);
+              } else {
+                log('❌ User document not found in Firestore');
+                showError(
+                  'User profile not found. Please contact support or register again.'
+                );
                 button.textContent = 'Sign In';
                 button.disabled = false;
-                errorDiv.textContent =
-                  'Error accessing user profile: ' + error.message;
-                errorDiv.style.display = 'block';
               }
-            })
-            .catch(error => {
-              console.error('❌ Login error:', error);
+            } catch (error) {
+              log('❌ Login error:', error);
               button.textContent = 'Sign In';
               button.disabled = false;
 
@@ -855,10 +414,11 @@
               switch (error.code) {
                 case 'auth/user-not-found':
                   errorMessage =
-                    'No account found with this email address. Please register first.';
+                    'No account found with this email address. Please check your email or register first.';
                   break;
                 case 'auth/wrong-password':
-                  errorMessage = 'Incorrect password. Please try again.';
+                  errorMessage =
+                    'Incorrect password. Please check your password and try again.';
                   break;
                 case 'auth/invalid-email':
                   errorMessage = 'Please enter a valid email address.';
@@ -869,26 +429,27 @@
                   break;
                 case 'auth/too-many-requests':
                   errorMessage =
-                    'Too many failed attempts. Please try again later.';
+                    'Too many failed attempts. Please wait a few minutes and try again.';
                   break;
                 case 'auth/network-request-failed':
                   errorMessage =
-                    'Network error. Please check your connection and try again.';
+                    'Network error. Please check your internet connection and try again.';
+                  break;
+                case 'auth/invalid-credential':
+                  errorMessage =
+                    'Invalid login credentials. Please check your email and password.';
                   break;
                 default:
                   errorMessage =
                     error.message || 'Login failed. Please try again.';
               }
 
-              errorDiv.textContent = errorMessage;
-              errorDiv.style.display = 'block';
-            });
-        });
+              showError(errorMessage);
+            }
+          });
 
-      // Load test user creation script
-      const script = document.createElement('script');
-      script.src = '/assets/js/create-test-user.js';
-      document.head.appendChild(script);
+        log('🎯 Login form handler attached successfully');
+      });
     </script>
   </body>
 </html>
