@@ -85,12 +85,11 @@ service cloud.firestore {
     
     // Users collection with comprehensive validation
     match /users/{userId} {
-      allow read: if isAdmin() || isOwner(userId);
+      allow read: if isAuthenticated() && request.auth.uid == userId;
       allow create: if isAuthenticated() && 
                        request.auth.uid == userId &&
                        validateUserData(request.resource.data);
-      allow update: if (isAdmin() || isOwner(userId)) &&
-                       validateUserData(request.resource.data);
+      allow update: if isAuthenticated() && request.auth.uid == userId;
       allow delete: if isAdmin();
       
       function validateUserData(data) {

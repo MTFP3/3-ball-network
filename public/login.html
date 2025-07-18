@@ -390,37 +390,8 @@
       // Debug: Prevent unwanted navigation
       console.log('🔍 Login page loaded at:', new Date().toISOString());
 
-      // Track navigation attempts
-      let navigationCount = 0;
-      const originalLocation = window.location.href;
-
-      // Override window.location to catch redirects
-      const originalReplace = window.location.replace;
-      const originalAssign = window.location.assign;
-
-      window.location.replace = function (url) {
-        console.log('🚨 REDIRECT ATTEMPT (replace):', url);
-        console.trace('Redirect stack trace:');
-        return originalReplace.call(this, url);
-      };
-
-      window.location.assign = function (url) {
-        console.log('🚨 REDIRECT ATTEMPT (assign):', url);
-        console.trace('Redirect stack trace:');
-        return originalAssign.call(this, url);
-      };
-
-      // Watch for href changes
-      Object.defineProperty(window.location, 'href', {
-        set: function (url) {
-          console.log('🚨 REDIRECT ATTEMPT (href):', url);
-          console.trace('Redirect stack trace:');
-          window.location.replace(url);
-        },
-        get: function () {
-          return originalLocation;
-        },
-      });
+      // Simple debug logging without interfering with navigation
+      console.log('� Original URL:', window.location.href);
 
       // Initialize Firebase
       console.log('🔥 Initializing Firebase...');
@@ -563,26 +534,46 @@
                   });
 
                   // Redirect based on role
+                  console.log('🚀 About to redirect to:', role, 'portal');
+
+                  let redirectUrl;
                   switch (role) {
                     case 'player':
-                      window.location.href = '/player.html';
+                      redirectUrl = '/player.html';
                       break;
                     case 'coach':
-                      window.location.href = '/coach.html';
+                      redirectUrl = '/coach.html';
                       break;
                     case 'scout':
-                      window.location.href = '/scout.html';
+                      redirectUrl = '/scout.html';
                       break;
                     case 'fan':
-                      window.location.href = '/fan.html';
+                      redirectUrl = '/fan.html';
                       break;
                     case 'admin':
-                      window.location.href = '/admin.html';
+                      redirectUrl = '/admin.html';
                       break;
                     default:
                       console.warn('⚠️ Unknown role:', role);
-                      window.location.href = '/register.html?setup=true';
+                      redirectUrl = '/register.html?setup=true';
                   }
+                  console.log('🎯 Redirecting to:', redirectUrl);
+
+                  // Add a small delay to ensure all console logs are visible
+                  setTimeout(() => {
+                    console.log('🔄 Executing redirect now...');
+                    try {
+                      window.location.href = redirectUrl;
+                    } catch (error) {
+                      console.error('❌ Direct href redirect failed:', error);
+                      try {
+                        window.location.replace(redirectUrl);
+                      } catch (error2) {
+                        console.error('❌ Replace redirect failed:', error2);
+                        window.location.assign(redirectUrl);
+                      }
+                    }
+                  }, 500);
                 } else {
                   throw new Error(
                     'User profile not found. Please contact support.'
@@ -642,21 +633,6 @@
       const script = document.createElement('script');
       script.src = '/assets/js/create-test-user.js';
       document.head.appendChild(script);
-
-      // Prevent auth state changes from redirecting during login
-      window.addEventListener('beforeunload', function (e) {
-        console.log('🚨 Page is about to unload:', e);
-      });
-
-      // Log any hash changes
-      window.addEventListener('hashchange', function (e) {
-        console.log('🔄 Hash changed:', e.oldURL, '->', e.newURL);
-      });
-
-      // Log any popstate events
-      window.addEventListener('popstate', function (e) {
-        console.log('🔄 Popstate event:', e.state);
-      });
     </script>
   </body>
 </html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Debug User</title>
+  </head>
+  <body>
+    <h1>Debug User Data</h1>
+    <button onclick="checkUser()">Check Test User</button>
+    <div id="result"></div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="/assets/js/firebaseConfig-compat.js"></script>
+
+    <script>
+      // Initialize Firebase
+      const config = getFirebaseConfig();
+      firebase.initializeApp(config);
+
+      async function checkUser() {
+        const resultDiv = document.getElementById('result');
+
+        try {
+          // Sign in with test credentials
+          const userCredential = await firebase
+            .auth()
+            .signInWithEmailAndPassword('player@test.com', 'testpassword123');
+          const user = userCredential.user;
+
+          console.log('✅ User authenticated:', user.uid);
+          resultDiv.innerHTML += `<p>✅ User authenticated: ${user.uid}</p>`;
+
+          // Get user document
+          const userDoc = await firebase
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            console.log('👤 User data:', userData);
+            resultDiv.innerHTML += `<p>👤 User data: ${JSON.stringify(userData, null, 2)}</p>`;
+            resultDiv.innerHTML += `<p>🔑 User role: ${userData.role}</p>`;
+          } else {
+            console.log('❌ User document does not exist');
+            resultDiv.innerHTML += `<p>❌ User document does not exist</p>`;
+          }
+
+          // Sign out
+          await firebase.auth().signOut();
+        } catch (error) {
+          console.error('❌ Error:', error);
+          resultDiv.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+        }
+      }
+    </script>
+  </body>
+</html>
