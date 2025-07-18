@@ -358,8 +358,21 @@
                 const userData = userDoc.data();
                 const role = userData.role;
 
-                log('👤 User data retrieved:', userData);
-                log('🎭 User role:', role);
+                log('👤 Full User data retrieved:');
+                console.table({
+                  'User ID': userData.uid,
+                  Email: userData.email,
+                  Role: userData.role,
+                  Name: userData.name,
+                  Status: userData.status,
+                  Position: userData.position || 'Not set',
+                  School: userData.school || 'Not set',
+                  Created: userData.createdAt || 'Not set',
+                  Updated: userData.updatedAt || 'Not set',
+                });
+                log('🎭 User role extracted:', role);
+                log('🔍 Role type:', typeof role);
+                log('🔍 Role length:', role ? role.length : 'null/undefined');
 
                 showSuccess(
                   `Welcome ${userData.name || email}! Redirecting to ${role} portal...`
