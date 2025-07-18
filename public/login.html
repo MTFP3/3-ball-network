@@ -397,11 +397,43 @@
                 }, 2000);
               } else {
                 log('❌ User document not found in Firestore');
-                showError(
-                  'User profile not found. Please contact support or register again.'
-                );
-                button.textContent = 'Sign In';
-                button.disabled = false;
+                log('🔍 User UID:', user.uid);
+                log('📧 User Email:', user.email);
+
+                // Try to create a basic user document
+                log('🔧 Attempting to create user document...');
+                try {
+                  const newUserData = {
+                    uid: user.uid,
+                    email: user.email,
+                    role: 'player', // Default to player
+                    name: user.displayName || user.email.split('@')[0],
+                    status: 'active',
+                    createdAt: new Date().toISOString(),
+                    position: 'Guard',
+                    school: 'Unknown',
+                    updatedAt: new Date().toISOString(),
+                  };
+
+                  await db.collection('users').doc(user.uid).set(newUserData);
+                  log('✅ User document created successfully');
+
+                  showSuccess(
+                    `Account setup complete! Welcome ${newUserData.name}! Redirecting to player portal...`
+                  );
+
+                  setTimeout(() => {
+                    log('🔄 Redirecting to player portal...');
+                    window.location.href = '/player.html';
+                  }, 2000);
+                } catch (createError) {
+                  log('❌ Failed to create user document:', createError);
+                  showError(
+                    'Account exists but profile is incomplete. Please contact support or try registering again.'
+                  );
+                  button.textContent = 'Sign In';
+                  button.disabled = false;
+                }
               }
             } catch (error) {
               log('❌ Login error:', error);
@@ -411,39 +443,50 @@
               // Handle specific Firebase Auth errors
               let errorMessage = 'Login failed. Please try again.';
 
-              switch (error.code) {
-                case 'auth/user-not-found':
-                  errorMessage =
-                    'No account found with this email address. Please check your email or register first.';
-                  break;
-                case 'auth/wrong-password':
-                  errorMessage =
-                    'Incorrect password. Please check your password and try again.';
-                  break;
-                case 'auth/invalid-email':
-                  errorMessage = 'Please enter a valid email address.';
-                  break;
-                case 'auth/user-disabled':
-                  errorMessage =
-                    'This account has been disabled. Please contact support.';
-                  break;
-                case 'auth/too-many-requests':
-                  errorMessage =
-                    'Too many failed attempts. Please wait a few minutes and try again.';
-                  break;
-                case 'auth/network-request-failed':
-                  errorMessage =
-                    'Network error. Please check your internet connection and try again.';
-                  break;
-                case 'auth/invalid-credential':
-                  errorMessage =
-                    'Invalid login credentials. Please check your email and password.';
-                  break;
-                default:
-                  errorMessage =
-                    error.message || 'Login failed. Please try again.';
+              if (error.message && error.message.includes('role')) {
+                errorMessage =
+                  'Failed to verify user role. This may be a new account that needs setup. Please try registering first or contact support.';
+                log('🔍 Role verification error detected');
+              } else {
+                switch (error.code) {
+                  case 'auth/user-not-found':
+                    errorMessage =
+                      'No account found with this email address. Please check your email or register first.';
+                    break;
+                  case 'auth/wrong-password':
+                    errorMessage =
+                      'Incorrect password. Please check your password and try again.';
+                    break;
+                  case 'auth/invalid-email':
+                    errorMessage = 'Please enter a valid email address.';
+                    break;
+                  case 'auth/user-disabled':
+                    errorMessage =
+                      'This account has been disabled. Please contact support.';
+                    break;
+                  case 'auth/too-many-requests':
+                    errorMessage =
+                      'Too many failed attempts. Please wait a few minutes and try again.';
+                    break;
+                  case 'auth/network-request-failed':
+                    errorMessage =
+                      'Network error. Please check your internet connection and try again.';
+                    break;
+                  case 'auth/invalid-credential':
+                    errorMessage =
+                      'Invalid login credentials. Please check your email and password.';
+                    break;
+                  case 'permission-denied':
+                    errorMessage =
+                      'Permission denied accessing user profile. Please contact support.';
+                    break;
+                  default:
+                    errorMessage =
+                      error.message || 'Login failed. Please try again.';
+                }
               }
 
+              log('🚨 Final error message:', errorMessage);
               showError(errorMessage);
             }
           });
