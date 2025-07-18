@@ -29,7 +29,7 @@
     <!-- Security Headers -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com; frame-src 'self' https://www.google.com"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://securetoken.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.googleapis.com wss://*.firebaseio.com; frame-src 'self' https://www.google.com https://*.firebaseapp.com"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
@@ -387,19 +387,88 @@
     <script src="/assets/js/firebaseConfig-compat.js"></script>
 
     <script>
+      // Debug: Prevent unwanted navigation
+      console.log('🔍 Login page loaded at:', new Date().toISOString());
+
+      // Track navigation attempts
+      let navigationCount = 0;
+      const originalLocation = window.location.href;
+
+      // Override window.location to catch redirects
+      const originalReplace = window.location.replace;
+      const originalAssign = window.location.assign;
+
+      window.location.replace = function (url) {
+        console.log('🚨 REDIRECT ATTEMPT (replace):', url);
+        console.trace('Redirect stack trace:');
+        return originalReplace.call(this, url);
+      };
+
+      window.location.assign = function (url) {
+        console.log('🚨 REDIRECT ATTEMPT (assign):', url);
+        console.trace('Redirect stack trace:');
+        return originalAssign.call(this, url);
+      };
+
+      // Watch for href changes
+      Object.defineProperty(window.location, 'href', {
+        set: function (url) {
+          console.log('🚨 REDIRECT ATTEMPT (href):', url);
+          console.trace('Redirect stack trace:');
+          window.location.replace(url);
+        },
+        get: function () {
+          return originalLocation;
+        },
+      });
+
       // Initialize Firebase
       console.log('🔥 Initializing Firebase...');
-      const config = getFirebaseConfig();
-      if (config) {
-        firebase.initializeApp(config);
-        console.log('✅ Firebase initialized successfully');
-        console.log('🔐 Auth available:', !!firebase.auth);
-        console.log('🗃️ Firestore available:', !!firebase.firestore);
-      } else {
-        console.error('❌ Failed to get Firebase config');
-        document.getElementById('loginError').textContent =
-          'System configuration error. Please try again later.';
-        document.getElementById('loginError').style.display = 'block';
+
+      // Check if Firebase config script is available
+      if (typeof getFirebaseConfig === 'undefined') {
+        console.error('❌ Firebase config function not available');
+        console.log('🔧 Attempting to load Firebase config...');
+
+        // Try to load the config manually
+        const configScript = document.createElement('script');
+        configScript.src = '/assets/js/firebaseConfig-compat.js';
+        configScript.onload = function () {
+          console.log('✅ Firebase config script loaded');
+          initializeFirebaseAuth();
+        };
+        configScript.onerror = function () {
+          console.error('❌ Failed to load Firebase config script');
+          document.getElementById('loginError').textContent =
+            'Configuration error. Please refresh the page.';
+          document.getElementById('loginError').style.display = 'block';
+        };
+        document.head.appendChild(configScript);
+        return;
+      }
+
+      initializeFirebaseAuth();
+
+      function initializeFirebaseAuth() {
+        const config = getFirebaseConfig();
+        if (config) {
+          try {
+            firebase.initializeApp(config);
+            console.log('✅ Firebase initialized successfully');
+            console.log('🔐 Auth available:', !!firebase.auth);
+            console.log('🗃️ Firestore available:', !!firebase.firestore);
+          } catch (error) {
+            console.error('❌ Firebase initialization error:', error);
+            document.getElementById('loginError').textContent =
+              'Authentication system initialization failed. Please refresh the page.';
+            document.getElementById('loginError').style.display = 'block';
+          }
+        } else {
+          console.error('❌ Failed to get Firebase config');
+          document.getElementById('loginError').textContent =
+            'System configuration error. Please try again later.';
+          document.getElementById('loginError').style.display = 'block';
+        }
       }
 
       // Toggle password visibility
@@ -479,8 +548,19 @@
                   const userData = userDoc.data();
                   const role = userData.role;
 
+                  console.log('👤 User data:', userData);
                   console.log('👤 User role:', role);
                   console.log('🔄 Redirecting to', role, 'portal...');
+
+                  // Debug: Log all user data for troubleshooting
+                  console.table({
+                    'User ID': user.uid,
+                    Email: user.email,
+                    Role: role,
+                    Name: userData.name || 'Not set',
+                    Position: userData.position || 'Not set',
+                    School: userData.school || 'Not set',
+                  });
 
                   // Redirect based on role
                   switch (role) {
@@ -562,6 +642,21 @@
       const script = document.createElement('script');
       script.src = '/assets/js/create-test-user.js';
       document.head.appendChild(script);
+
+      // Prevent auth state changes from redirecting during login
+      window.addEventListener('beforeunload', function (e) {
+        console.log('🚨 Page is about to unload:', e);
+      });
+
+      // Log any hash changes
+      window.addEventListener('hashchange', function (e) {
+        console.log('🔄 Hash changed:', e.oldURL, '->', e.newURL);
+      });
+
+      // Log any popstate events
+      window.addEventListener('popstate', function (e) {
+        console.log('🔄 Popstate event:', e.state);
+      });
     </script>
   </body>
 </html>
