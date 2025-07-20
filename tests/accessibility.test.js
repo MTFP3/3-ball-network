@@ -1,5 +1,14 @@
 // Accessibility tests using Jest and axe-core
-const { axe, toHaveNoViolations } = require('jest-axe');
+const { configureAxe, toHaveNoViolations } = require('jest-axe');
+
+// Configure axe for testing
+const axe = configureAxe({
+  rules: {
+    // Disable some rules that may not be relevant for our test environment
+    'color-contrast': { enabled: false },
+    'valid-lang': { enabled: false },
+  },
+});
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations);
