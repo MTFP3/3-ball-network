@@ -484,25 +484,51 @@
       </div>
     </div>
 
-    <!-- Include the AI Chat Interface -->
-    <script src="assets/js/ai-chat-interface.js"></script>
+    <!-- Dynamic Module Loader -->
+    <script type="module" src="/assets/js/moduleLoader.js"></script>
+
+    <!-- Load AI Chat Interface dynamically -->
+    <script>
+      // Load AI chat interface when user clicks to open chat
+      window.loadAIChatModule = function() {
+        if (window.moduleLoader) {
+          return window.moduleLoader.loadModule('/assets/js/ai-chat-interface.js', 'ai-chat-interface');
+        } else {
+          // Fallback loading
+          return new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = '/assets/js/ai-chat-interface.js';
+            script.onload = resolve;
+            document.head.appendChild(script);
+          });
+        }
+      };
+    </script>
 
     <script>
       // Demo functions
-      function openAIChat() {
-        if (window.aiChat) {
-          const chatInterface = document.getElementById('aiChatInterface');
-          if (chatInterface) {
-            chatInterface.classList.remove('hidden');
+      async function openAIChat() {
+        try {
+          // Load the AI chat module if not already loaded
+          await window.loadAIChatModule();
+          
+          if (window.aiChat) {
+            const chatInterface = document.getElementById('aiChatInterface');
+            if (chatInterface) {
+              chatInterface.classList.remove('hidden');
+            } else {
+              alert(
+                'AI Chat interface is loading... Please wait a moment and try again.'
+              );
+            }
           } else {
             alert(
-              'AI Chat interface is loading... Please wait a moment and try again.'
+              'AI Chat interface is not yet loaded. Please refresh the page.'
             );
           }
-        } else {
-          alert(
-            'AI Chat interface is not yet loaded. Please refresh the page.'
-          );
+        } catch (error) {
+          console.error('Error loading AI Chat module:', error);
+          alert('Failed to load AI Chat. Please try again.');
         }
       }
 

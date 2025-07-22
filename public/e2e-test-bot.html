@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🤖 Automated E2E Testing Bot - 3 Ball Network</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        min-height: 100vh;
+        color: white;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 40px;
+        color: #333;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+      }
+      .bot-controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+      .control-card {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+      .control-card:hover {
+        border-color: #007bff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+      }
+      .bot-button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 10px 5px;
+        transition: all 0.3s;
+        width: 100%;
+      }
+      .bot-button:hover {
+        background: #0056b3;
+        transform: translateY(-1px);
+      }
+      .bot-button:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .bot-button.danger {
+        background: #dc3545;
+      }
+      .bot-button.danger:hover {
+        background: #c82333;
+      }
+      .bot-button.success {
+        background: #28a745;
+      }
+      .bot-status {
+        background: #343a40;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        font-family: monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      .test-frame {
+        width: 100%;
+        height: 500px;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .progress-indicator {
+        width: 100%;
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 15px 0;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #28a745, #20c997);
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .stat-box {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+      }
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .stat-label {
+        color: #6c757d;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🤖 Automated E2E Testing Bot</h1>
+      <p style="text-align: center; font-size: 1.1em; color: #6c757d">
+        Intelligent automated testing that actually interacts with your website
+      </p>
+
+      <!-- Bot Controls -->
+      <div class="bot-controls">
+        <div class="control-card">
+          <h3>🔍 Website Crawler</h3>
+          <p>Automatically discovers and tests all pages</p>
+          <button class="bot-button" onclick="startWebsiteCrawl()">
+            Start Crawling
+          </button>
+        </div>
+
+        <div class="control-card">
+          <h3>🎬 Video System Bot</h3>
+          <p>Tests complete video upload workflow</p>
+          <button class="bot-button" onclick="startVideoSystemTest()">
+            Test Video System
+          </button>
+        </div>
+
+        <div class="control-card">
+          <h3>📊 Analytics Tester</h3>
+          <p>Validates all analytics and charts</p>
+          <button class="bot-button" onclick="startAnalyticsTest()">
+            Test Analytics
+          </button>
+        </div>
+
+        <div class="control-card">
+          <h3>🎮 User Journey Bot</h3>
+          <p>Simulates complete user workflows</p>
+          <button class="bot-button" onclick="startUserJourneyTest()">
+            Start User Journey
+          </button>
+        </div>
+
+        <div class="control-card">
+          <h3>⚡ Performance Monitor</h3>
+          <p>Measures speed and performance</p>
+          <button class="bot-button" onclick="startPerformanceTest()">
+            Monitor Performance
+          </button>
+        </div>
+
+        <div class="control-card">
+          <h3>🔐 Security Scanner</h3>
+          <p>Checks for security vulnerabilities</p>
+          <button class="bot-button" onclick="startSecurityScan()">
+            Scan Security
+          </button>
+        </div>
+      </div>
+
+      <!-- Master Controls -->
+      <div style="text-align: center; margin: 30px 0">
+        <button
+          class="bot-button"
+          style="background: #28a745; font-size: 1.2em; padding: 20px 40px"
+          onclick="runAllBotTests()"
+        >
+          🚀 RUN ALL AUTOMATED TESTS
+        </button>
+        <button
+          class="bot-button danger"
+          onclick="stopAllBots()"
+          id="stopBtn"
+          disabled
+        >
+          ⏹️ STOP ALL BOTS
+        </button>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-indicator">
+        <div class="progress-fill" id="botProgress"></div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number" id="pagesVisited">0</div>
+          <div class="stat-label">Pages Visited</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="testsRun">0</div>
+          <div class="stat-label">Tests Run</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="issuesFound">0</div>
+          <div class="stat-label">Issues Found</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="avgLoadTime">0</div>
+          <div class="stat-label">Avg Load Time (ms)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="coveragePercent">0</div>
+          <div class="stat-label">Coverage %</div>
+        </div>
+      </div>
+
+      <!-- Bot Status Console -->
+      <div class="bot-status" id="botConsole">
+        🤖 E2E Testing Bot initialized and ready...\n 💡 Click any test button
+        to start automated testing\n 🎯 The bot will interact with your website
+        like a real user\n
+      </div>
+
+      <!-- Test Frame -->
+      <iframe class="test-frame" id="testFrame" style="display: none"></iframe>
+    </div>
+
+    <script>
+      class E2ETestingBot {
+        constructor() {
+          this.isRunning = false;
+          this.stats = {
+            pagesVisited: 0,
+            testsRun: 0,
+            issuesFound: 0,
+            totalLoadTime: 0,
+            coverage: 0,
+          };
+          this.discoveredPages = new Set();
+          this.testResults = [];
+          this.startTime = null;
+        }
+
+        log(message, type = 'info') {
+          const console = document.getElementById('botConsole');
+          const timestamp = new Date().toLocaleTimeString();
+          const prefix =
+            type === 'error'
+              ? '❌'
+              : type === 'success'
+                ? '✅'
+                : type === 'warning'
+                  ? '⚠️'
+                  : '🤖';
+          console.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+          console.scrollTop = console.scrollHeight;
+        }
+
+        updateStats() {
+          document.getElementById('pagesVisited').textContent =
+            this.stats.pagesVisited;
+          document.getElementById('testsRun').textContent = this.stats.testsRun;
+          document.getElementById('issuesFound').textContent =
+            this.stats.issuesFound;
+
+          const avgLoadTime =
+            this.stats.pagesVisited > 0
+              ? Math.round(this.stats.totalLoadTime / this.stats.pagesVisited)
+              : 0;
+          document.getElementById('avgLoadTime').textContent = avgLoadTime;
+
+          document.getElementById('coveragePercent').textContent = Math.round(
+            this.stats.coverage
+          );
+        }
+
+        updateProgress(percent) {
+          document.getElementById('botProgress').style.width = percent + '%';
+        }
+
+        async visitPage(url, testActions = []) {
+          return new Promise(resolve => {
+            this.log(`🌐 Visiting page: ${url}`);
+            const startTime = performance.now();
+
+            const frame = document.getElementById('testFrame');
+            frame.style.display = 'block';
+            frame.src = url;
+
+            frame.onload = () => {
+              const loadTime = performance.now() - startTime;
+              this.stats.totalLoadTime += loadTime;
+              this.stats.pagesVisited++;
+              this.discoveredPages.add(url);
+
+              this.log(`✅ Page loaded in ${Math.round(loadTime)}ms`);
+
+              // Run test actions on the page
+              this.runPageTests(frame, testActions).then(() => {
+                setTimeout(() => {
+                  resolve({
+                    url,
+                    loadTime,
+                    success: true,
+                  });
+                }, 1000);
+              });
+            };
+
+            frame.onerror = () => {
+              this.log(`❌ Failed to load page: ${url}`, 'error');
+              this.stats.issuesFound++;
+              resolve({
+                url,
+                loadTime: 0,
+                success: false,
+                error: 'Page load failed',
+              });
+            };
+
+            // Timeout after 10 seconds
+            setTimeout(() => {
+              this.log(`⏰ Page load timeout: ${url}`, 'warning');
+              resolve({
+                url,
+                loadTime: 10000,
+                success: false,
+                error: 'Timeout',
+              });
+            }, 10000);
+          });
+        }
+
+        async runPageTests(frame, testActions) {
+          try {
+            const frameDoc =
+              frame.contentDocument || frame.contentWindow.document;
+
+            // Basic page structure tests
+            await this.testPageStructure(frameDoc);
+
+            // Run custom test actions
+            for (const action of testActions) {
+              await this.executeTestAction(frameDoc, action);
+            }
+
+            // Look for JavaScript errors
+            await this.checkForJSErrors(frame);
+          } catch (error) {
+            this.log(`❌ Error testing page: ${error.message}`, 'error');
+            this.stats.issuesFound++;
+          }
+        }
+
+        async testPageStructure(doc) {
+          this.stats.testsRun++;
+
+          // Check for basic HTML structure
+          const hasTitle = doc.title && doc.title.length > 0;
+          const hasH1 = doc.querySelector('h1') !== null;
+          const hasNav = doc.querySelector('nav') !== null;
+          const hasMain = doc.querySelector('main') !== null;
+
+          if (!hasTitle) {
+            this.log('⚠️ Page missing title tag', 'warning');
+            this.stats.issuesFound++;
+          }
+
+          if (!hasH1) {
+            this.log('⚠️ Page missing H1 tag', 'warning');
+          }
+
+          // Check for meta viewport
+          const hasViewport =
+            doc.querySelector('meta[name="viewport"]') !== null;
+          if (!hasViewport) {
+            this.log('⚠️ Page missing viewport meta tag', 'warning');
+          }
+
+          // Check for broken images
+          const images = doc.querySelectorAll('img');
+          images.forEach((img, index) => {
+            if (!img.src || img.src === '') {
+              this.log(`⚠️ Image ${index + 1} has no src attribute`, 'warning');
+              this.stats.issuesFound++;
+            }
+          });
+
+          this.log(`✅ Page structure test completed`);
+        }
+
+        async executeTestAction(doc, action) {
+          this.stats.testsRun++;
+
+          try {
+            switch (action.type) {
+              case 'click':
+                const clickElement = doc.querySelector(action.selector);
+                if (clickElement) {
+                  clickElement.click();
+                  this.log(`🖱️ Clicked element: ${action.selector}`);
+                  await new Promise(resolve => setTimeout(resolve, 500));
+                } else {
+                  this.log(`❌ Element not found: ${action.selector}`, 'error');
+                  this.stats.issuesFound++;
+                }
+                break;
+
+              case 'input':
+                const inputElement = doc.querySelector(action.selector);
+                if (inputElement) {
+                  inputElement.value = action.value;
+                  inputElement.dispatchEvent(
+                    new Event('input', { bubbles: true })
+                  );
+                  this.log(`⌨️ Entered text in: ${action.selector}`);
+                } else {
+                  this.log(
+                    `❌ Input element not found: ${action.selector}`,
+                    'error'
+                  );
+                  this.stats.issuesFound++;
+                }
+                break;
+
+              case 'check_element':
+                const element = doc.querySelector(action.selector);
+                if (!element) {
+                  this.log(
+                    `❌ Required element missing: ${action.selector}`,
+                    'error'
+                  );
+                  this.stats.issuesFound++;
+                } else {
+                  this.log(`✅ Element found: ${action.selector}`);
+                }
+                break;
+
+              case 'check_text':
+                const hasText = doc.body.textContent.includes(action.text);
+                if (!hasText) {
+                  this.log(
+                    `❌ Required text not found: "${action.text}"`,
+                    'error'
+                  );
+                  this.stats.issuesFound++;
+                } else {
+                  this.log(`✅ Text found: "${action.text}"`);
+                }
+                break;
+            }
+          } catch (error) {
+            this.log(`❌ Test action failed: ${error.message}`, 'error');
+            this.stats.issuesFound++;
+          }
+        }
+
+        async checkForJSErrors(frame) {
+          try {
+            // Monitor for JavaScript errors in the frame
+            const frameWindow = frame.contentWindow;
+            frameWindow.addEventListener('error', event => {
+              this.log(
+                `❌ JavaScript error: ${event.error?.message || 'Unknown error'}`,
+                'error'
+              );
+              this.stats.issuesFound++;
+            });
+          } catch (error) {
+            // Cross-origin restrictions may prevent error monitoring
+            this.log(
+              'ℹ️ Cannot monitor JS errors due to cross-origin restrictions'
+            );
+          }
+        }
+
+        async discoverPages(startUrl = '/') {
+          this.log('🔍 Starting page discovery...');
+          const pagesToVisit = [startUrl];
+          const visitedPages = new Set();
+
+          while (pagesToVisit.length > 0 && visitedPages.size < 20) {
+            const currentUrl = pagesToVisit.shift();
+
+            if (visitedPages.has(currentUrl)) continue;
+            visitedPages.add(currentUrl);
+
+            try {
+              const response = await fetch(currentUrl);
+              const html = await response.text();
+
+              // Extract links from the page
+              const linkRegex = /href=["']([^"']+)["']/g;
+              let match;
+              while ((match = linkRegex.exec(html)) !== null) {
+                const link = match[1];
+                if (link.startsWith('/') && link.endsWith('.html')) {
+                  if (!visitedPages.has(link) && !pagesToVisit.includes(link)) {
+                    pagesToVisit.push(link);
+                  }
+                }
+              }
+
+              this.discoveredPages.add(currentUrl);
+            } catch (error) {
+              this.log(
+                `❌ Error discovering links from ${currentUrl}: ${error.message}`,
+                'error'
+              );
+            }
+          }
+
+          this.log(
+            `🔍 Discovery complete: Found ${this.discoveredPages.size} pages`
+          );
+          return Array.from(this.discoveredPages);
+        }
+
+        // Main test functions
+        async startWebsiteCrawl() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('🕷️ Starting website crawl...', 'success');
+
+          const pages = await this.discoverPages();
+          const totalPages = pages.length;
+
+          for (let i = 0; i < pages.length; i++) {
+            if (!this.isRunning) break;
+
+            const page = pages[i];
+            this.updateProgress((i / totalPages) * 100);
+            await this.visitPage(page);
+            this.updateStats();
+          }
+
+          this.updateProgress(100);
+          this.log('🕷️ Website crawl completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async startVideoSystemTest() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('🎬 Starting video system test...', 'success');
+
+          const videoTestActions = [
+            { type: 'check_element', selector: '#videoGalleryContainer' },
+            { type: 'check_element', selector: '.upload-area' },
+            { type: 'check_text', text: 'Upload Videos' },
+            { type: 'click', selector: '.upload-area' },
+          ];
+
+          await this.visitPage('/player.html', videoTestActions);
+          await this.visitPage('/video-test.html', [
+            { type: 'check_text', text: 'Video Processor' },
+            { type: 'check_text', text: 'Firebase' },
+          ]);
+
+          this.updateStats();
+          this.log('🎬 Video system test completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async startAnalyticsTest() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('📊 Starting analytics test...', 'success');
+
+          const analyticsActions = [
+            { type: 'check_text', text: 'Analytics' },
+            { type: 'check_text', text: 'Statistics' },
+            { type: 'check_element', selector: 'canvas' },
+          ];
+
+          await this.visitPage('/analytics.html', analyticsActions);
+          await this.visitPage('/player.html', [
+            { type: 'check_text', text: 'Player Portal' },
+            { type: 'check_element', selector: '.stats-section' },
+          ]);
+
+          this.updateStats();
+          this.log('📊 Analytics test completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async startUserJourneyTest() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('🎮 Starting user journey test...', 'success');
+
+          // Simulate complete user workflow
+          const journey = [
+            {
+              url: '/',
+              actions: [{ type: 'check_text', text: '3 Ball Network' }],
+            },
+            {
+              url: '/player.html',
+              actions: [
+                { type: 'check_element', selector: '.player-portal' },
+                { type: 'check_element', selector: '#videoGalleryContainer' },
+              ],
+            },
+            {
+              url: '/analytics.html',
+              actions: [{ type: 'check_text', text: 'Analytics' }],
+            },
+            {
+              url: '/coach.html',
+              actions: [{ type: 'check_text', text: 'Coach' }],
+            },
+          ];
+
+          for (let i = 0; i < journey.length; i++) {
+            if (!this.isRunning) break;
+
+            const step = journey[i];
+            this.updateProgress((i / journey.length) * 100);
+            await this.visitPage(step.url, step.actions);
+            this.updateStats();
+          }
+
+          this.updateProgress(100);
+          this.log('🎮 User journey test completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async startPerformanceTest() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('⚡ Starting performance test...', 'success');
+
+          const testPages = ['/', '/player.html', '/analytics.html'];
+          const performanceResults = [];
+
+          for (let i = 0; i < testPages.length; i++) {
+            if (!this.isRunning) break;
+
+            const page = testPages[i];
+            this.updateProgress((i / testPages.length) * 100);
+
+            const result = await this.visitPage(page);
+            performanceResults.push(result);
+
+            if (result.loadTime > 3000) {
+              this.log(
+                `⚠️ Slow page load: ${page} (${Math.round(result.loadTime)}ms)`,
+                'warning'
+              );
+              this.stats.issuesFound++;
+            }
+
+            this.updateStats();
+          }
+
+          const avgLoadTime =
+            performanceResults.reduce((sum, r) => sum + r.loadTime, 0) /
+            performanceResults.length;
+          this.log(`⚡ Average load time: ${Math.round(avgLoadTime)}ms`);
+
+          this.updateProgress(100);
+          this.log('⚡ Performance test completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async startSecurityScan() {
+          if (this.isRunning) return;
+          this.isRunning = true;
+
+          this.log('🔐 Starting security scan...', 'success');
+
+          try {
+            // Check security headers
+            const response = await fetch('/');
+            const headers = response.headers;
+
+            const securityHeaders = [
+              'X-Frame-Options',
+              'X-XSS-Protection',
+              'X-Content-Type-Options',
+              'Strict-Transport-Security',
+            ];
+
+            securityHeaders.forEach(header => {
+              if (headers.has(header.toLowerCase())) {
+                this.log(`✅ Security header present: ${header}`);
+              } else {
+                this.log(`⚠️ Missing security header: ${header}`, 'warning');
+                this.stats.issuesFound++;
+              }
+            });
+
+            // Check for HTTPS
+            if (window.location.protocol === 'https:') {
+              this.log('✅ Site using HTTPS');
+            } else {
+              this.log('⚠️ Site not using HTTPS', 'warning');
+            }
+          } catch (error) {
+            this.log(`❌ Security scan error: ${error.message}`, 'error');
+          }
+
+          this.updateStats();
+          this.updateProgress(100);
+          this.log('🔐 Security scan completed!', 'success');
+          this.isRunning = false;
+        }
+
+        async runAllBotTests() {
+          if (this.isRunning) return;
+
+          this.log('🚀 Starting comprehensive automated testing...', 'success');
+          this.startTime = Date.now();
+
+          document.getElementById('stopBtn').disabled = false;
+
+          await this.startWebsiteCrawl();
+          if (!this.isRunning) return;
+
+          await this.startVideoSystemTest();
+          if (!this.isRunning) return;
+
+          await this.startAnalyticsTest();
+          if (!this.isRunning) return;
+
+          await this.startUserJourneyTest();
+          if (!this.isRunning) return;
+
+          await this.startPerformanceTest();
+          if (!this.isRunning) return;
+
+          await this.startSecurityScan();
+
+          const totalTime = Math.round((Date.now() - this.startTime) / 1000);
+          this.log(
+            `🎉 All automated tests completed in ${totalTime} seconds!`,
+            'success'
+          );
+          this.log(
+            `📊 Final Results: ${this.stats.testsRun} tests run, ${this.stats.issuesFound} issues found`,
+            'success'
+          );
+
+          document.getElementById('stopBtn').disabled = true;
+        }
+
+        stopAllBots() {
+          this.isRunning = false;
+          this.log('⏹️ All bot testing stopped by user', 'warning');
+          document.getElementById('stopBtn').disabled = true;
+        }
+      }
+
+      // Initialize the bot
+      const testBot = new E2ETestingBot();
+
+      // Make functions available globally
+      window.startWebsiteCrawl = () => testBot.startWebsiteCrawl();
+      window.startVideoSystemTest = () => testBot.startVideoSystemTest();
+      window.startAnalyticsTest = () => testBot.startAnalyticsTest();
+      window.startUserJourneyTest = () => testBot.startUserJourneyTest();
+      window.startPerformanceTest = () => testBot.startPerformanceTest();
+      window.startSecurityScan = () => testBot.startSecurityScan();
+      window.runAllBotTests = () => testBot.runAllBotTests();
+      window.stopAllBots = () => testBot.stopAllBots();
+
+      // Initialize
+      testBot.log('🤖 E2E Testing Bot ready for action!');
+      testBot.log('💡 Click any button to start automated testing');
+    </script>
+  </body>
+</html>

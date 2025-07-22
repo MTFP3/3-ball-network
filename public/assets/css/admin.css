@@ -1919,3 +1919,321 @@ table td {
   padding: 1rem;
   overflow-x: auto;
 }
+
+/* ============================================================================
+   Basketball Data Management Styles
+   ============================================================================ */
+
+/* Basketball tab panels */
+.basketball-panel {
+  display: none;
+  padding: 1rem 0;
+}
+
+.basketball-panel.active {
+  display: block;
+}
+
+/* Position badges */
+.position-badge {
+  background: var(--primary-blue);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Player stats display */
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.player-stats span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Player name display */
+.player-name strong {
+  display: block;
+  color: var(--text-light);
+}
+
+.player-name small {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Game matchup display */
+.game-matchup strong {
+  color: var(--text-light);
+}
+
+/* Game score display */
+.game-score {
+  font-weight: bold;
+  color: var(--primary-blue);
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-scheduled {
+  background: var(--warning);
+  color: #000;
+}
+
+.status-in-progress {
+  background: var(--success);
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.status-completed {
+  background: var(--primary-blue);
+  color: white;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-small {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.btn-small:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-small.btn-danger:hover {
+  background: var(--danger);
+}
+
+/* Table controls */
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.search-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.search-controls input,
+.search-controls select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.5rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.search-controls input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-controls input:focus,
+.search-controls select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
+}
+
+/* Loading and empty states */
+.loading-cell,
+.no-data,
+.error-cell {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.error-cell {
+  color: var(--danger);
+}
+
+.no-data a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.no-data a:hover {
+  text-decoration: underline;
+}
+
+/* Data seeding status panel */
+.status-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-light);
+}
+
+.status-panel h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seeding-progress {
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.seeding-log {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.seeding-log div {
+  margin-bottom: 0.25rem;
+  color: var(--text-light);
+}
+
+/* Highlights grid */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.highlight-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
+}
+
+/* Responsive design for basketball tables */
+@media (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-controls {
+    flex-direction: column;
+  }
+  
+  .player-stats {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .basketball-panel {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Basketball stat cards enhancements */
+.stats-grid .stat-card .stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stats-grid .stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 180, 216, 0.15);
+}
+
+/* Tab navigation for basketball */
+.control-tabs .tab-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1rem;
+}
+
+.control-tabs .tab-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px 8px 0 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.control-tabs .tab-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+}
+
+.control-tabs .tab-btn.active {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-2px);
+}

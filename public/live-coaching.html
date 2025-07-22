@@ -1118,7 +1118,24 @@
     <!-- Shot Chart Toggle -->
     <div class="shot-chart-toggle" id="shotChartToggle">📊 Shot Chart</div>
 
-    <script src="/assets/js/ai-game-tracker.js"></script>
+    <!-- Dynamic Module Loader -->
+    <script type="module" src="/assets/js/moduleLoader.js"></script>
+    
+    <!-- Load modules dynamically -->
+    <script>
+      // Load AI game tracker when coaching interface becomes visible
+      if (window.moduleLoader) {
+        window.moduleLoader.loadOnVisible('.coaching-interface', '/assets/js/ai-game-tracker.js', 'ai-game-tracker');
+      } else {
+        // Fallback for browsers without module support
+        document.addEventListener('DOMContentLoaded', () => {
+          const script = document.createElement('script');
+          script.src = '/assets/js/ai-game-tracker.js';
+          document.head.appendChild(script);
+        });
+      }
+    </script>
+    
     <script src="/assets/js/live-coaching.js"></script>
 
     <script>

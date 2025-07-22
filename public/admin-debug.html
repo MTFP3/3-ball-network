@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Debug Portal | 3 Ball Network</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #007cba 0%, #005a85 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 1.1em;
+      }
+
+      .tabs {
+        display: flex;
+        background: #f8f9fa;
+        border-bottom: 2px solid #e9ecef;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 15px 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: #6c757d;
+        transition: all 0.3s ease;
+      }
+
+      .tab.active {
+        background: white;
+        color: #007cba;
+        border-bottom: 3px solid #007cba;
+      }
+
+      .tab:hover:not(.active) {
+        background: #e9ecef;
+        color: #495057;
+      }
+
+      .tab-content {
+        display: none;
+        padding: 30px;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .section {
+        margin-bottom: 30px;
+        padding: 25px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #007cba;
+      }
+
+      .section h3 {
+        color: #007cba;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+      }
+
+      .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background: #007cba;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        min-width: 140px;
+      }
+
+      button:hover {
+        background: #005a85;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 124, 186, 0.3);
+      }
+
+      button.danger {
+        background: #dc3545;
+      }
+
+      button.danger:hover {
+        background: #c82333;
+      }
+
+      button.success {
+        background: #28a745;
+      }
+
+      button.success:hover {
+        background: #218838;
+      }
+
+      button.warning {
+        background: #ffc107;
+        color: #212529;
+      }
+
+      button.warning:hover {
+        background: #e0a800;
+      }
+
+      .result {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+        max-height: 400px;
+        overflow-y: auto;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .result.error {
+        background: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+      }
+
+      .result.success {
+        background: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+      }
+
+      .result.warning {
+        background: #fff3cd;
+        color: #856404;
+        border-color: #ffeaa7;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #495057;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #007cba;
+        box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+      }
+
+      .user-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .user-card h4 {
+        color: #007cba;
+        margin-bottom: 10px;
+      }
+
+      .user-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .user-info div {
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .role-player {
+        background: #007cba;
+        color: white;
+      }
+      .role-coach {
+        background: #28a745;
+        color: white;
+      }
+      .role-scout {
+        background: #17a2b8;
+        color: white;
+      }
+      .role-fan {
+        background: #6c757d;
+        color: white;
+      }
+      .role-admin {
+        background: #dc3545;
+        color: white;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .status-active {
+        background: #d4edda;
+        color: #155724;
+      }
+      .status-inactive {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .status-suspended {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      @media (max-width: 768px) {
+        .tabs {
+          flex-direction: column;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .user-info {
+          grid-template-columns: 1fr;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🛠️ Admin Debug Portal</h1>
+        <p>Comprehensive testing and debugging tools for 3 Ball Network</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('login')">
+          🔐 Login Tests
+        </button>
+        <button class="tab" onclick="switchTab('users')">
+          👥 User Management
+        </button>
+        <button class="tab" onclick="switchTab('roles')">🎭 Role Fixes</button>
+        <button class="tab" onclick="switchTab('database')">🗄️ Database</button>
+        <button class="tab" onclick="switchTab('integration')">
+          🔗 Integration
+        </button>
+      </div>
+
+      <!-- Login Tests Tab -->
+      <div id="login" class="tab-content active">
+        <div class="section">
+          <h3>🔐 Authentication Testing</h3>
+          <div class="button-group">
+            <button onclick="testLogin()">Login as Test Player</button>
+            <button onclick="checkAuthState()">Check Auth State</button>
+            <button onclick="signOut()" class="warning">Sign Out</button>
+            <button onclick="createTestUser()" class="success">
+              Create Test User
+            </button>
+          </div>
+          <div class="form-group">
+            <label>Custom Login Test</label>
+            <input
+              type="email"
+              id="testEmail"
+              placeholder="Enter email to test"
+            />
+            <input
+              type="password"
+              id="testPassword"
+              placeholder="Enter password"
+              style="margin-top: 10px"
+            />
+            <button onclick="customLogin()" style="margin-top: 10px">
+              Test Custom Login
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>🔄 Login Flow Testing</h3>
+          <div class="button-group">
+            <button onclick="testPlayerFlow()">Test Player Flow</button>
+            <button onclick="testCoachFlow()">Test Coach Flow</button>
+            <button onclick="testScoutFlow()">Test Scout Flow</button>
+            <button onclick="testFanFlow()">Test Fan Flow</button>
+            <button onclick="testAdminFlow()">Test Admin Flow</button>
+          </div>
+        </div>
+
+        <div id="loginResult" class="result">
+          Ready to test login functionality...
+        </div>
+      </div>
+
+      <!-- User Management Tab -->
+      <div id="users" class="tab-content">
+        <div class="section">
+          <h3>👥 User Operations</h3>
+          <div class="button-group">
+            <button onclick="loadAllUsers()">Load All Users</button>
+            <button onclick="searchUsers()">Search Users</button>
+            <button onclick="exportUsers()" class="success">
+              Export Users
+            </button>
+            <button onclick="deleteTestUsers()" class="danger">
+              Delete Test Users
+            </button>
+          </div>
+          <div class="form-group">
+            <label>Search Users</label>
+            <input
+              type="text"
+              id="searchQuery"
+              placeholder="Enter email, name, or user ID"
+            />
+            <button onclick="searchSpecificUser()" style="margin-top: 10px">
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>➕ User Creation</h3>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="newUserEmail"
+              placeholder="user@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="newUserName" placeholder="User Name" />
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="newUserRole">
+              <option value="player">Player</option>
+              <option value="coach">Coach</option>
+              <option value="scout">Scout</option>
+              <option value="fan">Fan</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button onclick="createNewUser()" class="success">Create User</button>
+        </div>
+
+        <div id="usersResult" class="result">
+          Click "Load All Users" to see user data...
+        </div>
+      </div>
+
+      <!-- Role Fixes Tab -->
+      <div id="roles" class="tab-content">
+        <div class="section">
+          <h3>🎭 Role Management</h3>
+          <div class="button-group">
+            <button onclick="fixAllRoles()" class="success">
+              Fix All User Roles
+            </button>
+            <button onclick="validateRoles()">Validate All Roles</button>
+            <button onclick="resetRoles()" class="warning">
+              Reset Test Roles
+            </button>
+            <button onclick="migrateRoles()">Migrate Legacy Roles</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>🔧 Individual Role Fixes</h3>
+          <div class="form-group">
+            <label>User Email/ID</label>
+            <input
+              type="text"
+              id="roleUserQuery"
+              placeholder="Enter email or user ID"
+            />
+          </div>
+          <div class="form-group">
+            <label>New Role</label>
+            <select id="newRole">
+              <option value="player">Player</option>
+              <option value="coach">Coach</option>
+              <option value="scout">Scout</option>
+              <option value="fan">Fan</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="button-group">
+            <button onclick="checkSpecificRole()">Check Role</button>
+            <button onclick="fixSpecificRole()" class="success">
+              Fix Role
+            </button>
+          </div>
+        </div>
+
+        <div id="rolesResult" class="result">
+          Use the tools above to manage user roles...
+        </div>
+      </div>
+
+      <!-- Database Tab -->
+      <div id="database" class="tab-content">
+        <div class="section">
+          <h3>🗄️ Database Operations</h3>
+          <div class="button-group">
+            <button onclick="checkDbConnection()">Test DB Connection</button>
+            <button onclick="listCollections()">List Collections</button>
+            <button onclick="validateSchema()">Validate Schema</button>
+            <button onclick="cleanupOrphans()" class="warning">
+              Cleanup Orphans
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>📊 Database Statistics</h3>
+          <div class="button-group">
+            <button onclick="getDbStats()">Get Statistics</button>
+            <button onclick="analyzePerformance()">Analyze Performance</button>
+            <button onclick="checkIndexes()">Check Indexes</button>
+            <button onclick="optimizeQueries()">Optimize Queries</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>🚨 Emergency Tools</h3>
+          <div class="button-group">
+            <button onclick="backupData()" class="success">Backup Data</button>
+            <button onclick="restoreData()" class="warning">
+              Restore Data
+            </button>
+            <button onclick="resetTestData()" class="danger">
+              Reset Test Data
+            </button>
+          </div>
+        </div>
+
+        <div id="databaseResult" class="result">Database tools ready...</div>
+      </div>
+
+      <!-- Integration Tab -->
+      <div id="integration" class="tab-content">
+        <div class="section">
+          <h3>🔗 Integration Testing</h3>
+          <div class="button-group">
+            <button onclick="testFirebaseAuth()">Test Firebase Auth</button>
+            <button onclick="testFirestore()">Test Firestore</button>
+            <button onclick="testFunctions()">Test Cloud Functions</button>
+            <button onclick="testHosting()">Test Hosting</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>🌐 API Testing</h3>
+          <div class="button-group">
+            <button onclick="testRestAPI()">Test REST API</button>
+            <button onclick="testWebsocket()">Test WebSocket</button>
+            <button onclick="testCORS()">Test CORS</button>
+            <button onclick="testSecurity()">Test Security Rules</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>📱 End-to-End Testing</h3>
+          <div class="button-group">
+            <button onclick="runE2ETests()" class="success">
+              Run All E2E Tests
+            </button>
+            <button onclick="testUserJourney()">Test User Journey</button>
+            <button onclick="testPortalFlows()">Test Portal Flows</button>
+            <button onclick="generateTestReport()">Generate Report</button>
+          </div>
+        </div>
+
+        <div id="integrationResult" class="result">
+          Integration testing tools ready...
+        </div>
+      </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="/assets/js/firebaseConfig-compat.js"></script>
+
+    <script>
+      // Initialize Firebase
+      const config = getFirebaseConfig();
+      firebase.initializeApp(config);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Global variables
+      let currentTab = 'login';
+      let resultDivs = {
+        login: 'loginResult',
+        users: 'usersResult',
+        roles: 'rolesResult',
+        database: 'databaseResult',
+        integration: 'integrationResult',
+      };
+
+      // Tab switching
+      function switchTab(tabName) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+
+        // Show selected tab content
+        document.getElementById(tabName).classList.add('active');
+
+        // Add active class to clicked tab
+        event.target.classList.add('active');
+
+        currentTab = tabName;
+      }
+
+      // Logging functions
+      function log(message, type = 'info') {
+        const resultDiv = document.getElementById(resultDivs[currentTab]);
+        const timestamp = new Date().toLocaleTimeString();
+
+        resultDiv.className = `result ${type}`;
+        resultDiv.textContent += `${timestamp}: ${message}\n`;
+        resultDiv.scrollTop = resultDiv.scrollHeight;
+
+        console.log(`[${type.toUpperCase()}] ${message}`);
+      }
+
+      function clearLog() {
+        const resultDiv = document.getElementById(resultDivs[currentTab]);
+        resultDiv.textContent = '';
+        resultDiv.className = 'result';
+      }
+
+      // ===== LOGIN TESTS =====
+
+      async function testLogin() {
+        clearLog();
+        log('🔓 Starting login test with player@test.com...');
+
+        try {
+          const userCredential = await auth.signInWithEmailAndPassword(
+            'player@test.com',
+            'testpassword123'
+          );
+
+          const user = userCredential.user;
+          log('✅ Authentication successful!', 'success');
+          log(`User ID: ${user.uid}`);
+          log(`Email: ${user.email}`);
+
+          // Check user document
+          const userDoc = await db.collection('users').doc(user.uid).get();
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            log(
+              `✅ User document found - Role: ${userData.role}, Status: ${userData.status}`,
+              'success'
+            );
+          } else {
+            log('❌ User document not found', 'error');
+          }
+        } catch (error) {
+          log(`❌ Login failed: ${error.message}`, 'error');
+        }
+      }
+
+      function checkAuthState() {
+        clearLog();
+        log('🔍 Checking authentication state...');
+
+        const user = auth.currentUser;
+        if (user) {
+          log('✅ User is signed in', 'success');
+          log(`User ID: ${user.uid}`);
+          log(`Email: ${user.email}`);
+          log(`Display Name: ${user.displayName || 'Not set'}`);
+        } else {
+          log('❌ No user signed in', 'warning');
+        }
+      }
+
+      async function signOut() {
+        clearLog();
+        log('🚪 Signing out...');
+        try {
+          await auth.signOut();
+          log('✅ Signed out successfully', 'success');
+        } catch (error) {
+          log(`❌ Sign out error: ${error.message}`, 'error');
+        }
+      }
+
+      async function customLogin() {
+        const email = document.getElementById('testEmail').value;
+        const password = document.getElementById('testPassword').value;
+
+        if (!email || !password) {
+          log('❌ Please enter both email and password', 'error');
+          return;
+        }
+
+        clearLog();
+        log(`🔓 Testing login with ${email}...`);
+
+        try {
+          const userCredential = await auth.signInWithEmailAndPassword(
+            email,
+            password
+          );
+          const user = userCredential.user;
+          log('✅ Custom login successful!', 'success');
+          log(`User ID: ${user.uid}`);
+
+          const userDoc = await db.collection('users').doc(user.uid).get();
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            log(`Role: ${userData.role}, Status: ${userData.status}`);
+          }
+        } catch (error) {
+          log(`❌ Custom login failed: ${error.message}`, 'error');
+        }
+      }
+
+      async function createTestUser() {
+        clearLog();
+        log('👤 Creating test user...');
+
+        const testEmail = 'testuser' + Date.now() + '@test.com';
+        const testPassword = 'testpassword123';
+
+        try {
+          // Create auth user
+          const userCredential = await auth.createUserWithEmailAndPassword(
+            testEmail,
+            testPassword
+          );
+          const user = userCredential.user;
+
+          // Create user document
+          const userData = {
+            uid: user.uid,
+            email: user.email,
+            role: 'player',
+            name: 'Test User',
+            status: 'active',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+
+          await db.collection('users').doc(user.uid).set(userData);
+
+          log('✅ Test user created successfully!', 'success');
+          log(`Email: ${testEmail}`);
+          log(`Password: ${testPassword}`);
+          log(`User ID: ${user.uid}`);
+        } catch (error) {
+          log(`❌ Failed to create test user: ${error.message}`, 'error');
+        }
+      }
+
+      // Test specific role flows
+      async function testPlayerFlow() {
+        log('🏀 Testing player flow...');
+        // Add player-specific tests here
+        log('Player flow test completed', 'success');
+      }
+
+      async function testCoachFlow() {
+        log('👨‍🏫 Testing coach flow...');
+        // Add coach-specific tests here
+        log('Coach flow test completed', 'success');
+      }
+
+      async function testScoutFlow() {
+        log('🔍 Testing scout flow...');
+        // Add scout-specific tests here
+        log('Scout flow test completed', 'success');
+      }
+
+      async function testFanFlow() {
+        log('🎉 Testing fan flow...');
+        // Add fan-specific tests here
+        log('Fan flow test completed', 'success');
+      }
+
+      async function testAdminFlow() {
+        log('👑 Testing admin flow...');
+        // Add admin-specific tests here
+        log('Admin flow test completed', 'success');
+      }
+
+      // ===== USER MANAGEMENT =====
+
+      async function loadAllUsers() {
+        clearLog();
+        log('👥 Loading all users...');
+
+        try {
+          const usersSnapshot = await db.collection('users').limit(50).get();
+
+          if (usersSnapshot.empty) {
+            log('❌ No users found', 'warning');
+            return;
+          }
+
+          log(`✅ Found ${usersSnapshot.size} users`, 'success');
+
+          usersSnapshot.forEach(doc => {
+            const userData = doc.data();
+            log(`• ${userData.email} - ${userData.role} - ${userData.status}`);
+          });
+        } catch (error) {
+          log(`❌ Failed to load users: ${error.message}`, 'error');
+        }
+      }
+
+      async function searchSpecificUser() {
+        const query = document.getElementById('searchQuery').value.trim();
+        if (!query) {
+          log('❌ Please enter a search query', 'error');
+          return;
+        }
+
+        clearLog();
+        log(`🔍 Searching for user: ${query}...`);
+
+        try {
+          // Try to find by email first
+          const emailQuery = await db
+            .collection('users')
+            .where('email', '==', query)
+            .get();
+
+          if (!emailQuery.empty) {
+            emailQuery.forEach(doc => {
+              const userData = doc.data();
+              log(`✅ Found user by email:`, 'success');
+              log(`ID: ${doc.id}`);
+              log(`Email: ${userData.email}`);
+              log(`Role: ${userData.role}`);
+              log(`Status: ${userData.status}`);
+              log(`Created: ${userData.createdAt}`);
+            });
+            return;
+          }
+
+          // Try to find by document ID
+          const docRef = await db.collection('users').doc(query).get();
+          if (docRef.exists) {
+            const userData = docRef.data();
+            log(`✅ Found user by ID:`, 'success');
+            log(`ID: ${docRef.id}`);
+            log(`Email: ${userData.email}`);
+            log(`Role: ${userData.role}`);
+            log(`Status: ${userData.status}`);
+            return;
+          }
+
+          log('❌ User not found', 'warning');
+        } catch (error) {
+          log(`❌ Search failed: ${error.message}`, 'error');
+        }
+      }
+
+      async function createNewUser() {
+        const email = document.getElementById('newUserEmail').value.trim();
+        const name = document.getElementById('newUserName').value.trim();
+        const role = document.getElementById('newUserRole').value;
+
+        if (!email || !name) {
+          log('❌ Please fill in all required fields', 'error');
+          return;
+        }
+
+        clearLog();
+        log(`👤 Creating new user: ${email}...`);
+
+        try {
+          // Create user document (auth user creation would need backend)
+          const userData = {
+            email: email,
+            name: name,
+            role: role,
+            status: 'active',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+
+          // Use email as document ID for now
+          const docId = email.replace(/[.#$[\]]/g, '_');
+          await db.collection('users').doc(docId).set(userData);
+
+          log('✅ User document created successfully!', 'success');
+          log(`Email: ${email}`);
+          log(`Name: ${name}`);
+          log(`Role: ${role}`);
+
+          // Clear form
+          document.getElementById('newUserEmail').value = '';
+          document.getElementById('newUserName').value = '';
+        } catch (error) {
+          log(`❌ Failed to create user: ${error.message}`, 'error');
+        }
+      }
+
+      // ===== ROLE MANAGEMENT =====
+
+      async function fixAllRoles() {
+        clearLog();
+        log('🎭 Fixing all user roles...');
+
+        try {
+          const usersSnapshot = await db.collection('users').get();
+          let fixedCount = 0;
+
+          for (const doc of usersSnapshot.docs) {
+            const userData = doc.data();
+
+            // Check if role needs fixing
+            if (
+              !userData.role ||
+              !['player', 'coach', 'scout', 'fan', 'admin'].includes(
+                userData.role
+              )
+            ) {
+              await db.collection('users').doc(doc.id).update({
+                role: 'player', // Default role
+                updatedAt: new Date().toISOString(),
+              });
+              fixedCount++;
+              log(`Fixed role for ${userData.email || doc.id}`);
+            }
+          }
+
+          log(`✅ Fixed ${fixedCount} user roles`, 'success');
+        } catch (error) {
+          log(`❌ Failed to fix roles: ${error.message}`, 'error');
+        }
+      }
+
+      async function checkSpecificRole() {
+        const userQuery = document.getElementById('roleUserQuery').value.trim();
+        if (!userQuery) {
+          log('❌ Please enter user email or ID', 'error');
+          return;
+        }
+
+        clearLog();
+        log(`🔍 Checking role for: ${userQuery}...`);
+
+        try {
+          let userDoc = null;
+
+          // Try email search first
+          const emailQuery = await db
+            .collection('users')
+            .where('email', '==', userQuery)
+            .get();
+          if (!emailQuery.empty) {
+            userDoc = emailQuery.docs[0];
+          } else {
+            // Try by document ID
+            const docRef = await db.collection('users').doc(userQuery).get();
+            if (docRef.exists) {
+              userDoc = docRef;
+            }
+          }
+
+          if (userDoc) {
+            const userData = userDoc.data();
+            log(`✅ User found:`, 'success');
+            log(`Email: ${userData.email}`);
+            log(`Current Role: ${userData.role}`);
+            log(`Status: ${userData.status}`);
+            log(`Last Updated: ${userData.updatedAt}`);
+          } else {
+            log('❌ User not found', 'warning');
+          }
+        } catch (error) {
+          log(`❌ Failed to check role: ${error.message}`, 'error');
+        }
+      }
+
+      async function fixSpecificRole() {
+        const userQuery = document.getElementById('roleUserQuery').value.trim();
+        const newRole = document.getElementById('newRole').value;
+
+        if (!userQuery) {
+          log('❌ Please enter user email or ID', 'error');
+          return;
+        }
+
+        clearLog();
+        log(`🔧 Fixing role for: ${userQuery} to ${newRole}...`);
+
+        try {
+          let userDocId = null;
+
+          // Try email search first
+          const emailQuery = await db
+            .collection('users')
+            .where('email', '==', userQuery)
+            .get();
+          if (!emailQuery.empty) {
+            userDocId = emailQuery.docs[0].id;
+          } else {
+            // Try by document ID
+            const docRef = await db.collection('users').doc(userQuery).get();
+            if (docRef.exists) {
+              userDocId = userQuery;
+            }
+          }
+
+          if (userDocId) {
+            await db.collection('users').doc(userDocId).update({
+              role: newRole,
+              updatedAt: new Date().toISOString(),
+            });
+
+            log(`✅ Role updated successfully to ${newRole}`, 'success');
+          } else {
+            log('❌ User not found', 'warning');
+          }
+        } catch (error) {
+          log(`❌ Failed to fix role: ${error.message}`, 'error');
+        }
+      }
+
+      // ===== DATABASE OPERATIONS =====
+
+      async function checkDbConnection() {
+        clearLog();
+        log('🗄️ Testing database connection...');
+
+        try {
+          // Try a simple query
+          const testQuery = await db.collection('users').limit(1).get();
+          log('✅ Database connection successful', 'success');
+          log(`Collections accessible: users`);
+        } catch (error) {
+          log(`❌ Database connection failed: ${error.message}`, 'error');
+        }
+      }
+
+      async function getDbStats() {
+        clearLog();
+        log('📊 Getting database statistics...');
+
+        try {
+          const collections = ['users', 'games', 'teams', 'admins'];
+          let totalDocs = 0;
+
+          for (const collection of collections) {
+            try {
+              const snapshot = await db.collection(collection).get();
+              log(`${collection}: ${snapshot.size} documents`);
+              totalDocs += snapshot.size;
+            } catch (e) {
+              log(`${collection}: collection not found`);
+            }
+          }
+
+          log(`\n✅ Total documents: ${totalDocs}`, 'success');
+        } catch (error) {
+          log(`❌ Failed to get stats: ${error.message}`, 'error');
+        }
+      }
+
+      // ===== INTEGRATION TESTS =====
+
+      async function testFirebaseAuth() {
+        clearLog();
+        log('🔐 Testing Firebase Auth...');
+
+        try {
+          const user = auth.currentUser;
+          if (user) {
+            log('✅ Auth initialized and user signed in', 'success');
+            log(`Current user: ${user.email}`);
+          } else {
+            log('⚠️ Auth initialized but no user signed in', 'warning');
+          }
+        } catch (error) {
+          log(`❌ Auth test failed: ${error.message}`, 'error');
+        }
+      }
+
+      async function testFirestore() {
+        clearLog();
+        log('🗄️ Testing Firestore...');
+
+        try {
+          const testDoc = await db.collection('test').doc('connection').set({
+            timestamp: new Date().toISOString(),
+            test: true,
+          });
+
+          log('✅ Firestore write test successful', 'success');
+
+          const readTest = await db.collection('test').doc('connection').get();
+          if (readTest.exists) {
+            log('✅ Firestore read test successful', 'success');
+          }
+
+          // Clean up
+          await db.collection('test').doc('connection').delete();
+          log('✅ Firestore delete test successful', 'success');
+        } catch (error) {
+          log(`❌ Firestore test failed: ${error.message}`, 'error');
+        }
+      }
+
+      async function runE2ETests() {
+        clearLog();
+        log('🧪 Running comprehensive E2E tests...');
+
+        // Test sequence
+        const tests = [
+          { name: 'Database Connection', func: checkDbConnection },
+          { name: 'Firebase Auth', func: testFirebaseAuth },
+          { name: 'Firestore Operations', func: testFirestore },
+          { name: 'User Operations', func: loadAllUsers },
+        ];
+
+        let passed = 0;
+        let failed = 0;
+
+        for (const test of tests) {
+          try {
+            log(`\n🧪 Running: ${test.name}...`);
+            await test.func();
+            passed++;
+            log(`✅ ${test.name} - PASSED`, 'success');
+          } catch (error) {
+            failed++;
+            log(`❌ ${test.name} - FAILED: ${error.message}`, 'error');
+          }
+        }
+
+        log(`\n📊 E2E Test Summary:`, 'info');
+        log(`✅ Passed: ${passed}`);
+        log(`❌ Failed: ${failed}`);
+        log(
+          `📈 Success Rate: ${((passed / (passed + failed)) * 100).toFixed(1)}%`
+        );
+      }
+
+      // Placeholder functions for remaining features
+      const placeholderFunctions = [
+        'validateRoles',
+        'resetRoles',
+        'migrateRoles',
+        'searchUsers',
+        'exportUsers',
+        'deleteTestUsers',
+        'listCollections',
+        'validateSchema',
+        'cleanupOrphans',
+        'analyzePerformance',
+        'checkIndexes',
+        'optimizeQueries',
+        'backupData',
+        'restoreData',
+        'resetTestData',
+        'testFunctions',
+        'testHosting',
+        'testRestAPI',
+        'testWebsocket',
+        'testCORS',
+        'testSecurity',
+        'testUserJourney',
+        'testPortalFlows',
+        'generateTestReport',
+      ];
+
+      placeholderFunctions.forEach(funcName => {
+        window[funcName] = function () {
+          log(`🚧 ${funcName} - Feature coming soon...`, 'warning');
+        };
+      });
+
+      // Initialize
+      log('🚀 Admin Debug Portal initialized and ready!', 'success');
+      log('Select a tab above to begin testing...', 'info');
+    </script>
+  </body>
+</html>

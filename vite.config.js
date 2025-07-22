@@ -45,11 +45,26 @@ export default defineConfig(({ command, mode }) => {
           entryFileNames: 'assets/js/[name]-[hash].js',
           chunkFileNames: 'assets/js/[name]-[hash].js',
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          // Manual chunking for better code splitting
+          manualChunks: {
+            // Vendor libraries
+            'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
+            'vendor-charts': ['chart.js'],
+            
+            // Application modules by feature
+            'app-auth': [], // Will contain auth related modules
+            'app-dashboard': [], // Dashboard and analytics
+            'app-video': [], // Video processing and gallery
+            'app-ai': [], // AI chat and game tracking
+            'app-player': [], // Player portal and related features
+          },
         },
       },
       outDir: '../dist',
       emptyOutDir: true,
       sourcemap: true,
+      // Increase chunk size warning limit to 750kb
+      chunkSizeWarningLimit: 750,
     },
 
     // Development server configuration

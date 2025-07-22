@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔥 Firebase Fix Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #1a1a1a;
+        color: white;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      button {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        margin: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      .log {
+        background: #000;
+        color: #0f0;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: monospace;
+        height: 400px;
+        overflow-y: auto;
+        margin-top: 20px;
+      }
+      .error {
+        color: #ff4444;
+      }
+      .success {
+        color: #44ff44;
+      }
+      .info {
+        color: #4444ff;
+      }
+      .warning {
+        color: #ffaa44;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔥 Firebase Fix Test</h1>
+      <p>Testing different Firebase SDK approaches...</p>
+
+      <button onclick="testFirebaseV8()">🔥 Test Firebase v8 (Compat)</button>
+      <button onclick="testFirebaseV9()">🆕 Test Firebase v9 (Modern)</button>
+      <button onclick="testNoFirebase()">🚫 Test Without Firebase</button>
+      <button onclick="clearLog()">🗑️ Clear Log</button>
+
+      <div id="log" class="log">
+        <div class="info">🎮 Firebase Fix Test ready...</div>
+      </div>
+    </div>
+
+    <script>
+      function log(message, type = 'info') {
+        const logDiv = document.getElementById('log');
+        const timestamp = new Date().toLocaleTimeString();
+        const className = type;
+
+        logDiv.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+        logDiv.scrollTop = logDiv.scrollHeight;
+        console.log(`[${timestamp}] ${message}`);
+      }
+
+      function clearLog() {
+        document.getElementById('log').innerHTML =
+          '<div class="info">Log cleared.</div>';
+      }
+
+      // Test Firebase v8 (compat) approach
+      function testFirebaseV8() {
+        log('🔥 Testing Firebase v8 (compat) approach...', 'info');
+
+        // Clear any existing scripts
+        const existingScripts = document.querySelectorAll(
+          'script[src*="firebase"]'
+        );
+        log(
+          `🔍 Found ${existingScripts.length} existing Firebase scripts`,
+          'info'
+        );
+
+        // Load Firebase v8 compat
+        const scripts = [
+          'https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js',
+          'https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js',
+          'https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js',
+          'https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js',
+        ];
+
+        let loadedCount = 0;
+
+        scripts.forEach((src, index) => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = () => {
+            loadedCount++;
+            log(`✅ Loaded: ${src.split('/').pop()}`, 'success');
+
+            if (loadedCount === scripts.length) {
+              // All scripts loaded, test Firebase
+              setTimeout(() => testFirebaseInit(), 1000);
+            }
+          };
+          script.onerror = () => {
+            log(`❌ Failed to load: ${src}`, 'error');
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      function testFirebaseInit() {
+        log('🔧 Testing Firebase initialization...', 'info');
+
+        try {
+          if (typeof firebase === 'undefined') {
+            log('❌ Firebase not available globally', 'error');
+            return;
+          }
+
+          log('✅ Firebase SDK available', 'success');
+          log(
+            `📦 Firebase version: ${firebase.SDK_VERSION || 'Unknown'}`,
+            'info'
+          );
+
+          // Test configuration
+          const config = {
+            apiKey: 'demo-key-' + Date.now(),
+            authDomain: 'demo.firebaseapp.com',
+            projectId: 'ball-network-demo-' + Date.now(),
+            storageBucket: 'ball-network-demo.appspot.com',
+            messagingSenderId: '123456789',
+            appId: '1:123456789:web:demo',
+          };
+
+          log('🔧 Initializing Firebase with unique config...', 'info');
+
+          try {
+            // Use unique app name to avoid conflicts
+            const appName = 'test-app-' + Date.now();
+            const app = firebase.initializeApp(config, appName);
+            log(
+              `✅ Firebase app "${appName}" initialized successfully`,
+              'success'
+            );
+
+            // Test services
+            const auth = firebase.auth(app);
+            log('✅ Firebase Auth service created', 'success');
+
+            const firestore = firebase.firestore(app);
+            log('✅ Firebase Firestore service created', 'success');
+
+            const storage = firebase.storage(app);
+            log('✅ Firebase Storage service created', 'success');
+
+            log('🎉 All Firebase services working!', 'success');
+          } catch (error) {
+            log(`❌ Firebase initialization failed: ${error.message}`, 'error');
+            log(`📋 Error code: ${error.code}`, 'error');
+          }
+        } catch (error) {
+          log(`❌ Firebase test failed: ${error.message}`, 'error');
+        }
+      }
+
+      // Test Firebase v9 modular approach
+      async function testFirebaseV9() {
+        log('🆕 Testing Firebase v9 (modular) approach...', 'info');
+
+        try {
+          // Test dynamic import
+          log('📦 Attempting dynamic import...', 'info');
+
+          const { initializeApp } = await import(
+            'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js'
+          );
+          log('✅ Firebase app module imported', 'success');
+
+          const { getAuth } = await import(
+            'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js'
+          );
+          log('✅ Firebase auth module imported', 'success');
+
+          const { getFirestore } = await import(
+            'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js'
+          );
+          log('✅ Firebase firestore module imported', 'success');
+
+          const { getStorage } = await import(
+            'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js'
+          );
+          log('✅ Firebase storage module imported', 'success');
+
+          // Initialize
+          const config = {
+            apiKey: 'demo-key-v9-' + Date.now(),
+            authDomain: 'demo.firebaseapp.com',
+            projectId: 'ball-network-demo-v9-' + Date.now(),
+            storageBucket: 'ball-network-demo.appspot.com',
+            messagingSenderId: '123456789',
+            appId: '1:123456789:web:demo-v9',
+          };
+
+          const app = initializeApp(config);
+          log('✅ Firebase v9 app initialized', 'success');
+
+          const auth = getAuth(app);
+          const firestore = getFirestore(app);
+          const storage = getStorage(app);
+
+          log('✅ All Firebase v9 services created', 'success');
+          log('🎉 Firebase v9 working perfectly!', 'success');
+        } catch (error) {
+          log(`❌ Firebase v9 test failed: ${error.message}`, 'error');
+          log(`📋 Error details: ${error.stack}`, 'error');
+        }
+      }
+
+      // Test without Firebase (to see if our main functionality works)
+      function testNoFirebase() {
+        log('🚫 Testing functionality without Firebase...', 'info');
+
+        try {
+          // Test basic video functionality that doesn't need Firebase
+          log('🎬 Testing video element creation...', 'info');
+
+          const video = document.createElement('video');
+          video.controls = true;
+          video.style.width = '200px';
+          video.style.height = '150px';
+
+          log('✅ Video element created successfully', 'success');
+
+          // Test canvas for thumbnails
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          log('✅ Canvas context available', 'success');
+
+          // Test file handling
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'video/*';
+
+          log('✅ File input created', 'success');
+
+          // Test local storage
+          localStorage.setItem('test-key', 'test-value');
+          const value = localStorage.getItem('test-key');
+
+          if (value === 'test-value') {
+            log('✅ Local storage working', 'success');
+          } else {
+            log('❌ Local storage failed', 'error');
+          }
+
+          log('🎉 Core functionality works without Firebase!', 'success');
+          log(
+            '💡 This means the issue is specifically with Firebase setup',
+            'warning'
+          );
+        } catch (error) {
+          log(`❌ Non-Firebase test failed: ${error.message}`, 'error');
+        }
+      }
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function () {
+        log('🎮 Firebase Fix Test loaded', 'success');
+        log('👆 Try the different Firebase test approaches', 'info');
+        log(
+          '💡 This will help us identify the exact Firebase issue',
+          'warning'
+        );
+      });
+
+      // Catch errors
+      window.addEventListener('error', function (event) {
+        log(`🚨 Global error: ${event.message}`, 'error');
+        log(`📍 Source: ${event.filename}:${event.lineno}`, 'error');
+      });
+    </script>
+  </body>
+</html>

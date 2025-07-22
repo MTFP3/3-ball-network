@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎬 Video System Live Test - 3 Ball Network</title>
+    <link rel="stylesheet" href="/assets/css/video-components.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .test-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .test-header {
+        background: linear-gradient(135deg, #00b4d8, #0077b6);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+      .test-header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2.5em;
+        font-weight: 700;
+      }
+      .test-content {
+        padding: 30px;
+      }
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .status-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        border-left: 4px solid #6c757d;
+        transition: all 0.3s ease;
+      }
+      .status-card.loading {
+        border-left-color: #ffc107;
+        background: #fff3cd;
+      }
+      .status-card.success {
+        border-left-color: #28a745;
+        background: #d4edda;
+      }
+      .status-card.error {
+        border-left-color: #dc3545;
+        background: #f8d7da;
+      }
+      .status-icon {
+        font-size: 2em;
+        margin-bottom: 10px;
+      }
+      .test-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 25px;
+        margin: 20px 0;
+      }
+      .test-section h3 {
+        margin-top: 0;
+        color: #343a40;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+      }
+      .action-button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+        transition: background 0.3s;
+      }
+      .action-button:hover {
+        background: #0056b3;
+      }
+      .action-button.success {
+        background: #28a745;
+      }
+      .action-button.danger {
+        background: #dc3545;
+      }
+      .console-output {
+        background: #2d3748;
+        color: #e2e8f0;
+        font-family:
+          'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+        padding: 20px;
+        border-radius: 8px;
+        max-height: 400px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .live-demo {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin: 20px 0;
+        border: 2px solid #e9ecef;
+      }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .feature-card {
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+      .feature-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00b4d8, #0077b6);
+        transition: width 0.3s ease;
+        width: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-container">
+      <div class="test-header">
+        <h1>🎬 Video System Live Test</h1>
+        <p>
+          Real-time testing of video upload, processing, and playback features
+        </p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="overallProgress"></div>
+        </div>
+      </div>
+
+      <div class="test-content">
+        <!-- System Status -->
+        <div class="status-grid">
+          <div class="status-card loading" id="statusFirebase">
+            <div class="status-icon">🔥</div>
+            <h4>Firebase Connection</h4>
+            <p>Initializing connection...</p>
+          </div>
+          <div class="status-card loading" id="statusVideoProcessor">
+            <div class="status-icon">🎬</div>
+            <h4>Video Processor</h4>
+            <p>Loading processing engine...</p>
+          </div>
+          <div class="status-card loading" id="statusVideoGallery">
+            <div class="status-icon">📱</div>
+            <h4>Video Gallery</h4>
+            <p>Preparing gallery interface...</p>
+          </div>
+          <div class="status-card loading" id="statusStorage">
+            <div class="status-icon">💾</div>
+            <h4>Storage System</h4>
+            <p>Checking storage capabilities...</p>
+          </div>
+        </div>
+
+        <!-- Feature Tests -->
+        <div class="test-section">
+          <h3>🧪 Feature Tests</h3>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <h4>📤 Upload Test</h4>
+              <p>Test video file upload and validation</p>
+              <button class="action-button" onclick="testVideoUpload()">
+                Test Upload
+              </button>
+            </div>
+            <div class="feature-card">
+              <h4>🖼️ Thumbnail Generation</h4>
+              <p>Test automatic thumbnail creation</p>
+              <button class="action-button" onclick="testThumbnailGen()">
+                Test Thumbnails
+              </button>
+            </div>
+            <div class="feature-card">
+              <h4>▶️ Video Player</h4>
+              <p>Test custom video player controls</p>
+              <button class="action-button" onclick="testVideoPlayer()">
+                Test Player
+              </button>
+            </div>
+            <div class="feature-card">
+              <h4>✂️ Clip Creation</h4>
+              <p>Test highlight clip functionality</p>
+              <button class="action-button" onclick="testClipCreation()">
+                Test Clips
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Video Gallery Demo -->
+        <div class="live-demo">
+          <h3>🎬 Live Video Gallery Demo</h3>
+          <p>
+            This is a fully functional video gallery. Try uploading a video
+            file!
+          </p>
+          <div id="videoGalleryContainer">
+            <!-- Video gallery will initialize here -->
+          </div>
+        </div>
+
+        <!-- Console Output -->
+        <div class="test-section">
+          <h3>📋 System Log</h3>
+          <div class="console-output" id="consoleOutput">
+            Initializing video system test...\n
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testing Scripts -->
+    <script type="module">
+      let testProgress = 0;
+      let totalTests = 4;
+
+      // Enhanced console capture
+      const originalLog = console.log;
+      const originalError = console.error;
+      const originalWarn = console.warn;
+      const consoleOutput = document.getElementById('consoleOutput');
+
+      function appendToConsole(type, message, isSystem = false) {
+        const timestamp = new Date().toLocaleTimeString();
+        const prefix = isSystem
+          ? '🔧'
+          : type === 'error'
+            ? '❌'
+            : type === 'warn'
+              ? '⚠️'
+              : '📝';
+        consoleOutput.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      }
+
+      console.log = function (...args) {
+        appendToConsole('log', args.join(' '));
+        originalLog.apply(console, args);
+      };
+
+      console.error = function (...args) {
+        appendToConsole('error', args.join(' '));
+        originalError.apply(console, args);
+      };
+
+      console.warn = function (...args) {
+        appendToConsole('warn', args.join(' '));
+        originalWarn.apply(console, args);
+      };
+
+      // System message function
+      function systemLog(message) {
+        appendToConsole('system', message, true);
+      }
+
+      function updateProgress() {
+        testProgress++;
+        const percent = (testProgress / totalTests) * 100;
+        document.getElementById('overallProgress').style.width = percent + '%';
+      }
+
+      function updateStatus(cardId, status, title, message) {
+        const card = document.getElementById(cardId);
+        card.className = `status-card ${status}`;
+        card.querySelector('h4').textContent = title;
+        card.querySelector('p').textContent = message;
+      }
+
+      // Test Firebase connection
+      systemLog('Testing Firebase connection...');
+      try {
+        import('./assets/js/firebaseConfig-demo.js')
+          .then(() => {
+            updateStatus(
+              'statusFirebase',
+              'success',
+              'Firebase Connection',
+              'Connected (Demo Mode)'
+            );
+            systemLog('✅ Firebase demo configuration loaded');
+            updateProgress();
+          })
+          .catch(error => {
+            updateStatus(
+              'statusFirebase',
+              'error',
+              'Firebase Connection',
+              'Failed: ' + error.message
+            );
+            systemLog('❌ Firebase connection failed: ' + error.message);
+          });
+      } catch (error) {
+        systemLog('❌ Error testing Firebase: ' + error);
+      }
+
+      // Test Video Processor
+      systemLog('Testing Video Processor...');
+      try {
+        import('./assets/js/videoProcessor-demo.js')
+          .then(module => {
+            updateStatus(
+              'statusVideoProcessor',
+              'success',
+              'Video Processor',
+              'Loaded (Demo Mode)'
+            );
+            systemLog('✅ Video Processor demo loaded');
+            updateProgress();
+
+            // Make processor available for manual tests
+            window.testVideoProcessor = window.videoProcessor;
+          })
+          .catch(error => {
+            updateStatus(
+              'statusVideoProcessor',
+              'error',
+              'Video Processor',
+              'Failed: ' + error.message
+            );
+            systemLog('❌ Video Processor failed: ' + error.message);
+          });
+      } catch (error) {
+        systemLog('❌ Error testing Video Processor: ' + error);
+      }
+
+      // Test Video Gallery
+      systemLog('Testing Video Gallery...');
+      try {
+        import('./assets/js/videoGallery.js')
+          .then(module => {
+            updateStatus(
+              'statusVideoGallery',
+              'success',
+              'Video Gallery',
+              'Interface Ready'
+            );
+            systemLog('✅ Video Gallery loaded');
+            updateProgress();
+          })
+          .catch(error => {
+            updateStatus(
+              'statusVideoGallery',
+              'error',
+              'Video Gallery',
+              'Failed: ' + error.message
+            );
+            systemLog('❌ Video Gallery failed: ' + error.message);
+          });
+      } catch (error) {
+        systemLog('❌ Error testing Video Gallery: ' + error);
+      }
+
+      // Test Storage
+      systemLog('Testing storage capabilities...');
+      try {
+        // Test localStorage
+        localStorage.setItem('test', 'value');
+        const testValue = localStorage.getItem('test');
+        localStorage.removeItem('test');
+
+        if (testValue === 'value') {
+          updateStatus(
+            'statusStorage',
+            'success',
+            'Storage System',
+            'LocalStorage Ready'
+          );
+          systemLog('✅ Storage system operational');
+          updateProgress();
+        } else {
+          throw new Error('LocalStorage test failed');
+        }
+      } catch (error) {
+        updateStatus(
+          'statusStorage',
+          'error',
+          'Storage System',
+          'Storage Error'
+        );
+        systemLog('❌ Storage test failed: ' + error.message);
+      }
+
+      // Set up test user
+      if (!localStorage.getItem('userId')) {
+        const testUserId = 'test-user-' + Date.now();
+        localStorage.setItem('userId', testUserId);
+        systemLog('🔑 Test user created: ' + testUserId);
+      }
+
+      systemLog('🚀 Video system test initialization complete');
+
+      // Make test functions available globally
+      window.testVideoUpload = function () {
+        systemLog('🧪 Starting upload test...');
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'video/*';
+        input.onchange = function (e) {
+          if (e.target.files.length > 0) {
+            systemLog('📁 File selected: ' + e.target.files[0].name);
+            if (window.testVideoProcessor) {
+              window.testVideoProcessor.handleVideoUpload(e);
+            } else {
+              systemLog('❌ Video processor not available');
+            }
+          }
+        };
+        input.click();
+      };
+
+      window.testThumbnailGen = function () {
+        systemLog('🧪 Testing thumbnail generation...');
+        systemLog(
+          '📸 Thumbnail generation requires a video file - use upload test first'
+        );
+      };
+
+      window.testVideoPlayer = function () {
+        systemLog('🧪 Testing video player...');
+        const videos = JSON.parse(localStorage.getItem('demoVideos') || '[]');
+        if (videos.length > 0) {
+          systemLog('▶️ Testing with demo video: ' + videos[0].title);
+          // Create a temporary player container
+          const container = document.createElement('div');
+          container.style.cssText =
+            'margin:20px 0;padding:20px;border:1px solid #ddd;border-radius:8px;';
+          if (window.testVideoProcessor) {
+            window.testVideoProcessor.createVideoPlayer(
+              videos[0].id,
+              container
+            );
+            document.querySelector('.live-demo').appendChild(container);
+          }
+        } else {
+          systemLog('📹 No demo videos available - upload a video first');
+        }
+      };
+
+      window.testClipCreation = function () {
+        systemLog('🧪 Testing clip creation...');
+        const videos = JSON.parse(localStorage.getItem('demoVideos') || '[]');
+        if (videos.length > 0) {
+          systemLog('✂️ Opening clip creator for: ' + videos[0].title);
+          if (window.testVideoProcessor) {
+            window.testVideoProcessor.openClipCreator(videos[0].id, 10);
+          }
+        } else {
+          systemLog('📹 No demo videos available - upload a video first');
+        }
+      };
+
+      // Add some demo functionality info
+      setTimeout(() => {
+        systemLog('💡 Demo Features Available:');
+        systemLog('   • Upload videos (stored locally)');
+        systemLog('   • Generate thumbnails automatically');
+        systemLog('   • Custom video player with controls');
+        systemLog('   • Create highlight clips');
+        systemLog('   • Mark important moments');
+        systemLog('   • Share video links');
+        systemLog(
+          '📝 All data is stored locally and will not persist between sessions'
+        );
+      }, 2000);
+    </script>
+  </body>
+</html>

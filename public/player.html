@@ -32,6 +32,9 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- Video Components CSS -->
+    <link rel="stylesheet" href="/assets/css/video-components.css" />
+
     <style>
       * {
         margin: 0;
@@ -1320,7 +1323,17 @@
             </button>
           </div>
 
-          <div class="highlights-grid" id="highlightsGrid">
+          <!-- Video Gallery Container -->
+          <div id="videoGalleryContainer">
+            <!-- Video gallery will be dynamically loaded here -->
+          </div>
+
+          <!-- Legacy highlights grid for fallback -->
+          <div
+            class="highlights-grid"
+            id="highlightsGrid"
+            style="display: none"
+          >
             <!-- Highlight cards will be dynamically added -->
           </div>
         </section>
@@ -1443,7 +1456,18 @@
       </main>
     </div>
 
-    <script type="module" src="/assets/js/player-portal.js"></script>
+    <!-- Dynamic Module Loader -->
+    <script type="module" src="/assets/js/moduleLoader.js"></script>
+
+    <!-- Load modules dynamically -->
+    <script type="module">
+      // Load player portal when page is ready
+      window.moduleLoader.loadModule('/assets/js/player-portal.js', 'player-portal');
+      
+      // Load video modules when video section becomes visible
+      window.moduleLoader.loadOnVisible('.video-section, .video-gallery', '/assets/js/videoProcessor.js', 'video-processor');
+      window.moduleLoader.loadOnVisible('.video-section, .video-gallery', '/assets/js/videoGallery.js', 'video-gallery');
+    </script>
   </body>
 </html>
 <script>

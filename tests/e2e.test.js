@@ -1,5 +1,5 @@
 // End-to-end tests using Playwright
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 test.describe('Homepage', () => {
   test('should load homepage successfully', async ({ page }) => {

@@ -34,7 +34,7 @@
  * @author 3 Ball Network Team
  */
 
-import { createServer } from 'vite';
+import { createServer, build as _viteBuild } from 'vite';
 import { spawn, exec } from 'child_process';
 import { promisify } from 'util';
 import chokidar from 'chokidar';
@@ -206,7 +206,7 @@ class UniversalDeploymentManager {
       try {
         await this.executeCommand(req.command);
         log.success(`${req.name} is available`);
-      } catch (_error) {
+      } catch (error) {
         if (req.optional) {
           log.warning(`${req.name} not found - installing...`);
           if (req.name === 'Firebase CLI') {
@@ -235,7 +235,7 @@ class UniversalDeploymentManager {
         `Git commit: ${this.deploymentContext.gitCommit.substring(0, 8)}`
       );
       log.debug(`Git branch: ${this.deploymentContext.gitBranch}`);
-    } catch (_error) {
+    } catch (error) {
       log.warning('Could not retrieve Git information');
     }
   }
@@ -426,7 +426,7 @@ class UniversalDeploymentManager {
             timeout: 60000,
           });
           log.success('Pre-build tests passed');
-        } catch (_error) {
+        } catch (error) {
           log.warning('Tests failed - continuing build');
           if (!this.force) {
             throw new Error('Pre-build tests failed');
@@ -753,7 +753,7 @@ Environment: ${this.deploymentContext.environment}`;
       try {
         await this.executeCommand('firebase projects:list');
         log.success('Firebase authentication verified');
-      } catch (_error) {
+      } catch (error) {
         log.warning('Not logged into Firebase. Please login...');
         await this.spawnProcess('firebase', ['login']);
       }
@@ -792,7 +792,7 @@ Environment: ${this.deploymentContext.environment}`;
 
     try {
       // Get the deployed URL
-      const { stdout: _stdout } = await this.executeCommand(
+      const { stdout } = await this.executeCommand(
         'firebase hosting:channel:list'
       );
       log.debug('Deployment verification completed');
@@ -810,7 +810,7 @@ Environment: ${this.deploymentContext.environment}`;
         } else {
           log.warning(`⚠️  Site returned HTTP status: ${httpStatus.trim()}`);
         }
-      } catch (_error) {
+      } catch (error) {
         log.warning('Could not verify site accessibility (curl not available)');
       }
 

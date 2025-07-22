@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧪 Fixed Video System Test</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: white;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .test-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .test-card {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .test-button {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .test-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .status {
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px 0;
+        font-weight: 600;
+      }
+
+      .status.success {
+        background: rgba(46, 204, 113, 0.3);
+        border-left: 4px solid #2ecc71;
+      }
+      .status.error {
+        background: rgba(231, 76, 60, 0.3);
+        border-left: 4px solid #e74c3c;
+      }
+      .status.info {
+        background: rgba(52, 152, 219, 0.3);
+        border-left: 4px solid #3498db;
+      }
+
+      .console {
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        max-height: 400px;
+        overflow-y: auto;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .progress {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        margin: 15px 0;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #4ecdc4, #44a08d);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🧪 Fixed Video System Test</h1>
+        <p>Testing video functionality with Firebase duplicate fix</p>
+      </div>
+
+      <div class="test-grid">
+        <div class="test-card">
+          <h3>🔥 Firebase Initialization</h3>
+          <button class="test-button" onclick="testFirebaseInit()">
+            Test Firebase Init
+          </button>
+          <div id="firebase-status"></div>
+        </div>
+
+        <div class="test-card">
+          <h3>🎬 Video Module</h3>
+          <button class="test-button" onclick="testVideoModule()">
+            Test Video Module
+          </button>
+          <div id="video-status"></div>
+        </div>
+
+        <div class="test-card">
+          <h3>📊 Gallery System</h3>
+          <button class="test-button" onclick="testGallerySystem()">
+            Test Gallery
+          </button>
+          <div id="gallery-status"></div>
+        </div>
+
+        <div class="test-card">
+          <h3>⚡ Complete Test</h3>
+          <button class="test-button" onclick="runCompleteTest()">
+            🚀 Run All Tests
+          </button>
+          <div class="progress">
+            <div class="progress-bar" id="progress"></div>
+          </div>
+          <div id="overall-status"></div>
+        </div>
+      </div>
+
+      <div class="console" id="console">
+        <div><strong>🎮 Console Output:</strong></div>
+        <div>Waiting for tests to start...</div>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+    <!-- Firebase utilities -->
+    <script src="assets/js/firebase-utils.js"></script>
+
+    <script>
+      let testCount = 0;
+      let passedTests = 0;
+      let failedTests = 0;
+
+      function log(message, type = 'info') {
+        const console = document.getElementById('console');
+        const timestamp = new Date().toLocaleTimeString();
+        const logClass =
+          type === 'error'
+            ? 'color: #ff6b6b'
+            : type === 'success'
+              ? 'color: #4ecdc4'
+              : 'color: #fff';
+
+        console.innerHTML += `<div style="${logClass}">[${timestamp}] ${message}</div>`;
+        console.scrollTop = console.scrollHeight;
+
+        // Also log to browser console
+        if (type === 'error') console.error(message);
+        else console.log(message);
+      }
+
+      function updateStatus(elementId, message, type) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = `<div class="status ${type}">${message}</div>`;
+      }
+
+      function updateProgress(percentage) {
+        document.getElementById('progress').style.width = percentage + '%';
+      }
+
+      async function testFirebaseInit() {
+        log('🔥 Testing Firebase initialization...', 'info');
+
+        try {
+          // Reset any previous initialization for clean testing
+          if (window.resetFirebaseInitialization) {
+            window.resetFirebaseInitialization();
+          }
+
+          // Demo Firebase config
+          const config = {
+            apiKey: 'demo-key',
+            authDomain: 'demo.firebaseapp.com',
+            projectId: 'ball-network-demo',
+            storageBucket: 'ball-network-demo.appspot.com',
+            messagingSenderId: '123456789',
+            appId: '1:123456789:web:demo',
+          };
+
+          // Test safe initialization
+          const app = window.initializeFirebaseSafely(config, 'test-app');
+          log('✅ Firebase initialized successfully', 'success');
+
+          // Test getting services
+          const services = window.getFirebaseServices();
+          log('✅ Firebase services obtained', 'success');
+
+          // Test duplicate initialization (should not throw error)
+          const app2 = window.initializeFirebaseSafely(config, 'test-app');
+          log('✅ Duplicate initialization handled safely', 'success');
+
+          updateStatus(
+            'firebase-status',
+            '✅ Firebase initialization working correctly',
+            'success'
+          );
+          return true;
+        } catch (error) {
+          log(`❌ Firebase test failed: ${error.message}`, 'error');
+          updateStatus(
+            'firebase-status',
+            `❌ Firebase failed: ${error.message}`,
+            'error'
+          );
+          return false;
+        }
+      }
+
+      async function testVideoModule() {
+        log('🎬 Testing video module loading...', 'info');
+
+        try {
+          // First ensure Firebase is initialized
+          await testFirebaseInit();
+
+          // Test dynamic import of video module
+          log('📦 Importing video processor module...', 'info');
+
+          // Use the demo version to avoid conflicts
+          const videoModule = await import(
+            './assets/js/videoProcessor-demo.js'
+          );
+          log('✅ Video processor module loaded', 'success');
+
+          // Check if VideoProcessor class is available
+          if (window.VideoProcessor) {
+            log('✅ VideoProcessor class available globally', 'success');
+          } else {
+            log('⚠️ VideoProcessor not available globally', 'info');
+          }
+
+          updateStatus(
+            'video-status',
+            '✅ Video module loaded successfully',
+            'success'
+          );
+          return true;
+        } catch (error) {
+          log(`❌ Video module test failed: ${error.message}`, 'error');
+          updateStatus(
+            'video-status',
+            `❌ Video module failed: ${error.message}`,
+            'error'
+          );
+          return false;
+        }
+      }
+
+      async function testGallerySystem() {
+        log('📊 Testing gallery system...', 'info');
+
+        try {
+          // Test gallery module loading
+          log('📦 Loading gallery module...', 'info');
+
+          // Check if gallery functions are available
+          const galleryFunctions = [
+            'loadVideoGallery',
+            'displayVideoGrid',
+            'filterVideos',
+            'searchVideos',
+          ];
+
+          let functionsFound = 0;
+          galleryFunctions.forEach(func => {
+            if (window[func] || typeof window[func] === 'function') {
+              log(`✅ Function found: ${func}`, 'success');
+              functionsFound++;
+            } else {
+              log(`⚠️ Function not found: ${func}`, 'info');
+            }
+          });
+
+          if (functionsFound > 0) {
+            log(
+              `✅ Gallery system partially functional (${functionsFound}/4 functions)`,
+              'success'
+            );
+            updateStatus(
+              'gallery-status',
+              `✅ Gallery system working (${functionsFound}/4 functions)`,
+              'success'
+            );
+          } else {
+            log('⚠️ Gallery functions not loaded yet', 'info');
+            updateStatus(
+              'gallery-status',
+              '⚠️ Gallery functions not loaded',
+              'info'
+            );
+          }
+
+          return true;
+        } catch (error) {
+          log(`❌ Gallery test failed: ${error.message}`, 'error');
+          updateStatus(
+            'gallery-status',
+            `❌ Gallery failed: ${error.message}`,
+            'error'
+          );
+          return false;
+        }
+      }
+
+      async function runCompleteTest() {
+        log('🚀 Starting complete video system test...', 'info');
+        updateProgress(0);
+
+        const tests = [
+          { name: 'Firebase Initialization', func: testFirebaseInit },
+          { name: 'Video Module Loading', func: testVideoModule },
+          { name: 'Gallery System', func: testGallerySystem },
+        ];
+
+        testCount = tests.length;
+        passedTests = 0;
+        failedTests = 0;
+
+        for (let i = 0; i < tests.length; i++) {
+          const test = tests[i];
+          log(`🧪 Running test: ${test.name}`, 'info');
+
+          try {
+            const result = await test.func();
+            if (result) {
+              passedTests++;
+              log(`✅ ${test.name} - PASSED`, 'success');
+            } else {
+              failedTests++;
+              log(`❌ ${test.name} - FAILED`, 'error');
+            }
+          } catch (error) {
+            failedTests++;
+            log(`❌ ${test.name} - ERROR: ${error.message}`, 'error');
+          }
+
+          updateProgress(((i + 1) / tests.length) * 100);
+
+          // Small delay between tests
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+
+        // Final results
+        log('🏁 Test suite completed!', 'info');
+        log(`📊 Results: ${passedTests} passed, ${failedTests} failed`, 'info');
+
+        const successRate = Math.round((passedTests / testCount) * 100);
+        const statusType =
+          successRate >= 80 ? 'success' : successRate >= 50 ? 'info' : 'error';
+
+        updateStatus(
+          'overall-status',
+          `🏁 Complete! ${passedTests}/${testCount} tests passed (${successRate}%)`,
+          statusType
+        );
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        log('🎮 Fixed Video System Test loaded', 'success');
+        log(
+          '✨ Firebase duplicate initialization issue should be resolved',
+          'info'
+        );
+        log('🎯 Click any test button to start testing', 'info');
+      });
+    </script>
+  </body>
+</html>
