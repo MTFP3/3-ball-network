@@ -1,9 +1,0 @@
-{
-  "projects": {
-    "functions": "ball-network-web",
-    "default": "ball-network-web"
-  },
-  "targets": {},
-  "etags": {},
-  "dataconnectEmulatorConfig": {}
-}
